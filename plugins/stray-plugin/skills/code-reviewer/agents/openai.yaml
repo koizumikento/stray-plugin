@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Reviewer"
+  short_description: "Review code changes with findings-first, high-signal feedback."
+  default_prompt: "Review this change for correctness, regressions, security, performance, and missing tests. Report actionable findings first."

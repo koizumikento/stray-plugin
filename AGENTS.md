@@ -17,6 +17,7 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
 - Keep changes repo-local and versioned. Do not rely on undocumented external context as the source of truth.
 - Put new skills under `plugins/stray-plugin/skills/<skill-name>/`.
 - Preserve user-requested skill names unless asked to normalize them.
+- When adding or materially broadening user-facing skills, review `plugins/stray-plugin/.codex-plugin/plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` if discovery would otherwise lag behind the actual skill set.
 
 ## Skill Authoring Rules
 
@@ -39,6 +40,7 @@ json.load(open('plugins/stray-plugin/.codex-plugin/plugin.json'))
 print('json-ok')
 PY`
 - Confirm any new skill is placed under `plugins/stray-plugin/skills/` and not inside `.codex-plugin/`.
+- When a new skill changes the practical surface area of the plugin, confirm whether `plugin.json` discovery text still matches the current skill set.
 
 ## Nested Guidance
 

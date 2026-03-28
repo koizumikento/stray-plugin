@@ -6,7 +6,7 @@
   "interface": {
     "displayName": "Stray Plugin",
     "shortDescription": "Codex plugin workspace for agent-skill authoring.",
-    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and maintaining Codex agent skills.",
+    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and operating Codex agent skills, including context compression, multi-agent workflow design, and AI eval quality gates.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -14,6 +14,9 @@
       "Find existing skills before creating a new one.",
       "Review a SKILL.md for trigger quality and scope.",
       "Plan validation cases for a new or updated skill.",
+      "Compress a long-running task without losing file paths, decisions, or next steps.",
+      "Design a multi-agent workflow with clear handoffs and quality gates.",
+      "Add AI or agent evals to CI so regressions fail the build.",
       "Triage GitHub maintenance work and recommend the next actions.",
       "Update a skill to use instruction-first best practices."
     ],

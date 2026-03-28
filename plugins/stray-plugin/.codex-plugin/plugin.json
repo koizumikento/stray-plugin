@@ -6,11 +6,12 @@
   "interface": {
     "displayName": "Stray Plugin",
     "shortDescription": "Codex plugin workspace for skill authoring and focused workflow skills.",
-    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and operating Codex agent skills, plus focused workflow skills for current web research, research-backed product design, JSON Canvas editing, MCP server design, screenshot capture, Slack GIF creation, web content distillation, artifact theming, context compression, multi-agent workflow design, and AI eval quality gates.",
+    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and operating Codex agent skills, plus focused workflow skills for article writing, current web research, research-backed product design, JSON Canvas editing, MCP server design, screenshot capture, Slack GIF creation, web content distillation, artifact theming, context compression, multi-agent workflow design, and AI eval quality gates.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
       "Create a new Codex skill in this plugin.",
+      "Write or revise an article with a clear audience, angle, and structure.",
       "Research a current topic on the web and return a concise sourced brief.",
       "Design a product direction or feature brief using current web research.",
       "Find existing skills before creating a new one.",

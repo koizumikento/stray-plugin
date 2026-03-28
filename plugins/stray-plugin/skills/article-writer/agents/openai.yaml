@@ -1,0 +1,4 @@
+interface:
+  display_name: "Article Writer"
+  short_description: "Draft or revise a publishable article with a clear audience, angle, and structure."
+  default_prompt: "Write or revise this article so it has a clear audience, angle, and structure. If key details are unclear, ask focused clarification questions that include your recommended default and the reason for it, then verify any time-sensitive factual claims before finalizing the draft."

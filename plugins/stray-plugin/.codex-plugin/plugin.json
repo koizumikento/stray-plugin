@@ -1,12 +1,12 @@
 {
   "name": "stray-plugin",
   "version": "0.1.0",
-  "description": "Repo-local Codex plugin for creating and maintaining agent skills.",
+  "description": "Repo-local Codex plugin for reusable agent skills and focused specialist workflows.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Plugin",
-    "shortDescription": "Codex plugin workspace for agent-skill authoring.",
-    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and operating Codex agent skills, including context compression, multi-agent workflow design, and AI eval quality gates.",
+    "shortDescription": "Codex plugin workspace for skill authoring and focused workflow skills.",
+    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and operating Codex agent skills, plus focused workflow skills for JSON Canvas editing, MCP server design, screenshot capture, Slack GIF creation, web content distillation, artifact theming, context compression, multi-agent workflow design, and AI eval quality gates.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -18,7 +18,13 @@
       "Design a multi-agent workflow with clear handoffs and quality gates.",
       "Add AI or agent evals to CI so regressions fail the build.",
       "Triage GitHub maintenance work and recommend the next actions.",
-      "Update a skill to use instruction-first best practices."
+      "Update a skill to use instruction-first best practices.",
+      "Create or edit a JSON Canvas .canvas file safely.",
+      "Plan or review an MCP server before implementation.",
+      "Capture polished product screenshots for docs or launch assets.",
+      "Make a Slack-friendly animated GIF from screenshots or images.",
+      "Strip clutter from a web page and return clean markdown.",
+      "Apply a coherent visual theme to an existing artifact."
     ],
     "brandColor": "#2563EB"
   }

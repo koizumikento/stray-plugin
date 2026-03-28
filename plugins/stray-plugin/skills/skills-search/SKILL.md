@@ -1,6 +1,6 @@
 ---
 name: "skills-search"
-description: "Use when the user wants to find existing agent skills before creating a new one, compare similar skills across GitHub or official catalogs, or decide whether to adopt, adapt, or write a new skill. Do not use for implementation work, generic web research, or anything tied to package managers or ccpm."
+description: "Use when the user wants to find existing agent skills before creating a new one, compare candidate skills across local examples, GitHub, or official catalogs, or decide whether to adopt, adapt, or write a new skill. Do not use for plugin-wide overlap audits, implementation work, generic web research, or anything tied to package managers or ccpm."
 ---
 
 # Skills Search
@@ -10,19 +10,20 @@ Find existing agent skills first, then judge whether they are good enough to reu
 Use this skill when the user wants to:
 
 - search GitHub, official catalogs, or local plugin skills for related examples
-- compare similar skills and identify overlap or gaps
+- compare candidate skills and identify which one best fits the target job
 - decide whether to adopt an existing skill, adapt it, or create a new one
 
 ## Preferred Scope
 
 - local plugin skill discovery before authoring a new skill
 - GitHub or official catalog comparison for a specific capability
-- overlap analysis against existing skills in the current plugin
+- local skill discovery before authoring or adapting a target skill
 - recommendation work that ends in a concrete adopt, adapt, or create decision
 
 ## Do Not Use For
 
 - writing or editing the target skill itself
+- plugin-wide overlap or routing audits across the current skill set
 - generic domain research that is not about skills
 - package-manager-based discovery flows
 - `ccpm`-specific workflows or other external orchestration tools
@@ -46,7 +47,7 @@ Use this skill when the user wants to:
    - owned job: the one task or workflow the skill actually covers
    - non-goals: what the skill explicitly avoids
    - dependencies: tools, scripts, MCP servers, or external services it assumes
-   - fit with local plugin: whether it overlaps with an existing local skill
+   - fit with local plugin: whether it can coexist cleanly with the current local skills
    - adaptation cost: whether it can be narrowed or reused without dragging in unrelated complexity
 5. Classify each candidate into one of these outcomes:
    - adopt as-is
@@ -85,6 +86,7 @@ If the answer is "create new", end with a one-paragraph outline of what the new 
 
 - Keep the search outcome-oriented, not encyclopedic.
 - Do not conflate skill discovery with skill authoring.
+- Do not conflate candidate comparison with plugin-wide routing audits; use `skill-overlap-auditor` for the latter.
 - Do not recommend a new skill unless the existing candidates really miss the need.
 - Do not assume a package manager or external index exists unless the user explicitly provides one.
 - Prefer local plugin context when it is sufficient; expand outward only when needed.

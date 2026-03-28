@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Researcher"
+  short_description: "Investigate current topics on the web and return a concise sourced brief."
+  default_prompt: "Research this topic using current web sources first, then return a concise brief with source links, exact dates for unstable claims, and remaining uncertainty."

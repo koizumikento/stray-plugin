@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Skill Creater"
+  short_description: "Create or refine Codex agent skills inside this plugin."
+  default_prompt: "Create a new Codex skill for this plugin using instruction-first best practices."

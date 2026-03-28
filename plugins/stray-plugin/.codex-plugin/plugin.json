@@ -1,0 +1,19 @@
+{
+  "name": "stray-plugin",
+  "version": "0.1.0",
+  "description": "Repo-local Codex plugin for creating and maintaining agent skills.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stray Plugin",
+    "shortDescription": "Codex plugin workspace for agent-skill authoring.",
+    "longDescription": "A repo-local Codex plugin that bundles skills for creating, reviewing, and maintaining Codex agent skills.",
+    "developerName": "Local Workspace",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Create a new Codex skill in this plugin.",
+      "Review a SKILL.md for trigger quality and scope.",
+      "Update a skill to use instruction-first best practices."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Subagent Creator"
+  short_description: "Create focused Codex custom subagents for a project."
+  default_prompt: "Create a narrow Codex custom subagent under .codex/agents/ using current subagent best practices."

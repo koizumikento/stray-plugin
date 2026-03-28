@@ -54,6 +54,7 @@ Use this skill when the user wants to:
    - Match the requested output, such as full draft, revised draft, outline plus draft, or title options with the article body.
    - Include a short assumptions note only when it materially affects the result.
    - If useful, add suggested headlines or a brief revision note, but keep the main output centered on the article itself.
+   - Do not use markdown bold markers or inline code markers in the article unless the user explicitly asks for markdown formatting.
 
 ## Output Expectations
 
@@ -63,11 +64,13 @@ Use this skill when the user wants to:
 - Explicit assumptions when missing brief details materially shaped the draft
 - A short note when factual verification or source coverage remains incomplete
 - Clarifying questions, when needed, that include a proposed default and why it is the best current option
+- Plain article prose without markdown bold markers or inline code markers unless explicitly requested
 
 ## Guardrails
 
 - Do not invent facts, quotations, or citations.
 - Do not ask open-ended clarification questions without also offering a concrete proposed direction and the reason behind it.
+- Do not use markdown bold markers or inline code markers by default.
 - Do not turn the task into generic brainstorming once the article angle is set.
 - Do not pad the piece with empty introductions or repetitive conclusions.
 - Do not collapse into research mode when the job is to write; verify only what the article materially depends on.

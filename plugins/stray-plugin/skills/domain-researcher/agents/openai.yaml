@@ -1,0 +1,4 @@
+interface:
+  display_name: "Domain Researcher"
+  short_description: "Investigate specialized topics and return a source-backed brief."
+  default_prompt: "Research this specialized topic using authoritative sources, verify time-sensitive claims, and return a concise brief with facts, sources, and uncertainty."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Designer"
+  short_description: "Design product direction from current web research and explicit tradeoffs."
+  default_prompt: "Design this product or feature using current web research first, then return a concrete product brief with rationale, tradeoffs, and next validation steps."

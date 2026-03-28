@@ -11,7 +11,10 @@
     "category": "Developer Tools",
     "defaultPrompt": [
       "Create a new Codex skill in this plugin.",
+      "Find existing skills before creating a new one.",
       "Review a SKILL.md for trigger quality and scope.",
+      "Plan validation cases for a new or updated skill.",
+      "Triage GitHub maintenance work and recommend the next actions.",
       "Update a skill to use instruction-first best practices."
     ],
     "brandColor": "#2563EB"

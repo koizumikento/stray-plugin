@@ -1,0 +1,4 @@
+interface:
+  display_name: "Idea Explorer"
+  short_description: "Generate research-backed idea directions from current web signals."
+  default_prompt: "Use current web research first, then generate distinct idea directions with brief rationale, source links for the signals that matter, and the best next narrowing step."

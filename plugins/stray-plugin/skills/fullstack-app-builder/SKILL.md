@@ -46,6 +46,12 @@ Use this skill when the user wants to:
 - Prefer boring, well-supported primitives over clever surface-specific abstractions when the codebase does not already depend on them.
 - When surface conventions conflict with generic best practices, prefer the framework or platform's safe default unless there is a concrete correctness, security, or maintainability reason to override it.
 
+## Architecture Reference Policy
+
+- Keep this skill implementation-first. When structure decisions matter, load `references/application-architecture.md` instead of expanding the main workflow into a long architecture discussion.
+- Default to the repository's existing structure, or a layered modular monolith when the repo is greenfield and service boundaries are not yet proven.
+- Name the chosen app shape before coding and keep UI, application, domain, and infrastructure boundaries explicit when they materially affect the change.
+
 ## Quality Tooling Policy
 
 - Follow the repository's existing lint, type-check, and test commands first when they are already established and working.
@@ -120,6 +126,7 @@ Use this skill when the user wants to:
 1. Frame the user-facing change before editing.
    - Identify the primary surface, framework, runtime, navigation model, state model, styling approach, packaging flow, and test setup.
    - Load the smallest relevant surface reference and ecosystem reference when stack-specific defaults matter.
+   - Load the architecture reference when deciding layer shape, bounded contexts, BFF use, read versus write separation, async boundaries, or whether the repo should stay monolithic.
    - Load the observability reference when the changed flow needs new or revised logs, traces, metrics, crash signals, or audit events.
    - Find the entry points, affected flows, trust boundaries, data model boundaries, and any backend or platform assumptions.
    - Stop if the request is design-only, research-only, or not actually about a shipped app flow.
@@ -130,7 +137,10 @@ Use this skill when the user wants to:
    - If the repo lacks an app, choose the smallest implementation shape that satisfies the request on the target surface.
 
 3. Design the smallest coherent slice.
+   - Name the intended app shape before coding: existing repo pattern, layered modular monolith, Clean Architecture slice, BFF-backed flow, or queue-worker split.
    - Define the UI states, navigation transitions, request flow, validation, auth rules, authorization rules, persistence, loading, error, empty, and offline states when relevant.
+   - Decide which rules belong in UI, application orchestration, domain logic, infrastructure adapters, and background workers. Keep these boundaries explicit in code.
+   - Decide whether a domain boundary or bounded context split is actually needed or whether a single module is enough for the change.
    - Prefer incremental end-to-end changes over broad rewrites.
    - Keep client, backend, database, and platform boundaries explicit when cross-layer changes are uncertain or out of scope.
    - Decide what must be observable in logs, traces, metrics, crash reports, or audit events for the changed flow.
@@ -172,6 +182,7 @@ Use this skill when the user wants to:
 
 - Working code changes or a concrete blocker report
 - A short summary of what changed for the user
+- The chosen architecture shape when it materially affected the implementation
 - Validation results with any important cross-stack gaps
 - Explicit assumptions, risks, or follow-up items when relevant
 - Notes on security, data, platform, or observability implications when the change touches them
@@ -202,6 +213,10 @@ Use only the smallest relevant ecosystem pack:
 - `references/python.md`
 - `references/go.md`
 - `references/rust.md`
+
+Use this when the request needs structure decisions beyond surface conventions:
+
+- `references/application-architecture.md`
 
 Use this only when the change materially touches observability:
 

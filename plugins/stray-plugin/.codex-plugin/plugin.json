@@ -6,7 +6,7 @@
   "interface": {
     "displayName": "Stray Plugin",
     "shortDescription": "Codex plugin workspace for skill authoring, review, search, plugin hygiene, and targeted agent workflows.",
-    "longDescription": "A repo-local Codex plugin whose primary job is helping agents create, review, search, refine, and organize Codex skills inside this plugin. It also includes a smaller set of specialist workflow skills that support adjacent agent work such as web research, research-backed ideation, product and MCP design, full-stack web app implementation, context compression, eval planning, content distillation, screenshot and GIF production, brand identity design, artifact theming, and practical preflight compliance checks for APIs and repositories, but those are secondary to the skill-authoring and skill-governance workflow.",
+    "longDescription": "A repo-local Codex plugin whose primary job is helping agents create, review, search, refine, and organize Codex skills inside this plugin. It also includes a smaller set of specialist workflow skills that support adjacent agent work such as web research, research-backed ideation, product and MCP design, full-stack app implementation across web, mobile, and desktop surfaces, context compression, eval planning, content distillation, screenshot and GIF production, brand identity design, artifact theming, and practical preflight compliance checks for APIs and repositories, but those are secondary to the skill-authoring and skill-governance workflow.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -21,7 +21,7 @@
       "Create or update a custom Codex subagent under .codex/agents/ for a specific workflow.",
       "Check the current terms or usage restrictions for an API or SaaS before integrating or shipping it.",
       "Run a practical repository compliance preflight before publishing, open-sourcing, or distributing it.",
-      "Build or modify a full-stack web app in the current repo, including pages, routes, forms, API integration, auth, and database-backed flows.",
+      "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
       "Review a diff, branch, pull request, or staged changes for bugs, regressions, and test gaps.",
       "Write or revise an article with a clear audience, angle, and structure.",
       "Research a current topic on the web and return a concise sourced brief.",

@@ -5,8 +5,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Plugin",
-    "shortDescription": "Codex plugin workspace for skill authoring, review, search, and plugin hygiene.",
-    "longDescription": "A repo-local Codex plugin whose primary job is helping agents create, review, search, refine, and organize Codex skills inside this plugin. It also includes a smaller set of specialist workflow skills that support adjacent agent work such as web research, product and MCP design, context compression, eval planning, content distillation, screenshot and GIF production, and artifact theming, but those are secondary to the skill-authoring and skill-governance workflow.",
+    "shortDescription": "Codex plugin workspace for skill authoring, review, search, plugin hygiene, and targeted agent workflows.",
+    "longDescription": "A repo-local Codex plugin whose primary job is helping agents create, review, search, refine, and organize Codex skills inside this plugin. It also includes a smaller set of specialist workflow skills that support adjacent agent work such as web research, product and MCP design, full-stack web app implementation, context compression, eval planning, content distillation, screenshot and GIF production, brand identity design, and artifact theming, but those are secondary to the skill-authoring and skill-governance workflow.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -19,6 +19,7 @@
       "Compare candidate skill patterns and decide whether to adopt, adapt, or create new.",
       "Plan validation cases for a new or updated skill.",
       "Create or refine a subagent-oriented skill or workflow in this plugin.",
+      "Build or modify a full-stack web app in the current repo, including pages, routes, forms, API integration, auth, and database-backed flows.",
       "Write or revise an article with a clear audience, angle, and structure.",
       "Research a current topic on the web and return a concise sourced brief.",
       "Design a product direction or feature brief using current web research.",
@@ -31,7 +32,8 @@
       "Capture polished product screenshots for docs or launch assets.",
       "Make a Slack-friendly animated GIF from screenshots or images.",
       "Strip clutter from a web page and return clean markdown.",
-      "Apply a coherent visual theme to an existing artifact."
+      "Apply a coherent visual theme to an existing artifact.",
+      "Create or refine a brand identity direction, brand brief, or mini style guide."
     ],
     "brandColor": "#2563EB"
   }

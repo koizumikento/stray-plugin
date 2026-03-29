@@ -120,6 +120,7 @@ Use this skill when the user wants to:
 1. Frame the user-facing change before editing.
    - Identify the primary surface, framework, runtime, navigation model, state model, styling approach, packaging flow, and test setup.
    - Load the smallest relevant surface reference and ecosystem reference when stack-specific defaults matter.
+   - Load the observability reference when the changed flow needs new or revised logs, traces, metrics, crash signals, or audit events.
    - Find the entry points, affected flows, trust boundaries, data model boundaries, and any backend or platform assumptions.
    - Stop if the request is design-only, research-only, or not actually about a shipped app flow.
 
@@ -201,3 +202,7 @@ Use only the smallest relevant ecosystem pack:
 - `references/python.md`
 - `references/go.md`
 - `references/rust.md`
+
+Use this only when the change materially touches observability:
+
+- `references/observability.md`

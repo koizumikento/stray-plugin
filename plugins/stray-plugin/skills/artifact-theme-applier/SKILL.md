@@ -1,6 +1,6 @@
 ---
 name: "artifact-theme-applier"
-description: "Use when the user wants to apply a coherent visual theme to an existing artifact such as slides, docs, HTML pages, reports, or demos. Do not use for general UI review, brand strategy, or creating the artifact from scratch."
+description: "Use when the user wants to apply a coherent visual theme to an existing artifact such as slides, docs, existing HTML pages, existing landing pages, reports, or demos. Do not use for general UI review, brand strategy, creating the artifact from scratch, or landing-page work that changes messaging, structure, CTA flow, or SEO posture."
 ---
 
 # Artifact Theme Applier
@@ -11,7 +11,7 @@ Use this skill when the user wants to restyle or unify an existing deliverable, 
 
 - slides or pitch decks
 - docs, reports, or one-pagers
-- HTML pages or landing pages
+- existing HTML pages or existing landing pages
 - demos, artifacts, or shareable previews
 
 ## Do Not Use For
@@ -22,6 +22,7 @@ Use this skill when the user wants to restyle or unify an existing deliverable, 
 - deep redesigns that change the artifact's purpose or content
 - screenshot capture planning or single-image polish for launch assets
 - styling work that should be handled by a site-wide design system instead of a one-off theme
+- landing-page work that needs new section strategy, copy hierarchy, CTA redesign, or SEO decisions
 
 ## Workflow
 
@@ -29,6 +30,7 @@ Use this skill when the user wants to restyle or unify an existing deliverable, 
    - Determine the file type, audience, and where the artifact will be viewed.
    - Decide whether the user wants a theme applied, a theme adjusted, or a custom theme created from constraints.
    - Preserve the artifact's meaning, structure, and content unless the user explicitly asks for deeper changes.
+   - If the artifact is a landing page and the request changes section order, messaging, CTA flow, or indexability, stop and use `landing-page-builder` instead.
 
 2. Extract theme constraints.
    - Note any existing brand colors, fonts, spacing rules, tone, or visual references.
@@ -67,4 +69,5 @@ If no files were changed yet, explain what theme would be applied and what input
 - Do not turn this into a general design critique.
 - Do not overwrite the artifact's content unless the user asks for content edits.
 - Do not expand the theme into unrelated product branding work.
+- Do not absorb landing-page strategy, copy restructuring, CTA redesign, or SEO posture work.
 - Do not add scripts or reference files unless a deterministic asset pipeline is actually needed.

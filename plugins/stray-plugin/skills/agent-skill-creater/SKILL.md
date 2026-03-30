@@ -14,6 +14,27 @@ Create or update Codex agent skills inside the current plugin. Default to instru
 - Trigger description improvements
 - Optional `agents/openai.yaml` metadata when UI polish, dependency declaration, or invocation policy is needed
 
+## Do Not Use For
+
+- General plugin scaffolding or manifest bootstrapping
+- Broad plugin-wide overlap audits that belong in `skill-overlap-auditor`
+- Focused review-only requests that belong in `skill-reviewer`
+- Test planning or validation design that belongs in `test-strategist`
+- Unrelated documentation work that does not create or refine a skill artifact
+
+## Inputs
+
+- The target skill name or existing skill path
+- The job the skill should own
+- Trigger boundaries, including when it should not be used
+- Any repo-specific constraints that must be preserved
+
+## Assumptions
+
+- The target is a repo-local skill under `plugins/stray-plugin/skills/`
+- `SKILL.md` is the required entry point for the skill
+- Instruction-first packaging is preferred unless determinism or heavy reference material justifies extra files
+
 ## Workflow
 
 1. Locate the plugin root by finding `.codex-plugin/plugin.json`.
@@ -36,6 +57,7 @@ Create or update Codex agent skills inside the current plugin. Default to instru
    - the skill should disable implicit invocation
    - the skill depends on specific MCP tools or apps
 8. Validate that the plugin manifest still points to `./skills/` and that the new skill sits at the plugin root, not inside `.codex-plugin/`.
+9. If the new or materially broadened skill changes the practical surface area of the plugin, review `plugins/stray-plugin/.codex-plugin/plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` when discovery text would otherwise lag behind reality.
 
 ## SKILL.md Rules
 
@@ -61,6 +83,12 @@ Use `agents/openai.yaml` sparingly. Keep it small and purposeful.
 - Do not leave trigger boundaries vague.
 - Do not duplicate the same guidance across `SKILL.md` and `references/`.
 - Do not store skills inside `.codex-plugin/`.
+
+## Stop Conditions
+
+- Stop if the request is actually for plugin scaffolding rather than a skill.
+- Stop if another existing skill already owns the job and the user only asked for review.
+- Stop if the target location falls outside `plugins/stray-plugin/skills/` without explicit user instruction.
 
 ## Output
 

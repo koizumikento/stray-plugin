@@ -5,19 +5,25 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
 ## Repository Map
 
 - Marketplace file: `.agents/plugins/marketplace.json`
-- Canonical plugin root: `plugins/stray-plugin/`
-- Plugin manifest: `plugins/stray-plugin/.codex-plugin/plugin.json`
-- Plugin skills: `plugins/stray-plugin/skills/`
-- Existing skill authoring helper: `plugins/stray-plugin/skills/agent-skill-creater/`
+- Skill ops plugin root: `plugins/stray-skillops/`
+- Research plugin root: `plugins/stray-research/`
+- Studio plugin root: `plugins/stray-studio/`
+- Skill ops manifest: `plugins/stray-skillops/.codex-plugin/plugin.json`
+- Research manifest: `plugins/stray-research/.codex-plugin/plugin.json`
+- Studio manifest: `plugins/stray-studio/.codex-plugin/plugin.json`
+- Existing skill authoring helper: `plugins/stray-skillops/skills/agent-skill-creater/`
 
 ## Working Rules
 
-- Treat `plugins/stray-plugin/` as the only plugin in this repository unless the user explicitly asks for more.
+- Treat the repository as a small plugin family:
+  `plugins/stray-skillops/` for skill authoring, review, eval, and subagent operations,
+  `plugins/stray-research/` for research and analysis,
+  `plugins/stray-studio/` for delivery and artifact production.
 - Do not add `-local` suffixes to marketplace or plugin names unless explicitly requested.
 - Keep changes repo-local and versioned. Do not rely on undocumented external context as the source of truth.
-- Put new skills under `plugins/stray-plugin/skills/<skill-name>/`.
+- Put new skills under the matching plugin root as `plugins/<plugin-name>/skills/<skill-name>/`.
 - Preserve user-requested skill names unless asked to normalize them.
-- When adding or materially broadening user-facing skills, review `plugins/stray-plugin/.codex-plugin/plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` if discovery would otherwise lag behind the actual skill set.
+- When adding or materially broadening user-facing skills, review the matching plugin's `plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` if discovery would otherwise lag behind the actual skill set.
 
 ## Skill Authoring Rules
 
@@ -36,11 +42,13 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
   `python3 - <<'PY'
 import json
 json.load(open('.agents/plugins/marketplace.json'))
-json.load(open('plugins/stray-plugin/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-skillops/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-research/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-studio/.codex-plugin/plugin.json'))
 print('json-ok')
 PY`
-- Confirm any new skill is placed under `plugins/stray-plugin/skills/` and not inside `.codex-plugin/`.
-- When a new skill changes the practical surface area of the plugin, confirm whether `plugin.json` discovery text still matches the current skill set.
+- Confirm any new skill is placed under `plugins/*/skills/` and not inside `.codex-plugin/`.
+- When a new skill changes the practical surface area of a plugin, confirm whether that plugin's `plugin.json` discovery text still matches the current skill set.
 
 ## Nested Guidance
 

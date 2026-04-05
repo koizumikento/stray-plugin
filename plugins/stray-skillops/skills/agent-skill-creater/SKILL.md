@@ -31,7 +31,10 @@ Create or update Codex agent skills inside the current plugin. Default to instru
 
 ## Assumptions
 
-- The target is a repo-local skill under `plugins/stray-plugin/skills/`
+- The target is a repo-local skill under one of:
+  `plugins/stray-skillops/skills/`,
+  `plugins/stray-research/skills/`,
+  `plugins/stray-studio/skills/`
 - `SKILL.md` is the required entry point for the skill
 - Instruction-first packaging is preferred unless determinism or heavy reference material justifies extra files
 
@@ -57,7 +60,7 @@ Create or update Codex agent skills inside the current plugin. Default to instru
    - the skill should disable implicit invocation
    - the skill depends on specific MCP tools or apps
 8. Validate that the plugin manifest still points to `./skills/` and that the new skill sits at the plugin root, not inside `.codex-plugin/`.
-9. If the new or materially broadened skill changes the practical surface area of the plugin, review `plugins/stray-plugin/.codex-plugin/plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` when discovery text would otherwise lag behind reality.
+9. If the new or materially broadened skill changes the practical surface area of the target plugin, review that plugin's `.codex-plugin/plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` when discovery text would otherwise lag behind reality.
 
 ## SKILL.md Rules
 
@@ -88,7 +91,7 @@ Use `agents/openai.yaml` sparingly. Keep it small and purposeful.
 
 - Stop if the request is actually for plugin scaffolding rather than a skill.
 - Stop if another existing skill already owns the job and the user only asked for review.
-- Stop if the target location falls outside `plugins/stray-plugin/skills/` without explicit user instruction.
+- Stop if the target location falls outside the repo-local plugin family under `plugins/*/skills/` without explicit user instruction.
 
 ## Output
 

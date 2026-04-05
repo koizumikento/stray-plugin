@@ -1,0 +1,27 @@
+{
+  "name": "stray-studio",
+  "version": "0.1.0",
+  "description": "Repo-local Codex plugin for shipping apps, reviewing code, and producing polished artifacts.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stray Studio",
+    "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
+    "longDescription": "A repo-local Codex plugin for execution and artifact production. It helps agents build or modify full-stack applications, create landing pages, review code changes, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, and produce polished screenshots or Slack-friendly GIFs.",
+    "developerName": "Local Workspace",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
+      "Create or overhaul a landing page with conversion-focused structure, messaging, CTA flow, SEO basics, and responsive implementation.",
+      "Review a diff, branch, pull request, or staged changes for bugs, regressions, and test gaps.",
+      "Apply a coherent visual theme to an existing artifact such as a doc, deck, HTML page, or existing landing page without changing its core structure.",
+      "Create or refine a brand identity direction, brand brief, or mini style guide.",
+      "Write or revise an article with a clear audience, angle, and structure.",
+      "Draft a decision-oriented proposal, plan, memo, or business case.",
+      "Turn operational knowledge into a reusable SOP, runbook, or playbook.",
+      "Create or edit a JSON Canvas .canvas file safely.",
+      "Capture polished product screenshots for docs or launch assets.",
+      "Make a Slack-friendly animated GIF from screenshots or images."
+    ],
+    "brandColor": "#C2410C"
+  }
+}

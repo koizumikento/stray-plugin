@@ -1,0 +1,28 @@
+{
+  "name": "stray-skillops",
+  "version": "0.1.0",
+  "description": "Repo-local Codex plugin for skill authoring, review, evals, and subagent operations.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stray Skill Ops",
+    "shortDescription": "Operate a healthy skill and subagent system: author, review, test, and coordinate.",
+    "longDescription": "A repo-local Codex plugin for skill and subagent operations. It helps agents create and refine SKILL.md files, search for existing patterns, review trigger quality, audit overlap, design validation strategy, create project subagents, design multi-agent workflows, add AI evals to CI, and compress long-running task context while maintaining this workflow set.",
+    "developerName": "Local Workspace",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Find existing skills before creating a new one.",
+      "Create a new Codex skill in this plugin.",
+      "Update an existing skill's trigger description, scope, or workflow.",
+      "Review a SKILL.md for trigger quality, overlap risk, and scope clarity.",
+      "Audit this plugin's skills for overlap, routing conflicts, or missing coverage.",
+      "Clean up a skill so it is narrower, instruction-first, and easier to invoke correctly.",
+      "Compare candidate skill patterns and decide whether to adopt, adapt, or create new.",
+      "Plan validation cases for a new or updated skill.",
+      "Compress a long-running task without losing file paths, decisions, or next steps.",
+      "Design a multi-agent workflow with clear handoffs and quality gates.",
+      "Add AI or agent evals to CI so regressions fail the build.",
+      "Create or update a custom Codex subagent under .codex/agents/ for a specific workflow."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

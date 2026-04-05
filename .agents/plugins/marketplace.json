@@ -1,14 +1,38 @@
 {
-  "name": "stray-plugin",
+  "name": "stray-suite",
   "interface": {
-    "displayName": "Stray Plugin"
+    "displayName": "Stray Plugin Suite"
   },
   "plugins": [
     {
-      "name": "stray-plugin",
+      "name": "stray-skillops",
       "source": {
         "source": "local",
-        "path": "./plugins/stray-plugin"
+        "path": "./plugins/stray-skillops"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "stray-research",
+      "source": {
+        "source": "local",
+        "path": "./plugins/stray-research"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    },
+    {
+      "name": "stray-studio",
+      "source": {
+        "source": "local",
+        "path": "./plugins/stray-studio"
       },
       "policy": {
         "installation": "AVAILABLE",

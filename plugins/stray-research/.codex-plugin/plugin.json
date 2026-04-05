@@ -1,0 +1,26 @@
+{
+  "name": "stray-research",
+  "version": "0.1.0",
+  "description": "Repo-local Codex plugin for research, analysis, product direction, and practical preflight checks.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stray Research",
+    "shortDescription": "Research and analysis plugin for current, source-backed investigation and decision support.",
+    "longDescription": "A repo-local Codex plugin for research-heavy workflows. It helps agents investigate current topics on the web, distill pages, study specialized domains, compare idea directions, shape product decisions from external evidence, plan MCP servers, summarize Japan news, triage GitHub maintenance work, and run practical API or repository preflight checks before teams commit to a direction.",
+    "developerName": "Local Workspace",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Research a current topic on the web and return a concise sourced brief.",
+      "Extract the useful content from a web page and turn it into clean markdown.",
+      "Investigate a specialized technical, regulatory, market, or academic topic and return a concise sourced brief.",
+      "Generate research-backed ideas or option sets using current web signals before choosing a direction.",
+      "Design a product direction or feature brief using current web research.",
+      "Plan or review an MCP server before implementation.",
+      "Summarize the latest Japanese news in a fixed brief format using current web sources.",
+      "Triage GitHub maintenance work and recommend the next actions.",
+      "Check the current terms or usage restrictions for an API or SaaS before integrating or shipping it.",
+      "Run a practical repository compliance preflight before publishing, open-sourcing, or distributing it."
+    ],
+    "brandColor": "#0F766E"
+  }
+}

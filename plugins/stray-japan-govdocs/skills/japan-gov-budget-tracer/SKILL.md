@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-budget-tracer"
-description: "Use when the user asks whether a Japan policy issue has related government budget, programs, administrative review sheets, or funding signals. Do not use for grant application advice, procurement eligibility, or simple policy background."
+description: "Use when the user asks whether a Japan policy issue has related government budget, programs, 行政事業レビュー, 予算, 事業, or funding signals. Trigger on 予算がついているか, 行政事業レビューを探して, 政府事業, 施策と予算. Do not use for grant application advice, procurement eligibility, or simple policy background."
 ---
 
 # Japan Gov Budget Tracer

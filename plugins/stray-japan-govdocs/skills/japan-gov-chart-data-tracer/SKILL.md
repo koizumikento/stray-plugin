@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-chart-data-tracer"
-description: "Use when the user asks to find the source data behind a chart, table, figure, or statistic in a Japanese government whitepaper or official document. Do not use for ordinary summary, broad evidence collection, or KPI brainstorming without a specific figure or statistic."
+description: "Use when the user asks to find the source data behind a chart, table, figure, graph, 図表, 元データ, Excel, e-Stat, or statistic in a Japanese government whitepaper or official document. Trigger on 白書のグラフの元データ, 図表を再分析, 統計表を探して. Do not use for ordinary summary, broad evidence collection, or KPI brainstorming without a specific figure or statistic."
 ---
 
 # Japan Gov Chart Data Tracer

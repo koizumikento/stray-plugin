@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-kpi-finder"
-description: "Use when the user asks for official indicators, KPI candidates, measurable outcomes, or statistics to measure a social or policy issue in Japan. Do not use for broad background, quote collection, budget tracing, or legal/procedural lookup."
+description: "Use when the user asks for official indicators, KPI candidates, measurable outcomes, 指標, 統計, or ways to measure a social or policy issue in Japan. Trigger on KPIを探して, 公式指標, 公的統計, 測る指標, アウトカム指標. Do not use for broad background, quote collection, budget tracing, or legal/procedural lookup."
 ---
 
 # Japan Gov KPI Finder

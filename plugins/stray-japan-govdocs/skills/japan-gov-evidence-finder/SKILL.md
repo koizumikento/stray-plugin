@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-evidence-finder"
-description: "Use when the user asks for official Japanese government evidence, sources, or grounds to support a claim in a report, proposal, article, deck, or memo. Do not use for broad background building, citation freshness audits, KPI discovery, or budget tracing."
+description: "Use when the user asks for official Japanese government evidence, sources, 出典, 根拠, 裏付け, or government資料 to support a claim in a report, proposal, article, deck, or memo. Trigger on 白書で根拠, 政府公式の出典, 公的根拠, 公式資料で支える. Do not use for broad background building, citation freshness audits, KPI discovery, budget tracing, or cache-only tasks."
 ---
 
 # Japan Gov Evidence Finder

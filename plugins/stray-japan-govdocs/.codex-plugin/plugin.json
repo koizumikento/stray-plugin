@@ -1,12 +1,12 @@
 {
   "name": "stray-japan-govdocs",
   "version": "0.1.0",
-  "description": "Repo-local Codex plugin for answering user requests with Japanese government whitepapers, statistics, budgets, cases, and official policy documents.",
+  "description": "Repo-local Codex plugin for answering user requests with Japanese government whitepapers, statistics, budgets, cases, official policy documents, and temporary source caches.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Japan Gov Docs",
-    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, budget, case, chart-data, citation, and whitepaper workflows.",
-    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers and official policy documents. It helps agents handle natural user instructions such as background research, official evidence finding, priority checks, ministry owner mapping, proposal context adaptation, citation audits, KPI discovery, budget and administrative-review tracing, official case finding, chart-data tracing, and direct whitepaper briefs while using conservative official-route and temporary-download policies.",
+    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, budget, case, chart-data, citation, cache, and whitepaper workflows.",
+    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers and official policy documents. It helps agents handle natural Japanese or English user instructions such as background research, official evidence finding, priority checks, ministry owner mapping, proposal context adaptation, citation audits, KPI discovery, budget and administrative-review tracing, official case finding, chart-data tracing, temporary cache management for government PDFs/HTML, and direct whitepaper briefs while using conservative official-route and temporary-download policies.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -21,6 +21,7 @@
       "Trace a policy issue to budget programs, administrative review sheets, and funding signals.",
       "Find official case examples from Japanese whitepapers and government documents.",
       "Trace a whitepaper chart or statistic back to source data where possible.",
+      "Temporarily cache Japanese government whitepaper PDFs, HTML, spreadsheets, and source indexes under tmp/japan-govdocs/ with manifest records.",
       "Brief a named Japanese government whitepaper, annual report, chapter, or official policy document.",
       "When reading PDFs or attachments, download only necessary official documents into tmp/japan-govdocs/ and record them in manifest.jsonl."
     ],

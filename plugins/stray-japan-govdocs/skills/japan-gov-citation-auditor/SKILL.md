@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-citation-auditor"
-description: "Use when the user asks whether existing citations to Japanese government whitepapers or official documents are current, official, correctly described, or still suitable. Do not use for finding new evidence from scratch unless the audit finds a gap."
+description: "Use when the user asks whether existing citations to Japanese government whitepapers or official documents are current, official, correctly described, or still suitable. Trigger on 引用が古くないか, 最新版か確認, URLが公式か, 出典監査, 白書引用チェック. Do not use for finding new evidence from scratch unless the audit finds a gap."
 ---
 
 # Japan Gov Citation Auditor

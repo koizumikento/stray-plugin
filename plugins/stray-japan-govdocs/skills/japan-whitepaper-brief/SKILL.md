@@ -1,6 +1,6 @@
 ---
 name: "japan-whitepaper-brief"
-description: "Use only when the user names a specific Japanese government whitepaper, annual report, chapter, or official policy document and wants that source briefed directly. Prefer request-driven skills for background, evidence, priority, owner mapping, proposal context, citation audit, KPI, budget, cases, or chart data."
+description: "Use only when the user names a specific Japanese government whitepaper, annual report, chapter, or official policy document and wants that source briefed/read directly. Trigger on 指定白書を読んで, 白書を要約, この政府PDFを読んで, この章だけ要約. Prefer request-driven skills for background, evidence, priority, owner mapping, proposal context, citation audit, KPI, budget, cases, chart data, or cache management."
 ---
 
 # Japan Whitepaper Brief

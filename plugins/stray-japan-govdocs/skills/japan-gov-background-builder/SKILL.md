@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-background-builder"
-description: "Use when the user asks to整理, write, or understand the social or policy background of a theme using Japanese government whitepapers or official documents. Do not use for quote collection, KPI search, budget tracing, citation auditing, or specific whitepaper-only summaries."
+description: "Use when the user asks to整理, write, or understand the social/policy background, 課題背景, 社会背景, or government framing of a theme using Japanese government whitepapers or official documents. Trigger on 企画書の背景, 提案書の背景, 政府はどう問題視, 国の問題意識. Do not use for quote collection, KPI search, budget tracing, citation auditing, or specific whitepaper-only summaries."
 ---
 
 # Japan Gov Background Builder

@@ -1,0 +1,29 @@
+{
+  "name": "stray-japan-govdocs",
+  "version": "0.1.0",
+  "description": "Repo-local Codex plugin for answering user requests with Japanese government whitepapers, statistics, budgets, cases, and official policy documents.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stray Japan Gov Docs",
+    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, budget, case, chart-data, citation, and whitepaper workflows.",
+    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers and official policy documents. It helps agents handle natural user instructions such as background research, official evidence finding, priority checks, ministry owner mapping, proposal context adaptation, citation audits, KPI discovery, budget and administrative-review tracing, official case finding, chart-data tracing, and direct whitepaper briefs while using conservative official-route and temporary-download policies.",
+    "developerName": "Local Workspace",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Route a broad Japan government-backed request to the right workflow.",
+      "Build official government background for a theme,企画書,営業資料,or strategy memo.",
+      "Find official evidence and source links for a claim.",
+      "Check whether a theme is treated as a current or rising government priority.",
+      "Map a theme to relevant ministries, agencies, whitepapers, and policy contexts.",
+      "Adapt a business idea or service into proposal-ready government context without overstating support.",
+      "Audit whether existing whitepaper or government-document citations are official, current, and correctly described.",
+      "Find KPI candidates, measurable indicators, and official statistics for a Japan policy or social issue.",
+      "Trace a policy issue to budget programs, administrative review sheets, and funding signals.",
+      "Find official case examples from Japanese whitepapers and government documents.",
+      "Trace a whitepaper chart or statistic back to source data where possible.",
+      "Brief a named Japanese government whitepaper, annual report, chapter, or official policy document.",
+      "When reading PDFs or attachments, download only necessary official documents into tmp/japan-govdocs/ and record them in manifest.jsonl."
+    ],
+    "brandColor": "#B91C1C"
+  }
+}

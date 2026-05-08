@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pixel Art Asset Creator"
+  short_description: "Create, repair, and package pixel-art style sprites, tilesets, icons, and small asset sheets."
+  default_prompt: "Create or repair a pixel-art style asset from a concept, reference image, or asset brief. Define the asset contract first, use the bundled scripts to prepare prompts and an imagegen job manifest, establish a canonical base look, generate or record visual outputs through image generation, then finalize with deterministic extraction, inspection, composition, validation, contact sheets, previews, repair queueing, and packaged PNG/WebP outputs."

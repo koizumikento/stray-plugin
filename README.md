@@ -8,7 +8,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, review, audit, test, and operate Codex skills and subagents. |
 | Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, and practical preflight checks. |
-| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, pages, content, visual artifacts, screenshots, and playbooks. |
+| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
 
 ## Repository Layout
@@ -100,6 +100,7 @@ Notable support files:
 | `json-canvas-editor` | Creating, editing, or repairing JSON Canvas `.canvas` files. |
 | `marketing-screenshot-creator` | Planning or producing polished app screenshots for docs, landing pages, release notes, demos, or social posts. |
 | `slack-gif-creator` | Creating Slack-friendly animated GIFs with sizing, loop timing, crop, and file-size constraints. |
+| `pixel-art-asset-creator` | Creating, repairing, or packaging pixel-art style sprites, icons, item sheets, animation rows, or tilesets from a concept, reference image, or asset brief. |
 
 Notable support files:
 
@@ -107,6 +108,8 @@ Notable support files:
 - `plugins/stray-studio/skills/code-reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/code-reviewer/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
+- `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`
+- `plugins/stray-studio/skills/pixel-art-asset-creator/scripts/`
 
 ### Stray Japan Gov Docs
 

@@ -5,12 +5,15 @@ Use this reference when the repository's primary app implementation language is 
 ## Quality And Tooling Defaults
 
 - Follow the repository's existing commands first.
+- Before settling on validation commands, inspect the repo for Python workflow signals in scripts, docs, config, lockfiles, or CI.
 - When the repository does not have a clear quality baseline, prefer `ruff` for linting and formatting checks, `ty` for static type checking, and `pytest` for tests.
+- If those tools are not used, record the existing command source instead: package scripts, task runner, framework CLI, tox/nox, make targets, or CI workflow.
 - Keep migrations, fixture setup, and app startup commands consistent with the framework already in use.
 
 ## Runtime And Package Management
 
 - Prefer `uv` for environment and package management when the repository is greenfield or the workflow is still unsettled.
+- Before adding or running dependency commands, check for `uv.lock`, `pyproject.toml`, Poetry, pip-tools, plain `requirements.txt`, virtualenv conventions, Nix, or framework-specific setup docs.
 - If the repository already uses Poetry, pip-tools, plain `venv`, or Nix, follow that established workflow instead of migrating it during feature work.
 
 ## Ecosystem Conventions

@@ -55,6 +55,14 @@ Use this skill when the user wants to:
 ## Quality Tooling Policy
 
 - Follow the repository's existing lint, type-check, and test commands first when they are already established and working.
+- When the primary app implementation language is TypeScript or JavaScript, load `references/typescript-javascript.md` before choosing validation commands.
+- For TypeScript or JavaScript work, explicitly check whether the repository uses `vp check` or `vp test` before falling back to package-manager scripts.
+- When the primary app implementation language is Python, load `references/python.md` before choosing validation, runtime, or package-management commands.
+- For Python work, explicitly check whether `uv`, `ruff`, `ty`, and `pytest` fit the repository before falling back to other established commands.
+- When the primary app implementation language is Go, load `references/go.md` before choosing validation, runtime, or package-management commands.
+- For Go work, explicitly check whether `gofmt`, `go test`, `go vet`, and `golangci-lint` fit the repository before falling back to other established commands.
+- When the primary app implementation language is Rust, load `references/rust.md` before choosing validation, runtime, or package-management commands.
+- For Rust work, explicitly check whether `cargo fmt`, `cargo clippy`, `cargo test`, pinned toolchains, and Nix fit the repository before falling back to other established commands.
 - If the repository does not have a clear quality toolchain, prefer the language's de facto standard tools instead of inventing a custom stack.
 - Do not force a tooling migration for a small feature or bug fix unless the user explicitly asks for it.
 - Report which lint, type-check, and test gates were run, skipped, unavailable, or left unchanged.
@@ -126,6 +134,10 @@ Use this skill when the user wants to:
 1. Frame the user-facing change before editing.
    - Identify the primary surface, framework, runtime, navigation model, state model, styling approach, packaging flow, and test setup.
    - Load the smallest relevant surface reference and ecosystem reference when stack-specific defaults matter.
+   - If the app is primarily TypeScript or JavaScript, load `references/typescript-javascript.md` even when the stack otherwise looks familiar.
+   - If the app is primarily Python, load `references/python.md` even when the framework otherwise looks familiar.
+   - If the app is primarily Go, load `references/go.md` even when the framework otherwise looks familiar.
+   - If the app is primarily Rust, load `references/rust.md` even when the framework otherwise looks familiar.
    - Load the architecture reference when deciding layer shape, bounded contexts, BFF use, read versus write separation, async boundaries, or whether the repo should stay monolithic.
    - Load the observability reference when the changed flow needs new or revised logs, traces, metrics, crash signals, or audit events.
    - Find the entry points, affected flows, trust boundaries, data model boundaries, and any backend or platform assumptions.
@@ -153,6 +165,10 @@ Use this skill when the user wants to:
 
 5. Validate with the right level of evidence.
    - Run targeted tests, lint, typecheck, build, migration checks, packaging checks, simulator or emulator checks, browser checks, or desktop runtime checks when they fit the stack.
+   - For TypeScript or JavaScript work, include the `vp check` and `vp test` decision in the validation pass: run them when available and appropriate, or state the repository-specific reason for using different commands.
+   - For Python work, include the `uv`, `ruff`, `ty`, and `pytest` decision in the validation pass: run the relevant tools when available and appropriate, or state the repository-specific reason for using different commands.
+   - For Go work, include the `gofmt`, `go test`, `go vet`, and `golangci-lint` decision in the validation pass: run the relevant tools when available and appropriate, or state the repository-specific reason for using different commands.
+   - For Rust work, include the `cargo fmt`, `cargo clippy`, `cargo test`, pinned toolchain, and Nix decision in the validation pass: run the relevant tools when available and appropriate, or state the repository-specific reason for using different commands.
    - Verify the main user path on the actual target surface, not just isolated functions.
    - Check that validation, auth, authorization, navigation, error handling, retry behavior, and rollback behavior match the intended flow.
    - Check user-visible accessibility, responsiveness, lifecycle, and platform-specific concerns when the changed surface area makes them relevant.

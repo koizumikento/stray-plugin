@@ -5,12 +5,15 @@ Use this reference when the repository's primary app implementation language is 
 ## Quality And Tooling Defaults
 
 - Follow the repository's existing commands first.
+- Before settling on validation commands, inspect the repo for Rust workflow signals in scripts, docs, config, workspace files, toolchain files, or CI.
 - When no stronger repository convention exists, prefer `cargo fmt` for formatting, `cargo clippy` for linting and static checks, and `cargo test` for tests.
+- If those tools are not used, record the existing command source instead: package scripts, task runner, make targets, framework CLI, or CI workflow.
 - Keep framework-specific test harnesses and integration setup aligned with the app already in use.
 
 ## Runtime And Package Management
 
 - Prefer the standard Cargo toolchain already defined by the repository.
+- Before adding or running dependency commands, check for `Cargo.toml`, workspace layout, `Cargo.lock`, `rust-toolchain.toml`, Nix, or framework-specific setup docs.
 - Do not introduce alternate environment or package management layers unless the repository already depends on them.
 - If the repository uses Nix or a pinned toolchain, follow that setup rather than working around it.
 

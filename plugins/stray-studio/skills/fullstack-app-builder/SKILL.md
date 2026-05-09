@@ -22,6 +22,7 @@ Use this skill when the user wants to:
 - product strategy, feature definition, or market-backed direction setting
 - pure visual theming, screenshot creation, or marketing asset work
 - browser-based research tasks
+- read-only PR, branch, diff, staged-change, or specification reviews where the user explicitly asks for findings instead of implementation
 - backend-only services, infra work, or protocol design with no shipped user-facing app flow
 - standalone libraries, SDKs, or packages that are not part of a shipped app flow
 
@@ -35,6 +36,11 @@ Use this skill when the user wants to:
 - Treat auth, permissions, sessions, schema changes, background work, and observability as part of the shipped feature when the flow depends on them.
 - Favor incremental, backward-compatible changes over broad rewrites.
 - Verify user-visible behavior on the actual target surface before calling the work done.
+- Treat unfinished UI, unconnected controls, no-op handlers, placeholder copy, and silent mutations as correctness problems, not cosmetic leftovers.
+- Keep implementation and review modes separate: when the user asks for review only, route to the relevant review skill instead of editing.
+- When the user's desired behavior is ambiguous, surface the decision points and choose a reversible default only when the change can safely proceed.
+- Treat "first investigate", "first check", "first plan", and similar phrasing as an intent gate. Gather evidence and stop with findings or a plan until the user asks to implement.
+- For business workflows, model domain states explicitly instead of testing only the happy path. Missing baseline data, one-item cases, locked records, archived records, stale selections, and read-only modes often change the correct behavior.
 
 ## Surface And Framework Policy
 
@@ -70,11 +76,15 @@ Use this skill when the user wants to:
 ## Runtime And Package Management Policy
 
 - Follow the repository's existing runtime, package manager, lockfile, and local environment workflow first when it is already established.
+- Do not assume bare executables such as `python`, `pytest`, `node`, framework CLIs, or deploy CLIs are available globally. Find the repository command, package-local binary, runtime manager, or workspace wrapper first.
 - Do not introduce a package manager, version manager, or environment manager migration for a small feature or bug fix unless the user explicitly asks for it.
 - For greenfield or unsettled repositories, prefer one clear package and environment workflow per language instead of mixing overlapping tools.
 - Report which runtime, package manager, environment manager, packaging flow, or reproducibility layer the work assumed.
 - When surface-specific or ecosystem-specific defaults matter, consult the smallest relevant reference instead of bloating this file with stack-specific policy.
 - Do not let a reference override clear repository conventions.
+- On Windows, account for `.cmd` shims, PowerShell command behavior, path quoting, and workspace-local tools before declaring a command unavailable.
+- When local and CI or deploy environments differ, state which environment the command proves and which remains unverified.
+- Check local secret/config conventions before running app, migration, or deploy commands. Distinguish tracked examples from ignored local secrets, and do not rename or expose secret files casually.
 
 ## Security And Data Expectations
 
@@ -93,6 +103,9 @@ Use this skill when the user wants to:
 - Prefer additive, backward-compatible schema changes before destructive or shape-tightening ones.
 - When tightening constraints, think through deploy order, existing data cleanup, and how old and new code will coexist during rollout.
 - Surface any need for backfills, dual reads, dual writes, or one-time repair scripts instead of hiding them inside the feature work.
+- For migrations, distinguish clearly between generating migration files, applying them locally, confirming pending or unapplied migrations, and applying them to remote or production-like environments.
+- Check code and query contracts after schema work for stale fields, wildcard selection assumptions, generated types, fixture drift, and runtime-only failures that type-checking may not catch.
+- When a schema change is intentionally not applied, say which behavior remains unproven and what command or environment would prove it.
 
 ## Release And Rollout Policy
 
@@ -107,6 +120,17 @@ Use this skill when the user wants to:
 - Make cache invalidation and freshness expectations explicit at the boundary where data is read and written.
 - Design write paths and async triggers to be safe under retry or duplicate delivery when the surrounding system can replay them.
 - Call out any operation that is not idempotent or that can leave the user-visible state inconsistent if retried midway.
+- For idempotent command flows, verify that the first successful response and replayed response have the same contract shape and enough persisted data for the UI to render identically.
+- Keep the side effect and the stored command result in the same transaction or equivalent atomic boundary when the platform supports it. If not, call out the partial-write failure mode.
+- Check that failed, canceled, or partially completed writes cannot reserve an idempotency key forever, replay stale input as if it were saved output, or hide a retryable error from the user.
+
+## Source Of Truth Policy
+
+- Identify which local artifact is authoritative before implementing behavior: product spec, issue, AGENTS guidance, design-system doc, wireframe, migration, API contract, or existing production behavior.
+- If docs, implementation, tests, and review instructions disagree, pause long enough to name the drift and choose the smallest alignment path before writing more code.
+- Keep source-of-truth updates in the same change when the implementation intentionally changes behavior that docs, tests, design-system rules, or AGENTS guidance describe.
+- Do not paper over drift with code comments. Update the artifact users and future agents will actually consult.
+- For design-system or shared component work, verify export inventory, CSS ownership, app usage, tests, and documentation together instead of treating a passing build as proof of alignment.
 
 ## API And Contract Policy
 
@@ -133,6 +157,8 @@ Use this skill when the user wants to:
 
 1. Frame the user-facing change before editing.
    - Identify the primary surface, framework, runtime, navigation model, state model, styling approach, packaging flow, and test setup.
+   - Confirm whether the user asked for implementation, planning, investigation, or review-only feedback. Stop with findings or a plan when the user says "first", "まずは", "investigate", "check", or "plan" and has not asked for implementation yet.
+   - Stop and route to a review skill when the request is read-only review.
    - Load the smallest relevant surface reference and ecosystem reference when stack-specific defaults matter.
    - If the app is primarily TypeScript or JavaScript, load `references/typescript-javascript.md` even when the stack otherwise looks familiar.
    - If the app is primarily Python, load `references/python.md` even when the framework otherwise looks familiar.
@@ -141,27 +167,35 @@ Use this skill when the user wants to:
    - Load the architecture reference when deciding layer shape, bounded contexts, BFF use, read versus write separation, async boundaries, or whether the repo should stay monolithic.
    - Load the observability reference when the changed flow needs new or revised logs, traces, metrics, crash signals, or audit events.
    - Find the entry points, affected flows, trust boundaries, data model boundaries, and any backend or platform assumptions.
+   - Read the nearest `AGENTS.md`, app docs, product specs, design-system docs, and existing issue or PR context that define the behavior. Treat these as source-of-truth inputs, not optional background.
+   - If the user explicitly asks for subagents or parallel review, split only independent read-only or disjoint implementation work, and keep ownership boundaries clear.
    - Stop if the request is design-only, research-only, or not actually about a shipped app flow.
 
 2. Follow the existing app before inventing a new one.
    - Read the current structure for screens, routes, views, windows, components, server handlers, data access, styling, state, and platform glue.
    - Preserve established patterns unless the user asks for a deliberate change.
    - If the repo lacks an app, choose the smallest implementation shape that satisfies the request on the target surface.
+   - Before implementation, search for related TODOs, placeholders, stubs, disabled controls, no-op handlers, dead routes, and existing partial implementations that could make the new flow appear complete while still being unusable.
 
 3. Design the smallest coherent slice.
    - Name the intended app shape before coding: existing repo pattern, layered modular monolith, Clean Architecture slice, BFF-backed flow, or queue-worker split.
    - Define the UI states, navigation transitions, request flow, validation, auth rules, authorization rules, persistence, loading, error, empty, and offline states when relevant.
+   - Build a small domain-state matrix for business-critical flows. Include zero/one/many records, missing baseline or active record, selected versus unselected item, locked/read-only/archived states, stale route or form state, permission denied, and retry after failure when those states can occur.
    - Decide which rules belong in UI, application orchestration, domain logic, infrastructure adapters, and background workers. Keep these boundaries explicit in code.
    - Decide whether a domain boundary or bounded context split is actually needed or whether a single module is enough for the change.
    - Prefer incremental end-to-end changes over broad rewrites.
    - Keep client, backend, database, and platform boundaries explicit when cross-layer changes are uncertain or out of scope.
    - Decide what must be observable in logs, traces, metrics, crash reports, or audit events for the changed flow.
+   - If the requested behavior admits multiple credible UX or data interpretations, list the choice points briefly, state the assumption you will implement, and prefer the option that preserves existing data and user escape hatches.
+   - For forms and write flows, decide when the input surface appears, how the user enters create, edit, bulk update, recovery, or settings intent, how they cancel, and how successful or failed mutations are acknowledged.
 
 4. Implement the flow end to end.
    - Update screens, components, routes, windows, styles, types, request handlers, API wiring, persistence, and platform integrations as needed.
    - Keep semantics, copy, and interaction details intentional.
    - Add or update tests when the codebase already uses them or when the changed behavior is easy to lock down.
    - Treat schema changes, auth changes, session handling, authorization checks, deep links, IPC bridges, device permissions, and data migrations as part of the job when the shipped flow depends on them.
+   - Do not leave a feature at "looks wired" if the primary action does not persist, navigate, invalidate data, surface errors, or update state as the user would expect.
+   - Remove or replace scaffolding and placeholder UI that would confuse users or reviewers unless the user explicitly asked for a visible stub.
 
 5. Validate with the right level of evidence.
    - Run targeted tests, lint, typecheck, build, migration checks, packaging checks, simulator or emulator checks, browser checks, or desktop runtime checks when they fit the stack.
@@ -172,11 +206,18 @@ Use this skill when the user wants to:
    - Verify the main user path on the actual target surface, not just isolated functions.
    - Check that validation, auth, authorization, navigation, error handling, retry behavior, and rollback behavior match the intended flow.
    - Check user-visible accessibility, responsiveness, lifecycle, and platform-specific concerns when the changed surface area makes them relevant.
+   - Exercise the domain-state matrix for the changed flow, especially missing baseline, single-record, read-only, archived, and stale-selection cases that often look fine in the default seeded path.
+   - For UI changes, run or open the app on the real target surface when feasible and inspect the affected flow at the relevant desktop and mobile viewports.
+   - When a dev server is needed, start it or reuse an existing one, visit the actual route, and report the local URL. If the server cannot run, report the exact blocker.
+   - Check for overlapping text or controls, broken focus order, hidden primary actions, stale data after mutation, duplicate submission, silent success or failure, and empty or loading states that strand the user.
+   - After implementation, repeat a focused unfinished-work scan for placeholders, TODOs, disabled actions, no-op handlers, and newly stale docs or specs in the touched area.
    - Report what was validated and what could not be validated.
 
 6. Hand off clearly.
    - Summarize the user-visible result, key implementation decisions, and any residual risks.
    - Call out follow-up work only when it materially affects correctness, data safety, performance, observability, or maintainability.
+   - Include the route, local URL, command, migration status, deployment status, and any reload or cache caveat that affects how the user can verify the result.
+   - If the user requested a review loop, report whether subagent or reviewer findings remain, what was fixed, and what was intentionally deferred.
    - If the work expands into product framing, route to `product-designer` instead of stretching this skill.
 
 ## Validation Expectations
@@ -185,6 +226,12 @@ Use this skill when the user wants to:
 - Keep tests isolated and avoid depending on flaky third-party systems when the codebase has a better seam.
 - Include negative-path checks when changing auth, validation, permissions, persistence, or platform bridges.
 - When migrations are involved, check both forward application and operational safety assumptions.
+- For browser UI changes, prefer at least one real render check of the changed route or component state. Use screenshots, browser automation, or manual inspection through the app when the repository supports it.
+- For responsive surfaces, verify the smallest relevant mobile width and a normal desktop width when the layout, density, navigation, or form surface changed.
+- For write flows, verify pending, success, error, and duplicate-submit behavior whenever the affected code makes those states possible.
+- For data-backed flows, verify the read-after-write path, cache invalidation or revalidation, and any generated types or query contracts touched by the change.
+- For baseline-dependent, selection, approval, import, bulk edit, and review workflows, verify baseline-missing, one-item, many-item, no-difference, read-only, archived, and permission-denied states when those states exist in the domain.
+- For source-of-truth changes, verify that docs, tests, shared exports, CSS boundaries, and implementation agree where the changed behavior crosses those artifacts.
 - If the main path cannot be verified locally, say exactly what remains unproven.
 
 ## Documentation And Handoff
@@ -192,6 +239,9 @@ Use this skill when the user wants to:
 - Update local docs, runbooks, API notes, env var docs, setup instructions, or release notes when the change materially alters how the system is operated, configured, packaged, or extended.
 - Keep handoff notes short but concrete: what changed, how it was verified, what remains risky, and what operators or reviewers should watch next.
 - If the change introduces a new required dependency, environment variable, migration step, permission, packaging step, or rollout concern, include it in the handoff.
+- Include the command and URL needed to inspect the changed app surface when a local app was run.
+- If deployment, remote migration, external service verification, or production-like testing was not performed, say that directly and explain the practical impact.
+- Separate "implemented", "reviewed", "merged", "deployed", and "migrated" status. Do not let a successful local build imply a remote deployment or database migration happened.
 - Do not leave operationally important knowledge only in code comments or commit context.
 
 ## Output Expectations
@@ -200,13 +250,19 @@ Use this skill when the user wants to:
 - A short summary of what changed for the user
 - The chosen architecture shape when it materially affected the implementation
 - Validation results with any important cross-stack gaps
+- Any source-of-truth drift found and how it was resolved or deferred
+- The exact route, screen, command, or URL used for user-visible verification when applicable
 - Explicit assumptions, risks, or follow-up items when relevant
 - Notes on security, data, platform, or observability implications when the change touches them
 
 ## Guardrails
 
 - Do not treat a broad product discussion as implementation work.
+- Do not treat review-only prompts as permission to edit.
+- Do not implement after a "first investigate/check/plan" request unless the user also clearly asks for code changes in the same turn.
 - Do not rewrite the stack, surface architecture, or design system without a clear reason.
+- Do not leave visible placeholder experiences, disabled primary actions, or no-op handlers unless the user explicitly asked for a staged stub.
+- Do not ignore docs, design-system, AGENTS, migration, or test drift just because the code compiles.
 - Do not skip loading, error, empty, responsive, accessibility, lifecycle, or platform states when the changed UI needs them.
 - Do not make backend, schema, auth, or permission changes without checking how they affect the shipped user flow.
 - Do not rely on client-only validation or client-only authorization.

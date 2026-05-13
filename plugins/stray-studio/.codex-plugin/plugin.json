@@ -6,11 +6,12 @@
   "interface": {
     "displayName": "Stray Studio",
     "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
-    "longDescription": "A repo-local Codex plugin for execution and artifact production. It helps agents build or modify full-stack applications, create landing pages, review code changes, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, produce polished screenshots or Slack-friendly GIFs, and create production-oriented pixel-art assets such as sprites, icons, item sheets, and tilesets.",
+    "longDescription": "A repo-local Codex plugin for execution and artifact production. It helps agents build or modify full-stack applications, create corporate websites and landing pages, review code changes, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, produce polished screenshots or Slack-friendly GIFs, and create production-oriented pixel-art assets such as sprites, icons, item sheets, and tilesets.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
       "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
+      "Create or revise a corporate website with company information architecture, business/service pages, news, careers, IR, sustainability, trust links, and responsive implementation.",
       "Create or overhaul a landing page with conversion-focused structure, messaging, CTA flow, SEO basics, and responsive implementation.",
       "Review a diff, branch, pull request, or staged changes for bugs, regressions, and test gaps.",
       "Apply a coherent visual theme to an existing artifact such as a doc, deck, HTML page, or existing landing page without changing its core structure.",

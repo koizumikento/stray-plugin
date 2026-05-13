@@ -7,8 +7,8 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Plugin | Root | Purpose |
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, review, audit, test, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, and practical preflight checks. |
-| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
+| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, and practical preflight checks. |
+| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
 
 ## Repository Layout
@@ -61,7 +61,7 @@ Notable support files:
 
 ### Stray Research
 
-`plugins/stray-research/` owns current research, decision support, and preflight checks. Skills that depend on current facts generally require internet or browser access.
+`plugins/stray-research/` owns current research, decision support, patent research, and preflight checks. Skills that depend on current facts generally require internet or browser access.
 
 | Skill | Use for |
 |---|---|
@@ -73,6 +73,7 @@ Notable support files:
 | `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, and integration boundaries. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |
 | `github-maintainer` | Read-first triage of GitHub issues and PRs with recommended next maintainer actions. |
+| `global-patent-researcher` | Planning or conducting public-web global patent research for prior art, novelty, invalidity candidates, FTO prechecks, or landscapes. Not legal advice. |
 | `api-terms-checker` | Checking current practical usage restrictions for third-party APIs or SaaS terms. Not legal advice. |
 | `repo-compliance-preflight` | Practical release/open-source/distribution preflight for license, notices, attribution, assets, API terms, and release docs. Not legal advice. |
 
@@ -90,6 +91,7 @@ Notable support files:
 | Skill | Use for |
 |---|---|
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
+| `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
 | `code-reviewer` | Findings-first review of diffs, PRs, branches, staged changes, or files. |
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
@@ -108,6 +110,7 @@ Notable support files:
 - `plugins/stray-studio/skills/code-reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/code-reviewer/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
+- `plugins/stray-studio/skills/landing-page-builder/references/`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/scripts/`
 
@@ -138,3 +141,24 @@ Shared references live at `plugins/stray-japan-govdocs/references/`:
 - `official-url-model.md`
 
 Temporary document caches should be kept under `tmp/japan-govdocs/`. The repository ignores `tmp/`.
+
+## Maintenance
+
+When adding or materially broadening a user-facing skill:
+
+1. Put the skill under the matching `plugins/<plugin-name>/skills/<skill-name>/` directory.
+2. Update the relevant plugin table above so README discovery matches the installed skill surface.
+3. Review the matching `.codex-plugin/plugin.json` `interface.longDescription` and `interface.defaultPrompt`.
+4. Validate JSON manifests:
+
+```bash
+python3 - <<'PY'
+import json
+json.load(open('.agents/plugins/marketplace.json'))
+json.load(open('plugins/stray-skillops/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-research/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-studio/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-japan-govdocs/.codex-plugin/plugin.json'))
+print('json-ok')
+PY
+```

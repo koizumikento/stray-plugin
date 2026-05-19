@@ -36,39 +36,11 @@ Use this skill when the user wants to:
 - Treat missing content honestly: create clear structure and concise placeholders only when the assumption is explicit.
 - Use motion and dynamic visuals to clarify hierarchy, reveal relationships, and express company character. Do not add motion that competes with facts, navigation, or accessibility.
 
-## Corporate Site Patterns
+## Site Structure Defaults
 
-Use these patterns to diagnose the right structure before writing code:
+Default corporate sites usually start with Home, Company, Business, News, Careers, Contact, and Policies. Add IR, sustainability, governance, safety/security, press, reports, search, language switching, support, case studies, stores, apps, or owned media only when the company context justifies them.
 
-- Startup or scaleup mission-led site: strong mission, what the company does, business lines, latest news, careers, contact.
-- SaaS or business-tool site: products, use cases, consultation, customer support, seminars/events, company information, IR or sustainability when needed.
-- Social infrastructure or marketplace site: mission, services, safety, security, privacy, sustainability, IR, transparency reports, careers.
-- Large public company or conglomerate site: brand world, business areas, technology or innovation, news, IR, sustainability, governance, careers, global links, search, language switching.
-- Brand portfolio or D2C site: mission, brands, product/EC links, brand news, corporate news, sustainability, quality/safety policies, careers, contact.
-- Creative or culture-heavy company site: projects, services, members, vision, news, awards, culture articles, careers, IR when relevant.
-
-## Information Architecture Checklist
-
-Default corporate sites usually need:
-
-- Home
-- About or Company
-- Mission, vision, values, philosophy, or message
-- Business, services, products, brands, or projects
-- News, press releases, announcements, or media coverage
-- Careers or recruiting link
-- Contact
-- Privacy policy, terms, accessibility, and security or data policy links
-
-Add these when the company context justifies them:
-
-- IR for listed, investor-facing, or fundraising-sensitive companies
-- Sustainability, ESG, governance, human rights, supply chain, or DEI for public, global, retail, marketplace, or high-accountability companies
-- Safety, trust, transparency, privacy, security, AI policy, or compliance for marketplaces, finance, HR, data, healthcare, or public-infrastructure products
-- Press kit, media kit, downloads, or brand assets for press-heavy or startup companies
-- Service status, support, manuals, FAQ, consultation, or case studies for SaaS and business tools
-- Store, EC, owned media, app, SNS, or brand links for retail, D2C, and portfolio companies
-- Search, language switching, mega navigation, and sitemap pages for large multi-division companies
+Use `references/corporate-site-structure.md` when you need the full pattern list, sitemap, homepage model, folder structure, or content-growth rules.
 
 ## Minimum Fact Gate
 
@@ -80,29 +52,69 @@ Before implementing public-facing corporate content, confirm that the available 
 - If the request needs legally sensitive claims, investor disclosures, ESG statements, safety/security assurances, financial results, hiring commitments, or regulated industry content that is not sourced, stop that part with a blocker note instead of fabricating it.
 - If enough facts exist for the core site but not for optional sections, implement the core routes and mark optional sections as omitted, draft-only, or externally owned in the handoff.
 
+## Framework And Content Defaults
+
+Use a static-site-first framework for new corporate sites unless the existing repository already has a strong stack:
+
+- Default new-build stack: Astro with TypeScript, static output, file-based routing, reusable `.astro` components, and Astro Content Collections.
+- Default content model: use Markdown or MDX with YAML frontmatter for body content, and TypeScript data modules for shared structured site data.
+- Default content location: use Astro's `src/content/` collections for editorial or repeated content, and `src/data/` TypeScript files for navigation, footer, company facts, routes, and structured cards.
+- Default component model: use `.astro` components for layouts and mostly static sections; add framework components only when the repo already uses them or a specific interactive element genuinely needs them.
+- Default interactivity: keep corporate pages static by default, using client-side JavaScript only for navigation menus, tabs, filters, accordions, carousels, motion, forms, or other explicit interactive modules.
+
+Do not add a CMS for this skill:
+
+- Do not introduce headless CMSes, Git-based CMS admin UIs, hosted content APIs, visual page builders, CMS preview systems, or CMS authentication flows.
+- Do not choose Keystatic, Decap CMS, Contentful, Storyblok, microCMS, WordPress, Sanity, Strapi, Payload, or similar tools unless the user explicitly overrides the no-CMS constraint.
+- If non-engineer editing is requested, first improve the repository content model with clear Markdown/MDX/YAML/JSON files, schemas, examples, and README notes instead of adding a CMS.
+- If the user explicitly requires live editing, editorial workflow, approvals, preview drafts, or dashboard-based publishing, stop and report that the requirement conflicts with the no-CMS default before changing architecture.
+
+Framework selection rules:
+
+- Use Astro for new corporate sites, clean rebuilds, or repositories without an established frontend framework.
+- Keep an existing Next.js, Nuxt, Eleventy, SvelteKit, Vite, or other stack when it is already present and sufficient for the corporate site goal.
+- Prefer Nuxt Content only when the repository is already Nuxt/Vue-based.
+- Prefer Eleventy only when the request emphasizes minimal JavaScript, simple templates, or migration into an existing static-template workflow.
+- Use Next.js static export only when the repository is already Next.js or React-heavy; avoid adding Next.js for a new static corporate site because its static export mode has server-feature constraints.
+- Do not migrate a working existing site to Astro unless the user asks for a framework change or the current stack blocks the requested SSG/content-management workflow.
+
+## Asset Management Defaults
+
+Manage assets as part of the site architecture, not as incidental files:
+
+- Use `src/assets/` for images, logos, and icons imported by components or content-rendering code.
+- Use `public/` only for files that need stable public URLs, such as favicons, OG images, PDFs, downloads, and externally referenced files.
+- Optimize images for web delivery before committing them; prefer web-ready AVIF, WebP, SVG, or compressed PNG/JPEG derivatives instead of raw source originals.
+- Keep source originals such as RAW photos, PSD, AI, Figma exports, and uncompressed archives out of shipped asset folders unless explicitly required.
+- Store public PDF/report/download files in `public/documents/` and reference them from content frontmatter or typed data.
+- Require alt text, caption, credit, or source notes where the asset is meaningful or externally sourced; do not invent credits or licensing details.
+- Do not add unused asset dumps. Add only assets that are referenced by routes, content entries, metadata, or documented future placeholders.
+- Use `references/asset-management.md` for detailed placement, optimization, metadata, and audit guidance.
+
+## Reference Material
+
+When building a new Astro corporate site or deciding where content should live, use `references/corporate-site-structure.md` for:
+
+- the default Astro folder structure
+- the reference corporate sitemap and homepage structure
+- rules for separating growing content in `src/content/` from shared fixed data in `src/data/`
+
+Load this reference only when the task involves new site structure, content architecture, or a major corporate-site rebuild.
+
+Use `references/content-management.md` when defining content collections, frontmatter fields, sort order, visibility rules, or TypeScript data modules. Load it only when the task involves content modeling, index pages, collection schemas, or repeated content.
+
+Use `references/asset-management.md` when adding, reorganizing, auditing, or optimizing images, logos, icons, OG images, PDFs, videos, or downloads. Use `scripts/asset_audit.py` for deterministic asset audits and optional WebP derivative generation.
+
+
 ## Visual Style And Motion Guidance
 
-Use dynamic presentation when it helps the site feel alive, premium, or easier to understand:
+Name the site's style posture before styling: trust-first, mission-led, product-led, brand-led, enterprise/global, or culture-led.
 
-- Hero systems: use real photography, product imagery, office/process footage, generative brand visuals, data-driven visuals, or subtle interactive scenes that reveal the company domain quickly.
-- Scroll rhythm: vary section density with a mix of editorial text blocks, proof rows, image bands, cards, timelines, and full-width feature sections.
-- Motion hierarchy: apply motion first to page entrance, section reveal, hero media, navigation transitions, hover states, counters, timelines, carousels, and expandable detail panels.
-- Interaction patterns: use hover previews, tabbed business/service sections, filterable news, segmented stakeholder routes, accordions for policies/FAQ, and timeline interactions when the content benefits from comparison or progressive disclosure.
-- Brand expression: derive color, typography, spacing, image treatment, corner radius, icon style, and motion speed from the company's tone: institutional, technical, human, editorial, premium, playful, or operational.
-- Trust surfaces: keep IR, ESG, policy, safety, and security pages visually restrained and information-dense; use dynamic treatment only to improve scanning, not to dramatize regulated or factual content.
-- Component polish: give cards, buttons, nav items, media blocks, and lists consistent hover/focus/active/loading states so the site feels intentionally built rather than static.
-- Responsive behavior: design mobile navigation, sticky headers, carousels, mega menus, and media-heavy hero sections explicitly instead of letting desktop effects collapse awkwardly.
-- Performance: prefer CSS transitions, transform/opacity animation, optimized images/video, lazy loading, and small interaction libraries already present in the repo.
-- Accessibility: respect reduced-motion preferences, preserve keyboard access, avoid scroll-jacking, keep text readable over media, and never make essential content depend on animation.
-
-Before choosing a visual direction, name the site's style posture:
-
-- Trust-first: quiet layout, clear tables, strong typography, low-motion proof and policy surfaces.
-- Mission-led: expressive hero, editorial mission blocks, smooth scroll reveals, people or domain imagery.
-- Product-led: product screenshots, interaction previews, comparison modules, demo or consultation CTAs.
-- Brand-led: rich imagery, brand cards, media/EC/SNS links, tactile transitions, stronger art direction.
-- Enterprise/global: large navigation, modular grids, restrained animation, search/language utilities, data and report surfaces.
-- Culture-led: project/member/news modules, playful transitions, high content velocity, strong internal media links.
+- Use real photography, product imagery, office/process visuals, generated bitmap visuals, data visuals, or subtle interactive scenes that reveal the company domain quickly.
+- Use motion only when it clarifies hierarchy, transitions, comparison, or progressive disclosure.
+- Keep IR, ESG, policy, safety, and security pages visually restrained and information-dense.
+- Design mobile navigation, sticky headers, carousels, mega menus, and media-heavy heroes explicitly.
+- Respect reduced-motion preferences, preserve keyboard access, avoid scroll-jacking, and keep text readable over media.
 
 ## Workflow
 
@@ -113,12 +125,14 @@ Before choosing a visual direction, name the site's style posture:
    - Stop or route elsewhere if the request is actually a single landing page, brand strategy, research-only benchmarking, or app feature work.
 
 2. Inspect the existing implementation surface.
-   - Find the current routes, layout, navigation, CMS or content files, styling system, component conventions, metadata setup, and asset locations.
-   - Identify whether the site is static, CMS-backed, MDX/content-file driven, or app-routed.
+   - Find the current routes, layout, navigation, content files, styling system, component conventions, metadata setup, and asset locations.
+   - Identify whether the site is static, MDX/content-file driven, app-routed, or tied to a CMS that should be left alone rather than expanded.
    - Preserve the established framework and content workflow unless they block the corporate site goal.
+   - For new builds without an established framework, choose Astro and define the file-based content model before designing pages.
 
 3. Choose the corporate pattern and sitemap.
    - Pick the closest pattern from the pattern list and name the reason.
+   - Start from the reference corporate site structure, then remove irrelevant routes and add justified trust routes.
    - Define the top-level navigation, lower-page groups, footer sitemap, utility links, language/search needs, and CTA priorities.
    - Decide which stakeholder routes deserve first-level navigation and which belong in the footer or lower-page index.
    - Choose a style posture and decide where motion, rich media, or interactivity will clarify the site instead of merely decorating it.
@@ -132,11 +146,15 @@ Before choosing a visual direction, name the site's style posture:
 
 5. Design lower pages and reusable content modules.
    - Build or revise company profile, leadership/message, mission/values, business/service, brand/project, news index, careers, IR, sustainability, and contact pages as needed.
+   - Apply the content growth rules before deciding whether each item belongs in `src/content/`, `src/data/`, or a component prop.
    - Prefer reusable modules for news lists, brand cards, business cards, statistics, company profile tables, leadership cards, timeline/history, ESG index cards, report/download lists, policy link groups, contact categories, and footer sitemap columns.
    - Separate corporate news from brand/product news when the company has multiple brands or services.
 
 6. Implement end to end.
    - Update routes, components, content files, styles, metadata, links, images, responsive behavior, and accessibility details.
+   - For new Astro builds, follow the reference Astro structure unless the existing repository convention is clearer.
+   - For Astro builds, define content collections, YAML frontmatter schemas, sort rules, visibility rules, and typed data modules before duplicating page data inside components.
+   - When adding assets, place them according to the asset management defaults, optimize web-facing images, and keep source originals separate from shipped asset folders.
    - Keep copy concise, factual, and specific to the company. Avoid generic filler such as "innovating for the future" unless supported by concrete proof.
    - Add links to existing external sites such as recruiting pages, product sites, owned media, online stores, IR libraries, SNS, or press kits when those are the authoritative destinations.
    - Make empty, draft, or unavailable sections explicit in code or content so the site does not pretend to have missing IR, ESG, news, or policy material.
@@ -150,6 +168,7 @@ Before choosing a visual direction, name the site's style posture:
    - Check accessibility basics: semantic landmarks, keyboard navigation, focus states, alt text, contrast, and readable responsive typography.
    - Check text wrapping, media framing, sticky headers, mobile menus, card grids, tables, timelines, and footer columns for overlap or clipped content.
    - Check motion behavior, reduced-motion fallback, hover/focus states, mobile menu behavior, and media loading on real desktop and mobile viewports when dynamic visuals were added.
+   - Run the asset audit script when images, PDFs, downloads, videos, or source-like assets were added or reorganized.
    - Run the repository's relevant lint, typecheck, tests, or build commands when available.
 
 8. Hand off clearly.
@@ -161,10 +180,14 @@ Before choosing a visual direction, name the site's style posture:
 ## Output Expectations
 
 - A working corporate website change in the repository, or a concrete blocker report
+- The framework choice, including whether Astro was used by default or an existing stack was preserved
+- The file-based content model used for company facts, pages, news, navigation, and repeated modules
+- The route and folder structure used, especially where growing content and shared data live
 - The chosen corporate site pattern and why it fits
 - The sitemap, top navigation, footer sitemap, and key lower pages
 - The visual style posture and any dynamic visual or motion choices
 - The trust elements included, such as IR, sustainability, safety, security, governance, policies, awards, media, numbers, or reports
+- Asset handling performed, including optimization, public document placement, alt text assumptions, and any unusually large assets
 - Validation performed across real browser rendering, responsive layout, links, metadata, accessibility basics, and repository checks
 - Any assumptions made for missing company copy, images, reports, policies, news, or external destinations
 
@@ -178,4 +201,5 @@ Before choosing a visual direction, name the site's style posture:
 - Do not make all companies follow the same structure; choose the pattern that matches business model, maturity, and accountability.
 - Do not over-index on visual novelty when the site needs clarity, trust, and maintainable information architecture.
 - Do not use scroll-jacking, constant movement, heavy background video, unreadable text-over-media, or animation that blocks navigation or content comprehension.
-- Do not introduce a CMS, router, design system, or content platform migration unless the existing repo cannot support the requested site.
+- Do not introduce a CMS. Use repository-versioned content files and schemas instead.
+- Do not introduce a router, design system, or content platform migration unless the existing repo cannot support the requested site.

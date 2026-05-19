@@ -105,6 +105,8 @@ Use `references/content-management.md` when defining content collections, frontm
 
 Use `references/asset-management.md` when adding, reorganizing, auditing, or optimizing images, logos, icons, OG images, PDFs, videos, or downloads. Use `scripts/asset_audit.py` for deterministic asset audits and optional WebP derivative generation.
 
+Use `references/astro-implementation.md` when creating or modifying Astro routes, content collections, dynamic pages, layouts, image imports, metadata, MDX rendering, or client-side interactive components.
+
 
 ## Visual Style And Motion Guidance
 
@@ -128,7 +130,7 @@ Name the site's style posture before styling: trust-first, mission-led, product-
    - Find the current routes, layout, navigation, content files, styling system, component conventions, metadata setup, and asset locations.
    - Identify whether the site is static, MDX/content-file driven, app-routed, or tied to a CMS that should be left alone rather than expanded.
    - Preserve the established framework and content workflow unless they block the corporate site goal.
-   - For new builds without an established framework, choose Astro and define the file-based content model before designing pages.
+   - For new builds without an established framework, choose Astro, load the Astro implementation reference, and define the file-based content model before designing pages.
 
 3. Choose the corporate pattern and sitemap.
    - Pick the closest pattern from the pattern list and name the reason.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviewer"
+  short_description: "Review code, docs, UI, skills, plugins, prompts, evals, releases, and compliance preflights."
+  default_prompt: "Review this artifact findings-first. Focus on concrete risks, cite evidence, and separate confirmed issues from assumptions."

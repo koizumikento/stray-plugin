@@ -86,7 +86,7 @@ If the answer is "create new", end with a one-paragraph outline of what the new 
 
 - Keep the search outcome-oriented, not encyclopedic.
 - Do not conflate skill discovery with skill authoring.
-- Do not conflate candidate comparison with plugin-wide routing audits; use `skill-overlap-auditor` for the latter.
+- Do not conflate candidate comparison with plugin-wide routing audits; use `reviewer` for the latter.
 - Do not recommend a new skill unless the existing candidates really miss the need.
 - Do not assume a package manager or external index exists unless the user explicitly provides one.
 - Prefer local plugin context when it is sufficient; expand outward only when needed.

@@ -28,7 +28,7 @@ The skill should stay out when the request is really about:
 | Prompt | Expected Trigger Behavior | Expected Outcome |
 | --- | --- | --- |
 | "Check whether our npm dependencies include GPL or AGPL packages." | Do not trigger `api-terms-checker` | Route to a dependency or repository compliance skill instead. |
-| "Review this repository and tell me if it is ready to open-source." | Do not trigger `api-terms-checker` | Route to `repo-compliance-preflight`. |
+| "Review this repository and tell me if it is ready to open-source." | Do not trigger `api-terms-checker` | Route to `reviewer` for compliance preflight. |
 | "Write legal fallback language for our MSA." | Do not trigger `api-terms-checker` | Reject as negotiated legal drafting outside scope. |
 | "Which vector database vendor should we choose for performance and price?" | Do not trigger `api-terms-checker` unless the user explicitly narrows to terms | Treat as product or vendor comparison, not terms review. |
 | "Explain what MIT and Apache-2.0 licenses mean for our mobile app." | Do not trigger `api-terms-checker` | Route to a license-focused skill rather than API terms review. |
@@ -37,9 +37,9 @@ The skill should stay out when the request is really about:
 
 | Prompt | Expected Trigger Behavior | Expected Outcome |
 | --- | --- | --- |
-| "We use three APIs in this repo. Check whether any of their terms could block public release." | Borderline: trigger `repo-compliance-preflight` first | Repo-level release framing makes this a preflight audit with API terms as one sub-check. |
+| "We use three APIs in this repo. Check whether any of their terms could block public release." | Borderline: trigger `reviewer` first | Repo-level release framing makes this a compliance preflight audit with API terms as one sub-check. |
 | "I copied a code snippet from a vendor SDK example. Is that allowed?" | Borderline: do not trigger `api-terms-checker` by default | This is closer to source reuse or repository compliance than service terms review. |
-| "Can we ship this plugin if it depends on a hosted LLM API with nonstandard usage restrictions?" | Borderline: trigger `repo-compliance-preflight` or use both sequentially | Preflight owns the release decision, while terms checking can support it. |
+| "Can we ship this plugin if it depends on a hosted LLM API with nonstandard usage restrictions?" | Borderline: trigger `reviewer` or use both sequentially | Compliance preflight owns the release decision, while terms checking can support it. |
 
 ## Release Recommendation Rules
 

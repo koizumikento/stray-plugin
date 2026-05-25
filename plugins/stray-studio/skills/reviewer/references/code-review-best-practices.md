@@ -1,6 +1,6 @@
 # Code Review Best Practices
 
-This note captures the external guidance used to shape `code-reviewer`.
+This note captures the external guidance used to shape the code-review path inside `reviewer`.
 
 ## Working Defaults
 

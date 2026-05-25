@@ -19,9 +19,9 @@ Create or update Codex agent skills. Start by classifying the target surface cor
 
 - General plugin scaffolding or manifest bootstrapping
 - Creating or updating `.codex/agents/*.toml` custom subagents that belong in `subagent-creator`
-- Broad plugin-wide overlap audits that belong in `skill-overlap-auditor`
-- Focused review-only requests that belong in `skill-reviewer`
-- Test planning or validation design that belongs in `test-strategist`
+- Broad plugin-wide overlap audits that belong in `reviewer`
+- Focused review-only requests that belong in `reviewer`
+- Test planning or validation design that belongs in `reviewer`
 - Unrelated documentation work that does not create or refine a skill artifact
 
 ## Inputs

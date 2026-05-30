@@ -54,42 +54,21 @@ Before implementing public-facing corporate content, confirm that the available 
 
 ## Framework And Content Defaults
 
-Use a static-site-first framework for new corporate sites unless the existing repository already has a strong stack:
+Use a static-site-first framework for new corporate sites unless the existing repository already has a strong stack. Default new builds to Astro with TypeScript, static output, file-based routing, reusable `.astro` components, Astro Content Collections, Markdown/MDX body content, and TypeScript data modules for shared site data.
 
-- Default new-build stack: Astro with TypeScript, static output, file-based routing, reusable `.astro` components, and Astro Content Collections.
-- Default content model: use Markdown or MDX with YAML frontmatter for body content, and TypeScript data modules for shared structured site data.
-- Default content location: use Astro's `src/content/` collections for editorial or repeated content, and `src/data/` TypeScript files for navigation, footer, company facts, routes, and structured cards.
-- Default component model: use `.astro` components for layouts and mostly static sections; add framework components only when the repo already uses them or a specific interactive element genuinely needs them.
-- Default interactivity: keep corporate pages static by default, using client-side JavaScript only for navigation menus, tabs, filters, accordions, carousels, motion, forms, or other explicit interactive modules.
+Keep an existing Next.js, Nuxt, Eleventy, SvelteKit, Vite, or other stack when it is already present and sufficient. Do not migrate a working existing site to Astro unless the user asks for a framework change or the current stack blocks the requested SSG/content workflow.
 
-Do not add a CMS for this skill:
+Do not add a CMS for this skill. If non-engineer editing is requested, first improve repository-versioned Markdown/MDX/YAML/JSON files, schemas, examples, and README notes. If the user explicitly requires live editing, approvals, preview drafts, or dashboard publishing, stop and report that this conflicts with the no-CMS default before changing architecture.
 
-- Do not introduce headless CMSes, Git-based CMS admin UIs, hosted content APIs, visual page builders, CMS preview systems, or CMS authentication flows.
-- Do not choose Keystatic, Decap CMS, Contentful, Storyblok, microCMS, WordPress, Sanity, Strapi, Payload, or similar tools unless the user explicitly overrides the no-CMS constraint.
-- If non-engineer editing is requested, first improve the repository content model with clear Markdown/MDX/YAML/JSON files, schemas, examples, and README notes instead of adding a CMS.
-- If the user explicitly requires live editing, editorial workflow, approvals, preview drafts, or dashboard-based publishing, stop and report that the requirement conflicts with the no-CMS default before changing architecture.
-
-Framework selection rules:
-
-- Use Astro for new corporate sites, clean rebuilds, or repositories without an established frontend framework.
-- Keep an existing Next.js, Nuxt, Eleventy, SvelteKit, Vite, or other stack when it is already present and sufficient for the corporate site goal.
-- Prefer Nuxt Content only when the repository is already Nuxt/Vue-based.
-- Prefer Eleventy only when the request emphasizes minimal JavaScript, simple templates, or migration into an existing static-template workflow.
-- Use Next.js static export only when the repository is already Next.js or React-heavy; avoid adding Next.js for a new static corporate site because its static export mode has server-feature constraints.
-- Do not migrate a working existing site to Astro unless the user asks for a framework change or the current stack blocks the requested SSG/content-management workflow.
+Use `references/astro-implementation.md` for Astro routes, layouts, content collections, metadata, MDX rendering, image imports, or client-side interactive components. Use `references/content-management.md` for content collection schemas, frontmatter fields, visibility rules, sort order, and TypeScript data modules.
 
 ## Asset Management Defaults
 
-Manage assets as part of the site architecture, not as incidental files:
+Manage assets as part of the site architecture, not as incidental files. Add only assets that are referenced by routes, content entries, metadata, or documented future placeholders.
 
-- Use `src/assets/` for images, logos, and icons imported by components or content-rendering code.
-- Use `public/` only for files that need stable public URLs, such as favicons, OG images, PDFs, downloads, and externally referenced files.
-- Optimize images for web delivery before committing them; prefer web-ready AVIF, WebP, SVG, or compressed PNG/JPEG derivatives instead of raw source originals.
-- Keep source originals such as RAW photos, PSD, AI, Figma exports, and uncompressed archives out of shipped asset folders unless explicitly required.
-- Store public PDF/report/download files in `public/documents/` and reference them from content frontmatter or typed data.
-- Require alt text, caption, credit, or source notes where the asset is meaningful or externally sourced; do not invent credits or licensing details.
-- Do not add unused asset dumps. Add only assets that are referenced by routes, content entries, metadata, or documented future placeholders.
-- Use `references/asset-management.md` for detailed placement, optimization, metadata, and audit guidance.
+Use `src/assets/` for images, logos, and icons imported by components or content-rendering code. Use `public/` only for stable public URLs such as favicons, OG images, PDFs, downloads, and externally referenced files.
+
+Use `references/asset-management.md` for detailed placement, optimization, metadata, licensing notes, source-original handling, public document placement, audit guidance, and optional WebP derivative generation.
 
 ## Reference Material
 
@@ -112,11 +91,9 @@ Use `references/astro-implementation.md` when creating or modifying Astro routes
 
 Name the site's style posture before styling: trust-first, mission-led, product-led, brand-led, enterprise/global, or culture-led.
 
-- Use real photography, product imagery, office/process visuals, generated bitmap visuals, data visuals, or subtle interactive scenes that reveal the company domain quickly.
-- Use motion only when it clarifies hierarchy, transitions, comparison, or progressive disclosure.
-- Keep IR, ESG, policy, safety, and security pages visually restrained and information-dense.
-- Design mobile navigation, sticky headers, carousels, mega menus, and media-heavy heroes explicitly.
-- Respect reduced-motion preferences, preserve keyboard access, avoid scroll-jacking, and keep text readable over media.
+Use real photography, product imagery, office/process visuals, generated bitmap visuals, data visuals, or subtle interactive scenes that reveal the company domain quickly. Keep IR, ESG, policy, safety, and security pages visually restrained and information-dense.
+
+Use motion only when it clarifies hierarchy, transitions, comparison, or progressive disclosure. Design mobile navigation, sticky headers, carousels, mega menus, media-heavy heroes, reduced-motion behavior, keyboard access, and text-over-media readability explicitly.
 
 ## Workflow
 

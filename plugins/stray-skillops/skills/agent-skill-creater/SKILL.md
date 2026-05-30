@@ -1,128 +1,91 @@
 ---
 name: "agent-skill-creater"
-description: "Use when the user wants to create or update a Codex agent skill and the main work is authoring the skill itself, whether it belongs in this plugin family under `plugins/*/skills/` or in a target repository under `.agents/skills/`. Do not use for general plugin scaffolding, `.codex/agents/` subagents, or unrelated documentation work."
+description: "Use when the user wants to create or update a Codex agent skill and the main work is authoring the skill artifact itself. Do not use for plugin scaffolding, `.codex/agents/` subagents, plugin-wide overlap audits, review-only requests, or unrelated documentation."
 ---
 
 # Agent Skill Creater
 
-Create or update Codex agent skills. Start by classifying the target surface correctly: plugin-family skill, project-scoped repo skill, or something that is not a skill at all. Default to instruction-first skills and only add scripts, references, or metadata when they materially improve reliability or usability.
+Create or update focused Codex agent skills. Route the request first, then write the smallest useful skill entry point. Keep this compatibility name, including the misspelling.
 
-## Preferred Scope
+## Route First
 
-- New plugin-family skill creation under `plugins/<plugin-name>/skills/<skill-name>/`
-- New project-scoped repo skill creation under `<target-repo>/.agents/skills/<skill-name>/`
-- Existing skill cleanup or refactoring
-- Trigger description improvements
-- Optional `agents/openai.yaml` metadata when UI polish, dependency declaration, or invocation policy is needed
+1. Classify the target surface before editing:
+   - plugin-family skill: `plugins/<plugin-name>/skills/<skill-name>/`
+   - project-scoped repo skill: `<target-repo>/.agents/skills/<skill-name>/`
+   - custom subagent: `.codex/agents/*.toml`
+   - not a skill: plugin scaffolding, generic docs, tests, or app code
+2. Hand off when another skill owns the request:
+   - use `subagent-creator` for `.codex/agents/` custom subagents
+   - use `reviewer` for plugin-wide routing audits, review-only feedback, or validation strategy without authoring
+3. Lock the storage boundary:
+   - plugin-family skills may touch the selected plugin's `skills/` directory and, only if discoverability changes, its plugin manifest
+   - project-scoped repo skills may touch only `.agents/skills/` in the target repo unless the user explicitly asks otherwise
+4. Ask one short clarification if the target surface is still ambiguous after reading the repo and user request.
+
+## Description Rules
+
+- Start with `Use when...` and name the user intent, not the implementation detail.
+- Say the one job the skill owns.
+- Add `Do not use...` boundaries for the nearest likely collisions.
+- Keep it concrete enough for routing; avoid broad phrases like "helps with X" unless the owned workflow is named.
+- Preserve user-requested skill names unless asked to normalize them.
+
+## Progressive Disclosure
+
+Keep `SKILL.md` short enough to route and act from. Add one-hop references only when the detail would distract from routing.
+
+- Use `references/authoring-guide.md` for detailed authoring rules, metadata guidance, and validation checklists.
+- Add `scripts/` only for deterministic work that text instructions cannot reliably express.
+- Add `agents/openai.yaml` only for display metadata, invocation policy, or real tool dependencies.
+
+## Compact `SKILL.md` Template
+
+```markdown
+---
+name: "<skill-name>"
+description: "Use when <specific user intent and owned job>. Do not use for <nearest non-goals or neighboring skills>."
+---
+
+# <Title>
+
+<One short paragraph that states the skill's job and default posture.>
 
 ## Do Not Use For
 
-- General plugin scaffolding or manifest bootstrapping
-- Creating or updating `.codex/agents/*.toml` custom subagents that belong in `subagent-creator`
-- Broad plugin-wide overlap audits that belong in `reviewer`
-- Focused review-only requests that belong in `reviewer`
-- Test planning or validation design that belongs in `reviewer`
-- Unrelated documentation work that does not create or refine a skill artifact
-
-## Inputs
-
-- The target surface:
-  - plugin family under `plugins/*/skills/`
-  - project-scoped repo under `.agents/skills/`
-- The target skill name or existing skill path
-- The job the skill should own
-- Trigger boundaries, including when it should not be used
-- Any repo-specific constraints that must be preserved
-
-## Assumptions
-
-- `SKILL.md` is the required entry point for the skill
-- Instruction-first packaging is preferred unless determinism or heavy reference material justifies extra files
-- Strong target signals should be honored:
-  - `plugins/stray-skillops/skills/`, `plugins/stray-research/skills/`, `plugins/stray-studio/skills/`, plugin manifests, marketplace files, or plugin naming imply a plugin-family skill
-  - `.agents/skills/`, "repo-specific", "project-only", "このリポジトリ専用", or an application/service repository imply a project-scoped repo skill
-- `.codex/agents/` or custom agent TOML requests imply a subagent, not a skill
+- <neighboring skill or non-goal>
+- <out-of-scope workflow>
 
 ## Workflow
 
-1. Classify the target before writing anything:
-   - plugin-family skill under `plugins/*/skills/`
-   - project-scoped repo skill under `.agents/skills/`
-   - custom subagent under `.codex/agents/`
-   - If the user says the skill should be repository-specific or project-only, default to `.agents/skills/`, not plugin scaffolding.
-   - If the target is still ambiguous after checking the repo and the user message, ask one short clarification before editing.
-2. Route by target surface:
-   - For a plugin-family skill, locate the plugin root by finding `.codex-plugin/plugin.json` and choose `<plugin-root>/skills/<skill-name>/`.
-   - For a project-scoped repo skill, choose `<target-repo>/.agents/skills/<skill-name>/`.
-   - For a custom subagent request, stop and route to `subagent-creator`.
-3. Lock the storage boundary before writing:
-   - plugin-family skills may touch `plugins/*/skills/` and, if needed, the matching plugin manifest
-   - project-scoped repo skills may touch `.agents/skills/` in the target repo
-   - project-scoped repo skills must not create or edit `.agents/plugins/marketplace.json`, `plugins/*`, or `.codex-plugin/plugin.json`
-4. Define the skill boundary before writing files:
-   - what the skill does
-   - when it should trigger
-   - when it should not trigger
-5. Write `SKILL.md` with:
-   - frontmatter `name`
-   - frontmatter `description`
-   - concise overview
-   - imperative workflow steps
-   - output expectations
-   - guardrails
-6. Default to instruction-only. Add `scripts/` only when deterministic execution or external tooling is required.
-7. Add `references/` only for material that is too large or too specialized to keep in `SKILL.md`.
-8. Add `agents/openai.yaml` only when at least one of these is true:
-   - the skill needs user-facing branding or starter prompts
-   - the skill should disable implicit invocation
-   - the skill depends on specific MCP tools or apps
-9. Validate the placement:
-   - plugin-family skills must sit under the chosen plugin's `skills/` directory, not inside `.codex-plugin/`
-   - project-scoped repo skills must sit under `.agents/skills/` in the target repo
-10. If a plugin-family skill is new or materially broadened, review that plugin's `.codex-plugin/plugin.json` and update `interface.longDescription` or `interface.defaultPrompt` when discovery text would otherwise lag behind reality.
-
-## SKILL.md Rules
-
-- Keep the skill focused on one job.
-- Make the `description` explicit enough for implicit invocation.
-- Prefer instructions over scripts.
-- Use numbered steps for the main workflow.
-- State inputs, outputs, and stop conditions.
-- Put heavy detail in `references/` instead of bloating the main file.
-
-## `agents/openai.yaml` Rules
-
-Use `agents/openai.yaml` sparingly. Keep it small and purposeful.
-
-- `interface`: add only useful display metadata
-- `policy.allow_implicit_invocation`: set to `false` only when explicit invocation is safer
-- `dependencies.tools`: declare only tools the skill genuinely relies on
-
-## Guardrails
-
-- Do not turn a broad domain into a single overloaded skill.
-- Do not confuse project-scoped repo skills with plugin-family skills.
-- Do not treat "repo-specific" or "project-only" as permission to scaffold a plugin.
-- Do not create `.agents/plugins/marketplace.json`, `plugins/*`, or `.codex-plugin/plugin.json` for a project-scoped repo skill.
-- Do not store a plugin-family skill under `.agents/skills/` unless the user explicitly asks for that structure.
-- Do not add scripts just to restate text instructions.
-- Do not leave trigger boundaries vague.
-- Do not duplicate the same guidance across `SKILL.md` and `references/`.
-- Do not store skills inside `.codex-plugin/`.
-
-## Stop Conditions
-
-- Stop if the request is actually for plugin scaffolding rather than a skill.
-- Stop and route to `subagent-creator` if the request is really for `.codex/agents/` or a custom subagent.
-- Stop if another existing skill already owns the job and the user only asked for review.
-- Stop if the target location falls outside the plugin family under `plugins/*/skills/` or the target repo's `.agents/skills/` without explicit user instruction.
+1. <First routing or scoping action.>
+2. <Main execution step.>
+3. <Validation or handoff step.>
 
 ## Output
 
-When you finish, report:
+- <Expected deliverable>
+- <Important assumptions or paths touched>
 
-- created or updated file paths
-- the chosen target surface and why
-- the final trigger description
-- any assumptions kept in the skill
-- whether `agents/openai.yaml`, `references/`, or `scripts/` were added and why
+## Guardrails
+
+- <Safety or ownership boundary>
+- <Stop condition>
+```
+
+## Workflow
+
+1. Read existing repo guidance and the nearest relevant skill examples.
+2. Decide the skill's owned job, trigger, non-goals, and handoffs before writing.
+3. Create or update `SKILL.md` using the compact template unless the existing local style requires a small variation.
+4. Move detailed guidance to `references/` instead of expanding the entry point.
+5. Validate placement and any edited JSON manifests.
+6. Report changed paths, target surface, final trigger description, and any added references, scripts, or metadata.
+
+For detailed authoring rules, use `references/authoring-guide.md`.
+
+## Stop Conditions
+
+- Stop if the request is really plugin scaffolding rather than skill authoring.
+- Stop and route to `subagent-creator` for custom subagents.
+- Stop if the target path falls outside the selected plugin's `skills/` directory or the target repo's `.agents/skills/` without explicit instruction.
+- Stop before broadening a plugin manifest unless the new or changed skill materially changes discoverability.

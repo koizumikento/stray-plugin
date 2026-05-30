@@ -17,6 +17,9 @@ Use this skill when the user asks:
 
 1. Define the issue and relevant ministry owners.
 2. Use whitepapers to find official framing and policy terms.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
 3. Search budget documents, ministry program pages, and administrative review databases for matching terms.
 4. Link programs to stated objectives, outputs, outcomes, and review-sheet evidence when available.
 5. Report confidence and gaps; policy themes rarely map one-to-one to budget programs.

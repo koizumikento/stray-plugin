@@ -1,18 +1,26 @@
 ---
 name: "japan-whitepaper-brief"
-description: "Use only when the user names a specific Japanese government whitepaper, annual report, chapter, or official policy document and wants that source briefed/read directly. Trigger on 指定白書を読んで, 白書を要約, この政府PDFを読んで, この章だけ要約. Prefer request-driven skills for background, evidence, priority, owner mapping, proposal context, citation audit, KPI, budget, cases, chart data, or cache management."
+description: "Use only when the user names a specific Japanese government whitepaper, annual report, chapter, or official policy document and wants that source briefed/read directly as the primary object. Trigger on 指定白書を読んで, 白書を要約, この政府PDFを読んで, この章だけ要約. Do not use when the user primarily wants proposal-ready wording or business alignment even if they mention a whitepaper; use japan-gov-proposal-context-adapter for proposal-first tasks. Prefer other request-driven skills for background, evidence, priority, owner mapping, citation audit, KPI, budget, cases, chart data, or cache management."
 ---
 
 # Japan Whitepaper Brief
 
 Brief a specific Japanese government whitepaper, annual report, chapter, or official policy document.
 
+This is document-first: the named document is the object to read and brief. If the document is only one input for a proposal, sales deck, business idea, or stakeholder argument, use `japan-gov-proposal-context-adapter` instead.
+
 Use this skill when the user asks:
 
 - "令和7年版高齢社会白書を5分で読めるようにして"
 - "防災白書の避難所関連の章だけ要約して"
 - "ものづくり白書のAI関連部分を読んで"
-- "この政府PDFを提案書向けに整理して"
+- "この政府PDFの第2章だけ要点を出して"
+
+## Shared Source Policy
+
+- Start from official landing pages and URL roles in `../../references/official-url-model.md`.
+- Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+- Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
 
 ## Workflow
 

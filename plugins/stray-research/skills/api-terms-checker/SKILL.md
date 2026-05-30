@@ -1,6 +1,6 @@
 ---
 name: "api-terms-checker"
-description: "Use when the user wants to check the current usage terms, commercial restrictions, redistribution limits, model-training restrictions, data-handling clauses, or other practical compliance constraints for a third-party API or SaaS before integrating, shipping, or scaling its use. Do not use for negotiated legal advice, dependency license review, or full repository release audits."
+description: "Use when the user wants to check current official web sources for API or SaaS usage terms, commercial restrictions, redistribution limits, model-training restrictions, data-handling clauses, or other practical compliance constraints before integrating, shipping, or scaling its use. Do not use for negotiated legal advice, dependency license review, or full repository release audits."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill should verify current official terms before answering."
 ---
 

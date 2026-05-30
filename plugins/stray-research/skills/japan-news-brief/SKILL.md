@@ -1,6 +1,6 @@
 ---
 name: "japan-news-brief"
-description: "Use when the user wants a current, source-backed roundup of the latest Japanese news in a fixed briefing format, usually for today, this morning, this evening, or the last 24 hours. Do not use for a deep dive on one event, non-Japan news, or opinion-only coverage."
+description: "Use when the user wants a current, source-backed roundup of the latest Japanese news using live web sources and a fixed briefing format, usually for today, this morning, this evening, or the last 24 hours. Do not use for a deep dive on one event, non-Japan news, or opinion-only coverage."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill must verify current headlines on the web before answering."
 ---
 
@@ -30,25 +30,10 @@ Use this skill when the user wants:
 - Default time window to the last 24 hours in JST unless the user specifies another range.
 - When the user says "today", "this morning", "latest", or similar relative timing, convert that into an explicit JST date and time range in the output.
 
-## Preferred Source Set
+## References
 
-Start with current pages from these official sites and keep the set balanced. Do not rely on one outlet alone when summarizing consequential stories.
-
-- NHK NEWS WEB: [https://www3.nhk.or.jp/news/](https://www3.nhk.or.jp/news/)
-- 日本経済新聞: [https://www.nikkei.com/](https://www.nikkei.com/)
-- 朝日新聞: [https://www.asahi.com/](https://www.asahi.com/)
-- 毎日新聞: [https://mainichi.jp/](https://mainichi.jp/)
-- 読売新聞オンライン: [https://www.yomiuri.co.jp/](https://www.yomiuri.co.jp/)
-- 47NEWS: [https://www.47news.jp/](https://www.47news.jp/)
-- 時事ドットコム: [https://www.jiji.com/](https://www.jiji.com/)
-- 産経ニュース: [https://www.sankei.com/](https://www.sankei.com/)
-
-Use the source mix deliberately:
-
-- Prefer NHK for broad public-interest, disaster, government, and breaking domestic coverage.
-- Prefer Nikkei when an economic or corporate angle materially changes the significance of a story.
-- Use 47NEWS and Jiji to pick up wire-style developments quickly.
-- Use national papers to cross-check framing, added detail, and follow-up reporting.
+- Load `references/source-guide.md` before gathering sources.
+- Load `references/fixed-format.md` before writing the final brief.
 
 ## Workflow
 
@@ -83,46 +68,8 @@ Use the source mix deliberately:
    - Mark paywalled or partially inaccessible sourcing when that affects confidence.
 
 6. Return the brief in the fixed format below.
-
-## Fixed Output Format
-
-Always answer in Japanese unless the user asks otherwise.
-
-```md
-# 日本最新ニュースブリーフ
-- 対象期間: <YYYY-MM-DD HH:MM JST> から <YYYY-MM-DD HH:MM JST>
-- 作成時刻: <YYYY-MM-DD HH:MM JST>
-- 総括: <1-2文で全体の流れ>
-- 主要参照先: <媒体名リンクをカンマ区切り>
-
-## 1. 政治・行政
-- 見出し: <主要トピック>
-- 要約: <2-3文>
-- 出典: <媒体名リンク> (<公開日または更新日>)
-
-## 2. 経済・ビジネス
-- 見出し: <主要トピック or 大きな更新なし>
-- 要約: <2-3文 or 1文>
-- 出典: <媒体名リンク> (<公開日または更新日>)
-
-## 3. 社会・災害・安全
-- 見出し: <主要トピック or 大きな更新なし>
-- 要約: <2-3文 or 1文>
-- 出典: <媒体名リンク> (<公開日または更新日>)
-
-## 4. 産業・テクノロジー
-- 見出し: <主要トピック or 大きな更新なし>
-- 要約: <2-3文 or 1文>
-- 出典: <媒体名リンク> (<公開日または更新日>)
-
-## 5. 国際動向と日本への影響
-- 見出し: <主要トピック or 大きな更新なし>
-- 要約: <2-3文 or 1文>
-- 出典: <媒体名リンク> (<公開日または更新日>)
-
-## 6. 続報待ちメモ
-- <未確定情報、続報待ちの論点、または「特になし」>
-```
+   - Use the template in `references/fixed-format.md`.
+   - Always answer in Japanese unless the user asks otherwise.
 
 ## Output Expectations
 

@@ -5,13 +5,14 @@ description: "Use when the user wants to find existing agent skills before creat
 
 # Skills Search
 
-Find existing agent skills first, then judge whether they are good enough to reuse or should be adapted. Keep the work narrowly focused on skill discovery and comparison, not on building the final skill itself.
+Find existing agent skills first, then judge whether they are good enough to reuse or should be adapted. Keep the work narrowly focused on skill discovery and comparison, not on building the final skill itself or making the final plugin-wide routing judgment.
 
 Use this skill when the user wants to:
 
 - search GitHub, official catalogs, or local plugin skills for related examples
 - compare candidate skills and identify which one best fits the target job
 - decide whether to adopt an existing skill, adapt it, or create a new one
+- supply external examples or candidate patterns that `reviewer` can use during a later routing audit
 
 ## Preferred Scope
 
@@ -24,6 +25,7 @@ Use this skill when the user wants to:
 
 - writing or editing the target skill itself
 - plugin-wide overlap or routing audits across the current skill set
+- final plugin-wide overlap, merge, split, or routing decisions that belong to `reviewer`
 - generic domain research that is not about skills
 - package-manager-based discovery flows
 - `ccpm`-specific workflows or other external orchestration tools
@@ -58,6 +60,7 @@ Use this skill when the user wants to:
    - prefer reuse when a candidate already fits the job cleanly
    - prefer adaptation when the core workflow is useful but the candidate is too broad, tool-heavy, or tied to another ecosystem
    - recommend creating a new skill only when the gap is real and specific
+   - treat any plugin-wide overlap note as input for `reviewer`, not as the final routing decision
 7. Stop once the decision is clear:
    - if one or two strong matches exist, report them and why they fit
    - if no good match exists, explain the gap and what a new skill would need to cover
@@ -86,7 +89,7 @@ If the answer is "create new", end with a one-paragraph outline of what the new 
 
 - Keep the search outcome-oriented, not encyclopedic.
 - Do not conflate skill discovery with skill authoring.
-- Do not conflate candidate comparison with plugin-wide routing audits; use `reviewer` for the latter.
+- Do not conflate candidate comparison with plugin-wide routing audits; this skill can provide examples, but `reviewer` owns the final routing judgment.
 - Do not recommend a new skill unless the existing candidates really miss the need.
 - Do not assume a package manager or external index exists unless the user explicitly provides one.
 - Prefer local plugin context when it is sufficient; expand outward only when needed.

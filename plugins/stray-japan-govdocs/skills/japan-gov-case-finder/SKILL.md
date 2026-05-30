@@ -17,6 +17,9 @@ Use this skill when the user asks:
 
 1. Define the case type: municipality, company, program, technology, partnership, or community activity.
 2. Search relevant whitepapers, case collections, ministry reports, and linked materials.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
 3. Extract cases with source, actor, problem, intervention, result, and transferability.
 4. Mark whether outcomes are evidenced or merely described.
 5. Package cases for proposal, research, or article reuse.

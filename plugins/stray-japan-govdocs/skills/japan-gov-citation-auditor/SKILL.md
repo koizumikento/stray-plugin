@@ -17,6 +17,9 @@ Use this skill when the user asks:
 
 1. Extract cited title, URL, year, edition, section, and claim.
 2. Verify official source status from the landing page, not only a direct PDF.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Use `../../references/download-cache-policy.md` only if a task-needed file must be downloaded; final citations stay on official URLs.
 3. Check latest edition and whether the cited edition is intentionally historical.
 4. Compare publication year, target period, statistic reference period, and user's claim.
 5. Recommend keep, update, replace, or caveat.

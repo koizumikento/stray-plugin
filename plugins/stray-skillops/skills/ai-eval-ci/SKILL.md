@@ -7,6 +7,13 @@ description: "Use when the user wants to add AI or agent evaluations to CI, catc
 
 Add AI and agent evaluations to CI so model quality regressions fail fast instead of shipping silently. Keep the workflow small, repeatable, and cheap enough to run on every relevant change.
 
+## Do Not Use For
+
+- Ordinary unit, integration, or end-to-end tests for deterministic non-LLM code paths.
+- One-off manual prompt checks that will not run in CI.
+- Broad benchmark suites, leaderboard work, or research evals without a repo CI gate.
+- General CI debugging that is not about AI, prompt, retrieval, or agent behavior.
+
 ## Workflow
 
 1. Identify the behavior to protect.
@@ -23,12 +30,17 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
    - Use model-judged or rubric-based scoring only when semantic quality cannot be captured otherwise.
    - Add clear thresholds so the CI result is unambiguous.
 
-4. Wire the eval into CI.
+4. Detect existing tools before adding new ones.
+   - Inspect the repo for current test runners, eval harnesses, CI providers, package scripts, and model configuration.
+   - Prefer extending existing tooling over adding a new framework.
+   - Stop and ask before introducing paid external services, new model providers, or secrets that the repo does not already use.
+
+5. Wire the eval into CI.
    - Run the eval in the same pipeline that validates the code or prompt change.
    - Fail the build when the score drops below the threshold or a required assertion fails.
    - Keep runtime and external dependencies low enough for routine CI usage.
 
-5. Document the gate.
+6. Document the gate.
    - State what change should trigger the eval.
    - Explain how to run it locally before pushing.
    - Record where the fixtures, config, and results live.
@@ -51,3 +63,11 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 - Do not add a model-judge dependency if a deterministic check is sufficient.
 - Do not hide failures behind flaky thresholds or vague pass criteria.
 - Do not add scripts, references, or metadata files unless they materially improve reliability.
+- Do not add new CI providers, secret requirements, or external accounts when existing repo tooling can run the gate.
+
+## Stop Conditions
+
+- Stop if the task is ordinary non-LLM test coverage.
+- Stop if no repeatable CI gate is desired.
+- Stop and ask before adding a new paid model dependency, secret, or external eval service.
+- Stop if the repo has no CI surface and the user only asked for eval design, not CI setup.

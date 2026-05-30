@@ -1,11 +1,13 @@
 ---
 name: "japan-gov-kpi-finder"
-description: "Use when the user asks for official indicators, KPI candidates, measurable outcomes, 指標, 統計, or ways to measure a social or policy issue in Japan. Trigger on KPIを探して, 公式指標, 公的統計, 測る指標, アウトカム指標. Do not use for broad background, quote collection, budget tracing, or legal/procedural lookup."
+description: "Use when the user asks for official indicators, KPI candidates, measurable outcomes, 指標, 統計, or ways to measure a social or policy issue in Japan. Trigger on KPIを探して, 公式指標, 公的統計, 測る指標, アウトカム指標. Do not use for tracing the source data behind a specific chart, table, figure, or statistic; use japan-gov-chart-data-tracer for that. Do not use for broad background, quote collection, budget tracing, or legal/procedural lookup."
 ---
 
 # Japan Gov KPI Finder
 
 Find official KPI or indicator candidates for a Japan policy or social issue.
+
+KPI finder discovers candidate indicators for a theme or intervention. It does not start from a specific figure/table/statistic; use `japan-gov-chart-data-tracer` when the task is to trace source data for an identified chart or number.
 
 Use this skill when the user asks:
 
@@ -17,6 +19,9 @@ Use this skill when the user asks:
 
 1. Define the issue and what should be measured.
 2. Search whitepaper figures, e-Stat, ministry statistics pages, policy plans, and administrative review sheets.
+   - Start from official landing pages and URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
 3. Separate outcome indicators, output indicators, proxy indicators, and context indicators.
 4. Record data source, update frequency, geography, time lag, and limitations.
 5. Explain how each indicator can and cannot be used.

@@ -17,6 +17,9 @@ Use this skill when the user asks:
 
 1. Identify the user's theme and decision context.
 2. Search official whitepaper routes and ministry pages for the theme.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
 3. Map each ministry's mandate and document context.
 4. Distinguish primary owner, adjacent owners, and weak/noisy mentions.
 5. Note when another source type is better than a whitepaper.

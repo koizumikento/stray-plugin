@@ -1,27 +1,34 @@
 ---
 name: "japan-gov-request-router"
-description: "Use when the user asks for Japan government-backed help or Japanese government documents but the requested action is broad or ambiguous. Trigger on 白書, 政府資料, 公式資料, 政府PDF/HTML, 一時保存, キャッシュ, 根拠, 背景, KPI, 予算, 事例, 図表, 引用, 省庁, or a named whitepaper. Route to background, evidence, priority, owner, proposal context, citation check, KPI, budget, case, chart data, cache management, or whitepaper brief. Do not use for legal advice, latest news only, application procedures, or non-Japan government research."
+description: "Use only when the user asks for Japan government-backed help or Japanese government documents and the requested action is broad, mixed, or ambiguous. Trigger on unspecific requests like 政府資料で見て, 白書ベースで整理, 公式資料を探して, or どのスキルを使うべき. Do not use when the user clearly asks for KPI, budget, citation audit, named whitepaper reading, chart source data, cache management, cases, owner mapping, priority check, evidence finding, background building, or proposal adaptation; route directly to the specialized skill instead. Do not use for legal advice, latest news only, application procedures, or non-Japan government research."
 ---
 
 # Japan Gov Request Router
 
-Route user instructions to the right Japan government document workflow. This skill is an entry point only; it should not perform heavy research or download files.
+Route broad or ambiguous user instructions to the right Japan government document workflow. This skill is an entry point only; it should not perform heavy research or download files.
 
 Use this skill when the user's request sounds like:
 
-- "背景を整理して"
-- "根拠を探して"
-- "重要度を確認して"
-- "どの省庁の話か整理して"
-- "提案書向けに直して"
-- "引用が古くないか見て"
-- "KPIを探して"
-- "予算がついているか見て"
-- "事例を拾って"
-- "図表の元データを探して"
-- "白書PDFを一時保存して"
-- "政府資料をキャッシュして追跡できるようにして"
-- "この白書を読んで"
+- "このテーマを政府資料ベースでどう調べるべき?"
+- "白書や公式資料で何が言えるか整理して"
+- "企画書に使うなら、どの公的資料から見るのが自然?"
+- "政府資料を探したいが、根拠・KPI・予算のどれを見るべきか未整理"
+- "この依頼は白書要約なのか出典探しなのか切り分けて"
+
+Do not use this router when the user's action is already clear. In those cases invoke the matching skill directly:
+
+- KPI/指標/測る/公的統計 -> `japan-gov-kpi-finder`
+- 予算/事業/行政事業レビュー -> `japan-gov-budget-tracer`
+- 引用/最新版/URL監査/出典監査 -> `japan-gov-citation-auditor`
+- named whitepaper, annual report, chapter, or government PDF to read -> `japan-whitepaper-brief`
+- 図表/表/グラフ/統計値の元データ -> `japan-gov-chart-data-tracer`
+- 一時保存/キャッシュ/manifest/local path -> `japan-govdoc-cache-manager`
+- 事例/自治体事例/企業事例 -> `japan-gov-case-finder`
+- 所管/省庁/制度文脈 -> `japan-gov-owner-mapper`
+- 優先度/国が重視/政策上強まったか -> `japan-gov-priority-checker`
+- 根拠/出典/裏付け for a claim -> `japan-gov-evidence-finder`
+- 背景/社会背景/課題背景 -> `japan-gov-background-builder`
+- proposal/企画書/営業資料/官公庁向け wording -> `japan-gov-proposal-context-adapter`
 
 ## Routing
 
@@ -37,7 +44,8 @@ Use this skill when the user's request sounds like:
    - case,事例,自治体事例,企業事例 -> `japan-gov-case-finder`
    - chart,図表,元データ,Excel,e-Stat -> `japan-gov-chart-data-tracer`
    - cache,一時保存,ローカル保存,PDF/HTML保存,manifest,索引 -> `japan-govdoc-cache-manager`
-   - named whitepaper or chapter -> `japan-whitepaper-brief`
+   - named whitepaper or chapter to read directly -> `japan-whitepaper-brief`
+   - named whitepaper used only as one source for proposal wording -> `japan-gov-proposal-context-adapter`
 2. Preserve edition constraints.
    - If no year or period is specified, use the latest official edition by default.
    - If a year, era year, or comparison period is specified, pass that constraint through.

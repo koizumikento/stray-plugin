@@ -1,11 +1,13 @@
 ---
 name: "japan-gov-proposal-context-adapter"
-description: "Use when the user wants to turn a business idea, product, service, or initiative into proposal-ready Japanese government context for public-sector sales,企画書,or stakeholder materials. Do not use for neutral background only, citation auditing, or legal/procurement procedure advice."
+description: "Use when the user wants to turn a business idea, product, service, or initiative into proposal-ready Japanese government context for public-sector sales,企画書,or stakeholder materials. This is proposal-first even when a specific whitepaper is mentioned as a source. Do not use for direct document summaries, neutral background only, citation auditing, or legal/procurement procedure advice."
 ---
 
 # Japan Gov Proposal Context Adapter
 
 Translate a user idea into government-aligned proposal context using whitepapers and official documents.
+
+This is proposal-first: the user's offer and argument shape the output. If the main task is to read or summarize a named whitepaper/chapter as the object itself, use `japan-whitepaper-brief` instead.
 
 Use this skill when the user asks:
 
@@ -17,6 +19,9 @@ Use this skill when the user asks:
 
 1. Extract the user's offer, target customer, and desired proposal angle.
 2. Find official background, evidence, and policy language.
+   - Start from official landing pages and URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
 3. Identify where the idea aligns with government-stated issues and where it does not.
 4. Produce wording that can fit a proposal without overstating government endorsement.
 5. Include source-backed cautions and missing evidence.

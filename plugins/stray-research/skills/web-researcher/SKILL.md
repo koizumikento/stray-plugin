@@ -1,6 +1,6 @@
 ---
 name: "web-researcher"
-description: "Use when the user wants a current, source-backed answer or brief that must start from current web research rather than memory alone, but the task is not specialized enough for `domain-researcher`, not a product decision for `product-designer`, and not limited to extracting one provided page like `web-content-distiller`."
+description: "Use when the user wants a current, source-backed answer or brief that must start from live web research rather than memory alone, but the task is not specialized enough for `domain-researcher`, not a product decision for `product-designer`, and not limited to extracting one provided page like `web-content-distiller`."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill must browse current web sources before answering."
 ---
 

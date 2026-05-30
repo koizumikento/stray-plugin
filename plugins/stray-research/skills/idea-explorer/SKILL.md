@@ -1,6 +1,6 @@
 ---
 name: "idea-explorer"
-description: "Use when the user wants to generate, widen, or compare ideas grounded in current web research rather than memory alone, but does not yet need a concrete product decision, a deep domain brief, or a polished final artifact. Do not use for generic brainstorming with no need for evidence, or when a more specific local skill already owns the final output."
+description: "Use when the user wants to generate, widen, or compare ideas grounded in current web research from live external sources rather than memory alone, but does not yet need a concrete product decision, a deep domain brief, or a polished final artifact. Do not use for generic brainstorming with no need for evidence, or when a more specific local skill already owns the final output."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research before proposing ideas."
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: "domain-researcher"
-description: "Use when the user wants a source-backed investigation of a specialized domain such as an unfamiliar technical field, standard, regulation, market, or academic topic, and needs a concise brief with key facts, uncertainty, and direct answers."
+description: "Use when the user wants a source-backed investigation of a specialized domain such as an unfamiliar technical field, standard, regulation, market, or academic topic, using current authoritative web sources when facts may have changed. Do not use for API terms checks, patent research, Japan news roundups, MCP server design, product decisions, or single-page content distillation."
 ---
 
 # Domain Researcher
@@ -14,6 +14,12 @@ Use this skill when the user needs domain understanding before making a decision
 - Casual brainstorming that does not require evidence
 - Pure implementation work when the needed knowledge already exists in local code or docs
 - Generic web searches where the user does not need domain-specific synthesis
+- API or SaaS terms, usage restrictions, or commercial-use checks that belong in `api-terms-checker`
+- patent prior-art, FTO prechecks, invalidity candidates, or patent landscape work that belongs in `global-patent-researcher`
+- latest Japan news roundups that belong in `japan-news-brief`
+- MCP server design, tool-shape, transport, auth, pagination, or protocol-boundary work that belongs in `mcp-server-designer`
+- product direction, feature briefs, PRD outlines, or validation plans that belong in `product-designer`
+- extracting or cleaning one provided page or URL that belongs in `web-content-distiller`
 - Legal, medical, or financial advice framed as professional advice instead of informational research
 
 ## Workflow

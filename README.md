@@ -6,8 +6,8 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 
 | Plugin | Root | Purpose |
 |---|---|---|
-| Stray Skill Ops | `plugins/stray-skillops/` | Create, review, audit, test, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, and practical preflight checks. |
+| Stray Skill Ops | `plugins/stray-skillops/` | Create, search, evaluate, and operate Codex skills and subagents. |
+| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, and API terms checks. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
 
@@ -45,9 +45,6 @@ Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest
 |---|---|
 | `agent-skill-creater` | Creating or updating Codex agent skills under this plugin family or project-scoped `.agents/skills/`. The spelling is intentional; preserve it unless explicitly renaming. |
 | `skills-search` | Finding existing skills before creating a new one and deciding whether to adopt, adapt, or write a skill. |
-| `skill-reviewer` | Reviewing a `SKILL.md` for trigger quality, scope boundaries, overlap risk, and output clarity. |
-| `skill-overlap-auditor` | Auditing local skills as a routing system for ambiguous triggers, duplicate ownership, gaps, and split/merge recommendations. |
-| `test-strategist` | Designing validation boundaries, negative cases, prompt tests, and review checklists for skills. |
 | `subagent-creator` | Creating or updating custom Codex subagents under `.codex/agents/`. |
 | `multi-agent-patterns` | Designing multi-agent workflows, handoffs, shared state, and quality gates. |
 | `ai-eval-ci` | Adding AI or agent evaluations to CI to catch prompt and behavior regressions. |
@@ -56,6 +53,7 @@ Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest
 Notable support files:
 
 - `plugins/stray-skillops/skills/agent-skill-creater/agents/openai.yaml`
+- `plugins/stray-skillops/skills/agent-skill-creater/references/authoring-guide.md`
 - `plugins/stray-skillops/skills/subagent-creator/agents/openai.yaml`
 - `plugins/stray-skillops/skills/subagent-creator/references/subagent-best-practices.md`
 
@@ -75,14 +73,13 @@ Notable support files:
 | `github-maintainer` | Read-first triage of GitHub issues and PRs with recommended next maintainer actions. |
 | `global-patent-researcher` | Planning or conducting public-web global patent research for prior art, novelty, invalidity candidates, FTO prechecks, or landscapes. Not legal advice. |
 | `api-terms-checker` | Checking current practical usage restrictions for third-party APIs or SaaS terms. Not legal advice. |
-| `repo-compliance-preflight` | Practical release/open-source/distribution preflight for license, notices, attribution, assets, API terms, and release docs. Not legal advice. |
 
 Notable support files:
 
 - `agents/openai.yaml` exists for `web-researcher`, `domain-researcher`, `idea-explorer`, and `product-designer`.
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`
-  - `plugins/stray-research/skills/repo-compliance-preflight/references/validation-cases.md`
+- `plugins/stray-research/skills/japan-news-brief/references/` contains the news source guide and fixed output format.
 
 ### Stray Studio
 
@@ -93,7 +90,7 @@ Notable support files:
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
 | `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
-| `code-reviewer` | Findings-first review of diffs, PRs, branches, staged changes, or files. |
+| `reviewer` | Reviewing code, skills, artifacts, docs, UI, validation plans, release/compliance readiness, and plugin skill sets. |
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
 | `brand-designer` | Defining or refining brand identity, visual principles, tone guidance, and mini style guides. |
 | `article-writer` | Drafting or revising publishable articles, blog posts, newsletters, or editorial pieces. |
@@ -107,8 +104,8 @@ Notable support files:
 Notable support files:
 
 - `plugins/stray-studio/skills/article-writer/agents/openai.yaml`
-- `plugins/stray-studio/skills/code-reviewer/agents/openai.yaml`
-- `plugins/stray-studio/skills/code-reviewer/references/`
+- `plugins/stray-studio/skills/reviewer/agents/openai.yaml`
+- `plugins/stray-studio/skills/reviewer/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
 - `plugins/stray-studio/skills/landing-page-builder/references/`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`
@@ -141,6 +138,7 @@ Shared references live at `plugins/stray-japan-govdocs/references/`:
 - `official-url-model.md`
 
 Temporary document caches should be kept under `tmp/japan-govdocs/`. The repository ignores `tmp/`.
+Cache validation support lives at `plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py`.
 
 ## Maintenance
 

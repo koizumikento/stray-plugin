@@ -17,9 +17,11 @@ Use this skill when the user asks:
 
 1. Identify the theme, audience, and intended use.
 2. Start from e-Gov and relevant ministry series pages.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
 3. Default to latest editions unless the user specifies a year or period.
 4. Pull official issue framing, trend data, policy direction, and relevant terms.
-5. Prefer HTML and chapter pages; use `../../references/download-cache-policy.md` for downloads.
+5. Prefer HTML and chapter pages; use `../../references/download-cache-policy.md` for task-needed downloads and keep final citations on official URLs.
 6. Separate government-stated background from your interpretation.
 
 ## Output Expectations

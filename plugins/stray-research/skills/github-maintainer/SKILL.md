@@ -1,11 +1,11 @@
 ---
 name: "github-maintainer"
-description: "Use when the user wants to inspect open GitHub issues or pull requests, identify what needs attention, or decide the next 1-3 maintenance actions. Do not use for full repository automation, CI debugging, branch publishing, or public write actions unless the user explicitly approves them."
+description: "Use when the user wants read-only triage of open GitHub issues or pull requests from available GitHub sources, identify what needs attention, or decide the next 1-3 maintenance actions. Do not use for full repository automation, CI debugging, branch publishing, or public write actions unless the user explicitly approves them."
 ---
 
 # GitHub Maintainer
 
-Triage GitHub maintenance work with a narrow, decision-oriented focus. Use this skill to summarize open issues or PRs, surface what needs attention, and recommend the next small set of actions.
+Triage GitHub maintenance work with a narrow, decision-oriented focus. Use this skill to summarize open issues or PRs, surface what needs attention, and recommend the next small set of actions. Default to read-only inspection; public comments, label changes, closes, assignments, approvals, or merges require explicit user approval.
 
 Use this skill for repository maintenance questions such as:
 
@@ -38,6 +38,7 @@ Use this skill for repository maintenance questions such as:
    - open issues and PRs relevant to the request
    - status, recency, labels, assignees, reviewers, and obvious blockers
    - any nearby comments that materially change priority, ownership, or next action
+   - prefer the GitHub connector/app when available; use `gh` or web browsing only when needed and state which source was used if it affects confidence
 3. Classify each item into a maintenance bucket:
    - needs immediate attention
    - needs a maintainer decision
@@ -89,7 +90,7 @@ If no item clearly deserves action, say that directly and explain what would cha
 - Do not claim to have resolved issues or PRs unless you actually did.
 - Do not turn maintenance triage into implementation work.
 - Do not use this skill for CI log inspection or branch publishing.
-- Do not take public write actions without explicit user approval.
+- Do not take public write actions, including labels, comments, closes, assignments, review submissions, merges, or status changes, without explicit user approval.
 - Do not confuse recency with importance; stale items can be low-value noise.
 - Do not recommend public maintainer actions without stating the expected effect.
 - Do not escalate every open item into the top priority list; force ranking is part of the job.

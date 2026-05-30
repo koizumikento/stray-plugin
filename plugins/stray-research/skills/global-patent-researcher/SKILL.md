@@ -1,12 +1,12 @@
 ---
 name: "global-patent-researcher"
-description: "Use when the user wants to plan or conduct a global patent research workflow using public web patent databases, including prior-art, novelty, invalidity-candidate, freedom-to-operate precheck, or patent landscape research. Do not use for legal opinions, patent drafting, filing strategy, API integration, or Japan-only patent searches."
+description: "Use when the user wants to plan or conduct a global patent research workflow using current public web patent databases, including prior-art, novelty, invalidity-candidate, freedom-to-operate precheck, or patent landscape research, while protecting confidential invention details before external searches. Do not use for legal opinions, patent drafting, filing strategy, API integration, or Japan-only patent searches."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill relies on current public patent databases and source-backed verification."
 ---
 
 # Global Patent Researcher
 
-Plan and run public-web patent research across global patent databases. Help the user define the search question, build search strategies, inspect candidate patent documents, and report findings with links, search logs, and uncertainty. Treat Japan as a supplemental jurisdiction unless the user explicitly asks for deeper Japanese patent work.
+Plan and run public-web patent research across current global patent databases. Help the user define the search question, build search strategies, inspect candidate patent documents, and report findings with links, search logs, search dates, and uncertainty. Treat Japan as a supplemental jurisdiction unless the user explicitly asks for deeper Japanese patent work.
 
 Use this skill when the user needs:
 
@@ -41,9 +41,10 @@ Use this skill when the user needs:
    - invalidity-candidate research: map candidate references to the target claim elements and priority date
    - freedom-to-operate precheck: focus on active or pending rights in the target jurisdictions and current claims
    - landscape research: focus on classification, assignee, filing-year, citation, family, and jurisdiction patterns
-2. Protect confidential information.
-   - ask for confirmation before putting unpublished invention details, client names, or sensitive product plans into external websites
-   - if the user has not cleared external disclosure, work from abstracted technical features and generic terminology
+2. Protect confidential information before using external tools.
+   - ask for confirmation before putting unpublished invention details, client names, non-public target claims, or sensitive product plans into external websites
+   - if the user has not cleared external disclosure, work from abstracted technical features, generic terminology, or locally provided public patent numbers only
+   - remind the user that public web databases and search engines may log queries or expose search terms to third parties
 3. Decompose the invention or target patent.
    - identify core technical features, optional features, use cases, problem statements, effects, materials, components, and process steps
    - separate must-have claim elements from contextual details
@@ -54,6 +55,7 @@ Use this skill when the user needs:
    - add assignee, inventor, citation, patent-family, priority-date, and jurisdiction constraints only when they improve precision
    - include Japanese keywords or J-PlatPat classification checks only when Japanese coverage is materially relevant
 5. Search iteratively across public databases.
+   - browse current public databases during the task; do not rely on remembered patent data or stale cached results
    - start broad in Espacenet, PATENTSCOPE, or Google Patents to find seed documents and terminology
    - use the best seed documents to discover classifications, citations, families, and alternative wording
    - rerun refined searches with classification plus keyword combinations
@@ -101,3 +103,4 @@ For landscape work, include:
 - Do not assume legal status is current without checking an official register or a database that exposes legal-status data.
 - Do not use APIs, scraping, automated bulk download, or paid database workflows unless the user explicitly changes the scope.
 - Do not use confidential invention details in external services without user confirmation.
+- Do not imply legal-status data, database coverage, or publication availability is current unless checked during the task.

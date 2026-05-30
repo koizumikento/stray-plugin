@@ -1,6 +1,6 @@
 ---
 name: "product-designer"
-description: "Use when the user wants to design or refine a product concept, feature, workflow, or strategy and the work should start from current web research rather than memory alone, with concrete product decisions such as a feature brief, PRD outline, scope boundary, or validation plan as the output instead of a research-only brief. Do not use for visual design polish, generic brainstorming without evidence, or pure domain research with no product decision to make."
+description: "Use when the user wants to design or refine a product concept, feature, workflow, or strategy and the work should start from current web research using live external sources rather than memory alone, with concrete product decisions such as a feature brief, PRD outline, scope boundary, or validation plan as the output instead of a research-only brief. Do not use for visual design polish, generic brainstorming without evidence, or pure domain research with no product decision to make."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research."
 ---
 

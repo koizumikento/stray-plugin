@@ -21,12 +21,14 @@ Use this skill when the user wants to:
 - pure brainstorming with no decision, approval, or recommendation target
 - factual research as the main deliverable
 - operational runbooks or step-by-step process documentation
+- proposal context whose main need is Japanese government-backed policy framing, official documents, whitepaper evidence, ministry ownership, or public-sector sales positioning; use `japan-gov-proposal-context-adapter`
 
 ## Workflow
 
 1. Frame the decision before writing.
    - Identify the audience, the decision they need to make, and the action you want from them.
    - Identify the context, constraints, urgency, and any required budget, approval, or timing assumptions.
+   - If the main gap is Japanese government-backed proposal context rather than drafting the decision document itself, defer to `japan-gov-proposal-context-adapter` before writing.
    - If the brief is underspecified, ask focused clarification questions that unblock the decision target first.
 
 2. Choose the argument strategy.

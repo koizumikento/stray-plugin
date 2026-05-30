@@ -31,7 +31,10 @@ Use this skill when the user asks:
 5. Record traceability.
    - Append `manifest.jsonl` records with official URL, local path, hash, size, title, ministry, year, and reason.
    - Add or update `tmp/japan-govdocs/sources/whitepaper-index.json` when a reusable route is learned.
-6. Return a concise cache report.
+6. Validate cache records when the user asks to inspect, repair, or confirm the cache.
+   - Prefer `uv run python plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py tmp/japan-govdocs`; fall back to the repo's established Python runner when needed.
+   - Treat validation failures as cache hygiene issues, not source-truth failures; re-check official landing pages before recaching.
+7. Return a concise cache report.
    - Say what was cached, what was only indexed, what was skipped, and why.
 
 ## Output Expectations

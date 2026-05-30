@@ -17,6 +17,9 @@ Use this skill when the user asks:
 
 1. Define the theme and what "priority" means for the user's use case.
 2. Check latest whitepapers and relevant ministry policy pages.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
 3. Compare with the previous edition when emphasis change matters.
 4. Look for signals: dedicated sections, repeated terms, new measures, budget or program mentions, KPI language, council plans, or cross-ministry recurrence.
 5. Separate confirmed priority signals from inference.

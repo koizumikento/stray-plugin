@@ -21,6 +21,9 @@ Use this skill when the user asks:
    - e-Stat or statistics pages for raw numerical values.
    - Laws or guidance for obligations and procedures.
 3. Start from official landing pages and route maps.
+   - Follow official URL roles in `../../references/official-url-model.md`.
+   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
+   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
 4. Default to latest editions unless the claim requires a specific time point.
 5. Read only the sections needed for each claim.
 6. Mark claims that are weakly supported or need non-whitepaper sources.

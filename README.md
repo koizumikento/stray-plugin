@@ -1,8 +1,8 @@
 # Stray Plugin Suite
 
-Repo-local Codex plugin family for skill operations, research workflows, delivery/artifact production, and Japan government document work.
+Repo-local Codex plugin family for skill operations, research workflows, delivery/artifact production, robotics software, and Japan government document work.
 
-The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stray-suite`. It currently exposes four local plugins:
+The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stray-suite`. It currently exposes five local plugins:
 
 | Plugin | Root | Purpose |
 |---|---|---|
@@ -10,6 +10,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, and API terms checks. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
+| Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
 
 ## Repository Layout
 
@@ -28,6 +29,9 @@ plugins/
   stray-japan-govdocs/
     .codex-plugin/plugin.json
     references/
+    skills/
+  stray-robotics/
+    .codex-plugin/plugin.json
     skills/
 AGENTS.md
 README.md
@@ -140,6 +144,14 @@ Shared references live at `plugins/stray-japan-govdocs/references/`:
 Temporary document caches should be kept under `tmp/japan-govdocs/`. The repository ignores `tmp/`.
 Cache validation support lives at `plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py`.
 
+### Stray Robotics
+
+`plugins/stray-robotics/` owns ROS 2-first robotics software development workflows, with explicit safety boundaries for live hardware and networked robots.
+
+| Skill | Use for |
+|---|---|
+| `ros2-development` | Creating, modifying, debugging, testing, containerizing, or CI-enabling ROS 2 workspaces, packages, nodes, launch files, interfaces, simulations, and robot integrations. |
+
 ## Maintenance
 
 When adding or materially broadening a user-facing skill:
@@ -157,6 +169,7 @@ json.load(open('plugins/stray-skillops/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-research/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-studio/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-japan-govdocs/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-robotics/.codex-plugin/plugin.json'))
 print('json-ok')
 PY
 ```

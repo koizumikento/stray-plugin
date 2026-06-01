@@ -9,10 +9,12 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
 - Research plugin root: `plugins/stray-research/`
 - Studio plugin root: `plugins/stray-studio/`
 - Japan gov docs plugin root: `plugins/stray-japan-govdocs/`
+- Robotics plugin root: `plugins/stray-robotics/`
 - Skill ops manifest: `plugins/stray-skillops/.codex-plugin/plugin.json`
 - Research manifest: `plugins/stray-research/.codex-plugin/plugin.json`
 - Studio manifest: `plugins/stray-studio/.codex-plugin/plugin.json`
 - Japan gov docs manifest: `plugins/stray-japan-govdocs/.codex-plugin/plugin.json`
+- Robotics manifest: `plugins/stray-robotics/.codex-plugin/plugin.json`
 - Existing skill authoring helper: `plugins/stray-skillops/skills/agent-skill-creater/`
 
 ## Working Rules
@@ -21,7 +23,8 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
   `plugins/stray-skillops/` for skill authoring, review, eval, and subagent operations,
   `plugins/stray-research/` for research and analysis,
   `plugins/stray-studio/` for delivery and artifact production,
-  `plugins/stray-japan-govdocs/` for Japanese government whitepaper and official-document workflows.
+  `plugins/stray-japan-govdocs/` for Japanese government whitepaper and official-document workflows,
+  `plugins/stray-robotics/` for robotics software and ROS 2 development workflows.
 - Do not add `-local` suffixes to marketplace or plugin names unless explicitly requested.
 - Keep changes repo-local and versioned. Do not rely on undocumented external context as the source of truth.
 - Put new skills under the matching plugin root as `plugins/<plugin-name>/skills/<skill-name>/`.
@@ -49,6 +52,7 @@ json.load(open('plugins/stray-skillops/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-research/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-studio/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-japan-govdocs/.codex-plugin/plugin.json'))
+json.load(open('plugins/stray-robotics/.codex-plugin/plugin.json'))
 print('json-ok')
 PY`
 - Confirm any new skill is placed under `plugins/*/skills/` and not inside `.codex-plugin/`.

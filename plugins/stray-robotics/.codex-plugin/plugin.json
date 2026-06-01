@@ -1,0 +1,25 @@
+{
+  "name": "stray-robotics",
+  "version": "0.1.0",
+  "description": "Repo-local Codex plugin for ROS 2-first robotics software development.",
+  "author": {
+    "name": "Local Workspace"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Stray Robotics",
+    "shortDescription": "Build, debug, test, and operate robotics software workflows with ROS 2-first safety boundaries.",
+    "longDescription": "A repo-local Codex plugin for robotics software development. It helps agents create, modify, debug, test, containerize, and CI-enable ROS 2 workspaces, packages, nodes, launch files, interfaces, simulations, and robot application integrations while keeping live hardware, actuators, networked robots, and specialized robotics stacks behind explicit safety and scope checks.",
+    "developerName": "Local Workspace",
+    "category": "Developer Tools",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Create or modify a ROS 2 workspace, package, node, launch file, or interface.",
+      "Debug a ROS 2 graph using nodes, topics, services, actions, parameters, QoS, tf2, and rosbag evidence.",
+      "Add ROS 2 build, test, rosdep, Docker, devcontainer, or CI support.",
+      "Plan a ROS 2 simulation or visualization workflow with Gazebo, RViz, launch files, and bag data.",
+      "Review ROS 2 hardware-operation safety boundaries before running robot-affecting commands."
+    ],
+    "brandColor": "#059669"
+  }
+}

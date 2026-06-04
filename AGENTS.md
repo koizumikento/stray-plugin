@@ -22,7 +22,7 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
 - Treat the repository as a small plugin family:
   `plugins/stray-skillops/` for skill authoring, review, eval, and subagent operations,
   `plugins/stray-research/` for research and analysis,
-  `plugins/stray-studio/` for delivery and artifact production,
+  `plugins/stray-studio/` for delivery, review, security preflight, and artifact production,
   `plugins/stray-japan-govdocs/` for Japanese government whitepaper and official-document workflows,
   `plugins/stray-robotics/` for robotics software and ROS 2 development workflows.
 - Do not add `-local` suffixes to marketplace or plugin names unless explicitly requested.

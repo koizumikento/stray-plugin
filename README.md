@@ -8,7 +8,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, evaluate, and operate Codex skills and subagents. |
 | Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, and API terms checks. |
-| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
+| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, Slack apps, security preflights, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
 
@@ -87,14 +87,16 @@ Notable support files:
 
 ### Stray Studio
 
-`plugins/stray-studio/` owns delivery and artifact production. It is execution-oriented: build the thing, review the change, or produce the usable artifact.
+`plugins/stray-studio/` owns delivery, review, security preflight, and artifact production. It is execution-oriented: build the thing, review the change, or produce the usable artifact.
 
 | Skill | Use for |
 |---|---|
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
+| `slack-app-builder` | Planning, building, validating, installing, deploying, or debugging Slack apps with Slack CLI, manifests, Bolt, Deno Slack SDK, events, workflows, and Web API calls. |
 | `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
 | `reviewer` | Reviewing code, skills, artifacts, docs, UI, validation plans, release/compliance readiness, and plugin skill sets. |
+| `security-preflight` | Running security-focused preflights for repositories, diffs, CI/CD workflows, dependencies, secrets, IaC, containers, and release surfaces before shipping. |
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
 | `brand-designer` | Defining or refining brand identity, visual principles, tone guidance, and mini style guides. |
 | `article-writer` | Drafting or revising publishable articles, blog posts, newsletters, or editorial pieces. |
@@ -110,6 +112,8 @@ Notable support files:
 - `plugins/stray-studio/skills/article-writer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/references/`
+- `plugins/stray-studio/skills/security-preflight/references/`
+- `plugins/stray-studio/skills/slack-app-builder/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
 - `plugins/stray-studio/skills/landing-page-builder/references/`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`

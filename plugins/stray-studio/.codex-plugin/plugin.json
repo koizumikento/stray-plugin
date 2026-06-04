@@ -6,11 +6,12 @@
   "interface": {
     "displayName": "Stray Studio",
     "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
-    "longDescription": "A repo-local Codex plugin for execution, review, and artifact production. It helps agents build or modify full-stack applications, create corporate websites and landing pages, run findings-first reviews of code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, and repository compliance, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, produce polished screenshots or Slack-friendly GIFs, and create production-oriented pixel-art assets such as sprites, icons, item sheets, and tilesets.",
+    "longDescription": "A repo-local Codex plugin for execution, review, and artifact production. It helps agents build or modify full-stack applications, build and deploy Slack apps with path-specific guidance for Slack CLI workflows, app manifests, Bolt, Deno Slack SDK, workflows, events, and Slack Web API integrations, create corporate websites and landing pages, run findings-first reviews of code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, and repository compliance, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, produce polished screenshots or Slack-friendly GIFs, and create production-oriented pixel-art assets such as sprites, icons, item sheets, and tilesets.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
       "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
+      "Build, modify, validate, install, or deploy a Slack app using the Slack CLI, app manifests, Bolt, events, slash commands, workflows, or Slack Web API calls.",
       "Create or revise a corporate website with company information architecture, business/service pages, news, careers, IR, sustainability, trust links, and responsive implementation.",
       "Create or overhaul a landing page with conversion-focused structure, messaging, CTA flow, SEO basics, and responsive implementation.",
       "Review code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, or repository compliance with findings-first feedback.",

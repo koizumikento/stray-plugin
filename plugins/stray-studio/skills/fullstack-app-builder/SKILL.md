@@ -44,6 +44,7 @@ Load only the smallest reference needed for the task:
 - `references/typescript-javascript.md`, `references/python.md`, `references/go.md`, or `references/rust.md`: ecosystem-specific validation and runtime defaults.
 - `references/application-architecture.md`: structure decisions such as layered modular monolith, Clean Architecture, BFF, CQRS, async boundaries, or bounded contexts.
 - `references/observability.md`: logs, traces, metrics, crash signals, analytics, or audit events.
+- `references/logging.md`: application logs, audit logs, background-job logs, integration logs, correlation fields, log levels, sensitive-data handling, cardinality, or incident diagnostics.
 
 Do not let a reference override clear repository conventions.
 
@@ -54,6 +55,7 @@ Do not let a reference override clear repository conventions.
    - Load the relevant surface and ecosystem references when stack-specific defaults matter.
    - Load the architecture reference when deciding layer shape, BFF use, async boundaries, read versus write separation, or monolith boundaries.
    - Load the observability reference when the flow needs new or revised logs, traces, metrics, crash signals, or audit events.
+   - Load the logging reference when the flow needs new or revised application logs, audit logs, retry or background-job logs, external integration logs, or incident diagnostics.
 
 2. Follow the existing app before inventing a new one.
    - Read current screens, routes, components, handlers, data access, styling, state, platform glue, tests, and docs.

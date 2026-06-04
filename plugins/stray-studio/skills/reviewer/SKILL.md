@@ -15,6 +15,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
 - Building, writing, or redesigning an artifact from scratch
 - General debugging without an explicit review request
 - Broad brainstorming or strategy work that is not grounded in a concrete artifact
+- Dedicated security preflights for repositories, diffs, CI/CD, dependencies, IaC, containers, secrets, or release surfaces; use `security-preflight`
 - Negotiated legal advice, jurisdiction-specific legal interpretation, or a full dependency license audit
 
 ## Workflow
@@ -35,6 +36,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
    - produced artifacts such as decks, reports, screenshots, canvases, or demos: `references/artifact-review.md`
    - release readiness: `references/release-review.md`
    - repository publication, licensing, attribution, or distribution preflight: `references/compliance-preflight.md`
+   - security-first preflight: route to `security-preflight` instead of continuing here
 3. Review for substantive risk first:
    - correctness, regression, security, safety, compliance, routing, usability, maintainability, or release risk depending on the artifact
    - missing tests, missing evidence, unclear acceptance criteria, misleading docs, weak boundaries, or stale discovery metadata
@@ -70,6 +72,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
 - Do not bury high-risk findings under minor wording or style comments.
 - Do not claim complete legal compliance, complete security coverage, or exhaustive test coverage.
 - Do not replace specialized creation skills. Route implementation follow-up to the relevant builder, writer, skill authoring, or research skill.
+- Do not absorb dedicated security preflight work when `security-preflight` owns the requested review.
 - Do not load every reference by default. Use only the references that match the review target.
 
 ## Reference

@@ -6,7 +6,7 @@
   "interface": {
     "displayName": "Stray Research",
     "shortDescription": "Research and analysis plugin for current, source-backed investigation and decision support.",
-    "longDescription": "A repo-local Codex plugin for research-heavy workflows. It helps agents investigate current topics on the web, distill pages, study specialized domains, compare idea directions, shape product decisions from external evidence, plan MCP servers, summarize Japan news, triage GitHub maintenance work, conduct public-web global patent research, and check practical API or SaaS terms before teams commit to a direction.",
+    "longDescription": "A repo-local Codex plugin for research-heavy workflows. It helps agents investigate current topics on the web, distill pages, study specialized domains, compare idea directions, shape product decisions from external evidence, plan MCP servers, summarize Japan news, triage GitHub maintenance work, conduct public-web global patent research, check practical API or SaaS terms before teams commit to a direction, and analyze Japanese horse racing races with official, licensed, or user-provided data while avoiding prohibited scraping, guaranteed-profit claims, and automated wagering.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -19,7 +19,8 @@
       "Summarize the latest Japanese news in a fixed brief format using current web sources.",
       "Triage GitHub maintenance work and recommend the next actions.",
       "Plan or conduct a public-web global patent research workflow with cautious, source-backed findings.",
-      "Check the current terms or usage restrictions for an API or SaaS before integrating or shipping it."
+      "Check the current terms or usage restrictions for an API or SaaS before integrating or shipping it.",
+      "Analyze a Japanese horse racing race using official, licensed, or user-provided data, with probability ranges, value checks, risk notes, and no automated wagering."
     ],
     "brandColor": "#0F766E"
   }

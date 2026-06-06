@@ -1,0 +1,4 @@
+interface:
+  display_name: "Keiba Yosou Agent"
+  short_description: "Analyze Japanese horse racing races with value and risk checks."
+  default_prompt: "Use $keiba-yosou-agent to analyze a Japanese horse racing race from official, licensed, or user-provided data with probability ranges, value checks, and risk notes."

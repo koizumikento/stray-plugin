@@ -7,7 +7,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Plugin | Root | Purpose |
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, evaluate, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, and API terms checks. |
+| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, API terms checks, and Japanese horse racing analysis. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, Slack apps, security preflights, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
@@ -63,7 +63,7 @@ Notable support files:
 
 ### Stray Research
 
-`plugins/stray-research/` owns current research, decision support, patent research, and preflight checks. Skills that depend on current facts generally require internet or browser access.
+`plugins/stray-research/` owns current research, decision support, patent research, horse racing analysis, and preflight checks. Skills that depend on current facts generally require internet or browser access.
 
 | Skill | Use for |
 |---|---|
@@ -77,6 +77,7 @@ Notable support files:
 | `github-maintainer` | Read-first triage of GitHub issues and PRs with recommended next maintainer actions. |
 | `global-patent-researcher` | Planning or conducting public-web global patent research for prior art, novelty, invalidity candidates, FTO prechecks, or landscapes. Not legal advice. |
 | `api-terms-checker` | Checking current practical usage restrictions for third-party APIs or SaaS terms. Not legal advice. |
+| `keiba-yosou-agent` | Analyzing Japanese horse racing races from official, licensed, or user-provided data with probability ranges, value checks, ticket-structure caveats, and responsible-use guardrails. |
 
 Notable support files:
 
@@ -84,6 +85,7 @@ Notable support files:
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`
 - `plugins/stray-research/skills/japan-news-brief/references/` contains the news source guide and fixed output format.
+- `plugins/stray-research/skills/keiba-yosou-agent/references/` contains source, analysis, betting-structure, and output-format guides.
 
 ### Stray Studio
 

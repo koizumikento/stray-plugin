@@ -110,12 +110,21 @@ Keep wording non-guaranteed. Prefer "candidate" and "condition" over "recommenda
 - Closing odds:
 - Tickets considered:
 - Actual outcome:
+- P/L:
 
 ## What Was Right
 - 
 
 ## What Was Wrong
 - 
+
+## Miss Classification
+- Anchor:
+- Missing winner:
+- Missing place/show partner:
+- Pace script:
+- Market/value read:
+- Ticket construction:
 
 ## Data/Process Notes
 - Late changes:
@@ -124,8 +133,14 @@ Keep wording non-guaranteed. Prefer "candidate" and "condition" over "recommenda
 - Ticket structure issue:
 - トリガミ or combination issue:
 
+## Minimal Fix
+- Smallest ticket change that would have caught the result:
+- Whether that change was justified before the race:
+- What should change next time:
+
 ## Next Adjustment
 - 
 ```
 
 Review the decision process, not just hit/miss. Track whether 見送り conditions and odds thresholds were respected.
+Do not rewrite history. Separate "knowable before the race" mistakes from random outcome variance.

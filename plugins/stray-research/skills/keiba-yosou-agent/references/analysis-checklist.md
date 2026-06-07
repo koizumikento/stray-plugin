@@ -39,6 +39,18 @@ Check each contender across:
 - Pedigree: surface, distance, and going tendencies; keep this secondary unless strongly relevant
 - Market: odds, popularity, movement, and mismatch with the evidence
 
+## Pace and Scenario Audit
+
+Before final rankings or tickets, write a short scenario audit:
+
+- Expected leader and pressure: identify likely lone-speed horses, pace pressers, and whether the leader may get an uncontested trip.
+- Position map: group runners by front, stalk, midfield, and closer. Do not treat every strong horse as if it can get the same trip.
+- Track path: note whether inside, outside, front, or closing paths appear advantaged from the day's races or reported going.
+- Alternate script: name at least one credible scenario that contradicts the main thesis, such as slow pace/front hold, fast pace/closer collapse, rain-softened stamina test, or boxed-in favorite.
+- Surprise candidate: identify any horse outside the top market group that benefits strongly from the alternate script.
+
+If the final ticket cannot win under any plausible alternate script, state that explicitly instead of hiding the concentration risk.
+
 ## Fact vs Inference
 
 Write facts as sourced observations:
@@ -70,8 +82,20 @@ Before suggesting a candidate:
 - Did odds collapse after the initial analysis?
 - Are scratches, jockey changes, body weight, weather, and going rechecked?
 - Is the conclusion still valid if the main pace assumption is wrong?
+- Is a lightly regarded horse being dismissed only because of recent finishing position, despite having a favorable draw, pace role, jockey change, or course fit?
+- Are heavily bet G2/G3 winners being upgraded too much without proof they can reproduce the performance at G1 pace?
 
 Recommend 見送り when these checks fail.
+
+## Miss-Prevention Questions
+
+Ask these before finalizing a 1000-3000 yen style small-budget ticket:
+
+- If the anchor runs into the money but the ticket still loses, which missing partner caused the failure?
+- Is the ticket overconcentrated on one favorite pair or one race script?
+- Is there one cheap coverage line that protects the most credible alternate script?
+- Would adding that line create too much dilution, or is it worth replacing a low-value favorite combination?
+- Are all selected partners there for distinct reasons, or are multiple tickets expressing the same fragile opinion?
 
 ## Confidence Labels
 

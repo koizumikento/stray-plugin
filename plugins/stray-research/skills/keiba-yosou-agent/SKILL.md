@@ -36,6 +36,7 @@ Analyze Japanese horse racing races with a cautious, evidence-first posture. Pro
 4. Analyze contenders.
    - Evaluate race conditions, recent performance, pace, surface/distance fit, draw, weight, jockey/trainer changes, condition, and late-breaking updates.
    - Separate observed facts from inference.
+   - Identify the main race script and at least one credible alternative script, especially lone-speed, inside-trip, pace-collapse, or rain/track-bias outcomes.
 5. Separate subjective probability from market probability.
    - Convert odds to market-implied probabilities when useful.
    - Use cautious probability ranges or tiers; avoid false precision.
@@ -45,6 +46,7 @@ Analyze Japanese horse racing races with a cautious, evidence-first posture. Pro
 7. Discuss tickets only when requested.
    - Match the wager type to the prediction hypothesis.
    - Count combinations before suggesting any box, wheel, multi, formation, trifecta, or WIN5 structure.
+   - Run a coverage sanity check: list the plausible result shape that would make the ticket miss, and decide whether to cover it, accept it, or reduce the ticket.
    - Flag high variance, stale odds, and トリガミ risk.
 8. Output with source hygiene.
    - Include source names, timestamps, confidence level, data gaps, recheck timing, and a concise responsible-use note.

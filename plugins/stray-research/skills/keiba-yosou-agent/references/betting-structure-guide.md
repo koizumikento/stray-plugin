@@ -47,6 +47,29 @@ Use these as risk context. Lower payout-rate, higher-complexity tickets require 
 - Wide third-place uncertainty: prefer 3連複 or a formation that widens only the third layer.
 - No value: do not change ticket type to force action; recommend 見送り.
 
+## Coverage Sanity Check
+
+Run this check before finalizing tickets:
+
+1. State the main payoff path.
+   - Example: "anchor horse finishes in the top three and one of two value partners also places."
+2. State the most credible miss path.
+   - Example: "anchor places, but a lone leader or inside-trip horse holds second/third instead of the selected partners."
+3. Decide whether to cover, accept, or reduce.
+   - Cover when one added low-cost line protects a clearly plausible alternate script.
+   - Accept when covering would dilute the thesis too much or create mostly low-value tickets.
+   - Reduce when the ticket is just many versions of the same fragile opinion.
+
+For small budgets, prefer replacing the weakest low-value favorite line with one alternate-script coverage line over adding more total combinations.
+
+## Partner Selection Rules
+
+- Include partners for distinct reasons: main ability, pace role, draw/trip, course fit, market value, or late condition signal.
+- Avoid selecting multiple partners that all need the same race shape while ignoring the likely leader or best inside-trip horse.
+- Do not exclude a horse solely because it is not in the top five of the market if it owns a clear pace advantage.
+- Do not keep a horse solely because it is popular or won a recent G2/G3; ask whether the same trip is likely in today's G1.
+- If the anchor is a short favorite, the partner side should carry the value thesis. Low-value favorite-favorite tickets should be capped or removed.
+
 ## Combination Discipline
 
 Always count combinations before presenting ticket candidates.
@@ -65,6 +88,8 @@ For formations, count unique valid combinations. Remove duplicates, impossible r
 - Do not provide stake amounts unless the user explicitly asks.
 - If asked, first ask or state assumptions for entertainment budget, loss limit, one-race limit, and one-day limit.
 - Prefer flat, reviewable units for learning and post-race evaluation.
+- For 1000 yen budgets, keep the structure simple enough to review: usually 3-6 tickets, with each ticket tied to a named thesis.
+- Do not spend the whole budget on an anchor plus several similar closers if a cheap pace-risk cover is available.
 - Treat Kelly-style sizing only as a fragile reference calculation; probability error can make it dangerous.
 - Do not recommend martingale, chasing losses, doubling after losses, or "recover today" systems.
 

@@ -13,6 +13,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
 
 - Implementing requested fixes before presenting the review
 - Building, writing, or redesigning an artifact from scratch
+- Creating a new software test strategy, test matrix, QA plan, regression scope, or release checklist from scratch; use `test-design-strategist`
 - General debugging without an explicit review request
 - Broad brainstorming or strategy work that is not grounded in a concrete artifact
 - Dedicated security preflights for repositories, diffs, CI/CD, dependencies, IaC, containers, secrets, or release surfaces; use `security-preflight`

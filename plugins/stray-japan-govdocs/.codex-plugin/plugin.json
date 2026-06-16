@@ -5,8 +5,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Japan Gov Docs",
-    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, budget, case, chart-data, citation, cache, and whitepaper workflows.",
-    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers and official policy documents. It helps agents handle natural Japanese or English user instructions such as background research, official evidence finding, priority checks, ministry owner mapping, proposal context adaptation, citation audits, KPI discovery, budget and administrative-review tracing, official case finding, chart-data tracing, temporary cache management for government PDFs/HTML, and direct whitepaper briefs while using conservative official-route and temporary-download policies.",
+    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, Project LINKS data, budget, case, chart-data, citation, cache, and whitepaper workflows.",
+    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers, official policy documents, and selected government open datasets. It helps agents handle natural Japanese or English user instructions such as background research, official evidence finding, priority checks, ministry owner mapping, proposal context adaptation, citation audits, KPI discovery, MLIT Project LINKS dataset inventory and analysis, budget and administrative-review tracing, official case finding, chart-data tracing, temporary cache management for government PDFs/HTML/spreadsheets, and direct whitepaper briefs while using conservative official-route and temporary-download policies.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -18,6 +18,7 @@
       "Adapt a business idea or service into proposal-ready government context without overstating support.",
       "Audit whether existing whitepaper or government-document citations are official, current, and correctly described.",
       "Find KPI candidates, measurable indicators, and official statistics for a Japan policy or social issue.",
+      "Inventory, inspect, download, profile, or analyze MLIT Project LINKS datasets from G-Spatial Information Center with source and quality cautions.",
       "Trace a policy issue to budget programs, administrative review sheets, and funding signals.",
       "Find official case examples from Japanese whitepapers and government documents.",
       "Trace a whitepaper chart or statistic back to source data where possible.",

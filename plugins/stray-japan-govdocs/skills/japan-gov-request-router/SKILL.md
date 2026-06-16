@@ -30,6 +30,8 @@ Do not use this router when the user's action is already clear. In those cases i
 - 背景/社会背景/課題背景 -> `japan-gov-background-builder`
 - proposal/企画書/営業資料/官公庁向け wording -> `japan-gov-proposal-context-adapter`
 - Project LINKS/G空間LINKS/geospatial.jp `sosei-joho` dataset inventory, inspection, download, profiling, or analysis -> `japan-gov-project-links-data-analyst`
+- e-Stat/政府統計/statsDataId/統計表の検索・取得・分析 -> `japan-gov-estat-data-analyst`
+- 不動産情報ライブラリ/地価/取引価格/都市計画/周辺施設/災害リスク -> `japan-real-estate-info-library-analyst`
 
 ## Routing
 
@@ -48,6 +50,8 @@ Do not use this router when the user's action is already clear. In those cases i
    - named whitepaper or chapter to read directly -> `japan-whitepaper-brief`
    - named whitepaper used only as one source for proposal wording -> `japan-gov-proposal-context-adapter`
    - Project LINKS, G空間LINKS, `geospatial.jp/ckan/organization/sosei-joho`, 国交省LINKSデータの一覧化/分析 -> `japan-gov-project-links-data-analyst`
+   - e-Stat, 政府統計, statsDataId, 統計表の検索/メタ情報/データ取得/分析 -> `japan-gov-estat-data-analyst`
+   - 不動産情報ライブラリ, reinfolib, 地価, 取引価格, 用途地域, 都市計画, 周辺施設, 災害リスク -> `japan-real-estate-info-library-analyst`
 2. Preserve edition constraints.
    - If no year or period is specified, use the latest official edition by default.
    - If a year, era year, or comparison period is specified, pass that constraint through.

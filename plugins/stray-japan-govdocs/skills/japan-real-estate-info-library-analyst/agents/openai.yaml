@@ -1,0 +1,7 @@
+interface:
+  display_name: "Japan Real Estate Info Library Analyst"
+  short_description: "Retrieve and analyze MLIT real estate, land price, planning, facility, and risk data through reinfolib-mcp."
+  default_prompt: "Use the Real Estate Information Library MCP to retrieve official data for this location, then summarize findings with geography, layers, dates, and interpretation limits."
+dependencies:
+  tools:
+    - "reinfolib-mcp"

@@ -22,6 +22,7 @@ Use this skill when the user asks:
    - Start from official landing pages and URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
+   - When the task requires actual e-Stat table search, metadata inspection, or data extraction, hand off to `japan-gov-estat-data-analyst`.
 3. Separate outcome indicators, output indicators, proxy indicators, and context indicators.
 4. Record data source, update frequency, geography, time lag, and limitations.
 5. Explain how each indicator can and cannot be used.

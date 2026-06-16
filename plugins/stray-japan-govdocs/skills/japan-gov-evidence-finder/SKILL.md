@@ -20,6 +20,7 @@ Use this skill when the user asks:
    - Whitepapers for official framing and longitudinal trends.
    - e-Stat or statistics pages for raw numerical values.
    - Laws or guidance for obligations and procedures.
+   - Use `japan-gov-estat-data-analyst` when the claim needs e-Stat table discovery, metadata inspection, or retrieved numeric data.
 3. Start from official landing pages and route maps.
    - Follow official URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.

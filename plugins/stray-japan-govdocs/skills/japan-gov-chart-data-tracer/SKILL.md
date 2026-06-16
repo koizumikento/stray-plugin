@@ -23,6 +23,7 @@ Use this skill when the user asks:
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
 3. Search e-Stat or ministry statistics pages when the source note names an official survey.
+   - When the source data is an e-Stat table and the user needs retrieval or reanalysis, hand off to `japan-gov-estat-data-analyst`.
 4. Distinguish original data, reproduced table, processed estimate, and commissioned survey.
 5. Return retrievable data links and limitations.
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deep Researcher"
+  short_description: "Produce long-form, source-backed research reports with evidence synthesis."
+  default_prompt: "Use $deep-researcher to plan and conduct deep research, optionally splitting independent research tracks across subagents, then return a documented report with sources, caveats, and uncertainty."

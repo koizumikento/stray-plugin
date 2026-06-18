@@ -1,16 +1,17 @@
 {
   "name": "stray-research",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Repo-local Codex plugin for research, analysis, product direction, and terms checks.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Research",
     "shortDescription": "Research and analysis plugin for current, source-backed investigation and decision support.",
-    "longDescription": "A repo-local Codex plugin for research-heavy workflows. It helps agents investigate current topics on the web, distill pages, study specialized domains, compare idea directions, shape product decisions from external evidence, plan MCP servers, summarize Japan news, retrieve JMA weather observations and forecasts, research Japanese companies through gBizINFO, triage GitHub maintenance work, conduct public-web global patent research, check practical API or SaaS terms before teams commit to a direction, and analyze Japanese horse racing races with official, licensed, or user-provided data while avoiding prohibited scraping, guaranteed-profit claims, and automated wagering.",
+    "longDescription": "A repo-local Codex plugin for research-heavy workflows. It helps agents investigate current topics on the web, produce long-form deep research reports with optional subagent track delegation, distill pages, study specialized domains, compare idea directions, shape product decisions from external evidence, plan MCP servers, summarize Japan news, retrieve JMA weather observations and forecasts, research Japanese companies through gBizINFO, triage GitHub maintenance work, conduct public-web global patent research, check practical API or SaaS terms before teams commit to a direction, and analyze Japanese horse racing races with official, licensed, or user-provided data while avoiding prohibited scraping, guaranteed-profit claims, and automated wagering.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
       "Research a current topic on the web and return a concise sourced brief.",
+      "Plan and conduct deep research, optionally splitting independent tracks across subagents, then return a documented report with sources, caveats, and uncertainty.",
       "Extract the useful content from a web page and turn it into clean markdown.",
       "Investigate a specialized technical, regulatory, market, or academic topic and return a concise sourced brief.",
       "Generate research-backed ideas or option sets using current web signals before choosing a direction.",

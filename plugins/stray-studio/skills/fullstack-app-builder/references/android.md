@@ -10,7 +10,7 @@ Use this reference when the primary user-facing surface is Android, when adding 
    - Android Studio, Gradle, Android Gradle Plugin, Kotlin, Compose compiler, and dependency management setup
    - navigation, state holder, lifecycle, dependency injection, persistence, networking, background work, permissions, deep links, notifications, testing, signing, and release pipeline
 2. Preserve the repository's established Android conventions unless the user explicitly asks for a migration.
-3. If the project uses React Native, Expo, Flutter, Kotlin Multiplatform, Compose Multiplatform, Capacitor, or Trusted Web Activity, treat Android as one platform target inside that ecosystem and follow its Android integration guidance.
+3. If the project already uses React Native, Expo, Flutter, Kotlin Multiplatform, Compose Multiplatform, Capacitor, or Trusted Web Activity, treat Android as one platform target inside that ecosystem and follow its Android integration guidance.
 
 ## New Android App Research Gate
 
@@ -22,15 +22,12 @@ Before scaffolding a new Android app, do a current ecosystem check. Avoid hardco
    - Android Studio, Gradle, Android Gradle Plugin, Kotlin, Compose compiler, and Compose BOM compatibility
    - Google Play target API, compile SDK, app bundle, signing, privacy, permissions, and policy-relevant release requirements
    - core app quality, adaptive app quality, performance, accessibility, and testing guidance
-2. Check whether the product constraints favor native Android or a cross-platform route:
-   - Native Android with Kotlin and Jetpack Compose for Android-first apps, deep platform integration, performance-sensitive flows, or teams that can maintain native code
-   - Kotlin Multiplatform or Compose Multiplatform when shared Kotlin business logic or shared UI across Android and iOS is a first-order requirement
-   - React Native or Expo when the team and codebase are React-centered and native module needs are manageable
-   - Flutter when a consistent custom UI across platforms matters more than native UI conventions
-   - Capacitor when the product is primarily a web app that needs app-store packaging and limited native capabilities
-   - Trusted Web Activity when the Android app is essentially a verified, full-screen PWA shell
-3. Prefer current stable official releases for new work unless the user explicitly accepts preview, beta, or experimental APIs.
-4. Record the sources and date used for any Android stack choice in the handoff when the choice materially affects maintenance.
+2. Limit new-app stack research to Kotlin/Compose and Flutter by default:
+   - Native Android with Kotlin and Jetpack Compose for Android-first apps, deep platform integration, performance-sensitive flows, platform-native UX, or teams that can maintain native Android code
+   - Flutter when Android and iOS parity, a consistent custom UI, single codebase delivery, or an existing Dart/Flutter team is a first-order requirement
+3. Expand beyond Kotlin/Compose and Flutter only when the user explicitly asks, the repository already uses another mobile stack, or a hard product constraint makes the default candidates unsuitable.
+4. Prefer current stable official releases for new work unless the user explicitly accepts preview, beta, or experimental APIs.
+5. Record the sources and date used for any Android stack choice in the handoff when the choice materially affects maintenance.
 
 ## Native Android Defaults
 

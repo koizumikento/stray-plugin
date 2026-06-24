@@ -65,22 +65,27 @@ Use this skill when the user wants to plan what to test and why before implement
    - For each material case, include objective, preconditions, input or action, expected result, priority, level/type, design technique, automation fit, and risk covered.
    - Keep cases discriminating; avoid many near-duplicates that do not increase risk coverage.
 
-6. Define data, oracle, and environment needs.
+6. Run an adversarial coverage pass.
+   - Before finalizing cases, pressure-test the design with failure-seeking viewpoints so the output does not drift toward happy paths.
+   - Consider first-time user confusion, expert or high-speed operation, malicious or invalid input, data integrity behind the UI or API, migration or legacy data, regression around neighboring behavior, and skepticism toward implementation-as-specification.
+   - Add only viewpoints that are grounded in the target's test basis, risk, state, data, interface, or oracle. Mark unknowns as verification needs instead of inventing expected behavior.
+
+7. Define data, oracle, and environment needs.
    - Specify required fixtures, personas, roles, permissions, records, external service states, clocks, locales, devices, browsers, network conditions, and production-like data constraints.
    - Identify the test oracle: exact expected output, invariant, schema, business rule, audit event, metric, log, visual state, or human judgment.
    - Mark data that must be synthetic, anonymized, resettable, or protected.
 
-7. Decide execution and automation strategy.
+8. Decide execution and automation strategy.
    - Mark each area as automate now, automate later, manual scripted, exploratory, monitor-only, or out of scope.
    - Prefer automation for deterministic, repeated, high-risk, regression-prone behavior.
    - Prefer manual or exploratory testing for ambiguous UX, one-off migration rehearsal, visual judgment, early discovery, or unstable requirements.
 
-8. Define coverage and exit criteria.
+9. Define coverage and exit criteria.
    - Tie coverage to risks, requirements, states, branches, APIs, roles, data partitions, devices, or quality attributes.
    - State release gates, smoke criteria, regression minimums, known gaps, and residual risks.
    - Call out when specialist security, accessibility, performance, legal, safety, or domain review is still required.
 
-9. Produce the artifact.
+10. Produce the artifact.
    - Use a compact matrix, checklist, cases table, risk map, release gate, or exploratory charter according to the user's need.
    - Lead with the highest-risk coverage and the decisions needed next.
    - Include assumptions and unresolved questions at the end.
@@ -107,6 +112,7 @@ For detailed cases, prefer these fields:
 - Priority
 - Test level/type
 - Design technique
+- Test basis or evidence source
 - Automation fit
 - Risk or coverage rationale
 - Notes, assumptions, or residual risk
@@ -119,5 +125,7 @@ For detailed cases, prefer these fields:
 - Do not stop at happy paths.
 - Do not treat all tests as equal priority.
 - Do not invent facts about requirements, systems, data, or environments; mark assumptions clearly.
+- Do not invent test cases, expected results, schemas, UI behavior, legacy behavior, or data rules without a test basis; mark unknowns and verification needs explicitly.
+- Do not apply the same oracle to new-feature, regression, and migration work by default; choose the oracle from the authoritative source for that context.
 - Do not over-prescribe tooling before understanding the stack and repository conventions.
 - Do not hide the need for specialist review in security, privacy, accessibility, regulated, safety-critical, medical, legal, or financial contexts.

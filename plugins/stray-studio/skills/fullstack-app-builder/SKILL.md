@@ -30,7 +30,9 @@ Use this skill when the user wants to:
 1. Confirm the user asked for implementation, debugging, or end-to-end app change.
    - If the user says "first investigate", "first check", "first plan", "まずは", or similar, gather evidence and stop with findings or a plan until they ask to implement.
    - If the request is review-only, route to the relevant review skill.
-2. Identify the primary surface: web, mobile, desktop, or hybrid.
+2. Identify the primary surface: web, Android, iOS, mobile, desktop, or hybrid.
+   - For Android work, distinguish existing-project maintenance from new-app scaffolding before choosing tools or architecture.
+   - For new Android apps, research the current ecosystem before selecting the stack; do not rely on stale hardcoded Android tool, SDK, or library versions.
 3. Identify the existing framework, runtime, package manager, navigation model, state model, styling approach, persistence layer, auth/session model, and validation/test setup.
 4. Read the nearest `AGENTS.md`, app docs, specs, design-system docs, issues, or PR context that define the behavior.
 5. Stop or route elsewhere if the task is design-only, research-only, product strategy, marketing-only, or not about a shipped app flow.
@@ -41,6 +43,7 @@ Load only the smallest reference needed for the task:
 
 - `references/implementation-policy.md`: security, data, rollout, caching, source-of-truth, dependency, async, validation, and handoff policies for non-trivial app changes.
 - `references/web.md`, `references/mobile.md`, or `references/desktop.md`: surface-specific defaults.
+- `references/android.md`: Android-specific defaults, ecosystem research gates, native versus cross-platform selection, Gradle and release checks, emulator/device validation, and Play quality concerns.
 - `references/typescript-javascript.md`, `references/python.md`, `references/go.md`, or `references/rust.md`: ecosystem-specific validation and runtime defaults.
 - `references/application-architecture.md`: structure decisions such as layered modular monolith, Clean Architecture, BFF, CQRS, async boundaries, or bounded contexts.
 - `references/observability.md`: logs, traces, metrics, crash signals, analytics, or audit events.
@@ -53,6 +56,7 @@ Do not let a reference override clear repository conventions.
 1. Frame the user-facing change before editing.
    - Name the user flow, affected entry points, trust boundaries, data model boundaries, and backend or platform assumptions.
    - Load the relevant surface and ecosystem references when stack-specific defaults matter.
+   - Load the Android reference when the primary surface is Android, when adding an Android target to a cross-platform app, or when Android platform behavior affects the shipped flow.
    - Load the architecture reference when deciding layer shape, BFF use, async boundaries, read versus write separation, or monolith boundaries.
    - Load the observability reference when the flow needs new or revised logs, traces, metrics, crash signals, or audit events.
    - Load the logging reference when the flow needs new or revised application logs, audit logs, retry or background-job logs, external integration logs, or incident diagnostics.

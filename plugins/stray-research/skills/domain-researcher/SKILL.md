@@ -32,6 +32,8 @@ Use this skill when the user needs domain understanding before making a decision
    - official documentation, standards bodies, regulators, research papers, and first-party vendor material
    - use secondary summaries only to find leads or context, not as the final authority when a primary source exists
    - when facts may have changed, verify the current state and capture exact dates
+   - for ordinary domain briefs, aim for 3-6 strong sources across the relevant authoritative source types
+   - if the question requires more tracks, many conflicting sources, or a durable report, stop and route to `deep-researcher`
 3. Build an evidence map while reading:
    - confirmed facts with source links
    - disagreements between sources

@@ -44,6 +44,8 @@ Use this skill when the user needs screenshots for:
 4. Capture the screenshots.
    - Use the app or page state that best demonstrates the requested message.
    - Re-run captures when the framing is off, the content is cut off, or the composition is distracting.
+   - Use at most two recapture passes for framing, crop, or readability issues.
+   - If the shot still fails, stop and name the blocker: unavailable app state, missing asset, viewport constraint, text density, or need for product/UI changes.
    - Prefer repeatable capture steps over manual one-off tweaking.
 
 5. Polish only what improves clarity.

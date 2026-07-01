@@ -77,6 +77,8 @@ Collect only the details that affect the asset. Infer reasonable defaults when t
    - Load `references/qa-rules.md` before accepting generated or packaged assets.
    - Check identity consistency, frame count, silhouette readability, palette consistency, transparency readiness, target-size legibility, and forbidden artifacts.
    - Repair the smallest failing unit first: one asset, one frame, one row, then the whole sheet only when the base identity is wrong.
+   - Limit repair to at most three targeted regeneration or packaging passes.
+   - If identity drift, transparency, frame count, or readability still fails after that, stop and return the best candidate, failed QA checks, and a narrower prompt or asset-contract recommendation.
 
 7. Package and hand off.
    - Report final paths, dimensions, sheet structure, palette assumptions, background strategy, and any known tradeoffs.

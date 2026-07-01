@@ -23,6 +23,9 @@ Use this skill when the user asks:
 3. Check latest edition and whether the cited edition is intentionally historical.
 4. Compare publication year, target period, statistic reference period, and user's claim.
 5. Recommend keep, update, replace, or caveat.
+6. For each problematic citation, attempt at most one official landing-page replacement and one latest-edition replacement.
+   - If neither can be verified, mark the citation `要差し替え` and stop searching.
+   - Report the checked routes and the remaining gap.
 
 ## Output Expectations
 
@@ -30,6 +33,10 @@ Use this skill when the user asks:
 |---|---|---|---|---|
 
 Also include `最新版との差`, `公式性の確認`, and `引用時の注意`.
+
+## Validation Expectations
+
+Before final output, verify each cited source has an official landing URL, year or edition, section/table/figure location when available, and a clear source role from `../../references/official-url-model.md`. If any item cannot be verified, downgrade confidence and place it under `追加確認` rather than presenting it as confirmed evidence.
 
 ## Guardrails
 

@@ -28,6 +28,7 @@ Use this skill when the user is:
    - Identify the user task the server must support.
    - Name the primary actors, expected inputs, and expected outputs.
    - Stop if the underlying use case is unclear.
+   - Acquire MCP context before designing: target client, SDK/runtime, deployment environment, auth constraints, current official MCP docs, and any existing server code that should govern the design.
 
 2. Design for the agent first, not the raw API.
    - Prefer a small set of high-value tools over a one-to-one endpoint mirror.

@@ -55,6 +55,10 @@ Use this skill for project-scoped agent files under `.codex/agents/` and only to
    - what evidence to gather or what output to produce
    - what it must not do
    - how narrowly it should operate
+   - what context packet it must receive before starting
+   - what validation signal proves success
+   - when it must stop, escalate, or return a partial result instead of retrying
+   - the maximum number of repair attempts for repeated failures
 9. For write-capable agents, make ownership explicit in `developer_instructions`:
    - name the files, modules, or responsibility boundary they own
    - state that they are not alone in the codebase

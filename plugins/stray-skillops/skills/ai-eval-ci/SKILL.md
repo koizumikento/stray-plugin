@@ -40,7 +40,12 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
    - Fail the build when the score drops below the threshold or a required assertion fails.
    - Keep runtime and external dependencies low enough for routine CI usage.
 
-6. Document the gate.
+6. Prove the gate locally or record why it cannot be run.
+   - Run the eval locally before relying on CI when the repository supports it.
+   - Record the exact command and pass/fail result.
+   - If it fails, make at most two focused repair attempts before stopping with the failing output and next diagnostic step.
+
+7. Document the gate.
    - State what change should trigger the eval.
    - Explain how to run it locally before pushing.
    - Record where the fixtures, config, and results live.

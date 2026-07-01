@@ -25,6 +25,8 @@ Use this skill when the user asks:
    - Follow official URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
+   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage.
+   - If no official source supports the claim after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources.
 4. Default to latest editions unless the claim requires a specific time point.
 5. Read only the sections needed for each claim.
 6. Mark claims that are weakly supported or need non-whitepaper sources.
@@ -35,6 +37,10 @@ Use this skill when the user asks:
 |---|---|---|---|---|---|---|
 
 Also include `使える言い換え`, `弱い根拠`, `追加確認`, and `取得した資料`.
+
+## Validation Expectations
+
+Before final output, verify each cited source has an official landing URL, year or edition, section/table/figure location when available, and a clear source role from `../../references/official-url-model.md`. If any item cannot be verified, downgrade confidence and place it under `追加確認` rather than presenting it as confirmed evidence.
 
 ## Guardrails
 

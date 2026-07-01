@@ -150,7 +150,11 @@ Use motion only when it clarifies hierarchy, transitions, comparison, or progres
    - Run the asset audit script when images, PDFs, downloads, videos, or source-like assets were added or reorganized.
    - Run the repository's relevant lint, typecheck, tests, or build commands when available.
 
-8. Hand off clearly.
+8. Run a bounded repair loop when validation fails.
+   - Fix the smallest failing surface, then rerun only the relevant browser, build, accessibility, link, metadata, or asset check.
+   - Stop with a blocker report after three failed attempts, or when the same failure repeats twice without a new hypothesis.
+
+9. Hand off clearly.
    - Summarize the chosen corporate pattern, sitemap, key visitor routes, and trust elements.
    - List the pages or modules implemented or changed.
    - State what was validated and what remains content-dependent, compliance-dependent, or externally owned.

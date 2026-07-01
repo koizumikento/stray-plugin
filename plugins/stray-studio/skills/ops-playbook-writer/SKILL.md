@@ -51,7 +51,12 @@ Use this skill when the user wants to:
    - Keep the document modular so sections can be updated without rewriting everything.
    - Remove duplicated steps and merge overlapping instructions.
 
-6. Deliver the playbook in the requested shape.
+6. Run an operator dry-run pass.
+   - Confirm each step has an observable input or output.
+   - Confirm decision branches have criteria, escalations name an owner or placeholder, and stop conditions are testable.
+   - If a critical step cannot be verified from source material, mark it as a gap instead of smoothing it into prose.
+
+7. Deliver the playbook in the requested shape.
    - Match the requested format, such as SOP, runbook, checklist, onboarding guide, or incident playbook.
    - Include an assumptions note only when missing details affected the procedure.
    - If the source remains incomplete, state the gap clearly instead of inventing a process.

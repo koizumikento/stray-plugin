@@ -57,6 +57,10 @@ Return Japanese output with:
 - `注意点`: what the whitepaper does not prove
 - `取得した資料`: downloaded files only, with official URLs and reason
 
+## Validation Expectations
+
+Before final output, verify each cited source has an official landing URL, year or edition, section/table/figure location when available, and a clear source role from `../../references/official-url-model.md`. If any item cannot be verified, downgrade confidence and place it under `追加確認` rather than presenting it as confirmed evidence.
+
 ## Guardrails
 
 - Do not summarize an unofficial copy when official sources are available.

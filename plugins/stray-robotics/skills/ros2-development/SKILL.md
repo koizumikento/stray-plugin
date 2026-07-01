@@ -19,7 +19,9 @@ Build and debug ROS 2 software systematically from workspace shape through graph
 
 1. Confirm the task is ROS 2, not ROS 1. If the repository mixes both, identify which packages and commands are ROS 2-owned before editing.
 2. Identify the ROS 2 distribution, OS, install method, container or host runtime, target hardware or simulator, language, package type, and whether the work may affect real hardware.
-3. Check current official ROS 2 distribution status before recommending a distro. As of June 1, 2026, Lyrical Luth is the latest ROS 2 LTS release, Jazzy Jalisco and Humble Hawksbill are still supported LTS releases, Kilted Kaiju is a supported non-LTS release, and Rolling Ridley is the development distribution.
+3. Check current official ROS 2 distribution status before recommending a distro.
+   - Record the official page checked and the checked date.
+   - Treat any remembered distro status as provisional; if official documentation differs, follow the official documentation and mention the discrepancy.
 4. Stop for confirmation before any live robot, actuator, controller, motor, safety-critical network, or destructive system-install command.
 5. Route elsewhere when the real task is mechanical design, circuit design, general app work, product research, or a specialized robotics stack that deserves its own skill.
 
@@ -82,6 +84,10 @@ Load only the smallest reference needed for the task:
 - Targeted ROS 2 CLI inspection for graph, interface, parameter, QoS, or launch changes.
 - Simulator, RViz, Gazebo, or rosbag verification when the change depends on runtime graph behavior and the assets are available.
 - Explicit "hardware not verified" wording unless live robot verification was requested, approved, and performed under stated constraints.
+
+## Repair Loop Limits
+
+After a failed build, test, launch, or ROS CLI check, inspect the concrete error, make one minimal repair, and rerun the failing check. Stop after three failed repair attempts, or earlier if the next step requires live hardware, actuator access, system package changes, or user approval. Report the last command, failure summary, attempted repairs, and remaining options.
 
 ## Guardrails
 

@@ -101,7 +101,11 @@ Use this skill when the user wants to:
    - Check dynamic visuals with motion enabled and reduced motion, and confirm they do not block CTA access, readability, or mobile layout stability.
    - Run the repository's relevant lint, typecheck, tests, or build steps when they apply.
 
-10. Hand off clearly.
+10. Run a bounded repair loop when validation fails.
+   - Make the smallest targeted fix, then rerun the affected browser, build, CTA, responsive, motion, or SEO check.
+   - Stop after three failed repair attempts or two repeats of the same failure with a blocker note.
+
+11. Hand off clearly.
    - Summarize the audience, CTA, and section logic that shaped the page.
    - State the chosen proof mode and any reference-derived patterns used.
    - State the dynamic visual approach and any reduced-motion or responsive assumptions.

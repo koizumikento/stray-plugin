@@ -49,6 +49,9 @@ Use this skill when the user wants to restyle or unify an existing deliverable, 
 
 5. Check for fit and friction.
    - Look for low-contrast text, crowded spacing, mismatched fonts, and overused accent colors.
+   - Render, open, or export the changed artifact in its normal viewing path when feasible.
+   - Check representative pages, slides, or screens for clipping, contrast, broken layout, missing assets, and unchanged content structure.
+   - Report any viewer or export path that was not verified.
    - If the theme clashes with the artifact's content or format, simplify the design rather than layering on more effects.
    - Stop if the requested change would require a full redesign instead of theme application.
 
@@ -60,6 +63,7 @@ Return a concise summary that includes:
 - the main styling decisions applied
 - any assumptions made because theme files or brand assets were missing
 - the files or artifact areas changed
+- the viewer, render, or export path verified, or the path that remains unverified
 
 If no files were changed yet, explain what theme would be applied and what input is still needed.
 

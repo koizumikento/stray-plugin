@@ -58,8 +58,10 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 ## Workflow
 
 1. <First routing or scoping action.>
-2. <Main execution step.>
-3. <Validation or handoff step.>
+2. <Gather the required context explicitly: files, docs, tools, repo guidance, or external sources to inspect before acting.>
+3. <Main execution step.>
+4. <Run or name the harness validation: commands, checks, scripts, review rubric, or tool result that proves the work.>
+5. <If repair is needed, retry only N focused times; stop and report the failure artifact or escalation condition.>
 
 ## Output
 

@@ -34,6 +34,8 @@ Use this skill when the user wants to:
    - Browse before proposing any direction. Do not rely on memory alone.
    - Prioritize official product sites, vendor docs, pricing pages, launch posts, public case studies, standards, and credible primary reporting.
    - Capture exact dates for current claims, especially for product availability, pricing, policy, or competitor moves.
+   - Bound the evidence pass before synthesis: gather enough current sources to support the product decision, then stop browsing.
+   - If evidence remains thin or contradictory, state the assumption and validation needed rather than continuing to search for certainty.
 
 3. Distill the evidence into product-relevant signals.
    - Separate confirmed facts from inference.

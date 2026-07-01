@@ -45,9 +45,11 @@ Use this skill when a conversation or task has grown large enough that the next 
    - `Files Modified`
    - `Files Read`
    - `Decisions Made`
+   - `Harness State`
    - `Current State`
    - `Next Steps`
    - `Open Questions`
+   - `Stop Or Escalation Conditions`
 5. Check the result for continuity:
    - could the task continue without re-reading the original thread
    - are the key files and decisions still named explicitly
@@ -63,8 +65,10 @@ Return a compact task summary that lets the next agent or future turn continue s
 - the current task goal
 - the important file paths or identifiers
 - the last known decisions
+- commands run, validation results, active sessions or servers, failed attempts, and remaining checks
 - the active blocker or uncertainty
 - the next concrete step
+- when to continue, retry, ask the user, or stop
 
 ## Guardrails
 

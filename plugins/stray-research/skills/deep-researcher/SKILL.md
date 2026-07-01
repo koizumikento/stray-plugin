@@ -51,7 +51,12 @@ Use this skill when the user needs:
    - Define verification checks: source date, authority, methodology, conflicts of interest, coverage gaps, and corroboration requirements.
    - Define the expected output shape: executive brief, full report, comparison table, evidence matrix, recommendation memo, or another explicit format.
 
-4. Decide whether to use subagents.
+4. Define research bounds before browsing.
+   - Name the target source count or source families, maximum search passes, escalation conditions, and stopping conditions.
+   - Stop when the strongest available source families have been checked and additional searches produce duplicates or weaker sources.
+   - Report remaining gaps instead of continuing to browse for certainty beyond the agreed scope.
+
+5. Decide whether to use subagents.
    - Use subagents only when the research naturally splits into independent tracks that can be investigated in parallel.
    - Prefer a supervisor pattern: the main agent owns scope, source standards, handoffs, conflict resolution, synthesis, and final conclusions.
    - Good subagent tracks include market landscape, technical evidence, regulatory context, competitor review, literature scan, data/PDF extraction, or counterargument review.
@@ -59,7 +64,7 @@ Use this skill when the user needs:
    - When using subagents, give each one a narrow brief with scope, preferred sources, exclusions, required citations, and an evidence table format.
    - Require subagents to return findings, source links, dates, confidence, gaps, and rejected leads. Do not let subagents write the final report.
 
-5. Gather evidence systematically.
+6. Gather evidence systematically.
    - Browse current sources before answering when facts may have changed.
    - Prefer primary and authoritative sources for claims that affect the conclusion.
    - Use secondary sources to find leads, context, or disagreement, not as sole authority when primary sources are available.
@@ -67,21 +72,21 @@ Use this skill when the user needs:
    - Include PDFs, datasets, filings, documentation, or official reports when they are materially stronger than summaries.
    - Track access limits such as paywalls, missing dates, partial pages, machine translation, or unavailable documents.
 
-6. Build an evidence map while reading.
+7. Build an evidence map while reading.
    - Record confirmed facts with source links and publication or update dates when available.
    - Record conflicting claims and the source basis for each side.
    - Record weak evidence, missing evidence, stale evidence, and unverified but plausible inferences.
    - Record source quality issues: authority, bias, methodology, sample size, incentives, and coverage.
    - Keep a compact search log when reproducibility matters: search date, query, source, filter, and why the source was included or rejected.
 
-7. Synthesize after the evidence is stable.
+8. Synthesize after the evidence is stable.
    - Lead with the answer or practical implication, not the browsing trail.
    - Separate verified facts, source-backed interpretation, and inference.
    - Explain source conflicts rather than smoothing them into false consensus.
    - Use tables for comparisons, evidence matrices, timelines, or tradeoffs when they improve readability.
    - State what would change the conclusion and what remains unknown.
 
-8. Run a quality pass before final output.
+9. Run a quality pass before final output.
    - Check that the final report answers the user's actual question.
    - Check that every important claim has a source or is clearly labeled as inference.
    - Check dates for time-sensitive claims.

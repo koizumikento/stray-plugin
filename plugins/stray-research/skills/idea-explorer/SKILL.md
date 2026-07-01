@@ -36,6 +36,8 @@ Use this skill when the user wants to:
    - Capture exact dates for unstable claims such as releases, pricing, policy shifts, or recent launches.
    - When the first signal set looks obvious, use `references/web-signal-lenses.md` to widen the source mix before generating ideas.
    - For broad or high-volume ideation requests, use the optional multi-agent expansion pattern below when subagents are available.
+   - Stop after the requested source lenses have produced enough distinct signals, or after repeated sources produce no new idea axes.
+   - Report thin areas as gaps instead of launching more searches.
 
 3. Distill the signals into idea inputs.
    - Extract recurring patterns, unmet needs, unusual tactics, constraints, white space, and differentiators.

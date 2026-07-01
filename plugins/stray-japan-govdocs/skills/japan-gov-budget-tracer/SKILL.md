@@ -20,6 +20,8 @@ Use this skill when the user asks:
    - Follow official URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
+   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage.
+   - If no official program or budget source supports the connection after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources.
 3. Search budget documents, ministry program pages, and administrative review databases for matching terms.
 4. Link programs to stated objectives, outputs, outcomes, and review-sheet evidence when available.
 5. Report confidence and gaps; policy themes rarely map one-to-one to budget programs.

@@ -35,6 +35,8 @@ Use this skill when the user asks how to split a task across agents, how to coor
    - define handoff conditions and message format
    - decide what shared state lives in memory, files, or the coordinator
    - add quality gates for review, retry, or escalation
+   - for each quality gate, name the verifier, observable pass/fail signal, maximum repair attempts, and escalation payload
+   - define the final completion condition before adding retries or parallel agents
 5. Call out failure modes explicitly:
    - note bottlenecks, duplicated work, and context drift
    - avoid majority voting when expertise is uneven

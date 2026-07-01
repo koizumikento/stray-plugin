@@ -37,6 +37,7 @@ Use this skill when the user wants to convert a page into something that is easi
 4. Verify the extraction.
    - Check that the result still contains the page's core claim or topic.
    - Check that tables, lists, or code blocks were not flattened into unreadable prose.
+   - Preserve provenance when available: source URL, page title, author or publisher, publication or update date, access date, and extraction path.
    - If the output is missing critical structure, retry with a different extraction path.
 
 5. Produce the distilled artifact.
@@ -49,6 +50,7 @@ Use this skill when the user wants to convert a page into something that is easi
 - A clean, readable extraction of the page content
 - Preserved structure for headings, lists, tables, and code where possible
 - Minimal extraneous markup or page chrome
+- Provenance when available: URL, title, author or publisher, publication or update date, access date, and extraction path
 - A short note about the extraction path when it materially affects fidelity
 - A short note when structure had to be approximated or reconstructed
 

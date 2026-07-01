@@ -87,7 +87,14 @@ Do not let a reference override clear repository conventions.
    - For UI work, open the app on the real target surface when feasible and inspect the affected flow at relevant desktop and mobile viewports.
    - Repeat a focused unfinished-work scan for placeholders, TODOs, disabled actions, no-op handlers, and newly stale docs or specs.
 
-6. Hand off clearly.
+6. Run a bounded repair loop when validation fails.
+   - Read the failing output before editing again and name the current failure hypothesis.
+   - Change one clear thing at a time, then rerun the smallest relevant check that can prove or disprove the hypothesis.
+   - Do not rerun the same failing command without new evidence, a code/config change, or a narrower diagnostic command.
+   - Stop with a blocker report after three failed repair attempts, or when the same failure repeats twice without a new hypothesis.
+   - Classify the likely missing layer as prompt ambiguity, missing context, missing harness, loop limit, or external blocker.
+
+7. Hand off clearly.
    - Summarize the user-visible result, key implementation decisions, and residual risks.
    - Include validation run, skipped, unavailable, or unverified.
    - Include the route, local URL, command, migration status, deployment status, and any reload or cache caveat that affects verification.
@@ -111,6 +118,7 @@ Do not let a reference override clear repository conventions.
 - Source-of-truth drift found and how it was resolved or deferred.
 - Exact route, screen, command, or URL used for user-visible verification when applicable.
 - Explicit assumptions, risks, or follow-up items when relevant.
+- Blocker classification when work could not be completed: prompt ambiguity, missing context, missing harness, loop limit, or external blocker.
 - Security, data, platform, or observability notes when the change touches them.
 
 ## Guardrails

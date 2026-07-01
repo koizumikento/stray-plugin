@@ -62,6 +62,7 @@ Use this reference for non-trivial full-stack app changes where security, data, 
 - If docs, implementation, tests, and review instructions disagree, pause long enough to name the drift and choose the smallest alignment path.
 - Keep source-of-truth updates in the same change when implementation intentionally changes behavior described by docs, tests, design-system rules, or AGENTS guidance.
 - Do not paper over drift with code comments. Update the artifact users and future agents will consult.
+- When the same missing context, setup step, validation command, or reproduction path blocks repeated work, prefer updating the durable source of truth such as `AGENTS.md`, docs, scripts, tests, fixtures, or CI instead of relying on another one-off explanation.
 - For design-system or shared component work, verify export inventory, CSS ownership, app usage, tests, and documentation together.
 
 ## API And Contracts

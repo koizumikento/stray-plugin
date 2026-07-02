@@ -34,6 +34,8 @@ Use this skill when the user asks:
 
 Also include `最新版との差`, `公式性の確認`, and `引用時の注意`.
 
+Report `最新版との差` using the None / Minor / Content / Direction drift levels defined in `../../references/evaluation-rubric.md`.
+
 ## Validation Expectations
 
 Before final output, verify each cited source has an official landing URL, year or edition, section/table/figure location when available, and a clear source role from `../../references/official-url-model.md`. If any item cannot be verified, downgrade confidence and place it under `追加確認` rather than presenting it as confirmed evidence.

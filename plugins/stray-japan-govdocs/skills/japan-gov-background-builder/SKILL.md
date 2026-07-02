@@ -19,10 +19,11 @@ Use this skill when the user asks:
 2. Start from e-Gov and relevant ministry series pages.
    - Follow official URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
-   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage.
-   - If no official source supports the claim after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources.
+   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage. Count source families as defined in `../../references/evaluation-rubric.md`.
+   - If no official source supports the claim after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources, listed as shown in `../../references/evaluation-rubric.md`.
 3. Default to latest editions unless the user specifies a year or period.
 4. Pull official issue framing, trend data, policy direction, and relevant terms.
+   - Keep normative policy framing (how the government frames the problem) separate from data citations (statistics and figures); they feed the `政府がどう問題視しているか` and `背景に使える統計・図表` output fields respectively.
 5. Prefer HTML and chapter pages; use `../../references/download-cache-policy.md` for task-needed downloads and keep final citations on official URLs.
 6. Separate government-stated background from your interpretation.
 

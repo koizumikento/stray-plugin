@@ -24,6 +24,7 @@ Use this skill when the user asks:
    - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
 3. Identify where the idea aligns with government-stated issues and where it does not.
 4. Produce wording that can fit a proposal without overstating government endorsement.
+   - Flag overstatements and give corrected wording, for example: 「政府推奨のソリューション」→「白書で課題とされている領域に対応するソリューション」, 「国の方針で導入が決定」→「白書・計画で方向性が示されている」.
 5. Include source-backed cautions and missing evidence.
 
 ## Output Expectations

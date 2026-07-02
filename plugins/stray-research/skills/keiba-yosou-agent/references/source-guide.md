@@ -33,6 +33,13 @@ Before collecting data automatically, check:
 
 If permission is unclear or restrictive, do not automate collection. Ask for user-provided files or use an official source that can be accessed safely.
 
+Treat permission as unclear in cases like these:
+
+- robots or crawling rules do not mention the path, and the site's terms of use cannot be located
+- the terms allow only 私的利用 or personal viewing and say nothing about analysis or excerpting
+- the data appears on an aggregator that republishes official data without a visible license
+- access requires login or paid membership and the terms for programmatic use are not stated
+
 ## Freshness Rules
 
 Always record the timestamp or date for:

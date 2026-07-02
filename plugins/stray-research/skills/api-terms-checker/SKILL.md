@@ -24,6 +24,10 @@ Use this skill when the user wants to:
 - generic vendor comparison where terms are not the main question
 - pretending certainty when the official terms are missing, unclear, or contradictory
 
+## References
+
+- Load `references/validation-cases.md` before classifying restrictions; it calibrates allowed, needs-review, and restricted judgments with worked accept, reject, and borderline cases.
+
 ## Workflow
 
 1. Define the exact service and use case.

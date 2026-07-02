@@ -34,7 +34,7 @@ Analyze Japanese horse racing races with a cautious, evidence-first posture. Pro
    - Build a runner table with horse number, frame, jockey, trainer, carried weight, body weight, odds, recent form, scratches, and missing fields.
    - Mark stale or unavailable data explicitly.
 4. Analyze contenders.
-   - Evaluate race conditions, recent performance, pace, surface/distance fit, draw, weight, jockey/trainer changes, condition, and late-breaking updates.
+   - Evaluate race conditions, recent performance (default: the last 3-5 starts, weighted toward runs under comparable surface, distance, and class), pace, surface/distance fit, draw, weight, jockey/trainer changes, condition, and late-breaking updates.
    - Separate observed facts from inference.
    - Identify the main race script and at least one credible alternative script, especially lone-speed, inside-trip, pace-collapse, or rain/track-bias outcomes.
 5. Separate subjective probability from market probability.

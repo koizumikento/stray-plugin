@@ -22,6 +22,7 @@ Use this skill when the user wants to:
 - pure domain research where no product decision is being made
 - implementation planning that already has a settled product direction
 - generic ideation sessions that do not require evidence from the web
+- widening the option space before any product decision is on the table; that belongs in `idea-explorer` ("アイデアを広げて比較したい" is idea-explorer work, while "どれを作るか決めてPRDに落として" belongs here)
 
 ## Workflow
 

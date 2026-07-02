@@ -23,11 +23,14 @@ Use `jma-data-mcp` to retrieve Japan Meteorological Agency observation, station,
 2. Confirm `jma-data-mcp` availability.
    - Use the configured MCP tools when available.
    - If unavailable, stop with setup guidance: configure `jma-data-mcp`.
-3. Select the right tool family.
-   - Use station lookup/search when station code is unknown.
-   - Use current weather for latest AMeDAS observations.
-   - Use forecast by prefecture for forecast requests.
-   - Use historical or time-series tools only within the MCP's recent availability window.
+3. Select the right tool family by question type.
+
+   | Question type | Tool family |
+   |---|---|
+   | Which station covers this place? | Station lookup/search |
+   | What is the weather right now? | Current weather (latest AMeDAS observations) |
+   | What is the forecast? | Forecast by prefecture |
+   | What happened over recent hours or days? | Historical or time-series tools, only within the MCP's recent availability window |
 4. Validate freshness and coverage.
    - Record station, observation timestamp, forecast issue time when available, units, and missing fields.
    - If nearest-station lookup is used, state distance or selection basis when available.

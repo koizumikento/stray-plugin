@@ -15,6 +15,7 @@ Use this skill when working with `.canvas` files for mind maps, flowcharts, note
 - broad visual design or presentation polish
 - freeform brainstorming that does not need a valid `.canvas` file
 - general JSON cleanup that is unrelated to JSON Canvas structure
+- viewing or rendering an existing canvas when no structural change is requested
 
 ## Workflow
 

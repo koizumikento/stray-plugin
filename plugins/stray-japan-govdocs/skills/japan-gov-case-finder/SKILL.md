@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-case-finder"
-description: "Use when the user asks for official examples, case studies,自治体事例,企業事例,or precedent initiatives related to a Japan policy issue from whitepapers or government documents. Do not use for general evidence gathering or KPI search."
+description: "Use when the user asks for official examples, case studies, 自治体事例, 企業事例, or precedent initiatives related to a Japan policy issue from whitepapers or government documents. Do not use for general evidence gathering or KPI search."
 ---
 
 # Japan Gov Case Finder
@@ -28,6 +28,8 @@ Use this skill when the user asks:
 
 | Case | Actor | Issue | Intervention | Reported result | Source | Reuse note |
 |---|---|---|---|---|---|---|
+
+`Reuse note` states how the case can be retold in the user's proposal, research, or article: a safe paraphrase angle and its scope limits, not a verbatim quote.
 
 Also include `使いやすい事例`, `注意が必要な事例`, and `不足している実証`.
 

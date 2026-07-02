@@ -22,11 +22,13 @@ Use this skill when the user asks:
    - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
 3. Compare with the previous edition when emphasis change matters.
 4. Look for signals: dedicated sections, repeated terms, new measures, budget or program mentions, KPI language, council plans, or cross-ministry recurrence.
+   - Weight each signal as strong, medium, or weak using `../../references/evaluation-rubric.md`.
 5. Separate confirmed priority signals from inference.
+6. Map the weighted signals to the `結論` verdict using the mapping in `../../references/evaluation-rubric.md`.
 
 ## Output Expectations
 
-- `結論`: high / medium / low / unclear
+- `結論`: high / medium / low / unclear, judged by the rubric in `../../references/evaluation-rubric.md`
 - `優先度シグナル`
 - `過年度からの変化`
 - `関連省庁・資料`

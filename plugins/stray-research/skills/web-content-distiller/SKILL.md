@@ -38,6 +38,7 @@ Use this skill when the user wants to convert a page into something that is easi
    - Check that the result still contains the page's core claim or topic.
    - Check that tables, lists, or code blocks were not flattened into unreadable prose.
    - Preserve provenance when available: source URL, page title, author or publisher, publication or update date, access date, and extraction path.
+   - When provenance is only partially available, include the fields that exist, mark the missing ones as unavailable, and do not infer dates or authorship.
    - If the output is missing critical structure, retry with a different extraction path.
 
 5. Produce the distilled artifact.

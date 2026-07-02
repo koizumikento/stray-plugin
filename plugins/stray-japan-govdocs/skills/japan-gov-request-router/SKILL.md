@@ -15,23 +15,7 @@ Use this skill when the user's request sounds like:
 - "政府資料を探したいが、根拠・KPI・予算のどれを見るべきか未整理"
 - "この依頼は白書要約なのか出典探しなのか切り分けて"
 
-Do not use this router when the user's action is already clear. In those cases invoke the matching skill directly:
-
-- KPI/指標/測る/公的統計 -> `japan-gov-kpi-finder`
-- 予算/事業/行政事業レビュー -> `japan-gov-budget-tracer`
-- 引用/最新版/URL監査/出典監査 -> `japan-gov-citation-auditor`
-- named whitepaper, annual report, chapter, or government PDF to read -> `japan-whitepaper-brief`
-- 図表/表/グラフ/統計値の元データ -> `japan-gov-chart-data-tracer`
-- 一時保存/キャッシュ/manifest/local path -> `japan-govdoc-cache-manager`
-- 事例/自治体事例/企業事例 -> `japan-gov-case-finder`
-- 所管/省庁/制度文脈 -> `japan-gov-owner-mapper`
-- 優先度/国が重視/政策上強まったか -> `japan-gov-priority-checker`
-- 根拠/出典/裏付け for a claim -> `japan-gov-evidence-finder`
-- 背景/社会背景/課題背景 -> `japan-gov-background-builder`
-- proposal/企画書/営業資料/官公庁向け wording -> `japan-gov-proposal-context-adapter`
-- Project LINKS/G空間LINKS/geospatial.jp `sosei-joho` dataset inventory, inspection, download, profiling, or analysis -> `japan-gov-project-links-data-analyst`
-- e-Stat/政府統計/statsDataId/統計表の検索・取得・分析 -> `japan-gov-estat-data-analyst`
-- 不動産情報ライブラリ/地価/取引価格/都市計画/周辺施設/災害リスク -> `japan-real-estate-info-library-analyst`
+Do not use this router when the user's action is already clear. In those cases invoke the matching skill directly using the classification map in the Routing section below; the map in step 1 is the single source of truth for keyword-to-skill routing.
 
 ## Routing
 
@@ -52,6 +36,7 @@ Do not use this router when the user's action is already clear. In those cases i
    - Project LINKS, G空間LINKS, `geospatial.jp/ckan/organization/sosei-joho`, 国交省LINKSデータの一覧化/分析 -> `japan-gov-project-links-data-analyst`
    - e-Stat, 政府統計, statsDataId, 統計表の検索/メタ情報/データ取得/分析 -> `japan-gov-estat-data-analyst`
    - 不動産情報ライブラリ, reinfolib, 地価, 取引価格, 用途地域, 都市計画, 周辺施設, 災害リスク -> `japan-real-estate-info-library-analyst`
+   - If the request spans multiple categories (for example 背景 + 予算), do not force one skill. Name each downstream skill, propose an execution order that builds context first (`japan-gov-background-builder`, `japan-gov-owner-mapper`, `japan-gov-priority-checker`) and traces evidence or data second (`japan-gov-evidence-finder`, `japan-gov-kpi-finder`, `japan-gov-budget-tracer`, `japan-gov-chart-data-tracer`), and split the task accordingly.
 2. Preserve edition constraints.
    - If no year or period is specified, use the latest official edition by default.
    - If a year, era year, or comparison period is specified, pass that constraint through.

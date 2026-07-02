@@ -27,7 +27,7 @@ Use this skill when the user asks:
 1. Identify the exact document.
    - Confirm title, ministry, year, chapter, and official landing page where possible.
    - If the user does not specify a year or edition, use the latest official edition.
-   - If the user specifies a Western year, era year, or edition label, resolve that edition from the official series page.
+   - If the user specifies a Western year, era year, or edition label, resolve that edition from the official series page. For example, 令和7年版 means finding the 令和7年 edition entry on the series page; for multi-year comparisons, resolve each edition link separately.
    - Check the task-local source index under `tmp/japan-govdocs/sources/` if it exists, but verify the official landing page before trusting cached paths.
    - Use the URL role hierarchy in `../../references/official-url-model.md`.
 2. Verify source status.
@@ -36,6 +36,7 @@ Use this skill when the user asks:
 3. Read the minimal needed body.
    - Use HTML first.
    - Use chapter PDFs before full PDFs.
+   - Decide download minimality in this order: a chapter PDF when the request maps to specific chapters, a summary or overview PDF when multiple chapters are needed, and the full PDF only when neither is sufficient.
    - Follow `../../references/download-cache-policy.md` for downloads.
    - Store downloaded files under the deterministic local path rules in the cache policy.
 4. Brief for the user's use case.

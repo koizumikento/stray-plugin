@@ -34,6 +34,7 @@ Use this skill when the user is:
    - Prefer a small set of high-value tools over a one-to-one endpoint mirror.
    - Make tool names action-oriented, specific, and easy to scan.
    - Group related actions only when the grouping keeps tool calls simple.
+   - Sanity-check agent-friendliness before moving on: roughly a dozen tools or fewer unless the domain justifies more; input schemas one to two levels deep; every list-heavy operation has pagination or bounds; each tool description says when to use it and when not to; error messages name the fix, not just the failure.
 
 3. Choose the right MCP surface area.
    - Use tools for actions and decisions.

@@ -53,7 +53,7 @@ Use this skill when the user needs:
    - create English-first keyword sets with synonyms, spelling variants, abbreviations, broader terms, narrower terms, and functional equivalents
    - identify CPC and IPC candidates from seed documents and classification search
    - add assignee, inventor, citation, patent-family, priority-date, and jurisdiction constraints only when they improve precision
-   - include Japanese keywords or J-PlatPat classification checks only when Japanese coverage is materially relevant
+   - include Japanese keywords or J-PlatPat classification checks only when Japanese coverage is materially relevant, for example when the applicant or inventors are Japanese, Japan is a target filing or FTO jurisdiction, or the technology area is known to have dense Japanese filings
 5. Search iteratively across public databases.
    - browse current public databases during the task; do not rely on remembered patent data or stale cached results
    - start broad in Espacenet, PATENTSCOPE, or Google Patents to find seed documents and terminology
@@ -81,7 +81,12 @@ For prior-art, novelty, invalidity-candidate, or FTO precheck work, include:
 - databases searched and exact search date
 - keyword sets, classification candidates, and final search strings
 - important patent documents with publication numbers, titles, assignees, dates, source links, and why they matter
-- an element-by-element mapping when claims or invention features are being compared
+- an element-by-element mapping when claims or invention features are being compared, using a table like:
+
+  | Target claim element / feature | Candidate document | Where disclosed (paragraph/column/figure) | Match | Notes |
+  |---|---|---|---|---|
+
+  with `Match` rated as disclosed, partially disclosed, or not found
 - search gaps, uncertainty, and recommended next checks
 
 For landscape work, include:

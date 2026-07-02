@@ -27,6 +27,7 @@ Use this skill when the user wants:
 ## Default Scope
 
 - Focus on Japan domestic politics and administration, economy and business, society and public safety, science and industry, and major international developments that directly affect Japan.
+- These five categories map to sections 1-5 of the template in `references/fixed-format.md`; section 6 (続報待ちメモ) collects unresolved follow-ups and is not a news category.
 - Default time window to the last 24 hours in JST unless the user specifies another range.
 - When the user says "today", "this morning", "latest", or similar relative timing, convert that into an explicit JST date and time range in the output.
 

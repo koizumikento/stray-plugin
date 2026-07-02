@@ -27,6 +27,7 @@ Use this skill when the user needs:
 - GitHub issue or pull request maintenance triage that belongs in `github-maintainer`
 - product direction, feature design, or market-position decisions that belong in `product-designer`
 - extracting or cleaning one specific page or URL that belongs in `web-content-distiller`
+- multi-track, conflict-heavy, or long-form deep research that belongs in `deep-researcher`
 - local codebase work or documentation review that can be answered without browsing
 - legal, medical, or financial advice framed as professional advice instead of informational research
 
@@ -70,6 +71,7 @@ Use this skill when the user needs:
    - Include only the source links that materially support the answer.
 
 6. Keep the skill within the generic web research boundary:
+   - Escalation rule shared with `domain-researcher` and `deep-researcher`: a single research track answerable from roughly 3-6 strong current sources with a short answer or brief stays here; escalate to `deep-researcher` when the work needs multiple research tracks, reconciliation of many conflicting sources, or a durable long-form report.
    - Use `domain-researcher` when the topic becomes specialized and evidence-heavy.
    - Use `api-terms-checker` when terms, restrictions, data use, or commercial permission are the main question.
    - Use `global-patent-researcher` when the work becomes patent search, novelty, invalidity, FTO, or landscape research.

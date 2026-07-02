@@ -46,8 +46,10 @@ For discovery:
 
 For analysis:
 
-| Result | Source table | Filter/dimension | Period/area | Unit | Caveat |
-|---|---|---|---|---|---|
+| Result | Source table | Filter/dimension | Period/area | Unit | Derived? | Caveat |
+|---|---|---|---|---|---|---|
+
+Set `Derived?` to yes when the value is calculated by the agent (ratios, growth rates, aggregations) rather than published in the e-Stat table.
 
 Also include `使用したMCPツール`, `再現メモ`, `除外した候補`, and `次に確認すべき統計`.
 

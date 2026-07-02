@@ -1,0 +1,7 @@
+interface:
+  display_name: "Slack App Builder"
+  short_description: "Plan, build, validate, install, deploy, and debug Slack apps with Slack CLI, manifests, Bolt, or Deno Slack SDK."
+  default_prompt: "Classify the Slack app task, load the smallest matching reference, and implement or debug it with Slack CLI and runtime evidence."
+dependencies:
+  tools:
+    - "slack-cli"

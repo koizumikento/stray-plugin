@@ -30,6 +30,8 @@ Use this skill when the user needs:
 - extracting or cleaning one provided page or URL that belongs in `web-content-distiller`
 - professional legal, medical, financial, or investment advice instead of informational research
 
+Escalation rule shared with `web-researcher` and `domain-researcher`: a single research track answerable from roughly 3-6 strong current sources with a short answer or brief stays in those skills; deep research starts when the work needs multiple research tracks, reconciliation of many conflicting sources, or a durable long-form report.
+
 ## Workflow
 
 1. Classify the request before researching.
@@ -60,7 +62,7 @@ Use this skill when the user needs:
    - Use subagents only when the research naturally splits into independent tracks that can be investigated in parallel.
    - Prefer a supervisor pattern: the main agent owns scope, source standards, handoffs, conflict resolution, synthesis, and final conclusions.
    - Good subagent tracks include market landscape, technical evidence, regulatory context, competitor review, literature scan, data/PDF extraction, or counterargument review.
-   - Do not use subagents for small research tasks, highly coupled reasoning, sensitive information that should stay in one context, or cases where coordination overhead exceeds expected benefit.
+   - Do not use subagents for small research tasks (fewer than two genuinely independent tracks), highly coupled reasoning, sensitive information that should stay in one context, or cases where coordination overhead exceeds expected benefit.
    - When using subagents, give each one a narrow brief with scope, preferred sources, exclusions, required citations, and an evidence table format.
    - Require subagents to return findings, source links, dates, confidence, gaps, and rejected leads. Do not let subagents write the final report.
 

@@ -19,7 +19,7 @@ Use this skill when the user wants to:
 
 - generic brainstorming where current web evidence is unnecessary
 - deep domain analysis that belongs in `domain-researcher`
-- concrete product direction, prioritization, or scope decisions that belong in `product-designer`
+- concrete product direction, prioritization, or scope decisions that belong in `product-designer`; "この3案からどれを作るか決めてスコープを切って" is product-designer work, while "まず選択肢を広げて比較したい" stays here
 - polished final deliverables such as full articles, brand systems, or visual assets that belong in more specific local skills
 - extracting or cleaning one provided page or URL that belongs in `web-content-distiller`
 

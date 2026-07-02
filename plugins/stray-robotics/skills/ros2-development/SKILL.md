@@ -12,7 +12,7 @@ Build and debug ROS 2 software systematically from workspace shape through graph
 - ROS 1-only projects, `catkin`, `roscore`, or `roslaunch` workflows except when identifying migration boundaries.
 - Generic web, mobile, desktop, backend, or full-stack app work without a ROS 2 robotics workflow.
 - Pure mechanical CAD, pure circuit design, enclosure design, or PCB work.
-- Deep Nav2, MoveIt 2, `ros2_control`, micro-ROS, firmware, perception model training, or robot-specific stack ownership unless the user asks only for integration boundaries.
+- Deep Nav2, MoveIt 2, `ros2_control`, micro-ROS, firmware, perception model training, or robot-specific stack ownership unless the user asks only for integration boundaries. For example, Nav2 costmap or planner tuning and MoveIt 2 trajectory-optimization tuning are out of scope; wiring Nav2 or MoveIt 2 into a workspace and its launch files is in scope.
 - Running commands that can move real hardware, enable actuators, start controllers, or connect to a networked robot before safety context and explicit approval are established.
 
 ## Decision Gates

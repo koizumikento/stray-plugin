@@ -28,6 +28,7 @@ Use `gbizinfo-mcp` to retrieve and summarize Japanese corporate information from
    - Show likely matches before deep retrieval when names are ambiguous.
 4. Retrieve relevant endpoints.
    - Use only the needed `hojin_get_*` or `hojin_update_info_*` tools for the user's question.
+   - Use `references/endpoint-guide.md` to map the question to the right data group, and verify actual tool names from the configured MCP tool list.
    - Preserve raw-field uncertainty when an endpoint returns empty or partial data.
 5. Synthesize carefully.
    - Separate retrieved facts from inference.

@@ -30,6 +30,7 @@ Use this skill when the user asks to inventory, choose, inspect, download, profi
    - Use `references/project-links-dataset-catalog.md` as a starting map, not as the source of truth.
 3. Select only the needed resources.
    - Read the dataset notes and the `99_*dataspecificationdocument*.xlsx` resource before interpreting CSV or GeoJSON columns.
+   - If no specification document resource exists, keep the raw column names as-is, treat units and definitions as unverified, and record that limitation under `注意`.
    - Download only task-needed resources and follow `../../references/download-cache-policy.md`.
    - Prefer official CKAN resource URLs and cite dataset landing pages in final output.
 4. Profile before analysis.

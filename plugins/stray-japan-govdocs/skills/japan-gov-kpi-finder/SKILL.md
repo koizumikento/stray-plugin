@@ -22,7 +22,7 @@ Use this skill when the user asks:
    - Start from official landing pages and URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
-   - When the task requires actual e-Stat table search, metadata inspection, or data extraction, hand off to `japan-gov-estat-data-analyst`.
+   - When the task requires actual e-Stat table search, metadata inspection, or data extraction, hand off to `japan-gov-estat-data-analyst`. Pass the candidate indicator name, the survey or statistics name, any known `statsDataId`, and the required geography and period; expect back table candidates or retrieved data with metadata and caveats.
    - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage.
    - If no official indicator supports the measurement need after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources.
 3. Separate outcome indicators, output indicators, proxy indicators, and context indicators.

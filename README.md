@@ -7,9 +7,9 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Plugin | Root | Purpose |
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, evaluate, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current, source-backed research, product direction, maintenance triage, patent research, API terms checks, and Japanese horse racing analysis. |
-| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, Slack apps, security preflights, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
-| Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, and cache workflows. |
+| Stray Research | `plugins/stray-research/` | Run current, source-backed research, deep research reports, product direction, maintenance triage, patent research, API terms checks, Japan company and weather data lookups, and Japanese horse racing analysis. |
+| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
+| Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, statistics and open-data analysis, and cache workflows. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
 
 ## Repository Layout
@@ -63,17 +63,20 @@ Notable support files:
 
 ### Stray Research
 
-`plugins/stray-research/` owns current research, decision support, patent research, horse racing analysis, and preflight checks. Skills that depend on current facts generally require internet or browser access.
+`plugins/stray-research/` owns current research, deep research reports, decision support, patent research, API terms checks, Japan-specific data lookups (company, weather, news), and horse racing analysis. Skills that depend on current facts generally require internet or browser access.
 
 | Skill | Use for |
 |---|---|
 | `web-researcher` | Current, source-backed answers or briefs that must start from web research. |
+| `deep-researcher` | Long-form, multi-source deep research reports with multi-step planning, evidence synthesis, conflict handling, and explicit uncertainty. |
 | `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Research-backed idea generation and comparison before choosing a direction. |
 | `product-designer` | Turning research into product decisions, feature briefs, scope boundaries, or validation plans. |
 | `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, and integration boundaries. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |
+| `japan-company-info-researcher` | Retrieving and summarizing Japanese corporate information from gBizINFO via `gbizinfo-mcp`. |
+| `japan-weather-data-researcher` | Retrieving JMA observation, station, recent-history, time-series, and forecast data via `jma-data-mcp`. |
 | `github-maintainer` | Read-first triage of GitHub issues and PRs with recommended next maintainer actions. |
 | `global-patent-researcher` | Planning or conducting public-web global patent research for prior art, novelty, invalidity candidates, FTO prechecks, or landscapes. Not legal advice. |
 | `api-terms-checker` | Checking current practical usage restrictions for third-party APIs or SaaS terms. Not legal advice. |
@@ -81,9 +84,10 @@ Notable support files:
 
 Notable support files:
 
-- `agents/openai.yaml` exists for `web-researcher`, `domain-researcher`, `idea-explorer`, and `product-designer`.
+- `agents/openai.yaml` exists for `web-researcher`, `deep-researcher`, `domain-researcher`, `idea-explorer`, `product-designer`, `japan-company-info-researcher`, `japan-weather-data-researcher`, and `keiba-yosou-agent`.
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`
+- `plugins/stray-research/skills/japan-company-info-researcher/references/endpoint-guide.md` maps gBizINFO data groups to tool families.
 - `plugins/stray-research/skills/japan-news-brief/references/` contains the news source guide and fixed output format.
 - `plugins/stray-research/skills/keiba-yosou-agent/references/` contains source, analysis, betting-structure, and output-format guides.
 
@@ -99,6 +103,7 @@ Notable support files:
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
 | `reviewer` | Reviewing code, skills, artifacts, docs, UI, validation plans, release/compliance readiness, and plugin skill sets. |
 | `security-preflight` | Running security-focused preflights for repositories, diffs, CI/CD workflows, dependencies, secrets, IaC, containers, and release surfaces before shipping. |
+| `test-design-strategist` | Designing software test strategies, test viewpoints, test cases, QA plans, regression scope, coverage criteria, and manual-versus-automation recommendations. |
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
 | `brand-designer` | Defining or refining brand identity, visual principles, tone guidance, and mini style guides. |
 | `article-writer` | Drafting or revising publishable articles, blog posts, newsletters, or editorial pieces. |
@@ -115,7 +120,9 @@ Notable support files:
 - `plugins/stray-studio/skills/reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/references/`
 - `plugins/stray-studio/skills/security-preflight/references/`
+- `plugins/stray-studio/skills/security-preflight/agents/openai.yaml`
 - `plugins/stray-studio/skills/slack-app-builder/references/`
+- `plugins/stray-studio/skills/slack-app-builder/agents/openai.yaml`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
 - `plugins/stray-studio/skills/landing-page-builder/references/`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`
@@ -138,6 +145,9 @@ Notable support files:
 | `japan-gov-budget-tracer` | Tracing policy issues to government programs, budgets, and administrative review materials. |
 | `japan-gov-case-finder` | Finding official case examples from whitepapers and government documents. |
 | `japan-gov-chart-data-tracer` | Tracing chart, table, figure, or statistic source data behind whitepaper figures. |
+| `japan-gov-estat-data-analyst` | Searching, retrieving, and analyzing Japanese official statistics from e-Stat via `e-stats-mcp`. |
+| `japan-gov-project-links-data-analyst` | Inventorying, profiling, and analyzing MLIT Project LINKS CSV/GeoJSON datasets from the G-Spatial Information Center. |
+| `japan-real-estate-info-library-analyst` | Retrieving and analyzing MLIT Real Estate Information Library data (transaction prices, land prices, urban planning, disaster risk) via `reinfolib-mcp`. |
 | `japan-govdoc-cache-manager` | Managing temporary local caches and traceability for official PDFs, HTML, spreadsheets, and source indexes. |
 | `japan-whitepaper-brief` | Briefing a named whitepaper, annual report, chapter, or official policy document. |
 
@@ -145,6 +155,7 @@ Shared references live at `plugins/stray-japan-govdocs/references/`:
 
 - `download-cache-policy.md`
 - `egov-whitepaper-route-map.md`
+- `evaluation-rubric.md`
 - `official-url-model.md`
 
 Temporary document caches should be kept under `tmp/japan-govdocs/`. The repository ignores `tmp/`.

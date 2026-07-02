@@ -19,11 +19,13 @@ Use `reinfolib-mcp` to retrieve and analyze MLIT Real Estate Information Library
 
 1. Scope the place and data need.
    - Resolve address, municipality code, prefecture, coordinates, radius, tile zoom, property type, period, and required output format.
+   - Required: an address or municipality, or coordinates plus a radius or tile zoom. Optional: period, property type, and output format; state the defaults used when they are omitted.
    - Ask for a location only if neither address/municipality nor coordinates can be inferred safely.
 2. Confirm `reinfolib-mcp` availability.
    - Use the configured MCP tools when available.
    - If unavailable, stop with setup guidance: configure `reinfolib-mcp` and provide `REINFOLIB_API_KEY`.
 3. Choose the narrowest data path.
+   - Pick by question type: transaction history for a place -> municipality/transaction search; land-price levels or trends -> land-price tools; zoning, urban planning, facilities, ridership, population mesh, or disaster risk -> the matching geospatial layer; combine layers only when the question needs a spatial join.
    - Use municipality search before transaction search when codes are unknown.
    - Use coordinate/geospatial tools for land price, urban planning, facilities, station ridership, population mesh, or disaster risk.
    - Prefer GeoJSON when the user needs mapping or spatial joins; prefer JSON summaries for brief tabular answers.

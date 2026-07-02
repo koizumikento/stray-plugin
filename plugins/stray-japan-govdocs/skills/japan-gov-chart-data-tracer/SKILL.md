@@ -23,14 +23,16 @@ Use this skill when the user asks:
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
 3. Search e-Stat or ministry statistics pages when the source note names an official survey.
-   - When the source data is an e-Stat table and the user needs retrieval or reanalysis, hand off to `japan-gov-estat-data-analyst`.
+   - When the source data is an e-Stat table and the user needs retrieval or reanalysis, hand off to `japan-gov-estat-data-analyst`. Pass the `statsDataId` or survey/table name, the whitepaper edition and figure number, the needed dimensions and filters, and the official source URL; expect back the retrieved table with metadata, applied filters, and caveats.
 4. Distinguish original data, reproduced table, processed estimate, and commissioned survey.
 5. Return retrievable data links and limitations.
 
 ## Output Expectations
 
-| Figure/statistic | Whitepaper source | Source data candidate | Format | Can reproduce? | Caveat |
-|---|---|---|---|---|---|
+| Figure/statistic | Whitepaper source | Source data candidate | Format | Transformed? | Can reproduce? | Caveat |
+|---|---|---|---|---|---|---|
+
+Set `Transformed?` to yes with the transformation method (aggregation, estimate, index, commissioned processing) when the whitepaper figure is not the raw source data as published.
 
 Also include `取得できるデータ`, `取得できない理由`, `再利用時の注意`, and `取得した資料`.
 

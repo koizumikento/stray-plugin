@@ -62,7 +62,7 @@ Use this skill for repository maintenance questions such as:
 - Prefer actions that unblock contributors or users over general cleanup.
 - Prefer closing ambiguity before requesting more work from others.
 - Prefer deferring low-signal threads instead of inflating the priority list.
-- Treat old but inactive items as low priority unless there is clear user impact, a promised follow-up, or an easy maintainer win.
+- Treat old but inactive items as low priority unless there is clear user impact, a promised follow-up, or an easy maintainer win. As a default, consider an item stale after roughly 90 days without activity; adjust to the repository's actual cadence.
 - If the scope is too broad, narrow to the top few actionable items instead of pretending to review everything equally well.
 
 ## Output Expectations

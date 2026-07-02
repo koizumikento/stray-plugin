@@ -34,6 +34,7 @@ Use this skill when the user asks:
 6. Validate cache records when the user asks to inspect, repair, or confirm the cache.
    - Prefer `uv run python plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py tmp/japan-govdocs`; fall back to the repo's established Python runner when needed.
    - Treat validation failures as cache hygiene issues, not source-truth failures; re-check official landing pages before recaching.
+   - Map failure types to actions: hash mismatch -> re-download from the official URL and update the manifest record; missing local file -> re-fetch from the official landing page or remove the stale manifest line; missing or invalid manifest fields -> fix the record from the official source metadata.
 7. Return a concise cache report.
    - Say what was cached, what was only indexed, what was skipped, and why.
 

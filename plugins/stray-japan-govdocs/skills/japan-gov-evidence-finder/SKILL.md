@@ -25,8 +25,8 @@ Use this skill when the user asks:
    - Follow official URL roles in `../../references/official-url-model.md`.
    - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
    - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
-   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage.
-   - If no official source supports the claim after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources.
+   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage. Count source families as defined in `../../references/evaluation-rubric.md`.
+   - If no official source supports the claim after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources, listed as shown in `../../references/evaluation-rubric.md`.
 4. Default to latest editions unless the claim requires a specific time point.
 5. Read only the sections needed for each claim.
 6. Mark claims that are weakly supported or need non-whitepaper sources.
@@ -35,6 +35,8 @@ Use this skill when the user asks:
 
 | Claim | Evidence summary | Official source | Year/edition | Source location | Strength | Caution |
 |---|---|---|---|---|---|---|
+
+Rate `Strength` as Strong, Medium, or Weak using the evidence-strength scale in `../../references/evaluation-rubric.md`.
 
 Also include `使える言い換え`, `弱い根拠`, `追加確認`, and `取得した資料`.
 

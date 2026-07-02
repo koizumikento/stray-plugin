@@ -38,6 +38,6 @@ Use this reference when reviewing multiple local skills as a routing system for 
 ## Guardrails
 
 - Do not expand into external skill discovery.
-- Do not take over implementation.
+- Do not take over implementation unless the user explicitly asks for a review-fix loop, and then only fix confirmed routing, trigger, metadata, or instruction issues.
 - Do not report style-only concerns unless they affect routing or ownership.
 - Do not assume one skill should own everything related to a broad domain.

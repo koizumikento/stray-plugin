@@ -31,6 +31,6 @@ Use this reference when reviewing produced artifacts such as slide decks, report
 
 ## Guardrails
 
-- Do not redesign or recreate the artifact unless asked.
+- Do not redesign or recreate the artifact unless asked or as part of an explicit review-fix loop.
 - Do not impose marketing-style polish on operational artifacts.
 - Do not ignore factual support just because the artifact looks polished.

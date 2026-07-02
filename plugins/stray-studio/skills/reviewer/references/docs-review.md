@@ -32,6 +32,6 @@ Use this reference when reviewing README files, AGENTS.md, runbooks, handoff not
 
 ## Guardrails
 
-- Do not rewrite docs unless requested.
+- Do not rewrite docs unless requested or as part of an explicit review-fix loop.
 - Do not optimize for prose polish ahead of correctness.
 - Do not assume external context that the document itself should provide.

@@ -1,17 +1,17 @@
 ---
 name: "reviewer"
-description: "Use when the user wants a findings-first review, audit, preflight, or critique of code, diffs, documentation, UI, artifacts, Codex skills, plugin manifests, prompts, evals, release readiness, or repository compliance. Do not use for implementing fixes, creating new artifacts from scratch, general research, or legal advice."
+description: "Use when the user wants a findings-first review, audit, preflight, critique, or review-fix loop for code, diffs, documentation, UI, artifacts, Codex skills, plugin manifests, prompts, evals, release readiness, or repository compliance. Do not use for creating new artifacts from scratch, general research, unconstrained implementation work, or legal advice."
 ---
 
 # Reviewer
 
-Run a focused review of the user's target artifact. Treat this as a quality gate: identify concrete risks, explain why they matter, and keep recommendations actionable without taking over implementation unless the user explicitly asks for fixes.
+Run a focused review of the user's target artifact. Treat this as a quality gate: identify concrete risks, explain why they matter, and keep recommendations actionable. When the user asks for fixes, run a review-fix loop: delegate review to subagents when available, apply the smallest correction set, then repeat review until no actionable findings remain or a clear stop condition is reached.
 
 Use this skill for review requests such as code review, PR review, doc review, UI review, skill review, plugin review, prompt review, validation review, release preflight, compliance preflight, or broad "look this over" requests where the user expects critique.
 
 ## Do Not Use For
 
-- Implementing requested fixes before presenting the review
+- Implementing fixes without first establishing a reviewed finding or explicit repair scope
 - Building, writing, or redesigning an artifact from scratch
 - Creating a new software test strategy, test matrix, QA plan, regression scope, or release checklist from scratch; use `test-design-strategist`
 - General debugging without an explicit review request
@@ -46,18 +46,31 @@ Use this skill for review requests such as code review, PR review, doc review, U
    - cite concrete evidence from the artifact under review
    - separate confirmed findings from assumptions, questions, or optional improvements
    - avoid inventing issues when evidence is weak or context is missing
-5. Report in review order:
+5. If the user asked for fixes or a review-fix loop:
+   - send the review target and relevant context to one or more focused review subagents when subagents are available
+   - ask subagents for confirmed, evidence-backed findings only; assign distinct lenses for broad targets such as code correctness, tests, UX, docs, skill routing, or release readiness
+   - merge duplicate findings, discard unsupported claims, and decide the smallest correction set before editing
+   - apply fixes directly when they are within the requested scope and repository guardrails
+   - run the relevant validation or targeted checks after each repair pass
+   - run another review pass after fixes and continue until no confirmed actionable findings remain
+   - if subagents are unavailable, run the same review lenses as separate sequential passes and state that fallback
+6. Stop the review-fix loop when:
+   - no confirmed actionable findings remain
+   - the remaining items require user, legal, security, product, design, credential, infrastructure, or external-system decisions
+   - the same finding persists after two focused repair attempts
+   - the loop has already completed three repair passes and further changes would be speculative or broad
+7. Report in review order:
    - findings first, ordered by severity or decision impact
    - then open questions or assumptions
-   - then a short summary of residual risk, coverage gaps, or recommended next actions
-6. If no actionable findings remain:
+   - then fixes applied, validation performed, and residual risk or recommended next actions
+8. If no actionable findings remain:
    - say so directly
    - mention the main areas checked
    - call out any unverified risk caused by missing context, missing tests, or incomplete artifacts
 
 ## Output Expectations
 
-- Primary output is a concise review, not a patch.
+- Primary output is a concise review unless the user asked for fixes. In fix mode, output the review basis, applied changes, validation results, final review status, and any remaining blocker.
 - Each finding should include:
   - severity or priority signal when useful
   - file, line, section, screen, or artifact reference when available
@@ -69,10 +82,10 @@ Use this skill for review requests such as code review, PR review, doc review, U
 
 ## Guardrails
 
-- Keep `reviewer` as a review skill; do not drift into implementation, rewriting, or artifact production unless the user explicitly asks.
+- Keep `reviewer` anchored in review evidence. Only implement fixes that directly address confirmed findings or an explicit review-fix request.
 - Do not bury high-risk findings under minor wording or style comments.
 - Do not claim complete legal compliance, complete security coverage, or exhaustive test coverage.
-- Do not replace specialized creation skills. Route implementation follow-up to the relevant builder, writer, skill authoring, or research skill.
+- Do not replace specialized creation skills. Route broad implementation follow-up to the relevant builder, writer, skill authoring, or research skill.
 - Do not absorb dedicated security preflight work when `security-preflight` owns the requested review.
 - Do not load every reference by default. Use only the references that match the review target.
 

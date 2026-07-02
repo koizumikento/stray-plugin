@@ -1,12 +1,12 @@
 {
   "name": "stray-studio",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Studio",
     "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
-    "longDescription": "A repo-local Codex plugin for execution, review, and artifact production. It helps agents build or modify full-stack applications, build and deploy Slack apps with path-specific guidance for Slack CLI workflows, app manifests, Bolt, Deno Slack SDK, workflows, events, and Slack Web API integrations, create corporate websites and landing pages, design practical software test strategies, test viewpoints, QA plans, regression scopes, and release checklists, run findings-first reviews of code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, and repository compliance, run security-focused preflights for repositories, diffs, CI/CD workflows, dependencies, secrets, IaC, containers, and release surfaces, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, produce polished screenshots or Slack-friendly GIFs, and create production-oriented pixel-art assets such as sprites, icons, item sheets, and tilesets.",
+    "longDescription": "A repo-local Codex plugin for execution, review, and artifact production. It helps agents build or modify full-stack applications, build and deploy Slack apps with path-specific guidance for Slack CLI workflows, app manifests, Bolt, Deno Slack SDK, workflows, events, and Slack Web API integrations, create corporate websites and landing pages, design practical software test strategies, test viewpoints, QA plans, regression scopes, and release checklists, run findings-first reviews and review-fix loops for code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, and repository compliance, run security-focused preflights for repositories, diffs, CI/CD workflows, dependencies, secrets, IaC, containers, and release surfaces, restyle existing artifacts, shape brand identity, draft articles and proposals, turn operations knowledge into playbooks, create or repair JSON Canvas files, produce polished screenshots or Slack-friendly GIFs, and create production-oriented pixel-art assets such as sprites, icons, item sheets, and tilesets.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -15,7 +15,7 @@
       "Create or revise a corporate website with company information architecture, business/service pages, news, careers, IR, sustainability, trust links, and responsive implementation.",
       "Create or overhaul a landing page with conversion-focused structure, messaging, CTA flow, SEO basics, and responsive implementation.",
       "Design a software test strategy, QA plan, test matrix, regression scope, release checklist, or automation candidate list.",
-      "Review code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, or repository compliance with findings-first feedback.",
+      "Review code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, or repository compliance with findings-first feedback, and run a review-fix loop when requested.",
       "Run a security preflight on a repository, diff, CI/CD workflow, dependency set, IaC/container setup, secrets posture, or release surface before shipping.",
       "Apply a coherent visual theme to an existing artifact such as a doc, deck, HTML page, or existing landing page without changing its core structure.",
       "Create or refine a brand identity direction, brand brief, or mini style guide.",

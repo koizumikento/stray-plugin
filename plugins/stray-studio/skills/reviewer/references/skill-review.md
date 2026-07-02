@@ -30,12 +30,19 @@ Use this reference when reviewing a single `SKILL.md`, a draft agent skill, trig
 
 - State the review scope.
 - List confirmed issues first.
-- Give a direct recommendation: keep, narrow, merge, remove, or clarify.
+- Give a direct recommendation: keep, narrow, merge, remove, clarify, or repaired.
 - Call out overlap with local skills by name when visible.
+- When the user asked for edits, list the repaired instruction areas and final review status.
+
+## Review-Fix Loop
+
+- When the user asks to repair the skill, run a review pass first, preferably through a focused subagent when available.
+- Fix only confirmed trigger, scope, workflow, output, metadata, or guardrail issues.
+- Re-review the updated skill text after each repair pass until no actionable skill findings remain or the main skill stop condition applies.
 
 ## Guardrails
 
 - Do not turn skill review into code review.
 - Do not produce a test plan unless the user asked for validation review.
-- Do not rewrite the skill unless the user explicitly asked for edits.
+- Do not rewrite the skill unless the user explicitly asked for edits or a review-fix loop.
 - Do not invent overlap without evidence from the skill text or local skill set.

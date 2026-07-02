@@ -28,8 +28,15 @@ Use this reference when the target is a diff, branch, pull request, staged chang
 
 - Findings first, ordered by severity.
 - Then open questions or assumptions.
-- Then residual risk or testing gaps.
+- Then fixes applied when the user asked for repair, followed by validation results, residual risk, or testing gaps.
 - If no actionable findings remain, say so directly and name the areas checked.
+
+## Review-Fix Loop
+
+- When the user asks for fixes, delegate focused review passes to subagents when available before editing.
+- Ask each reviewer for confirmed findings with file and line evidence, not speculative cleanup.
+- Merge duplicate findings, apply the smallest correction set, and run targeted tests or checks.
+- Repeat review after each repair pass until no confirmed actionable findings remain or the main skill stop condition applies.
 
 ## Guardrails
 

@@ -31,11 +31,11 @@ Use this reference when reviewing system prompts, developer instructions, agent 
 
 - Findings first, with quoted short excerpts only when needed.
 - Conflict, ambiguity, or missing-boundary risks.
-- Concrete rewrite direction, not a full rewrite unless requested.
+- Concrete rewrite direction, not a full rewrite unless requested or needed for an explicit review-fix loop.
 - Recommendation: keep, clarify, narrow, split, or block.
 
 ## Guardrails
 
-- Do not rewrite the whole prompt unless asked.
+- Do not rewrite the whole prompt unless asked or needed for an explicit review-fix loop.
 - Do not nitpick wording that does not change behavior.
 - Do not ignore instruction hierarchy or tool availability.

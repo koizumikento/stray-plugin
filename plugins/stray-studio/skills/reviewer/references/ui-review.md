@@ -33,6 +33,6 @@ Use this reference when reviewing screens, frontend flows, visual interaction, a
 
 ## Guardrails
 
-- Do not convert UI review into implementation unless requested.
+- Do not convert UI review into implementation unless requested or as part of an explicit review-fix loop.
 - Do not judge only the static happy path when the workflow has important states.
 - Do not use aesthetic preference as a blocker without user impact.

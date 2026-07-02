@@ -1,6 +1,6 @@
 {
   "name": "stray-skillops",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Repo-local Codex plugin for skill authoring, evals, and subagent operations.",
   "skills": "./skills/",
   "interface": {

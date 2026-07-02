@@ -1,6 +1,6 @@
 {
   "name": "stray-robotics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Repo-local Codex plugin for ROS 2-first robotics software development.",
   "author": {
     "name": "Local Workspace"

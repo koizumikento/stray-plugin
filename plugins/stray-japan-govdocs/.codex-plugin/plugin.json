@@ -1,6 +1,6 @@
 {
   "name": "stray-japan-govdocs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Repo-local Codex plugin for answering user requests with Japanese government whitepapers, statistics, budgets, cases, official policy documents, and temporary source caches.",
   "skills": "./skills/",
   "interface": {

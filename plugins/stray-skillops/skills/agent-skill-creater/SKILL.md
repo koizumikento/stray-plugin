@@ -1,6 +1,6 @@
 ---
 name: "agent-skill-creater"
-description: "Use when the user wants to create or update a Codex agent skill and the main work is authoring the skill artifact itself. Do not use for plugin scaffolding, `.codex/agents/` subagents, plugin-wide overlap audits, review-only requests, or unrelated documentation."
+description: "Use when the user wants to create or update a Codex `SKILL.md` in a plugin or repo `.agents/skills/` directory. Do not use for plugin scaffolding, custom subagents, review-only audits, or routing-eval-only work."
 ---
 
 # Agent Skill Creater
@@ -16,7 +16,8 @@ Create or update focused Codex agent skills. Route the request first, then write
    - not a skill: plugin scaffolding, generic docs, tests, or app code
 2. Hand off when another skill owns the request:
    - use `subagent-creator` for `.codex/agents/` custom subagents
-   - use `reviewer` for plugin-wide routing audits, review-only feedback, or validation strategy without authoring
+   - use `skill-routing-validator` for trigger cases, near-miss prompts, or routing-eval maintenance
+   - use `reviewer` for findings-first skill or plugin audits when no authoring is requested
 3. Lock the storage boundary:
    - plugin-family skills may touch the selected plugin's `skills/` directory and, only if discoverability changes, its plugin manifest
    - project-scoped repo skills may touch only `.agents/skills/` in the target repo unless the user explicitly asks otherwise
@@ -29,6 +30,8 @@ Create or update focused Codex agent skills. Route the request first, then write
 - Add `Do not use...` boundaries for the nearest likely collisions.
 - Keep it concrete enough for routing; avoid broad phrases like "helps with X" unless the owned workflow is named.
 - Preserve user-requested skill names unless asked to normalize them.
+- Put the decisive intent and nearest collision first because descriptions may be shortened in large skill sets.
+- Define at least one intended prompt and one neighboring prompt that must not select the skill.
 
 ## Progressive Disclosure
 
@@ -80,8 +83,9 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 2. Decide the skill's owned job, trigger, non-goals, and handoffs before writing.
 3. Create or update `SKILL.md` using the compact template unless the existing local style requires a small variation.
 4. Move detailed guidance to `references/` instead of expanding the entry point.
-5. Validate placement and any edited JSON manifests.
-6. Report changed paths, target surface, final trigger description, and any added references, scripts, or metadata.
+5. Validate placement, frontmatter, local references, companion metadata, and any edited JSON manifests.
+6. When routing behavior changed, add or update cases owned by `skill-routing-validator` and check both intended and near-miss prompts.
+7. Report changed paths, target surface, final trigger description, validation evidence, and any added references, scripts, or metadata.
 
 For detailed authoring rules, use `references/authoring-guide.md`.
 
@@ -91,3 +95,4 @@ For detailed authoring rules, use `references/authoring-guide.md`.
 - Stop and route to `subagent-creator` for custom subagents.
 - Stop if the target path falls outside the selected plugin's `skills/` directory or the target repo's `.agents/skills/` without explicit instruction.
 - Stop before broadening a plugin manifest unless the new or changed skill materially changes discoverability.
+- Stop and route to `skill-routing-validator` when the requested deliverable is an eval set rather than a skill artifact.

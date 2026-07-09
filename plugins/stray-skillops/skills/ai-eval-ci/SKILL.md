@@ -1,6 +1,6 @@
 ---
 name: "ai-eval-ci"
-description: "Use when the user wants to add AI or agent evaluations to CI, catch prompt regressions, compare model behavior, or enforce quality gates for LLM output. Do not use for ordinary unit tests, one-off manual prompt checks, or non-LLM code paths."
+description: "Use when the user wants repeatable AI or agent evaluations enforced in CI, including model comparisons that must become a quality gate. Do not use for ordinary tests, one-off prompt checks, or skill-routing cases without CI."
 ---
 
 # AI Eval CI
@@ -29,32 +29,41 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
    - Use deterministic assertions when the output can be checked structurally.
    - Use model-judged or rubric-based scoring only when semantic quality cannot be captured otherwise.
    - Add clear thresholds so the CI result is unambiguous.
+   - Pin or record the evaluated model, judge model, prompts, rubric version, sampling settings, and dataset revision.
+   - Calibrate semantic thresholds with repeated baseline runs; do not disguise normal variance as a regression.
 
 4. Detect existing tools before adding new ones.
    - Inspect the repo for current test runners, eval harnesses, CI providers, package scripts, and model configuration.
    - Prefer extending existing tooling over adding a new framework.
    - Stop and ask before introducing paid external services, new model providers, or secrets that the repo does not already use.
 
-5. Wire the eval into CI.
+5. Bound data, cost, and nondeterminism before wiring CI.
+   - Remove or synthesize secrets, credentials, PII, customer content, and confidential prompts before sending fixtures to an external model.
+   - Set an expected request count, runtime, retry policy, and cost ceiling appropriate for routine CI.
+   - Separate infrastructure or rate-limit failures from quality failures so flaky availability does not silently change the score.
+
+6. Wire the eval into CI.
    - Run the eval in the same pipeline that validates the code or prompt change.
    - Fail the build when the score drops below the threshold or a required assertion fails.
    - Keep runtime and external dependencies low enough for routine CI usage.
 
-6. Prove the gate locally or record why it cannot be run.
+7. Prove the gate locally or record why it cannot be run.
    - Run the eval locally before relying on CI when the repository supports it.
    - Record the exact command and pass/fail result.
    - If it fails, make at most two focused repair attempts before stopping with the failing output and next diagnostic step.
 
-7. Document the gate.
+8. Document the gate.
    - State what change should trigger the eval.
    - Explain how to run it locally before pushing.
    - Record where the fixtures, config, and results live.
+   - Record how to update the baseline and who may approve a threshold change.
 
 ## Outputs
 
 - An eval definition or test fixture set.
 - A CI step that runs the eval and fails on regression.
 - A short note explaining what the gate protects and how to interpret failures.
+- Versioned baseline evidence and a machine-readable result artifact when the harness supports it.
 
 ## Assumptions
 
@@ -69,6 +78,8 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 - Do not hide failures behind flaky thresholds or vague pass criteria.
 - Do not add scripts, references, or metadata files unless they materially improve reliability.
 - Do not add new CI providers, secret requirements, or external accounts when existing repo tooling can run the gate.
+- Do not send production secrets, PII, private customer data, or confidential prompts to an evaluator without an explicitly approved data path.
+- Do not use retries to convert a real quality failure into a pass; retries are only for classified transient failures.
 
 ## Stop Conditions
 
@@ -76,3 +87,4 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 - Stop if no repeatable CI gate is desired.
 - Stop and ask before adding a new paid model dependency, secret, or external eval service.
 - Stop if the repo has no CI surface and the user only asked for eval design, not CI setup.
+- Stop when the proposed gate cannot distinguish model variance from a meaningful regression with the available cases.

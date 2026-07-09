@@ -1,6 +1,6 @@
 ---
 name: "corporate-site-builder"
-description: "Use when the user wants to create, revise, or ship a corporate website in the current repository, including company information architecture, homepage and lower-page structure, business/service sections, news, careers, IR, sustainability, governance, trust/policy links, and responsive implementation. Do not use for single-offer landing pages, pure brand strategy, research-only benchmarking, full product app flows, or one-off visual theming."
+description: "Use when the user wants to create or revise a static, repository-managed corporate site with durable company and trust pages plus responsive implementation. Do not use for CMS/editorial workflows, single-offer landing pages, data-backed product flows, brand strategy, or theme-only restyling."
 ---
 
 # Corporate Site Builder
@@ -21,6 +21,7 @@ Use this skill when the user wants to:
 - broad brand identity work without site implementation
 - research-only benchmarking or inspiration gathering
 - full product application flows, dashboards, auth, or data-backed user workflows
+- live CMS editing, editorial approvals, preview dashboards, authenticated publishing, or other content-platform workflows; use `fullstack-app-builder`
 - one-off visual restyling of an existing artifact without changing corporate structure
 - investor relations, ESG, or legal content authoring that requires specialist compliance review
 

@@ -1,6 +1,6 @@
 ---
 name: "context-compression"
-description: "Use when a long-running task, debugging thread, or multi-step workflow needs to be compacted without losing file paths, decisions, errors, or next steps. Do not use for one-off summaries, general research, test planning, or implementation work that should be handled by a different skill."
+description: "Use when an ongoing task must be compacted so another turn or agent can continue with its files, decisions, evidence, failures, and next action intact. Do not use for one-off summaries, research briefs, or domain implementation."
 ---
 
 # Context Compression
@@ -36,6 +36,8 @@ Use this skill when a conversation or task has grown large enough that the next 
    - use full file paths for files that matter
    - keep symbol names, config keys, error strings, and branch names
    - note dates or versions when facts may change
+   - label important statements as observed, user-provided, inferred, or still unverified
+   - retain the last verification time for volatile external state and active processes
 3. Compress only the newest or least useful detail:
    - keep durable facts
    - drop repetition, chatter, and dead ends
@@ -50,13 +52,20 @@ Use this skill when a conversation or task has grown large enough that the next 
    - `Next Steps`
    - `Open Questions`
    - `Stop Or Escalation Conditions`
+   - `Freshness And Provenance`
+   - `Superseded State`
 5. Check the result for continuity:
    - could the task continue without re-reading the original thread
    - are the key files and decisions still named explicitly
    - are unresolved issues still visible instead of flattened away
+   - can a reader distinguish current state from an earlier result that has been replaced
 6. If compression would remove a critical fact, keep the fact and compress elsewhere instead:
    - prefer a slightly larger summary over a misleadingly small one
    - never invent continuity that is not actually present
+7. Update incrementally when a prior compressed state exists:
+   - preserve still-valid decisions instead of regenerating them from memory
+   - move replaced commands, hypotheses, and status into `Superseded State`
+   - update verification timestamps only for facts that were actually rechecked
 
 ## Output Expectations
 
@@ -69,6 +78,8 @@ Return a compact task summary that lets the next agent or future turn continue s
 - the active blocker or uncertainty
 - the next concrete step
 - when to continue, retry, ask the user, or stop
+- provenance and freshness for state whose validity can change
+- explicit superseded items when an earlier summary is being updated
 
 ## Guardrails
 
@@ -77,3 +88,10 @@ Return a compact task summary that lets the next agent or future turn continue s
 - Do not merge distinct decisions into one blurred summary.
 - Do not invent a clean state if the task is still messy.
 - Do not use this skill as a substitute for a domain-specific brief or a code review.
+- Do not present inferred or stale state as freshly observed.
+- Do not silently drop an earlier blocker merely because a newer summary is shorter.
+
+## Stop Conditions
+
+- Stop and keep a layered or longer summary when the requested compression would make current and superseded state indistinguishable.
+- Stop and mark state unverified when the original evidence is unavailable; do not reconstruct it from plausibility.

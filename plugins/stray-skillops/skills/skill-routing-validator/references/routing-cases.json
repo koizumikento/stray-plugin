@@ -1,0 +1,390 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "skillops-author-skill",
+      "prompt": "Update this plugin's SKILL.md trigger and workflow, then validate its placement.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["skills-search", "subagent-creator"],
+      "reason": "The requested artifact is an existing skill, not discovery or a custom agent."
+    },
+    {
+      "id": "skillops-ai-eval-ci",
+      "prompt": "Add a repeatable LLM response-quality gate to GitHub Actions with a versioned baseline.",
+      "expect": ["ai-eval-ci"],
+      "reject": ["skill-routing-validator", "test-design-strategist"],
+      "reason": "The desired outcome is an LLM-specific CI gate."
+    },
+    {
+      "id": "skillops-compress-context",
+      "prompt": "Compact this long debugging task so another turn can continue with paths, decisions, failures, and next action intact.",
+      "expect": ["context-compression"],
+      "reject": ["deep-researcher"],
+      "reason": "This preserves active task state rather than researching a topic."
+    },
+    {
+      "id": "skillops-design-multi-agent",
+      "prompt": "Compare supervisor and pipeline topologies and define roles, dependencies, handoffs, and quality gates; do not create TOML files.",
+      "expect": ["multi-agent-patterns"],
+      "reject": ["subagent-creator"],
+      "reason": "The deliverable is a conceptual execution model, not reusable agent configuration."
+    },
+    {
+      "id": "skillops-search-skills",
+      "prompt": "Search local and official catalogs for an existing skill, compare provenance and dependencies, and recommend adopt, adapt, or create.",
+      "expect": ["skills-search"],
+      "reject": ["agent-skill-creater"],
+      "reason": "Discovery and comparison must finish before authoring."
+    },
+    {
+      "id": "skillops-create-subagent",
+      "prompt": "Create a project-scoped .codex/agents/reviewer.toml and validate its required fields.",
+      "expect": ["subagent-creator"],
+      "reject": ["multi-agent-patterns"],
+      "reason": "The user explicitly requests a reusable custom-agent file."
+    },
+    {
+      "id": "skillops-validate-routing",
+      "prompt": "Add positive and near-miss prompt cases for every local skill and validate expected versus rejected routes.",
+      "expect": ["skill-routing-validator"],
+      "reject": ["ai-eval-ci"],
+      "reason": "This is skill trigger-boundary validation without a general model-quality CI gate."
+    },
+    {
+      "id": "research-api-terms",
+      "prompt": "Check the current official API terms for commercial redistribution on our enterprise plan in Japan.",
+      "expect": ["api-terms-checker"],
+      "reject": ["domain-researcher"],
+      "reason": "The primary decision is a practical SaaS terms restriction."
+    },
+    {
+      "id": "research-deep",
+      "prompt": "Produce a long-form report across technical, regulatory, market, and counter-evidence tracks with conflicts and uncertainty documented.",
+      "expect": ["deep-researcher"],
+      "reject": ["domain-researcher", "web-researcher", "context-compression", "japan-news-brief"],
+      "reason": "The task requires multi-track durable synthesis rather than a concise brief."
+    },
+    {
+      "id": "research-domain",
+      "prompt": "Investigate this unfamiliar networking standard in a concise specialist brief using five authoritative sources.",
+      "expect": ["domain-researcher"],
+      "reject": ["deep-researcher", "api-terms-checker"],
+      "reason": "The task is a bounded specialist investigation, not terms or deep multi-track research."
+    },
+    {
+      "id": "research-github-maintenance",
+      "prompt": "Read the open issues and pull requests and recommend the next three maintainer actions without posting anything.",
+      "expect": ["github-maintainer"],
+      "reject": ["web-researcher"],
+      "reason": "The task is read-only GitHub maintenance triage."
+    },
+    {
+      "id": "research-global-patent",
+      "prompt": "Search worldwide patent families and CPC classes for prior art across Europe, the US, and Japan.",
+      "expect": ["global-patent-researcher"],
+      "reject": ["japan-patent-researcher", "japan-company-info-researcher"],
+      "reason": "The search is explicitly multi-jurisdictional rather than Japan-only or corporate metadata."
+    },
+    {
+      "id": "research-idea-exploration",
+      "prompt": "Use current signals to widen this concept into six distinct directions; rank them but do not select product scope.",
+      "expect": ["idea-explorer"],
+      "reject": ["product-designer"],
+      "reason": "The user needs option expansion without a final product decision."
+    },
+    {
+      "id": "research-japan-company",
+      "prompt": "Using this Japanese corporate number, summarize the company's gBizINFO subsidies, procurement, certifications, and patents.",
+      "expect": ["japan-company-info-researcher"],
+      "reject": ["global-patent-researcher"],
+      "reason": "A named Japanese company and gBizINFO data groups define the task."
+    },
+    {
+      "id": "research-japan-news",
+      "prompt": "Give me this morning's Japan news roundup in the fixed brief format with event dates and primary-source checks.",
+      "expect": ["japan-news-brief"],
+      "reject": ["deep-researcher"],
+      "reason": "The request is a current multi-item Japan news briefing."
+    },
+    {
+      "id": "research-japan-weather",
+      "prompt": "Retrieve the latest AMeDAS observations and hourly JMA time series for Sapporo with timestamps and units.",
+      "expect": ["japan-weather-data-researcher"],
+      "reject": ["web-researcher"],
+      "reason": "The user needs official Japanese station and time-series weather data."
+    },
+    {
+      "id": "research-keiba",
+      "prompt": "Analyze this JRA race from the supplied odds and entries, estimate probability ranges, and discuss value without placing bets.",
+      "expect": ["keiba-yosou-agent"],
+      "reject": ["web-researcher"],
+      "reason": "The task is bounded Japanese horse-racing analysis with responsible-use limits."
+    },
+    {
+      "id": "research-mcp-design",
+      "prompt": "Design an MCP server's tools, resources, auth, pagination, errors, and client compatibility before implementation.",
+      "expect": ["mcp-server-designer"],
+      "reject": ["fullstack-app-builder"],
+      "reason": "The requested output is an MCP protocol design, not application code."
+    },
+    {
+      "id": "research-product-decision",
+      "prompt": "Compare the researched options, choose one product direction, define scope, acceptance criteria, and a validation plan.",
+      "expect": ["product-designer"],
+      "reject": ["idea-explorer"],
+      "reason": "A concrete product decision and scope are required."
+    },
+    {
+      "id": "research-distill-page",
+      "prompt": "Turn this provided web page into clean, analysis-ready structured notes with concise paraphrase and short necessary excerpts; do not write a standalone summary or reproduce the full article.",
+      "expect": ["web-content-distiller"],
+      "reject": ["web-researcher"],
+      "reason": "A single supplied page is the primary object, and the output stays within distillation rather than editorial summary writing."
+    },
+    {
+      "id": "research-general-web",
+      "prompt": "Research the current adoption of passkeys and return a concise sourced brief; no specialist workflow is required.",
+      "expect": ["web-researcher"],
+      "reject": ["domain-researcher", "github-maintainer", "japan-news-brief", "japan-weather-data-researcher", "keiba-yosou-agent", "web-content-distiller"],
+      "reason": "This is a general current web brief rather than a narrower local workflow."
+    },
+    {
+      "id": "research-japan-patent",
+      "prompt": "Use J-PlatPat, Japanese keywords, FI, and F-term to search Japan-only prior art and return a reproducible search log.",
+      "expect": ["japan-patent-researcher"],
+      "reject": ["global-patent-researcher", "japan-company-info-researcher"],
+      "reason": "The primary workflow is Japan-specific patent searching."
+    },
+    {
+      "id": "studio-write-article",
+      "prompt": "Turn these notes and sources into a publishable explanatory article with a clear audience, angle, and source policy.",
+      "expect": ["article-writer"],
+      "reject": ["proposal-writer"],
+      "reason": "The output is editorial content, not an approval document."
+    },
+    {
+      "id": "studio-theme-artifact",
+      "prompt": "Apply the supplied visual theme to this existing slide deck without changing its content or structure, then render-check it.",
+      "expect": ["artifact-theme-applier"],
+      "reject": ["brand-designer", "json-canvas-editor"],
+      "reason": "The job is restyling an existing artifact rather than defining a brand or canvas structure."
+    },
+    {
+      "id": "studio-design-brand",
+      "prompt": "Define a reusable brand direction with visual principles, typography, color logic, imagery, and tone of voice.",
+      "expect": ["brand-designer"],
+      "reject": ["artifact-theme-applier"],
+      "reason": "The user needs a durable identity system, not one-off theming."
+    },
+    {
+      "id": "studio-corporate-site",
+      "prompt": "Build a static corporate site with Company, Business, News, Careers, Contact, policies, and a full footer sitemap.",
+      "expect": ["corporate-site-builder"],
+      "reject": ["landing-page-builder"],
+      "reason": "This is a durable multi-page company information site."
+    },
+    {
+      "id": "studio-fullstack-app",
+      "prompt": "Implement this authenticated web app flow across screens, API, database migration, authorization, and end-to-end validation.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["slack-app-builder", "mcp-server-designer", "ros2-development"],
+      "reason": "The task is an application flow without a narrower Slack, MCP, or robotics owner."
+    },
+    {
+      "id": "studio-json-canvas",
+      "prompt": "Repair this .canvas file's node IDs, edge targets, type-specific fields, and layout, then validate JSON Canvas structure.",
+      "expect": ["json-canvas-editor"],
+      "reject": ["artifact-theme-applier"],
+      "reason": "The primary artifact is JSON Canvas structure rather than generic visual theming."
+    },
+    {
+      "id": "studio-landing-page",
+      "prompt": "Build a conversion landing page for one offer with one CTA, proof blocks, FAQ, responsive layout, and SEO metadata.",
+      "expect": ["landing-page-builder"],
+      "reject": ["corporate-site-builder"],
+      "reason": "The page serves one campaign offer rather than a corporate information architecture."
+    },
+    {
+      "id": "studio-marketing-screenshots",
+      "prompt": "Capture a sanitized set of polished app screenshots for release notes with consistent framing and annotations.",
+      "expect": ["marketing-screenshot-creator"],
+      "reject": ["slack-gif-creator", "pixel-art-asset-creator"],
+      "reason": "The output is a static marketing screenshot set."
+    },
+    {
+      "id": "studio-ops-playbook",
+      "prompt": "Turn these incident notes into an operator runbook with prerequisites, decisions, rollback, escalation, owner, and review date.",
+      "expect": ["ops-playbook-writer"],
+      "reject": ["proposal-writer"],
+      "reason": "The deliverable is an executable operational procedure."
+    },
+    {
+      "id": "studio-pixel-art",
+      "prompt": "Create and package a pixel-art sprite sheet with a canonical base, cell inspection, repair queue, and animation preview.",
+      "expect": ["pixel-art-asset-creator"],
+      "reject": ["marketing-screenshot-creator", "json-canvas-editor"],
+      "reason": "The user needs production-oriented raster game assets."
+    },
+    {
+      "id": "studio-proposal",
+      "prompt": "Draft an approval memo naming the decision owner, requested approval, evidence, tradeoffs, deadline, and next action.",
+      "expect": ["proposal-writer"],
+      "reject": ["article-writer", "ops-playbook-writer"],
+      "reason": "The document exists to secure a decision rather than inform readers or run operations."
+    },
+    {
+      "id": "studio-review-fix",
+      "prompt": "Review these skill changes findings-first, apply only confirmed fixes, then re-review until the bounded stop condition.",
+      "expect": ["reviewer"],
+      "reject": ["security-preflight", "test-design-strategist"],
+      "reason": "The user requests a general review-fix loop, not a security-only audit or new test design."
+    },
+    {
+      "id": "studio-security-preflight",
+      "prompt": "Run a read-only security preflight of this repository's auth, secrets, dependencies, CI, and container surface; do not remediate.",
+      "expect": ["security-preflight"],
+      "reject": ["reviewer"],
+      "reason": "Security is the primary review lens and implementation is excluded."
+    },
+    {
+      "id": "studio-slack-app",
+      "prompt": "Implement and validate a Slack app event handler and manifest, but ask before workspace installation or deployment.",
+      "expect": ["slack-app-builder"],
+      "reject": ["fullstack-app-builder"],
+      "reason": "Slack-specific runtime and workspace behavior require the specialist builder."
+    },
+    {
+      "id": "studio-slack-gif",
+      "prompt": "Create a Slack message GIF from these screenshots and verify dimensions, duration, frame count, and file size.",
+      "expect": ["slack-gif-creator"],
+      "reject": ["marketing-screenshot-creator"],
+      "reason": "The final artifact is an animated Slack-optimized GIF."
+    },
+    {
+      "id": "studio-test-design",
+      "prompt": "Design a risk-based test matrix and release gate for this feature; do not implement test code.",
+      "expect": ["test-design-strategist"],
+      "reject": ["ai-eval-ci", "reviewer"],
+      "reason": "The user requests new software test design, not implementation or review."
+    },
+    {
+      "id": "gov-background",
+      "prompt": "政府資料からこの課題の中立的な社会背景と政策上の問題設定を整理して。商材への接続は不要です。",
+      "expect": ["japan-gov-background-builder"],
+      "reject": ["japan-gov-proposal-context-adapter", "japan-gov-request-router"],
+      "reason": "The action is a clear neutral background synthesis."
+    },
+    {
+      "id": "gov-budget",
+      "prompt": "この政策分野の令和8年度予算を、要求・政府案・成立・補正・執行の状態を分けて追跡して。",
+      "expect": ["japan-gov-budget-tracer"],
+      "reject": ["japan-gov-priority-checker"],
+      "reason": "The user explicitly needs budget lifecycle evidence."
+    },
+    {
+      "id": "gov-cases",
+      "prompt": "この政策課題について、政府資料に掲載された自治体事例を成果測定の有無で分類して。",
+      "expect": ["japan-gov-case-finder"],
+      "reject": ["japan-gov-evidence-finder"],
+      "reason": "The primary object is official case examples rather than evidence for one claim."
+    },
+    {
+      "id": "gov-chart-source",
+      "prompt": "この白書の図3-2が参照するe-Stat表と元データを特定し、再分析可能な形にして。",
+      "expect": ["japan-gov-chart-data-tracer"],
+      "reject": ["japan-gov-kpi-finder", "japan-gov-estat-data-analyst"],
+      "reason": "A specific published figure is the starting point."
+    },
+    {
+      "id": "gov-citation-audit",
+      "prompt": "この既存の白書引用が最新版・公式URL・主張範囲に合うか監査し、確認日を付けて。",
+      "expect": ["japan-gov-citation-auditor"],
+      "reject": ["japan-gov-evidence-finder"],
+      "reason": "The task audits an existing citation rather than finding new evidence."
+    },
+    {
+      "id": "gov-estat",
+      "prompt": "e-Statで人口動態の統計表を検索し、表ID、絞り込み、単位を示してデータを取得・比較して。",
+      "expect": ["japan-gov-estat-data-analyst"],
+      "reject": ["japan-gov-kpi-finder", "japan-gov-chart-data-tracer"],
+      "reason": "The user requests direct table discovery, retrieval, and analysis."
+    },
+    {
+      "id": "gov-evidence",
+      "prompt": "『地方の担い手不足が拡大している』という一つの主張を支える政府公式の根拠を探して。",
+      "expect": ["japan-gov-evidence-finder"],
+      "reject": ["japan-gov-citation-auditor", "japan-gov-case-finder"],
+      "reason": "The workflow starts from a specific claim needing evidence."
+    },
+    {
+      "id": "gov-kpi",
+      "prompt": "この社会課題を測るための公的KPI候補とアウトカム指標を提案して。具体的な統計表取得は後でよい。",
+      "expect": ["japan-gov-kpi-finder"],
+      "reject": ["japan-gov-estat-data-analyst", "japan-gov-chart-data-tracer"],
+      "reason": "The user needs indicator design, not table retrieval or chart tracing."
+    },
+    {
+      "id": "gov-owner",
+      "prompt": "このテーマの正式所管と周辺省庁を、所掌資料の種類とconfidence付きで整理して。",
+      "expect": ["japan-gov-owner-mapper"],
+      "reject": ["japan-gov-priority-checker"],
+      "reason": "The requested decision is institutional ownership."
+    },
+    {
+      "id": "gov-priority",
+      "prompt": "過去3年の独立した公式シグナルから、このテーマの政府優先度が上がったか判定して。",
+      "expect": ["japan-gov-priority-checker"],
+      "reject": ["japan-gov-owner-mapper", "japan-gov-budget-tracer"],
+      "reason": "The requested output is a time-bounded priority judgment."
+    },
+    {
+      "id": "gov-project-links",
+      "prompt": "国交省Project LINKSの観光CSVをCKANから探し、取得・品質確認・結合分析して。",
+      "expect": ["japan-gov-project-links-data-analyst"],
+      "reject": ["japan-real-estate-info-library-analyst"],
+      "reason": "The named data family is Project LINKS."
+    },
+    {
+      "id": "gov-proposal-adapter",
+      "prompt": "このサービスを官公庁向け提案に接続するため、政府背景・根拠・所管を統合した説得的文脈にして。",
+      "expect": ["japan-gov-proposal-context-adapter"],
+      "reject": ["japan-gov-background-builder", "proposal-writer"],
+      "reason": "The task is public-sector proposal synthesis grounded in official context."
+    },
+    {
+      "id": "gov-request-router",
+      "prompt": "政府資料ベースで調べたいが、背景・根拠・KPI・予算のどれを先に見るべきか整理して、その順で進めて。",
+      "expect": ["japan-gov-request-router"],
+      "reject": ["japan-gov-background-builder"],
+      "reason": "The request is explicitly broad, mixed, and asks for workflow selection."
+    },
+    {
+      "id": "gov-cache",
+      "prompt": "この政府PDFを一時保存し、hash、取得元、local pathをmanifestに記録してcacheを検証して。",
+      "expect": ["japan-govdoc-cache-manager"],
+      "reject": ["japan-whitepaper-brief"],
+      "reason": "Local cache traceability is the primary job."
+    },
+    {
+      "id": "gov-real-estate-library",
+      "prompt": "不動産情報ライブラリからこの地点の地価、用途地域、周辺施設、災害リスクを取得して地図比較して。",
+      "expect": ["japan-real-estate-info-library-analyst"],
+      "reject": ["japan-gov-project-links-data-analyst"],
+      "reason": "The named MLIT real-estate data service and spatial analysis define the task."
+    },
+    {
+      "id": "gov-whitepaper-brief",
+      "prompt": "令和8年版防災白書の第2章を本文中心に要約して。提案への接続は不要です。",
+      "expect": ["japan-whitepaper-brief"],
+      "reject": ["japan-gov-proposal-context-adapter", "japan-govdoc-cache-manager"],
+      "reason": "A named document and chapter are the primary object."
+    },
+    {
+      "id": "robotics-ros2",
+      "prompt": "このROS 2ワークスペースのnode、launch、QoS、rosdep、colcon test、Gazebo検証を修正して。実機は動かさないで。",
+      "expect": ["ros2-development"],
+      "reject": ["fullstack-app-builder"],
+      "reason": "The work is a ROS 2 software workflow with an explicit hardware boundary."
+    }
+  ]
+}

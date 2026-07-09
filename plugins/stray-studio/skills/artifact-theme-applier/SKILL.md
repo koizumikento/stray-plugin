@@ -1,6 +1,6 @@
 ---
 name: "artifact-theme-applier"
-description: "Use when the user wants to apply a coherent visual theme to an existing artifact such as slides, docs, existing HTML pages, existing landing pages, reports, or demos. Do not use for general UI review, brand strategy, creating the artifact from scratch, or landing-page work that changes messaging, structure, CTA flow, or SEO posture."
+description: "Use when the user wants to restyle an existing deck, document, report, HTML page, landing page, or demo while preserving content and structure, with format-native visual verification. Do not use for brand strategy, blank-slate creation, UI review, or landing-page messaging, CTA, or SEO changes."
 ---
 
 # Artifact Theme Applier
@@ -49,9 +49,13 @@ Use this skill when the user wants to restyle or unify an existing deliverable, 
 
 5. Check for fit and friction.
    - Look for low-contrast text, crowded spacing, mismatched fonts, and overused accent colors.
-   - Render, open, or export the changed artifact in its normal viewing path when feasible.
-   - Check representative pages, slides, or screens for clipping, contrast, broken layout, missing assets, and unchanged content structure.
-   - Report any viewer or export path that was not verified.
+   - Verify through the artifact's format-native path, not only by inspecting source markup or object properties:
+     - for slides, render or open the deck and inspect representative opening, middle, and closing slides; verify exported PDF when export is a deliverable
+     - for documents and reports, render or open in the intended document viewer and inspect page breaks, tables, headings, headers, and footers; verify PDF export when required
+     - for HTML and existing landing pages, run the page in a browser and inspect at least one normal desktop and one relevant mobile viewport
+     - for demos, open the intended runtime and inspect each representative themed state
+   - Check clipping, contrast, broken layout, missing assets, and unchanged content structure in the rendered result.
+   - Report every native viewer, runtime, or export path that could not be verified; a source-only check is not sufficient evidence of visual correctness.
    - If the theme clashes with the artifact's content or format, simplify the design rather than layering on more effects.
    - Stop if the requested change would require a full redesign instead of theme application.
 
@@ -63,7 +67,7 @@ Return a concise summary that includes:
 - the main styling decisions applied
 - any assumptions made because theme files or brand assets were missing
 - the files or artifact areas changed
-- the viewer, render, or export path verified, or the path that remains unverified
+- each format-native viewer, runtime, render, or export path verified, plus any path that remains unverified
 
 If no files were changed yet, explain what theme would be applied and what input is still needed.
 

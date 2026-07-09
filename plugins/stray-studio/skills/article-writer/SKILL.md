@@ -1,6 +1,6 @@
 ---
 name: "article-writer"
-description: "Use when the user wants to draft or revise a publishable article, blog post, newsletter entry, or editorial-style piece from a topic, outline, notes, or source material, with the audience, angle, and structure made explicit. Do not use for research-only requests, short marketing copy, or proofreading-only edits."
+description: "Use when the user wants to draft or substantially revise a publishable article, blog post, or newsletter from a brief or supplied sources, including angle, structure, prose, and source treatment. Do not use for research-only briefs, short marketing copy, or proofreading-only edits."
 ---
 
 # Article Writer
@@ -32,6 +32,9 @@ Use this skill when the user wants to:
 
 2. Stabilize the source material.
    - Use the user's notes, outline, draft, or source links as the primary input.
+   - Decide before drafting whether supplied links, citations, and notes should appear inline, in end notes, in a source list, or serve only as verification material. State the chosen policy when the requested publication format does not make it obvious.
+   - Preserve source attribution needed to support the article; do not silently remove links or citations whose removal would make a claim look unsupported.
+   - Distinguish claims directly supported by supplied material from claims independently verified or still unverified.
    - If the article depends on time-sensitive or factual claims, verify the current facts before drafting.
    - Stop and switch to a research-oriented skill if the main need is evidence gathering rather than article writing.
 
@@ -63,12 +66,14 @@ Use this skill when the user wants to:
 - Minimal unsupported claims and no invented sources or quotes
 - Explicit assumptions when missing brief details materially shaped the draft
 - A short note when factual verification or source coverage remains incomplete
+- The chosen source-treatment policy when links, citations, or footnotes were supplied and their disposition was not predetermined
 - Clarifying questions, when needed, that include a proposed default and why it is the best current option
 - Plain article prose without markdown bold markers or inline code markers unless explicitly requested
 
 ## Guardrails
 
 - Do not invent facts, quotations, or citations.
+- Do not strip meaningful attribution or present verification-only sources as if the user asked to publish them.
 - Do not ask open-ended clarification questions without also offering a concrete proposed direction and the reason behind it.
 - Do not use markdown bold markers or inline code markers by default.
 - Do not turn the task into generic brainstorming once the article angle is set.

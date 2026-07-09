@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Routing Validator"
+  short_description: "Design and validate positive and near-miss routing cases for Codex skills."
+  default_prompt: "Validate this local skill set's trigger boundaries using versioned positive and near-miss cases, run the structural validator, and report behavioral checks separately from structural checks."

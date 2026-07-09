@@ -1,12 +1,12 @@
 {
   "name": "stray-research",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Repo-local Codex plugin for research, analysis, product direction, and terms checks.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Research",
     "shortDescription": "Research and analysis plugin for current, source-backed investigation and decision support.",
-    "longDescription": "A repo-local Codex plugin for research-heavy workflows. It helps agents investigate current topics on the web, produce long-form deep research reports with optional subagent track delegation, distill pages, study specialized domains, compare idea directions, shape product decisions from external evidence, plan MCP servers, summarize Japan news, retrieve JMA weather observations and forecasts, research Japanese companies through gBizINFO, triage GitHub maintenance work, conduct public-web global patent research, check practical API or SaaS terms before teams commit to a direction, and analyze Japanese horse racing races with official, licensed, or user-provided data while avoiding prohibited scraping, guaranteed-profit claims, and automated wagering.",
+    "longDescription": "A repo-local Codex plugin for source-backed research workflows. It separates concise web briefs, bounded domain research, and long-form multi-track reports; distills supplied pages safely; explores ideas and makes evidence-backed product decisions; designs MCP servers; summarizes Japan news; retrieves JMA weather and identified-company gBizINFO data; triages GitHub maintenance read-only; conducts global or Japan-focused public patent research; checks practical API or SaaS terms; and analyzes Japanese horse racing with current-source, confidentiality, prompt-injection, legal-boundary, and responsible-use guardrails.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -22,6 +22,7 @@
       "Search and summarize Japanese corporate information from gBizINFO with corporate numbers, endpoint provenance, and missing-data boundaries.",
       "Triage GitHub maintenance work and recommend the next actions.",
       "Plan or conduct a public-web global patent research workflow with cautious, source-backed findings.",
+      "Conduct a Japan-focused public patent search with J-PlatPat, Japanese terminology, FI, F-term, a reproducible search log, and no legal conclusions.",
       "Check the current terms or usage restrictions for an API or SaaS before integrating or shipping it.",
       "Analyze a Japanese horse racing race using official, licensed, or user-provided data, with probability ranges, value checks, risk notes, and no automated wagering."
     ],

@@ -1,42 +1,43 @@
 ---
 name: "japan-gov-priority-checker"
-description: "Use when the user asks whether a theme is a current or rising Japanese government priority, whether official emphasis has strengthened, or whether a topic is policy-relevant. Do not use for pure evidence gathering, one-document summaries, or legal/procedural questions."
+description: "Use when the user asks whether a theme is a current/rising 政策優先度 or 国が重視する課題 and wants official signals compared over time. Do not use for generic evidence, formal ownership, or future-funding predictions."
 ---
 
 # Japan Gov Priority Checker
 
-Check whether a theme is treated as a priority in Japanese government whitepapers and official policy documents.
+Score current policy emphasis from multiple dated official signals and make inference visible.
 
-Use this skill when the user asks:
+## Do Not Use For
 
-- "防災DXは国として本当に重視されてる?"
-- "買い物弱者対策は政策上強まっている?"
-- "このテーマは今提案する文脈がある?"
+- Formal ministry ownership; use `japan-gov-owner-mapper`.
+- Existence or status of budget funding; use `japan-gov-budget-tracer`.
+- Evidence for an unrelated supplied claim; use `japan-gov-evidence-finder`.
 
 ## Workflow
 
-1. Define the theme and what "priority" means for the user's use case.
-2. Check latest whitepapers and relevant ministry policy pages.
-   - Follow official URL roles in `../../references/official-url-model.md`.
-   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
-   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
-3. Compare with the previous edition when emphasis change matters.
-4. Look for signals: dedicated sections, repeated terms, new measures, budget or program mentions, KPI language, council plans, or cross-ministry recurrence.
-   - Weight each signal as strong, medium, or weak using `../../references/evaluation-rubric.md`.
-5. Separate confirmed priority signals from inference.
-6. Map the weighted signals to the `結論` verdict using the mapping in `../../references/evaluation-rubric.md`.
+1. Define the theme, comparison period, government level, and what priority means for the decision. Default to the latest completed and current policy cycles, naming concrete years.
+2. Collect dated, independent signals:
+   - explicit priority in a current Cabinet decision, basic plan, strategy, or ministerial policy;
+   - an active current-year program, enacted budget, implementation body, or review cycle;
+   - a new/revised KPI, target, council,制度, or dedicated section;
+   - recurrence across distinct ministries or source families;
+   - stronger wording or placement versus the previous comparable edition.
+3. Treat mirrors, summaries, repeated citations of one parent plan, and multiple pages in one document as one signal family.
+4. Verify that programs and targets are current rather than merely announced or historical. Use budget tracing when lifecycle status matters.
+5. Weight signals as `Strong`, `Medium`, or `Weak`, then map them to `high`, `medium`, `low`, or `unclear` using `../../references/evaluation-rubric.md`.
+6. Compare like-for-like editions when claiming a rise or fall. Stop after the latest relevant series and two independent adjacent source families unless exhaustive research is requested.
 
-## Output Expectations
+## Output
 
-- `結論`: high / medium / low / unclear, judged by the rubric in `../../references/evaluation-rubric.md`
-- `優先度シグナル`
+- `結論`: high / medium / low / unclear, with the rubric mapping shown
+- `対象期間と判定基準`
+- `独立した優先度シグナル`
 - `過年度からの変化`
-- `関連省庁・資料`
-- `提案・調査での使い方`
-- `注意点`
+- `現行施策・予算の確認状態`
+- `反証・不確実性`
 
 ## Guardrails
 
-- Do not infer priority from word count alone.
-- Do not predict future budget or adoption.
-- Do not ignore publication date and edition lag.
+- Do not infer priority from keyword frequency or one document alone.
+- Do not count announced, expired, requested, and enacted measures as equivalent.
+- Do not predict future budgets, adoption, or procurement.

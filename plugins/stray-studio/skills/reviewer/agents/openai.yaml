@@ -1,4 +1,4 @@
 interface:
   display_name: "Reviewer"
-  short_description: "Review and repair code, docs, UI, skills, plugins, prompts, evals, releases, and compliance preflights."
-  default_prompt: "Review this artifact findings-first. Use focused subagent review passes when available, cite evidence, fix confirmed issues when requested, validate the fixes, and repeat until no actionable findings remain or a clear blocker is reached."
+  short_description: "Run findings-first reviews and explicitly requested bounded review-fix loops."
+  default_prompt: "Review this artifact findings-first. Default to review-only; edit only if I explicitly ask for a review-fix loop. Cite evidence, separate confirmed issues from assumptions, and in fix mode map each bounded change and validation result back to a finding."

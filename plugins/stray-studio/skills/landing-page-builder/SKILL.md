@@ -1,6 +1,6 @@
 ---
 name: "landing-page-builder"
-description: "Use when the user wants to create, revise, or ship a landing page in the current repository, including conversion-focused section structure, messaging hierarchy, responsive implementation, CTA flow, and supporting UI polish. Do not use for brand strategy, research-only work, full product app development beyond the landing page, or one-off theming of an existing artifact."
+description: "Use when the user wants to create or revise a conversion landing page in the current repository, including message, proof, CTA flow, search posture, and responsive implementation. Do not use for brand strategy, research-only work, product app flows, corporate sites, or theme-only restyling."
 ---
 
 # Landing Page Builder
@@ -41,7 +41,7 @@ Use this skill when the user wants to:
 
 - Use `references/lp-patterns.md` when a landing page needs stronger structure, visual proof, CTA strategy, or reference-backed design direction.
 - Use `references/dynamic-visual-style.md` when the LP needs motion, dimensional product visuals, interactive hero treatments, animated proof, or conversion-supporting visual polish.
-- For reference-led work, base decisions on structured checks of comparable LPs. Use subagents only when the user explicitly asks for subagents, delegation, or parallel analysis.
+- For reference-led work, base decisions on structured checks of comparable LPs. Parallelize independent read-only reference checks when that materially speeds comparison, using the same evidence checklist and keeping implementation ownership in one place.
 
 ## Workflow
 
@@ -54,7 +54,8 @@ Use this skill when the user wants to:
    - Use `references/lp-patterns.md` as the baseline pattern library.
    - When comparable LPs are named or directly needed for implementation, check each LP separately for hero promise, CTA split, above-the-fold proof, section order, trust signals, product visualization, interaction, and SEO posture.
    - Keep reference checks implementation-facing: page structure, proof, CTA, visual pattern, and SEO posture. Route broad market research, product positioning, or category strategy elsewhere.
-   - If the user explicitly asks for subagents, delegation, or parallel analysis, assign different LPs to separate subagents and ask for the same structure checklist from each one.
+   - When at least two independent comparable LPs need inspection and parallel capacity is available, assign at most three read-only checks in parallel without waiting for an explicit delegation request. Give each check the same structure checklist, prohibit repository writes, and synthesize all results before editing.
+   - Keep a single LP, tightly coupled design decisions, and all repository changes with one owner; do not delegate merely to create activity.
    - Synthesize references into a small set of usable decisions: section archetype, proof mode, CTA rhythm, first-screen visual proof, and SEO posture.
    - Do not copy a reference page's styling wholesale; adapt only patterns that support the current offer and repository constraints.
 

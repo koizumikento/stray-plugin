@@ -1,4 +1,4 @@
 interface:
   display_name: "Idea Explorer"
   short_description: "Generate research-backed idea directions from current web signals."
-  default_prompt: "Use current web research first, scanning category leaders, emerging tools, adjacent domains, user complaints, noncustomers, pricing, distribution, infrastructure, policy, weak signals, and failed examples. For broad or high-volume ideation, split research into distinct parallel scout lenses when subagents are available, then synthesize centrally. Generate varied ideas across audiences, mechanisms, channels, business models, risk levels, and time horizons; merge redundant concepts, cite the signals that matter, and recommend the best next narrowing step."
+  default_prompt: "Use $idea-explorer to widen the option space from current web signals. Generate distinct directions, merge duplicates, cite material signals, and offer only a provisional ranking plus the next narrowing step; hand final selection, scope, acceptance criteria, and validation planning to product design."

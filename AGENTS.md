@@ -57,6 +57,7 @@ print('json-ok')
 PY`
 - Confirm any new skill is placed under `plugins/*/skills/` and not inside `.codex-plugin/`.
 - When a new skill changes the practical surface area of a plugin, confirm whether that plugin's `plugin.json` discovery text still matches the current skill set.
+- Run `uv run --with pyyaml python plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py` after changing skill triggers, routing, companion metadata, manifests, or README skill tables.
 
 ## Nested Guidance
 

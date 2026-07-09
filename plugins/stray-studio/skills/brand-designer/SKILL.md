@@ -1,6 +1,6 @@
 ---
 name: "brand-designer"
-description: "Use when the user wants to define or refine a brand identity for a product, company, service, or initiative, including brand direction, visual system principles, tone-of-voice guidance, and outputs such as a brand brief or mini style guide. Do not use for one-off artifact theming, product strategy or feature direction, generic marketing copy, campaign planning, or final asset production."
+description: "Use when the user wants to define or refine a brand identity as a brief, territory, or mini style guide with actionable visual and verbal rules. Do not use for one-off artifact theming, product strategy, campaign copy, or final asset production."
 ---
 
 # Brand Designer
@@ -51,6 +51,8 @@ Use this skill when the user wants to:
 
 6. Check for fit and failure modes.
    - Remove generic adjectives that do not change design behavior.
+   - Run a traceability check: map every core brand principle to concrete choices in color, typography, imagery, layout, and tone of voice, marking a dimension as intentionally neutral when it should not express that principle.
+   - Remove or revise any color, type, image, layout, or voice rule that cannot be traced to the audience, positioning signal, constraint, or selected brand principle.
    - Watch for derivative competitor mimicry, internal contradictions, inaccessible visual choices, or a tone that does not fit the audience.
    - Stop if the task has expanded into campaign strategy, full asset production, or broad business positioning work beyond brand design.
 
@@ -59,6 +61,7 @@ Use this skill when the user wants to:
 - A recommended brand direction or a ranked set of options
 - The target audience and the core signal the brand should communicate
 - Concrete visual and verbal design guidance
+- A compact principle-to-color/type/imagery/layout/voice traceability map for a full brand direction
 - Assumptions, open questions, and major tradeoffs
 - Any files, artifacts, or deliverables created or changed
 

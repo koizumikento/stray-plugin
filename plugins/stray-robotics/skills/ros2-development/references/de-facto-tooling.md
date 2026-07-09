@@ -1,6 +1,6 @@
 # ROS 2 De Facto Tooling
 
-Use this reference when a ROS 2 task needs tool selection, validation planning, or routing across common robotics stacks. Check the target ROS 2 distribution's official docs, package docs, and package index before assuming a tool is released or stable for that distro.
+Use this reference when a ROS 2 task needs tool selection, validation planning, or routing across common robotics stacks. Check the target ROS 2 distribution's official docs, package docs, and package index before assuming a tool is released or stable for that distro. Record the selected distro and check date; never substitute Rolling documentation for a stable-distro task without calling out the mismatch.
 
 ## Core Workspace
 
@@ -92,10 +92,7 @@ Use this reference when a ROS 2 task needs tool selection, validation planning, 
 ## Source Pointers
 
 - ROS documentation: https://docs.ros.org/
-- ROS 2 distributions: https://docs.ros.org/en/lyrical/Releases.html
+- ROS 2 distributions: start at https://docs.ros.org/ and resolve the current release page at use time
 - ROS 2 package index: https://index.ros.org/
-- colcon tutorial: https://docs.ros.org/en/rolling/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html
-- rosdep tutorial: https://docs.ros.org/en/rolling/Tutorials/Intermediate/Rosdep.html
-- QoS concept guide: https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Quality-of-Service-Settings.html
-- Launch concept guide: https://docs.ros.org/en/rolling/Concepts/Basic/About-Launch.html
+- Target-distro guides: use `https://docs.ros.org/en/<distro>/` after confirming support status; use Rolling links only for Rolling work
 - ros-tooling/action-ros-ci: https://github.com/ros-tooling/action-ros-ci

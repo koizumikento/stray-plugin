@@ -1,62 +1,48 @@
 ---
 name: "japan-gov-estat-data-analyst"
-description: "Use when the user wants to search, retrieve, profile, compare, or analyze Japanese official statistics from e-Stat using e-stats-mcp. Trigger on e-Stat, 政府統計, 統計表, statsDataId, 統計データを取得, or official statistics analysis. Do not use for broad policy background, whitepaper-only evidence, Project LINKS datasets, non-Japan statistics, or legal/procedural advice."
+description: "Use when the user wants an e-Stat 統計表 searched, retrieved, filtered, compared, or analyzed, including a statsDataId. Do not use for KPI ideation or tracing an identified whitepaper chart before its source table is known."
 ---
 
 # Japan Gov e-Stat Data Analyst
 
-Find and analyze Japanese official statistics from e-Stat through `e-stats-mcp`, keeping the table ID, metadata, dimensions, filters, and limitations visible.
+Retrieve or analyze Japanese official statistics while keeping table IDs, metadata, dimensions, filters, units, and access path reproducible.
 
 ## Do Not Use For
 
-- Broad background or policy framing without a concrete statistical data need; use `japan-gov-background-builder`.
-- Candidate KPI discovery before an e-Stat table is needed; use `japan-gov-kpi-finder`.
-- Source tracing for a specific whitepaper figure before the source note points to e-Stat; use `japan-gov-chart-data-tracer`.
-- MLIT Project LINKS CSV/GeoJSON datasets; use `japan-gov-project-links-data-analyst`.
-- Real-time weather or short-horizon forecasts; use `japan-weather-data-researcher`.
+- Candidate measures or KPI design before a table is selected; use `japan-gov-kpi-finder`.
+- Tracing an identified chart or source note to its underlying table; start with `japan-gov-chart-data-tracer`.
+- Project LINKS or Real Estate Information Library data.
 
 ## Workflow
 
-1. Scope the statistical question.
-   - Resolve topic, geography, period, unit, population, and whether the user needs discovery, extraction, comparison, or a chart-ready table.
-   - If the user provides a `statsDataId`, use it directly after fetching metadata.
-2. Confirm `e-stats-mcp` availability.
-   - Use the configured MCP tools when available.
-   - If unavailable, stop with setup guidance: configure `e-stats-mcp` and provide `E_STAT_APP_ID`.
-3. Discover tables narrowly.
-   - Prefer `search_stats_by_keyword` for quick discovery and `get_stats_list` or `get_stats_list_csv` for structured filtering.
-   - Avoid broad data-catalog calls until candidate stats codes or table IDs are narrowed.
-4. Inspect metadata before data.
-   - Use `get_meta_info` or `get_meta_info_csv` to identify dimensions, category codes, regions, time axes, units, and required filters.
-   - Record the selected filters and explain excluded dimensions.
-5. Retrieve data.
-   - Use `get_stats_data` for one table and `get_stats_data_bulk` only when multiple IDs are truly needed.
-   - Keep row limits explicit for previews; request broader data only after confirming the table shape.
-6. Analyze and report.
-   - Separate source values from derived indicators.
-   - Label survey year, calendar year, fiscal year, publication/update timing, units, and geography.
-   - Preserve official table names, `statsDataId`, and source URLs in the output.
+1. Fix the statistical action and scope: discovery, retrieval, comparison, or analysis; topic; geography; period; unit; population; and desired output grain.
+2. Determine the access state before promising data:
+   - `available`: configured `e-stats-mcp` responds; continue with it.
+   - `tool unavailable`: no MCP tool is configured; use official e-Stat web/table pages for bounded discovery and setup guidance.
+   - `credential/authorization failure`: report the missing or rejected `E_STAT_APP_ID`; do not retry with guessed credentials.
+   - `tool/data error`: preserve the error and try one narrower query or official table page, then stop if the same failure remains.
+3. Discover narrowly. Use a supplied `statsDataId` directly; otherwise search by official statistic, survey, geography, and period. After two materially different narrowed searches return no suitable candidate, report the queries and stop.
+4. Inspect metadata before values: table title, dimensions/codes, geography, time axis, unit, annotations, update date, and required filters.
+5. Retrieve through `get_stats_data` for one table and bulk tools only for a justified multi-table request. When MCP is unavailable, official downloadable files may be used only if their table identity and metadata are verified; label this `official-web fallback`, not an MCP result.
+6. Separate published values from agent-derived calculations. Check comparable definitions, units, seasonal adjustment, survey/calendar/fiscal year, and breaks in series.
+7. Return exact table IDs, selected codes/filters, official URL, access path, and reproduction notes.
 
-## Output Expectations
+## Output
 
 For discovery:
 
-| Candidate | statsDataId | Survey/table | Coverage | Time | Why it fits | Caveat |
+| Candidate | statsDataId | Survey/table | Coverage | Time/unit | Fit | Caveat |
 |---|---|---|---|---|---|---|
 
 For analysis:
 
-| Result | Source table | Filter/dimension | Period/area | Unit | Derived? | Caveat |
+| Result | Source table | Filters/dimensions | Period/area | Unit | Published or derived | Caveat |
 |---|---|---|---|---|---|---|
 
-Set `Derived?` to yes when the value is calculated by the agent (ratios, growth rates, aggregations) rather than published in the e-Stat table.
-
-Also include `使用したMCPツール`, `再現メモ`, `除外した候補`, and `次に確認すべき統計`.
+Also include `アクセス状態`, `使用したツールまたはfallback`, `再現メモ`, `除外候補`, and `停止理由・追加確認`.
 
 ## Guardrails
 
-- Do not fabricate e-Stat availability or table IDs.
-- Do not compare values across tables until metadata, units, and definitions are checked.
-- Do not hide filters or category codes that materially change the result.
-- Do not call very broad catalog searches when a narrower table search can answer the question.
-- Do not present an estimate as official if it is derived by the agent rather than published in e-Stat.
+- Do not fabricate table IDs, values, MCP availability, or successful retrieval.
+- Do not compare tables before definitions, dimensions, units, and time bases are compatible.
+- Do not hide filters or present agent-derived estimates as published official statistics.

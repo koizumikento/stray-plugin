@@ -1,7 +1,9 @@
 interface:
   display_name: "Japan Weather Data Researcher"
-  short_description: "Retrieve JMA station, AMeDAS, recent history, time-series, and forecast data through jma-data-mcp."
-  default_prompt: "Use JMA data tools to answer this Japan weather question with station or prefecture, exact timestamps, units, freshness, and caveats."
+  short_description: "Retrieve traceable JMA weather observations, series, or forecasts."
+  default_prompt: "Use $japan-weather-data-researcher for traceable JMA data. Choose a compact snapshot for a simple JMA-backed question or a provenance-rich data extract for station, AMeDAS, comparison, or time-series analysis; include exact timestamps, units, freshness, and caveats."
 dependencies:
   tools:
-    - "jma-data-mcp"
+    - type: "mcp"
+      value: "jma-data-mcp"
+      description: "Retrieve timestamped JMA observations, time series, and forecasts."

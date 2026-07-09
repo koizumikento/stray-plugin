@@ -1,7 +1,9 @@
 interface:
   display_name: "Japan Company Info Researcher"
-  short_description: "Search and summarize Japanese corporate information through gbizinfo-mcp."
-  default_prompt: "Use gBizINFO tools to identify the company, retrieve relevant corporate data groups, and summarize facts with corporate number, endpoint provenance, and caveats."
+  short_description: "Look up an identified Japanese entity through gbizinfo-mcp."
+  default_prompt: "Use $japan-company-info-researcher only when a company name, corporate number, or explicit entity search anchors the request. Resolve the entity, retrieve needed gBizINFO groups, and report corporate number, endpoint provenance, identity confidence, missing data, and caveats."
 dependencies:
   tools:
-    - "gbizinfo-mcp"
+    - type: "mcp"
+      value: "gbizinfo-mcp"
+      description: "Resolve Japanese entities and retrieve gBizINFO company data."

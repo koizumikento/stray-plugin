@@ -1,12 +1,12 @@
 {
   "name": "stray-skillops",
-  "version": "0.1.1",
-  "description": "Repo-local Codex plugin for skill authoring, evals, and subagent operations.",
+  "version": "0.2.0",
+  "description": "Repo-local Codex plugin for skill authoring, routing validation, evals, and subagent operations.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Skill Ops",
-    "shortDescription": "Operate a healthy skill and subagent system: author, search, evaluate, and coordinate.",
-    "longDescription": "A repo-local Codex plugin for skill and subagent operations. It helps agents create and refine SKILL.md files for either this plugin family or project-scoped `.agents/skills/` folders, search for existing patterns, create project subagents, design multi-agent workflows, add AI evals to CI, and compress long-running task context while maintaining this workflow set.",
+    "shortDescription": "Author, validate, evaluate, and coordinate a healthy skill and subagent system.",
+    "longDescription": "A repo-local Codex plugin for skill and subagent operations. It helps agents create and refine SKILL.md files for this plugin family or project-scoped `.agents/skills/`, find reusable skill patterns, validate trigger and near-miss routing cases, create project or explicitly requested personal subagents, design multi-agent workflows, add AI evals to CI, and compress long-running task context with provenance and continuity.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -15,6 +15,7 @@
       "Create or update a project-scoped Codex skill under .agents/skills/ without scaffolding a plugin.",
       "Update an existing skill's trigger description, scope, or workflow.",
       "Clean up a skill so it is narrower, instruction-first, and easier to invoke correctly.",
+      "Design, validate, and repair positive and near-miss routing cases for a local Codex skill set.",
       "Compare candidate skill patterns and decide whether to adopt, adapt, or create new.",
       "Compress a long-running task without losing file paths, decisions, or next steps.",
       "Design a multi-agent workflow with clear handoffs and quality gates.",

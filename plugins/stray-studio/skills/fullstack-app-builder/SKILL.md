@@ -1,6 +1,6 @@
 ---
 name: "fullstack-app-builder"
-description: "Use when the user wants to build, modify, or debug a full-stack application in the current repository, including web, mobile, desktop, or hybrid user-facing surfaces, their screens or views, navigation, forms, local state, API endpoints, background work, authentication, authorization, sessions, database-backed flows, migrations, observability, and shipped features that should end in working code. Do not use for product strategy, pure visual theming, marketing assets, backend platform work with no shipped app flow, or standalone library work."
+description: "Use when the user wants working code for an end-to-end web, mobile, or desktop app flow spanning UI and its API, data, auth, or background behavior. Do not use for Slack apps, static corporate sites, landing pages, reviews, test-design-only work, product strategy, or visual assets."
 ---
 
 # Fullstack App Builder
@@ -27,15 +27,23 @@ Use this skill when the user wants to:
 
 ## Decision Gates
 
-1. Confirm the user asked for implementation, debugging, or end-to-end app change.
+1. Route named specialist surfaces before treating the request as general app work.
+   - Use `slack-app-builder` when Slack commands, events, workflows, manifests, scopes, Slack CLI, or workspace behavior are the primary surface.
+   - Use `corporate-site-builder` for a static, repository-managed corporate information site without CMS, approval, preview-dashboard, auth, or data-backed product flows.
+   - Use `landing-page-builder` for a conversion-focused page whose primary job is message hierarchy, proof, CTA flow, and search posture.
+   - Use `test-design-strategist` when the deliverable is a test strategy, matrix, cases, or QA plan rather than executable tests.
+   - Use `security-preflight` for a security-focused review and `reviewer` for other findings-first reviews; neither review request authorizes implementation here.
+   - Use `artifact-theme-applier`, `marketing-screenshot-creator`, or `brand-designer` when the owned output is respectively restyling an existing artifact, producing captures, or defining identity direction.
+   - Return here only when the specialist surface is embedded in a broader authenticated, data-backed, or cross-layer app flow and the user asked to implement that broader flow.
+2. Confirm the user asked for implementation, debugging, or end-to-end app change.
    - If the user says "first investigate", "first check", "first plan", "まずは", or similar, gather evidence and stop with findings or a plan until they ask to implement.
    - If the request is review-only, route to the relevant review skill.
-2. Identify the primary surface: web, Android, iOS, mobile, desktop, or hybrid.
+3. Identify the primary surface: web, Android, iOS, mobile, desktop, or hybrid.
    - For Android work, distinguish existing-project maintenance from new-app scaffolding before choosing tools or architecture.
    - For new Android apps, research the current ecosystem before selecting the stack; do not rely on stale hardcoded Android tool, SDK, or library versions.
-3. Identify the existing framework, runtime, package manager, navigation model, state model, styling approach, persistence layer, auth/session model, and validation/test setup.
-4. Read the nearest `AGENTS.md`, app docs, specs, design-system docs, issues, or PR context that define the behavior.
-5. Stop or route elsewhere if the task is design-only, research-only, product strategy, marketing-only, or not about a shipped app flow.
+4. Identify the existing framework, runtime, package manager, navigation model, state model, styling approach, persistence layer, auth/session model, and validation/test setup.
+5. Read the nearest `AGENTS.md`, app docs, specs, design-system docs, issues, or PR context that define the behavior.
+6. Stop or route elsewhere if the task is design-only, research-only, product strategy, marketing-only, or not about a shipped app flow.
 
 ## Reference Loading
 

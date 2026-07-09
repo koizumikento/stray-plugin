@@ -1,6 +1,6 @@
 ---
 name: "slack-app-builder"
-description: "Use when the user wants to plan, investigate, build, modify, debug, validate, install, deploy, or automate a Slack app implementation, including Slack CLI workflows, app manifests, Bolt for JavaScript/Python, Deno Slack SDK, slash commands, events, interactivity, workflows, or Slack Web API calls. Do not use for generic full-stack app work without Slack-specific app behavior, Slack terms/compliance review, Slack news research, or creating Codex skills."
+description: "Use when the user wants to plan, build, debug, validate, install, deploy, or automate a Slack app using Slack CLI, manifests, Bolt, Deno SDK, events, commands, workflows, or Web API calls. Do not use for generic apps, terms/compliance research, message copywriting, GIFs, or Codex skills."
 compatibility: "Requires Slack CLI availability for CLI-driven implementation workflows. Requires internet access when checking current Slack CLI docs, Slack platform behavior, install commands, API method details, or deployment guidance."
 ---
 
@@ -47,12 +47,20 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
 - Assume Slack events, commands, and interactivity can be retried or duplicated. Make write paths idempotent when repeated delivery can cause duplicate work.
 - Treat Slack API rate limits and `Retry-After` behavior as part of correctness for polling, batch, or agent-driven workflows.
 
+## External Mutation Gate
+
+- Read-only inspection, local file edits, local tests, manifest validation, and non-mutating API checks do not by themselves authorize Slack workspace changes.
+- Before running `slack install`, `slack deploy`, remote app or manifest updates, app deletion, trigger creation/update/deletion, datastore writes, message posting, channel or user changes, or any other workspace mutation, require an explicit user request for that mutation category or explicit approval. Resolve the exact workspace/app/channel target in either case; if it is not unambiguous from the user's request, present the target and expected effect and receive approval before execution.
+- Explaining the impact without receiving approval is not permission. If approval is absent, stop at local/read-only validation and provide the exact command or action that remains pending.
+- Reconfirm when the target workspace, app, channel, or mutation category differs materially from what the user approved. Never infer approval from an implementation request that did not mention workspace changes.
+
 ## Workflow
 
 1. Classify the Slack app task before changing files.
    - Identify whether the user wants planning, investigation, implementation, debugging, validation, install, deployment, API command execution, or CI/CD setup.
    - Stop with findings or a plan when the user says "first", "まずは", "investigate", "check", or "plan" and has not asked for implementation.
    - Identify the primary path: CLI/project operations, runtime implementation, or both.
+   - Identify every expected Slack workspace mutation and whether it is explicitly requested, explicitly approved, or pending approval under the External Mutation Gate.
    - Load the matching reference file or files from `references/`.
    - If the request is not materially Slack-specific, route to the general app builder or the relevant non-implementation skill.
 
@@ -90,7 +98,7 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
    - Run `slack api auth.test` when token resolution or API access must be proven.
    - Run `slack run`, the repository dev command, or the framework's local runtime command when local behavior must be exercised.
    - Run targeted lint, type-check, tests, or build commands according to the repository's established tooling when files were changed.
-   - Use `slack install`, `slack deploy`, deletion commands, trigger mutation, or message posting only when the user asked for workspace-changing work or after making the impact explicit.
+   - Use `slack install`, `slack deploy`, remote app updates, deletion commands, trigger mutation, datastore writes, or message posting only after the External Mutation Gate is satisfied for the exact target and action.
    - State exactly which workspace-facing actions were not run and what remains unproven.
 
 8. Hand off the result.
@@ -108,12 +116,13 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
 - required scopes and environment variable names
 - local run command and validation commands
 - install or deploy status, including whether workspace-changing commands were run
+- approval status for each requested or pending workspace mutation, including its exact target
 - concise residual risks or manual Slack workspace steps
 
 ## Guardrails
 
 - Do not print, inspect, or summarize token values, signing secrets, service tokens, or `~/.slack/credentials.json`.
-- Do not run workspace-changing commands such as `slack install`, `slack deploy`, app deletion, trigger deletion, or message posting unless the user requested that level of action or the impact has been made explicit.
+- Do not run any workspace-changing command merely because its impact was explained; require an explicit request or explicit approval for the exact target and mutation category.
 - Do not load or apply runtime implementation guidance when the task is only Slack CLI operation.
 - Do not broaden into Slack platform terms review; use the terms-checking skill for that.
 - Do not answer current Slack CLI behavior from memory when official docs or local CLI output can verify it.

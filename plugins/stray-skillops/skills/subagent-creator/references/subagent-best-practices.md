@@ -2,6 +2,8 @@
 
 This note distills the current guidance used by the `subagent-creator` skill.
 
+Last verified against the official Codex Subagents documentation: 2026-07-10. Re-check the official page before relying on defaults or fields when the current date or installed Codex version is materially newer.
+
 ## Official Defaults
 
 - Custom subagents live in `.codex/agents/` for project scope or `~/.codex/agents/` for personal scope.
@@ -26,6 +28,7 @@ This note distills the current guidance used by the `subagent-creator` skill.
 - Avoid overriding built-in names unless that override is intentional and documented.
 - For write-capable agents, assign a clear file or module ownership boundary and tell them not to revert unrelated edits.
 - For read-only explorer-style agents, keep the prompt narrowly scoped to specific questions instead of broad open-ended exploration.
+- Parse changed TOML and verify required fields before claiming the agent is ready.
 
 ## Instruction Design
 

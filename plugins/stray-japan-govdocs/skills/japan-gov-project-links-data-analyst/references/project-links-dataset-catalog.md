@@ -5,9 +5,22 @@ This reference is a starting map for MLIT Project LINKS datasets under the G-Spa
 ## Official Entry Points
 
 - G-Spatial organization: `https://www.geospatial.jp/ckan/organization/sosei-joho`
-- CKAN package search: `https://www.geospatial.jp/ckan/api/3/action/package_search?fq=organization:sosei-joho&rows=1000`
+- CKAN package search: `https://www.geospatial.jp/ckan/api/3/action/package_search?fq=organization%3Asosei-joho&rows=100&start=0`
 - CKAN package detail: `https://www.geospatial.jp/ckan/api/3/action/package_show?id=<dataset-name>`
 - MLIT Project LINKS: `https://www.mlit.go.jp/links/`
+
+## CKAN Transport And Fallback
+
+CKAN actions above are HTTPS JSON endpoints, not assumed local tool names.
+
+1. Send a bounded GET request to `package_search`; paginate with `start` only when the returned `count` exceeds the rows already inspected.
+2. Accept metadata only when the HTTP response is usable JSON and CKAN returns `"success": true`.
+3. Resolve a selected dataset with `package_show` before using resource URLs, license fields, notes, or modification dates.
+4. On transport failure, blocked scripted access, malformed JSON, or `success: false`, retain the exact failure and fall back in order:
+   - organization HTML page;
+   - individual CKAN dataset landing page;
+   - MLIT Project LINKS page.
+5. HTML/MLIT fallback proves only what is visible there. Do not claim complete live inventory, current resource URLs, or license metadata that the fallback did not expose.
 
 ## Source And Quality Model
 

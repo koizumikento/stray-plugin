@@ -1,4 +1,4 @@
 interface:
   display_name: "Web Researcher"
-  short_description: "Investigate current topics on the web and return a concise sourced brief."
-  default_prompt: "Research this topic using current web sources first, then return a concise brief with source links, exact dates for unstable claims, and remaining uncertainty."
+  short_description: "Answer one general current question from a small live source set."
+  default_prompt: "Use $web-researcher for one general current question or small comparison. Check a small live source set, return a concise answer with exact dates and uncertainty, and route specialized single-track or multi-track work to Domain or Deep Researcher."

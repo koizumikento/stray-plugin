@@ -17,15 +17,14 @@ Use this only when the user asks for 買い目, 券種, ボックス, ながし,
 
 ## Payout Rate Context
 
-JRA has publicly announced different payout rates by wager type since June 7, 2014:
+Payout or deduction rates, eligible wager types, special refund rules, and sales conditions are changeable operational rules. Before using any rate in a calculation or recommendation:
 
-- 単勝 and 複勝: 80.0%
-- 枠連, 馬連, and ワイド: 77.5%
-- 馬単 and 3連複: 75.0%
-- 3連単: 72.5%
-- WIN5: 70.0%
+1. Open the current official JRA or NAR rule/source page for the relevant wager.
+2. Record the exact checked date and governing body.
+3. Cite the current value in the answer instead of copying a value from this guide.
+4. If no current official value can be verified, omit the numeric calculation and state the gap.
 
-Use these as risk context. Lower payout-rate, higher-complexity tickets require stronger evidence and better combination discipline.
+Use a verified current rate only as risk context. Lower-return, higher-complexity tickets require stronger evidence and better combination discipline.
 
 ## Buying Structures
 

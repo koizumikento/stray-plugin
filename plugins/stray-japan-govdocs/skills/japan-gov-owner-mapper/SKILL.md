@@ -1,38 +1,43 @@
 ---
 name: "japan-gov-owner-mapper"
-description: "Use when the user asks which Japanese ministry, agency, policy area, or official document context owns or frames a theme. Do not use for budget tracing, KPI search, detailed single-whitepaper summaries, local or municipal governance topics, private-sector-only topics, or legal/procedural questions."
+description: "Use when the user asks which Japanese 省庁・所管 or policy context formally owns or materially shares a theme. Do not use for budget tracing, priority scoring, or a single-document summary."
 ---
 
 # Japan Gov Owner Mapper
 
-Map a user theme to the relevant Japanese ministries, agencies, whitepapers, and policy contexts.
+Map formal responsibility and adjacent policy involvement without mistaking a whitepaper mention for statutory ownership.
 
-Use this skill when the user asks:
+## Do Not Use For
 
-- "孤独・孤立対策はどの省庁文脈で見るべき?"
-- "AI人材は文科省と経産省のどちらの話?"
-- "観光DXはどの白書から見るのが自然?"
+- Whether a topic is currently emphasized; use `japan-gov-priority-checker`.
+- Which program receives funding; use `japan-gov-budget-tracer`.
+- General thematic mentions without an ownership question.
 
 ## Workflow
 
-1. Identify the user's theme and decision context.
-2. Search official whitepaper routes and ministry pages for the theme.
-   - Follow official URL roles in `../../references/official-url-model.md`.
-   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
-   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
-3. Map each ministry's mandate and document context.
-4. Distinguish primary owner, adjacent owners, and weak/noisy mentions.
-   - Treat a ministry as adjacent when its mandate covers the theme in more than one official source (for example both a whitepaper section and a statistics or program page); treat a single isolated mention as weak/noisy.
-5. Note when another source type is better than a whitepaper.
+1. Define the theme, government level, decision context, and whether “owner” means statutory mandate, policy coordination, program delivery, or document framing.
+2. Gather evidence in descending authority:
+   1. laws, cabinet/ministerial orders, official organization and jurisdiction pages;
+   2. Cabinet decisions, basic plans, headquarters/council documents, and named responsible-body assignments;
+   3. current program, budget, implementation, or administrative-review records;
+   4. whitepaper or report mentions.
+3. Use `../../references/official-url-model.md` and `../../references/egov-whitepaper-route-map.md` for official document routes; cite the exact mandate or assignment location.
+4. Label each body `primary/formal`, `co-owner/coordinator`, `implementation owner`, `adjacent`, or `mention only`.
+5. Assign confidence:
+   - `high`: current tier 1 evidence plus corroborating tier 2 or 3 evidence;
+   - `medium`: explicit tier 2 assignment or consistent tier 3 responsibility without verified formal mandate;
+   - `low`: whitepaper mention, indirect relevance, or stale/ambiguous responsibility only.
+6. Check recency and central/local boundaries. Stop rather than force a single owner when responsibility is genuinely shared or not assigned.
 
-## Output Expectations
+## Output
 
-| Role | Ministry/agency | Why relevant | Key official documents | Use when |
-|---|---|---|---|---|
+| Role | Ministry/agency | Responsibility type | Evidence tier | Official basis | Current? | Confidence |
+|---|---|---|---|---|---|---|
 
-Also include `主担当候補`, `周辺省庁`, `使うべき白書`, and `避けるべき誤分類`.
+Also include `主担当候補`, `共同・周辺主体`, `白書上の言及との違い`, `所管が曖昧な点`, and `誤分類リスク`.
 
 ## Guardrails
 
-- Do not present overlapping mandates as conflict without source evidence.
-- Do not force a ministry mapping when the topic is local, private, or legal-procedure specific.
+- Do not call a ministry the formal owner based only on a whitepaper or keyword hit.
+- Do not present overlapping mandates as a conflict without evidence.
+- Distinguish national jurisdiction, local implementation, independent agencies, and private roles.

@@ -22,6 +22,7 @@ The skill should stay out when the request is really about:
 | "We want to embed a third-party transcription API in our enterprise product. What terms should we check before launch?" | Trigger `api-terms-checker` | Produces a practical clause checklist and flags what still needs human review. |
 | "Can our internal ops team use this SaaS with customer data, or are there obvious retention and privacy concerns in the vendor docs?" | Trigger `api-terms-checker` | Focuses on official privacy and terms docs and summarizes practical operational constraints. |
 | "Please verify the current acceptable use restrictions for this image API before we let users generate marketing creatives with it." | Trigger `api-terms-checker` | Identifies prohibited use categories and any ambiguous restrictions from current official sources. |
+| "Our Japanese enterprise entity has a negotiated DPA and paid plan. Can we process EU customer data with this vendor's API?" | Trigger `api-terms-checker` | Freezes entity, plan, region, public terms, DPA/negotiated-document precedence, and unknowns before interpreting the use. |
 
 ## Negative Cases
 
@@ -46,3 +47,4 @@ The skill should stay out when the request is really about:
 - Ready if the skill clearly triggers on current API terms questions and rejects repo-level or OSS-license requests.
 - Needs clarification if reviewers cannot tell when a SaaS question is really a broader release audit.
 - Too broad if it starts answering dependency license or repository publication questions directly.
+- Incomplete if it gives a conclusion without identifying the governing entity, plan, region, effective version, and possible negotiated override, or without making those gaps explicit assumptions.

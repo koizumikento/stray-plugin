@@ -1,6 +1,6 @@
 ---
 name: "pixel-art-asset-creator"
-description: "Use when the user wants to create, repair, adapt, or package pixel-art style assets for games, apps, docs, mascots, icons, sprites, tilesets, item sheets, or small animation loops from a concept, reference image, or asset brief. Do not use for Codex-compatible pet spritesheets that belong to hatch-pet, generic image editing, vector/logo design, full game implementation, screenshots, or broad brand identity work."
+description: "Use when the user wants to plan, create, repair, or package pixel-art sprites, tiles, icons, item sheets, mascots, or short loops. Do not use for Codex pet atlases (`hatch-pet`), generic image editing, vector/logo design, game implementation, screenshots, or brand systems."
 ---
 
 # Pixel Art Asset Creator
@@ -48,7 +48,8 @@ Collect only the details that affect the asset. Infer reasonable defaults when t
 
 1. Define the asset contract.
    - Identify the asset type, target use, target dimensions, sheet structure, and reference sources.
-   - Choose whether the asset should be a finished export, a prompt plan, or a repair pass.
+   - Select exactly one starting mode: prompt-only plan, generated asset, repair of supplied/generated assets, or deterministic package-only work.
+   - Do not initialize run directories, load the script workflow, or run the full packaging pipeline for a prompt-only answer or a simple generation request that does not need packaging.
    - Ask one focused question only when dimensions, frame count, or intended use would change the asset structure.
 
 2. Establish the canonical look.
@@ -69,6 +70,7 @@ Collect only the details that affect the asset. Infer reasonable defaults when t
    - Do not create missing visual content through local scripts unless the user explicitly asks for procedural placeholder art.
 
 5. Run deterministic packaging when needed.
+   - Enter this step only for package-only work or when generated/repaired outputs need slicing, validation, contact sheets, previews, conversion, or a final bundle.
    - Load `references/script-workflow.md` when the output needs prompt files, run directories, slicing, validation, contact sheets, animation previews, or packaged PNG/WebP exports.
    - Use scripts for deterministic assembly, slicing, resizing, contact sheets, validation, or format conversion.
    - Record selected generated outputs with `record_imagegen_result.py` when using the bundled workflow.
@@ -104,6 +106,7 @@ Load only the reference needed for the current path. A simple prompt-only answer
 ## Output Expectations
 
 - Final asset paths or, if not generated, a ready-to-use prompt pack.
+- The selected mode and the pipeline stages actually run, skipped, unavailable, or not applicable.
 - Asset contract: dimensions, grid, frame count, tile size, palette assumptions, and background strategy.
 - QA notes describing what was inspected and what remains risky.
 - Repair notes when an asset was regenerated or narrowed.

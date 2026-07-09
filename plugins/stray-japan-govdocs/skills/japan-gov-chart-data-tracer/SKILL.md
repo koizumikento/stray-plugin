@@ -1,43 +1,38 @@
 ---
 name: "japan-gov-chart-data-tracer"
-description: "Use when the user asks to find the source data behind a specific chart, table, figure, graph, 図表, 元データ, Excel, e-Stat, or statistic in a Japanese government whitepaper or official document. Trigger on 白書のグラフの元データ, この図表を再分析, この統計表を探して. Do not use for KPI brainstorming or candidate indicator discovery without a specific figure/table/statistic; use japan-gov-kpi-finder for that. Do not use for ordinary summary or broad evidence collection."
+description: "Use when the user identifies a specific Japanese government chart, table, figure, source note, or statistic and wants its 元データ or reproducibility traced. Do not use to brainstorm KPIs or generally search e-Stat."
 ---
 
 # Japan Gov Chart Data Tracer
 
-Trace whitepaper charts and figures back to official source data where possible.
+Work backward from an identified official figure or number to its source data and transformations.
 
-Chart-data tracing starts from an identified figure, table, source note, or statistic and works backward to source data. If the user needs candidate metrics for a policy issue, use `japan-gov-kpi-finder`.
+## Do Not Use For
 
-Use this skill when the user asks:
-
-- "白書のこのグラフの元データを探して"
-- "この図表を再分析できる形にしたい"
-- "白書の統計表がe-Statにあるか確認して"
+- “What should we measure?” or candidate indicators; use `japan-gov-kpi-finder`.
+- Searching, retrieving, or analyzing an e-Stat table without an identified upstream figure; use `japan-gov-estat-data-analyst`.
+- Broad evidence collection without a figure, table, source note, or quoted statistic.
 
 ## Workflow
 
-1. Identify the chart, table, figure number, title, edition, and source note.
-2. Check the whitepaper's linked Excel, CSV, statistical appendix, or data page.
-   - Start from official landing pages and URL roles in `../../references/official-url-model.md`.
-   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
-   - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
-3. Search e-Stat or ministry statistics pages when the source note names an official survey.
-   - When the source data is an e-Stat table and the user needs retrieval or reanalysis, hand off to `japan-gov-estat-data-analyst`. Pass the `statsDataId` or survey/table name, the whitepaper edition and figure number, the needed dimensions and filters, and the official source URL; expect back the retrieved table with metadata, applied filters, and caveats.
-4. Distinguish original data, reproduced table, processed estimate, and commissioned survey.
-5. Return retrievable data links and limitations.
+1. Identify the document, edition, figure/table number, title, page or section, source note, and displayed values. Ask only for the missing identifier needed to disambiguate.
+2. Inspect the official landing page, linked Excel/CSV, statistical appendix, and source note.
+   - Follow `../../references/official-url-model.md` and `../../references/egov-whitepaper-route-map.md`.
+   - Cache only needed files under `../../references/download-cache-policy.md`.
+3. Trace the chain from rendered figure to reproduced table, original survey/table, and downloadable data. Record every aggregation, rebasing, deflation, seasonal adjustment, estimate, or author calculation disclosed.
+4. Classify the result as `original data`, `official reproduced data`, `processed estimate`, `commissioned survey`, or `rendered-only`.
+5. If the chain resolves to an e-Stat `statsDataId` and retrieval or reanalysis is requested, pass the identified ID, filters, and transformation notes to `japan-gov-estat-data-analyst` and continue in the same task.
+6. Attempt one official data-page route and one named-survey route after the document links. If neither verifies the source, stop and report the unresolved link.
 
-## Output Expectations
+## Output
 
-| Figure/statistic | Whitepaper source | Source data candidate | Format | Transformed? | Can reproduce? | Caveat |
+| Figure/statistic | Document location | Source-data candidate | Transformation | Format/ID | Reproducible? | Caveat |
 |---|---|---|---|---|---|---|
 
-Set `Transformed?` to yes with the transformation method (aggregation, estimate, index, commissioned processing) when the whitepaper figure is not the raw source data as published.
-
-Also include `取得できるデータ`, `取得できない理由`, `再利用時の注意`, and `取得した資料`.
+Also include `追跡経路`, `取得可能なデータ`, `再現手順`, `未解決点`, and `取得した資料`.
 
 ## Guardrails
 
-- Do not claim a chart is reproducible when only a rendered PDF exists.
-- Do not scrape bulk data when a source API or official table exists.
-- Do not ignore transformations, estimates, or survey scope.
+- Do not call a chart reproducible when only a rendered PDF or incomplete source note exists.
+- Do not erase transformations, survey scope, breaks in series, or estimation.
+- Prefer official APIs/tables over bulk scraping and cite official landing pages.

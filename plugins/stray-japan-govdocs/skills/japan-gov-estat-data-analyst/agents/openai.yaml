@@ -1,7 +1,9 @@
 interface:
   display_name: "Japan Gov e-Stat Data Analyst"
-  short_description: "Search, retrieve, and analyze Japanese official statistics through e-stats-mcp."
-  default_prompt: "Find the right e-Stat table, inspect its metadata, retrieve the needed data, and return a reproducible official-statistics analysis with table IDs, filters, units, and caveats."
+  short_description: "Search, retrieve, and analyze selected e-Stat tables with explicit access state."
+  default_prompt: "Find or use the requested e-Stat table, inspect metadata before values, and return table IDs, filters, units, access path or fallback, derivations, and caveats."
 dependencies:
   tools:
-    - "e-stats-mcp"
+    - type: "mcp"
+      value: "e-stats-mcp"
+      description: "Retrieve e-Stat table metadata and values through the configured connector."

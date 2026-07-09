@@ -1,43 +1,49 @@
 ---
 name: "japan-gov-proposal-context-adapter"
-description: "Use when the user wants to turn a business idea, product, service, or initiative into proposal-ready Japanese government context for public-sector sales,企画書,or stakeholder materials. This is proposal-first even when a specific whitepaper is mentioned as a source. Do not use for direct document summaries, neutral background only, citation auditing, or legal/procurement procedure advice."
+description: "Use when the user wants a product, service, or initiative synthesized into 官公庁向け提案・企画書 context. Do not use for neutral background, a direct document summary, or procurement/legal advice."
 ---
 
 # Japan Gov Proposal Context Adapter
 
-Translate a user idea into government-aligned proposal context using whitepapers and official documents.
+Synthesize verified government context into a proposal argument while keeping official claims distinct from proposal-specific adaptation.
 
-This is proposal-first: the user's offer and argument shape the output. If the main task is to read or summarize a named whitepaper/chapter as the object itself, use `japan-whitepaper-brief` instead.
+## Do Not Use For
 
-Use this skill when the user asks:
-
-- "この事業アイデアを官公庁向け提案の文脈に直して"
-- "自治体向け防災SaaSの提案背景を白書ベースで作って"
-- "介護DXサービスを国の政策課題に接続して"
+- Neutral 課題背景 only; use `japan-gov-background-builder`.
+- Reading a named whitepaper as the primary object; use `japan-whitepaper-brief`.
+- Eligibility, application, procurement, or legal conclusions.
 
 ## Workflow
 
-1. Extract the user's offer, target customer, and desired proposal angle.
-2. Find official background, evidence, and policy language.
-   - Start from official landing pages and URL roles in `../../references/official-url-model.md`.
-   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
-   - Download only task-needed files under `tmp/japan-govdocs/` following `../../references/download-cache-policy.md`; final citations stay on official URLs.
-3. Identify where the idea aligns with government-stated issues and where it does not.
-4. Produce wording that can fit a proposal without overstating government endorsement.
-   - Flag overstatements and give corrected wording, for example: 「政府推奨のソリューション」→「白書で課題とされている領域に対応するソリューション」, 「国の方針で導入が決定」→「白書・計画で方向性が示されている」.
-5. Include source-backed cautions and missing evidence.
+1. Define the offer, target public body/stakeholder, desired decision, delivery context, and claims the proposal needs to make.
+2. Assemble upstream evidence rather than recreating every search inside this skill:
+   - neutral context from `japan-gov-background-builder`;
+   - claim-level support from `japan-gov-evidence-finder`;
+   - owner roles from `japan-gov-owner-mapper`;
+   - current emphasis from `japan-gov-priority-checker`;
+   - budget status only when needed from `japan-gov-budget-tracer`.
+   Invoke missing components in the same task, then synthesize their outputs.
+3. Create a traceability map from each proposal statement to an official source or label it clearly as the user's hypothesis/offer.
+4. Separate:
+   - `政府資料が明示すること`;
+   - `提案への適用・解釈`;
+   - `未検証の前提`;
+   - `政府資料が支持しないこと`.
+5. Draft source-faithful wording for problem, policy relevance, proposed contribution, outcomes, and limitations. Include a safer alternative for any overclaim.
+6. Stop before procedural, eligibility, or procurement claims. If the offer or target is too underspecified to adapt responsibly, state assumptions and provide only a provisional frame.
 
-## Output Expectations
+## Output
 
 - `提案で使う政策文脈`
 - `政府資料ベースの課題設定`
-- `刺さりやすい用語`
-- `根拠として使う資料`
-- `言い過ぎになる表現`
-- `次に確認すべき制度・予算・調達情報`
+- `提案への接続とtraceability`
+- `公式記述／適用解釈／未検証前提`
+- `根拠資料`
+- `言い過ぎになる表現と安全な言い換え`
+- `次に必要な制度・予算・調達確認`
 
 ## Guardrails
 
-- Do not claim eligibility for funding or procurement.
-- Do not write as if the government has endorsed the user's product.
-- Do not replace procurement, grant, or legal review.
+- Do not imply government endorsement, product necessity, funding eligibility, or procurement fit.
+- Do not use general policy language as proof that the proposed solution will work.
+- Keep neutral source findings intact when adapting them for persuasion.

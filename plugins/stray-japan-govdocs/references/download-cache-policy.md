@@ -26,6 +26,11 @@ tmp/japan-govdocs/
 
 The `tmp/` directory must stay out of git. If it is not ignored yet, add it to `.gitignore` before downloading files.
 
+Choose and report one cache mode:
+
+- `index-only`: store verified source routes under `sources/` without downloading source content. `manifest.jsonl` may be absent or empty only while `downloads/` and `extracted/` contain no files.
+- `download-cache`: store source or extracted files. Every file under `downloads/` or `extracted/` must have exactly one valid `manifest.jsonl` record.
+
 ## Known Source Index
 
 Keep stable knowledge about whitepapers separate from downloaded files. A skill may create or update a task-local source index under:
@@ -38,22 +43,43 @@ tmp/japan-govdocs/sources/
 
 The source index records official landing pages and discovered document links. It is a cache, not a source of truth. Before using a cached entry, re-check the official landing page because ministries may move files, publish newer editions, or replace PDFs.
 
-Source index records should use these fields when available:
+Use this canonical JSON shape, including for an initialized empty index:
+
+```json
+{
+  "records": []
+}
+```
+
+Every non-empty source index record requires:
 
 - `document_id`
 - `title`
 - `ministry`
-- `series`
 - `year`
-- `edition`
 - `landing_page`
+
+Optional source-index fields are:
+
+- `ministry_slug`
+- `document_slug`
+- `series`
+- `edition`
+- `egov_index_url`
+- `series_landing_page`
+- `edition_landing_page`
 - `html_url`
+- `pdf_index_url`
 - `pdf_url`
 - `chapter_urls`
 - `summary_url`
+- `data_urls`
+- `archive_url`
 - `publication_date`
 - `last_checked_at`
 - `notes`
+
+This is the canonical optional-field set for a source-index record. All optional fields except `chapter_urls` and `data_urls` are non-empty strings when present. The two array fields contain only non-empty URL strings and may be empty. Omit unknown values instead of writing `null`. A record represents one edition, so do not nest an `editions` array. The cache validator rejects unknown fields and type mismatches.
 
 Do not hard-code direct PDF paths into a skill as permanent truth. Hard-code only durable official index pages when they are part of the workflow, and still verify them live.
 
@@ -84,6 +110,8 @@ Use `egov-whitepaper-route-map.md` for the canonical `ministry_slug` and `docume
 ## Manifest
 
 Append one JSON object per downloaded file to `tmp/japan-govdocs/manifest.jsonl`.
+
+Do not create manifest records for source-index entries that have no local file. Conversely, a file under `downloads/` or `extracted/` without a manifest record is invalid. An empty manifest is valid only when those folders contain no files.
 
 Required fields:
 

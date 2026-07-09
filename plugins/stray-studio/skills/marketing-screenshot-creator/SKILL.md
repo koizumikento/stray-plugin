@@ -1,6 +1,6 @@
 ---
 name: "marketing-screenshot-creator"
-description: "Use when the user wants to plan or produce app screenshots for docs, landing pages, release notes, demos, or social posts, especially when they need polished captures with consistent framing, sizing, and annotations. Do not use for general frontend review, design critique, or Playwright debugging."
+description: "Use when the user wants polished app screenshots for docs, landing pages, releases, demos, or social posts, including shot planning, capture-state sanitization, framing, export, and QA. Do not use for general UI review, redesign, browser-automation debugging, or broad image editing."
 ---
 
 # Marketing Screenshot Creator
@@ -31,30 +31,37 @@ Use this skill when the user needs screenshots for:
    - Ask for missing details only when they affect the capture plan: viewport size, device type, theme, crop ratio, overlays, and whether text callouts are needed.
    - Stop if the user wants a redesign instead of a screenshot plan.
 
-2. Choose the smallest useful capture set.
+2. Sanitize the capture environment before recording or exporting.
+   - Remove or replace real names, email addresses, avatars, account identifiers, customer records, private messages, payment details, and other PII unless the user explicitly provided publication-safe fixtures.
+   - Hide tokens, API keys, cookies, session values, internal hostnames or URLs, browser history, bookmarks, developer panels, notifications, and background apps that could reveal private context.
+   - Use synthetic or approved demo data and a dedicated demo account or local fixture state when available.
+   - Inspect the full frame, overlays, browser chrome, hover states, and notifications immediately before capture; stop if a secret or sensitive record cannot be removed safely.
+
+3. Choose the smallest useful capture set.
    - Prefer a few representative shots over many redundant ones.
    - Decide which state each screenshot must show.
    - Include empty, loading, error, or comparison states only if they are part of the message.
 
-3. Define the framing before capturing.
+4. Define the framing before capturing.
    - Set viewport, zoom, and layout constraints to match the destination.
    - Decide what to hide, crop, blur, or annotate.
    - Keep spacing, alignment, and browser chrome consistent across the set.
 
-4. Capture the screenshots.
+5. Capture the screenshots.
    - Use the app or page state that best demonstrates the requested message.
    - Re-run captures when the framing is off, the content is cut off, or the composition is distracting.
    - Use at most two recapture passes for framing, crop, or readability issues.
    - If the shot still fails, stop and name the blocker: unavailable app state, missing asset, viewport constraint, text density, or need for product/UI changes.
    - Prefer repeatable capture steps over manual one-off tweaking.
 
-5. Polish only what improves clarity.
+6. Polish only what improves clarity.
    - Add annotations, callouts, or crops only when they help the viewer understand the point quickly.
    - Keep styling minimal and consistent with the destination.
    - Avoid turning the task into a design exercise.
 
-6. Verify the final set.
+7. Verify the final set.
    - Check readability, cropping, focus, and consistency.
+   - Re-run the PII and secret scan on every final export, including cropped edges and browser or device chrome.
    - Confirm the files are named and organized for the target use.
    - Stop once the screenshots communicate the intended story cleanly.
 
@@ -64,6 +71,7 @@ Use this skill when the user needs screenshots for:
 - Report the final file names or export locations.
 - If the screenshots were not captured yet, return the planned shot list, framing choices, and missing prerequisites instead.
 - Call out any assumptions that were necessary.
+- State which sanitization checks were completed and whether synthetic, approved, or real data remains visible.
 - Note any unresolved capture constraints, such as unavailable app states or missing assets.
 
 ## Guardrails
@@ -73,3 +81,4 @@ Use this skill when the user needs screenshots for:
 - Do not overproduce variants when one clear capture will do.
 - Do not change application code unless the user explicitly asks for capture support changes.
 - Do not add extra files or tooling unless they materially improve reproducibility.
+- Do not capture or publish secrets, private URLs, real customer data, or incidental notifications; stop and sanitize the state first.

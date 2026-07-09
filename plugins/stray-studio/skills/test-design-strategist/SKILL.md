@@ -1,6 +1,6 @@
 ---
 name: "test-design-strategist"
-description: "Use when the user wants a software test strategy, test design, test viewpoints, test cases, QA plan, release test checklist, regression scope, test data plan, coverage criteria, or manual-versus-automation testing recommendations. Do not use for implementing test code, reviewing an existing artifact with findings-first feedback, adding AI evals to CI, or designing validation cases for Codex skills."
+description: "Use when the user wants a test strategy, risk model, matrix, cases, QA/release checklist, regression scope, test data plan, coverage criteria, or automation recommendations as a design artifact. Do not use for test implementation, findings-first review, AI eval CI, or Codex skill routing validation."
 ---
 
 # Test Design Strategist
@@ -23,12 +23,12 @@ Use this skill when the user wants to plan what to test and why before implement
 - Findings-first review of an existing PR, codebase, test plan, document, UI, plugin, prompt, or artifact; use `reviewer`
 - End-to-end app implementation that includes adding executable tests; use `fullstack-app-builder`
 - LLM or agent eval setup in CI; use `ai-eval-ci`
-- Codex skill trigger-boundary validation or near-miss prompt tests; use the skillops validation skill when available
+- Codex skill trigger-boundary validation or near-miss prompt tests; use `skill-routing-validator`
 - Broad QA organization design, staffing plans, or vendor process audits
 
 ## Decision Gates
 
-1. Confirm the request is for test design rather than implementation or review.
+1. Confirm the request is for test design rather than implementation or review. For a mixed design-and-implementation request, finish and hand off the design artifact, then route executable test work to `fullstack-app-builder` or the stack-specific implementation skill; do not write tests under this skill.
 2. Identify the test target: feature, workflow, API, data path, integration, release, migration, UI, model behavior, or operational process.
 3. Identify the available test basis: requirements, acceptance criteria, spec, diff, code, user story, incident, risk note, design, API contract, or observed behavior.
 4. If the test basis is thin, state assumptions and missing inputs before designing detailed cases.
@@ -101,6 +101,7 @@ Choose the smallest useful shape:
 - Release or regression checklist
 - Automation candidate list
 - Manual exploratory test charter
+- Implementation handoff identifying the target test layers, owners, authoritative oracles, and unresolved design decisions when executable tests were also requested
 
 For detailed cases, prefer these fields:
 
@@ -119,7 +120,7 @@ For detailed cases, prefer these fields:
 
 ## Guardrails
 
-- Do not implement code or test code unless the user explicitly asks for implementation in the same turn.
+- Do not implement production code or test code under this skill, even in a mixed same-turn request; complete the design artifact and route implementation separately.
 - Do not claim exhaustive coverage; state the selected boundary and residual risk.
 - Do not create a generic QA checklist detached from the user's target, risks, and quality attributes.
 - Do not stop at happy paths.

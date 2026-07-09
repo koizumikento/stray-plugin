@@ -1,6 +1,6 @@
 ---
 name: "ops-playbook-writer"
-description: "Use when the user wants to turn operational knowledge, process notes, incident learnings, or tribal knowledge into a reusable playbook, SOP, runbook, or handoff guide for non-engineering operators. Do not use for product specs, engineering design docs, architecture decisions, or broad policy writing."
+description: "Use when the user wants operational knowledge or incident learnings turned into a maintainable SOP, runbook, checklist, or handoff guide for business or technical operators. Do not use for product specs, architecture decisions, implementation plans, or legal/HR policy writing."
 ---
 
 # Ops Playbook Writer
@@ -13,6 +13,7 @@ Use this skill when the user wants to:
 - convert tribal knowledge into a repeatable procedure
 - capture how to handle routine work, exceptions, or escalations
 - make a handoff guide that future operators can actually use
+- document a technical operating procedure when the job is execution and recovery rather than system design or implementation
 
 ## Do Not Use For
 
@@ -26,6 +27,7 @@ Use this skill when the user wants to:
 1. Define the operational outcome.
    - Identify what task the playbook should enable, who will use it, and what success looks like.
    - Identify the environment, tools, systems, and ownership boundaries that matter.
+   - Define the maintenance header: accountable owner, document version or status, last-reviewed date, review cadence or change trigger, and authoritative source location. Use explicit placeholders rather than invented values.
    - If the brief is vague, ask for the minimum missing detail that would change the procedure materially.
 
 2. Stabilize the source material.
@@ -46,7 +48,7 @@ Use this skill when the user wants to:
    - Avoid burying critical branching logic in paragraphs.
 
 5. Check maintainability.
-   - Make ownership explicit so the process can be updated later.
+   - Make ownership, version/status, last-reviewed date, next review or change trigger, and authoritative source explicit so the process can be updated later.
    - Add placeholders or notes for fields that will change over time.
    - Keep the document modular so sections can be updated without rewriting everything.
    - Remove duplicated steps and merge overlapping instructions.
@@ -66,6 +68,7 @@ Use this skill when the user wants to:
 - A complete SOP, runbook, checklist, or playbook draft in the requested language and tone
 - Clear step order with decision points, exceptions, and escalation paths
 - Explicit ownership, handoff, and follow-up instructions
+- Maintenance metadata: owner, version/status, last reviewed, review cadence or trigger, and source of truth
 - Minimal ambiguity and no invented operational facts
 - A short assumptions note when missing context materially shaped the draft
 - A clear note when verification is incomplete or source coverage is thin
@@ -73,6 +76,7 @@ Use this skill when the user wants to:
 ## Guardrails
 
 - Do not drift into product strategy or engineering implementation.
+- Do not exclude technical operators when the requested artifact is an operational runbook; route architecture or code changes elsewhere.
 - Do not hide decision criteria inside generic prose.
 - Do not invent owners, tools, or escalation paths that were not provided.
 - Do not optimize for polish at the expense of operability.

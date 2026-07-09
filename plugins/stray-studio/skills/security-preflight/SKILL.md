@@ -1,19 +1,19 @@
 ---
 name: "security-preflight"
-description: "Use when the user wants a security-focused preflight, audit, or review of a repository, diff, pull request, app, API, CI/CD workflow, release surface, dependency set, infrastructure-as-code, container setup, or secret-handling posture before shipping or publishing. Do not use for exploit execution, penetration testing, incident response, legal/compliance advice, implementing fixes without a review request, or broad non-security code review."
+description: "Use when the user wants a review-only security preflight of a repository, diff, app/API, CI/CD, release, dependencies, IaC, containers, or secret/data handling. Do not use for fixes, broad code review, active probing, incident response, penetration testing, or legal/compliance advice."
 compatibility: "Repository access is required. Internet or connected GitHub/cloud tools are useful for current advisories and hosted settings, but local static evidence must be separated from external or unverified evidence."
 ---
 
 # Security Preflight
 
-Run a focused security preflight for software work before it ships, merges, or is published. Treat this as a bounded risk review: find concrete security issues, state what was checked, preserve secrets, and separate repository evidence from settings or runtime state that require external verification.
+Run a focused, review-only security preflight for software work before it ships, merges, or is published. Treat this as a bounded risk review: find concrete security issues, state what was checked, preserve secrets, and separate repository evidence from settings or runtime state that require external verification. This skill never owns remediation edits.
 
 Use this skill when the user asks for a security review, security preflight, secret check, release security check, CI/CD security check, supply-chain check, dependency vulnerability preflight, IaC security pass, container hardening pass, or "is this safe to ship?" security-focused review.
 
 ## Do Not Use For
 
 - General code review where security is only one incidental concern; use `reviewer`.
-- Implementing fixes before presenting findings; use the relevant builder after the review if the user asks for fixes.
+- Remediation implementation itself; for a mixed review-and-fix request, complete the preflight here, then hand the confirmed remediation contract to the relevant builder.
 - API or SaaS terms, commercial-use, privacy-policy, or data-processing terms review; use a terms/compliance skill.
 - Formal penetration testing, active scanning of systems, exploit execution, credential validation, incident response, or forensic investigation.
 - Jurisdiction-specific legal, regulatory, certification, or audit-signoff advice.
@@ -69,6 +69,11 @@ Use the relevant existing `reviewer` references only for non-security review dim
    - Then list unverified areas, assumptions, and required human or external verification.
    - End with a practical recommendation: ready, ready with fixes, hold, or needs specialist sign-off.
 
+8. Hand remediation off without editing under this skill.
+   - If the user also requested fixes, finish the review artifact first and map each confirmed finding to the smallest remediation direction and validation needed.
+   - Route code or configuration changes to the relevant builder or implementation skill with the review evidence intact.
+   - After implementation, rerun this preflight only on the affected security boundaries; do not convert the preflight itself into a repair loop.
+
 ## Output Expectations
 
 - Scope reviewed, evidence sources used, and references loaded.
@@ -77,13 +82,15 @@ Use the relevant existing `reviewer` references only for non-security review dim
 - Commands or scanners run, skipped, unavailable, or intentionally avoided.
 - Clear separation between confirmed findings, unverified settings, and specialist-review items.
 - Ship recommendation: ready, ready with fixes, hold, or needs specialist sign-off.
+- For mixed requests, a remediation handoff naming the implementation owner and the security checks that must be rerun; no edits made under this skill.
 
 ## Guardrails
 
 - Do not claim the artifact is secure, compliant, certified, penetration-tested, or audit-passed.
+- Do not modify application code, configuration, workflows, dependencies, infrastructure, secrets, or hosted settings under this skill; hand fixes to the relevant implementation skill.
 - Do not execute exploits, active probes, credential checks, login attempts, cloud mutations, destructive commands, or production scans.
 - Do not call external services with discovered tokens, keys, cookies, credentials, or private URLs.
 - Do not expose secret or PII values in final answers, comments, logs, screenshots, PR descriptions, or issue text.
-- Do not automatically revoke, rotate, delete, rewrite history, change branch protection, change cloud IAM, or publish artifacts unless the user explicitly asks after the review.
+- Do not revoke, rotate, delete, rewrite history, change branch protection, change cloud IAM, or publish artifacts under this skill. Even after an explicit request, hand the reviewed finding and required safeguards to the relevant implementation or operations workflow.
 - Do not treat scanner output as complete coverage; note false-positive, false-negative, reachability, and runtime-state limits.
 - Route cryptographic design, business authorization policy, formal compliance, legal interpretation, active incident response, and production penetration testing to qualified human review.

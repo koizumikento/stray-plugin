@@ -1,13 +1,13 @@
 ---
 name: "subagent-creator"
-description: "Use when the user wants to create or update a Codex custom subagent under .codex/agents/, including task-specific TOML, optional .codex/config.toml agent limits, and clear delegation guidance for when that subagent should or should not be used."
+description: "Use when the user wants to create or update a reusable Codex custom subagent in project `.codex/agents/` or explicitly requested personal `~/.codex/agents/`. Do not use for skills, one-off delegation prompts, or conceptual multi-agent design only."
 ---
 
 # Subagent Creator
 
-Create or update focused Codex custom subagents for the current project. Default to small, opinionated agent definitions that complement the built-in `default`, `worker`, and `explorer` agents instead of replacing them broadly.
+Create or update focused Codex custom subagents. Default to project scope and small, opinionated definitions that complement the built-in `default`, `worker`, and `explorer` agents instead of replacing them broadly.
 
-Use this skill for project-scoped agent files under `.codex/agents/` and only touch `.codex/config.toml` when the workflow genuinely needs custom `[agents]` limits.
+Use `.codex/agents/` by default. Use `~/.codex/agents/` only when the user explicitly asks for a personal agent that should apply across repositories. Only touch the corresponding config when the workflow genuinely needs custom `[agents]` limits.
 
 ## Preferred Scope
 
@@ -15,6 +15,7 @@ Use this skill for project-scoped agent files under `.codex/agents/` and only to
 - Existing custom agent cleanup or narrowing
 - Adding or tuning `[agents]` settings in `.codex/config.toml`
 - Creating a small set of cooperating agents for a repeatable workflow such as review, research, or debugging
+- Explicitly requested personal agents under `~/.codex/agents/`
 
 ## Do Not Use For
 
@@ -22,10 +23,14 @@ Use this skill for project-scoped agent files under `.codex/agents/` and only to
 - Prompt-only task decomposition that does not need reusable agent files
 - Replacing built-in agents with a broad catch-all custom agent
 - Deep multi-level delegation plans unless the user explicitly needs recursive fan-out
+- Conceptual topology or handoff design without reusable TOML; use `multi-agent-patterns`
 
 ## Workflow
 
-1. Locate the project root and inspect existing `.codex/agents/` and `.codex/config.toml` files before writing anything.
+1. Lock the scope before writing anything.
+   - Default to the current project's `.codex/agents/` and `.codex/config.toml`.
+   - Use personal `~/.codex/agents/` only after an explicit personal-scope request; do not infer it from a missing project directory.
+   - Inspect existing files in the selected scope and preserve unrelated definitions and settings.
 2. Define the agent boundary in one sentence:
    - the single job it owns
    - the work it must avoid
@@ -64,7 +69,11 @@ Use this skill for project-scoped agent files under `.codex/agents/` and only to
    - state that they are not alone in the codebase
    - tell them not to revert edits made by other agents or the user
 10. Avoid name collisions with built-in agents unless the user explicitly wants to override one. If a custom agent uses the same `name` as `explorer`, `worker`, or another built-in, the custom definition wins.
-11. Report the created or updated paths, the final agent boundaries, and any assumptions about model choice, sandboxing, or thread limits.
+11. Validate the authored configuration.
+   - Parse every changed TOML file with a TOML parser and verify `name`, `description`, and `developer_instructions` are non-empty.
+   - Check unique custom names, filename/name alignment, nickname constraints, referenced skill paths, and selected config scope.
+   - When a safe local load check exists, run it; otherwise report that runtime loading remains unverified.
+12. Report the created or updated paths, the final agent boundaries, validation evidence, and assumptions about model choice, sandboxing, or thread limits.
 
 ## Authoring Rules
 
@@ -87,6 +96,8 @@ Use this skill for project-scoped agent files under `.codex/agents/` and only to
 - Do not add MCP servers or skills to an agent that can do its job without them.
 - Do not overwrite unrelated `.codex/config.toml` or `.codex/agents/*.toml` settings.
 - Do not assume a custom agent should exist when a one-off prompt to a built-in agent is enough.
+- Do not write to `~/.codex/` without an explicit personal-scope request.
+- Do not report success when TOML parsing or required-field validation has not passed.
 
 ## Output
 
@@ -97,6 +108,7 @@ When you finish, report:
 - any `[agents]` settings added or intentionally left unchanged
 - assumptions about model, reasoning effort, sandbox, and tool dependencies
 - any risks kept open, such as a deliberate built-in override or a workflow that needs user confirmation before deeper delegation
+- TOML/schema checks performed and whether Codex runtime loading was verified
 
 ## Reference
 

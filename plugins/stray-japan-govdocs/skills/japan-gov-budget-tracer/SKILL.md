@@ -1,42 +1,44 @@
 ---
 name: "japan-gov-budget-tracer"
-description: "Use when the user asks whether a Japan policy issue has related government budget, programs, 行政事業レビュー, 予算, 事業, or funding signals. Trigger on 予算がついているか, 行政事業レビューを探して, 政府事業, 施策と予算. Do not use for grant application advice, subsidy or procurement eligibility assessment, or simple policy background."
+description: "Use when the user wants to trace a Japanese policy theme to 予算, government programs, or 行政事業レビュー and distinguish funding lifecycle states. Do not use for eligibility, application, or procurement advice."
 ---
 
 # Japan Gov Budget Tracer
 
-Trace a policy issue from whitepaper context to government programs, budgets, and administrative review materials.
+Trace a policy issue to identifiable Japanese government programs and budget records without collapsing requests, enactment, execution, and evaluation into a single claim that “budget exists.”
 
-Use this skill when the user asks:
+## Do Not Use For
 
-- "国はこの課題に実際に予算をつけてる?"
-- "子育てDXの白書記述から行政事業レビューを探して"
-- "観光DXに関係する政府事業を確認して"
+- Subsidy eligibility, application procedures, procurement qualification, or legal advice.
+- General policy background without a budget or program question; use `japan-gov-background-builder`.
 
 ## Workflow
 
-1. Define the issue and relevant ministry owners.
-2. Use whitepapers to find official framing and policy terms.
-   - Follow official URL roles in `../../references/official-url-model.md`.
-   - Use `../../references/egov-whitepaper-route-map.md` for known whitepaper routes and slugs.
-   - Use `../../references/download-cache-policy.md` only for task-needed downloads; final citations stay on official URLs.
-   - Bound the search: inspect the latest official series page plus at most two relevant ministry, statistics, program, or database source families unless the user asks for exhaustive coverage. Count source families as defined in `../../references/evaluation-rubric.md`.
-   - If no official program or budget source supports the connection after those checks, stop widening the search and report it under `追加確認` or `公式根拠なし` with the checked sources, listed as shown in `../../references/evaluation-rubric.md`.
-3. Search budget documents, ministry program pages, and administrative review databases for matching terms.
-4. Link programs to stated objectives, outputs, outcomes, and review-sheet evidence when available.
-5. Report confidence and gaps; policy themes rarely map one-to-one to budget programs.
+1. Fix the issue, fiscal year or range, ministries, desired amount basis, and whether the user asks about planned, authorized, executed, or evaluated spending.
+2. Use whitepapers and policy plans only to derive official program terms; verify budget status in budget documents, program pages, contracts or execution reports, and administrative review sheets.
+   - Follow `../../references/official-url-model.md` and use task-needed downloads only under `../../references/download-cache-policy.md`.
+3. Assign every finding exactly one lifecycle state:
+   - `政策・構想のみ`
+   - `概算要求`
+   - `政府予算案`
+   - `成立当初予算`
+   - `成立補正予算`
+   - `配賦・公募・契約`
+   - `執行実績`
+   - `行政事業レビュー・評価`
+4. Record fiscal year, amount, unit, account or program identifier, ministry, source date, and whether the amount is program-wide or attributable to the issue.
+5. Connect objectives, outputs, outcomes, and review findings only where the source makes the link. Rate confidence `High`, `Medium`, or `Low` using `../../references/evaluation-rubric.md`.
+6. Search the latest official budget route plus at most two relevant program/review source families unless exhaustive tracing is requested. Count and report checked families using `../../references/evaluation-rubric.md`; stop if no official linkage is found.
 
-## Output Expectations
+## Output
 
-| Program/budget item | Ministry | Related issue | Evidence source | Objective/outcome | Confidence |
-|---|---|---|---|---|---|
+| Program or budget item | Ministry | FY | Amount and unit | Lifecycle state | Issue link | Evidence | Confidence |
+|---|---|---:|---:|---|---|---|---|
 
-Rate `Confidence` as High, Medium, or Low using the confidence labels in `../../references/evaluation-rubric.md`.
-
-Also include `白書との接続`, `行政事業レビュー確認`, `予算確認の限界`, and `次に見る資料`.
+Also include `白書・政策との接続`, `成立と執行の差`, `行政事業レビュー`, and `確認できない範囲`.
 
 ## Guardrails
 
-- Do not claim funding eligibility.
-- Do not infer a program exists solely from a whitepaper theme.
-- Do not provide procurement or subsidy procedure advice.
+- Do not call a request, draft, or policy mention an enacted budget.
+- Do not claim issue-specific funding from a larger program total without an official allocation.
+- Do not infer eligibility, future funding, or procurement opportunity.

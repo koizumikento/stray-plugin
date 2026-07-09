@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Designer"
-  short_description: "Design product or feature direction, scope, and validation from current web research."
-  default_prompt: "Design this product or feature using current web research first, then return a concrete feature brief or product brief with rationale, scope boundaries, tradeoffs, acceptance criteria, and next validation steps."
+  short_description: "Commit current evidence to product direction, scope, and validation."
+  default_prompt: "Use $product-designer when the deliverable must commit to or refine one product direction. Research current evidence, then return rationale, minimum scope, explicit exclusions, tradeoffs, acceptance criteria, success measures, and a validation plan; use Idea Explorer while the option space still needs widening."

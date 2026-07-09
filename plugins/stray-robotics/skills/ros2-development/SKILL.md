@@ -1,6 +1,6 @@
 ---
 name: "ros2-development"
-description: "Use when the user wants to create, modify, debug, test, containerize, or CI-enable ROS 2 workspaces, packages, nodes, launch files, interfaces, simulations, or robot application integrations. Do not use for ROS 1-only projects, generic full-stack apps, pure mechanical CAD, pure circuit design, Nav2/MoveIt 2/ros2_control deep specialization, micro-ROS firmware work, or unsafe live robot operation without explicit hardware context and safety constraints."
+description: "Use when the user wants to build, debug, test, simulate, containerize, or CI-enable a ROS 2 workspace or application integration. Do not use for ROS 1, pure CAD/circuits, deep specialist stacks, firmware, or unapproved live-hardware operation."
 ---
 
 # ROS 2 Development
@@ -23,6 +23,8 @@ Build and debug ROS 2 software systematically from workspace shape through graph
    - Record the official page checked and the checked date.
    - Treat any remembered distro status as provisional; if official documentation differs, follow the official documentation and mention the discrepancy.
 4. Stop for confirmation before any live robot, actuator, controller, motor, safety-critical network, or destructive system-install command.
+   - Treat host-level dependency installation as a system-state change: inspect and report the planned packages first, then obtain explicit approval.
+   - A disposable container may install scoped dependencies when container creation or dependency setup is already part of the user's request; still report the change.
 5. Route elsewhere when the real task is mechanical design, circuit design, general app work, product research, or a specialized robotics stack that deserves its own skill.
 
 ## Reference Loading
@@ -45,7 +47,8 @@ Load only the smallest reference needed for the task:
 
 3. Manage dependencies and package metadata.
    - Keep `package.xml` as the dependency source of truth and align it with `CMakeLists.txt`, `setup.py`, entry points, generated interfaces, and test dependencies.
-   - Prefer `rosdep install --from-paths src --ignore-src -r -y` for dependency resolution in a workspace or container.
+   - Inspect unresolved dependencies first with a non-installing rosdep check or simulation and report the packages and target package manager.
+   - Run `rosdep install --from-paths src --ignore-src -r` only inside an already-authorized disposable environment or after explicit approval for host system changes; do not add automatic confirmation by default.
    - Use `ament_cmake` and `ament_python` conventions instead of ROS 1 `catkin` assumptions.
 
 4. Implement the smallest coherent ROS 2 slice.
@@ -78,7 +81,7 @@ Load only the smallest reference needed for the task:
 
 ## Validation Expectations
 
-- `rosdep install --from-paths src --ignore-src -r -y` or a clear explanation when dependency resolution is not run.
+- A non-installing rosdep dependency check, plus an approved install command only when installation is required and authorized.
 - `colcon build --symlink-install` or the repository's documented build command.
 - `colcon test` and `colcon test-result --all --verbose` for changed packages when tests exist.
 - Targeted ROS 2 CLI inspection for graph, interface, parameter, QoS, or launch changes.
@@ -96,16 +99,14 @@ After a failed build, test, launch, or ROS CLI check, inspect the concrete error
 - Do not use EOL distribution docs as the primary source for a current implementation.
 - Do not mix ROS 1 commands or package conventions into ROS 2 work unless the task is migration analysis.
 - Do not hide system-level changes such as apt installs, udev rules, group membership, device permissions, DDS vendor changes, or environment variable requirements.
+- Do not use automatic package-manager confirmation for host dependency changes unless the user explicitly authorized unattended installation.
 - Do not leave package metadata, install rules, launch files, generated interfaces, or tests stale after changing nodes.
 
 ## Reference URLs
 
 - ROS documentation: https://docs.ros.org/
-- ROS 2 distributions: https://docs.ros.org/en/lyrical/Releases.html
-- colcon workspace tutorial: https://docs.ros.org/en/rolling/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html
-- Creating a ROS 2 package: https://docs.ros.org/en/rolling/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html
-- rosdep tutorial: https://docs.ros.org/en/rolling/Tutorials/Intermediate/Rosdep.html
-- ROS 2 QoS: https://docs.ros.org/en/rolling/Concepts/Intermediate/About-Quality-of-Service-Settings.html
+- ROS 2 distributions: resolve the current release page from https://docs.ros.org/ and record the checked date
+- Target-distro documentation: use `https://docs.ros.org/en/<distro>/` after confirming the selected distribution; use Rolling only for Rolling work
 - Lifecycle node design: https://design.ros2.org/articles/node_lifecycle.html
 - ROS 2 CI action: https://github.com/ros-tooling/action-ros-ci
 - Docker ROS 2 guide: https://docs.docker.com/guides/ros2/develop/
@@ -115,6 +116,7 @@ After a failed build, test, launch, or ROS CLI check, inspect the concrete error
 
 - Working ROS 2 code/config changes or a concrete blocker report.
 - The selected ROS 2 distribution and whether it is LTS, supported non-LTS, or Rolling.
+- The official distribution page and date checked when release/support status affected a decision.
 - A short graph-level summary: changed nodes, topics, services, actions, parameters, frames, QoS, launch files, and package boundaries.
 - Build, test, dependency, launch, simulation, container, and CI evidence that was run or explicitly skipped.
 - Hardware safety status and any commands the user must approve before live operation.

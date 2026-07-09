@@ -1,4 +1,4 @@
 interface:
   display_name: "Domain Researcher"
-  short_description: "Investigate specialized topics and return a source-backed brief."
-  default_prompt: "Research this specialized topic using authoritative sources, verify time-sensitive claims, and return a concise brief with facts, sources, and uncertainty."
+  short_description: "Investigate one specialized track in a focused source-backed brief."
+  default_prompt: "Use $domain-researcher for one specialized research track. Check about 3-6 authoritative sources, verify time-sensitive claims, and return a focused brief with facts, inference, sources, and uncertainty; escalate multi-track work to deep research."

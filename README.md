@@ -6,10 +6,10 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 
 | Plugin | Root | Purpose |
 |---|---|---|
-| Stray Skill Ops | `plugins/stray-skillops/` | Create, search, evaluate, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current, source-backed research, deep research reports, product direction, maintenance triage, patent research, API terms checks, Japan company and weather data lookups, and Japanese horse racing analysis. |
+| Stray Skill Ops | `plugins/stray-skillops/` | Create, search, validate, evaluate, and operate Codex skills and subagents. |
+| Stray Research | `plugins/stray-research/` | Run current briefs, deep research, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
-| Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, case, chart-data, citation, statistics and open-data analysis, and cache workflows. |
+| Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, cases, chart data, statistics, open data, citations, and caches. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
 
 ## Repository Layout
@@ -49,6 +49,7 @@ Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest
 |---|---|
 | `agent-skill-creater` | Creating or updating Codex agent skills under this plugin family or project-scoped `.agents/skills/`. The spelling is intentional; preserve it unless explicitly renaming. |
 | `skills-search` | Finding existing skills before creating a new one and deciding whether to adopt, adapt, or write a skill. |
+| `skill-routing-validator` | Designing and validating positive and near-miss routing cases across a local skill set. |
 | `subagent-creator` | Creating or updating custom Codex subagents under `.codex/agents/`. |
 | `multi-agent-patterns` | Designing multi-agent workflows, handoffs, shared state, and quality gates. |
 | `ai-eval-ci` | Adding AI or agent evaluations to CI to catch prompt and behavior regressions. |
@@ -60,6 +61,8 @@ Notable support files:
 - `plugins/stray-skillops/skills/agent-skill-creater/references/authoring-guide.md`
 - `plugins/stray-skillops/skills/subagent-creator/agents/openai.yaml`
 - `plugins/stray-skillops/skills/subagent-creator/references/subagent-best-practices.md`
+- `plugins/stray-skillops/skills/skill-routing-validator/references/routing-cases.json`
+- `plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py`
 
 ### Stray Research
 
@@ -68,23 +71,24 @@ Notable support files:
 | Skill | Use for |
 |---|---|
 | `web-researcher` | Current, source-backed answers or briefs that must start from web research. |
-| `deep-researcher` | Long-form, multi-source deep research reports with multi-step planning, evidence synthesis, conflict handling, and explicit uncertainty. |
 | `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains. |
+| `deep-researcher` | Long-form, multi-track research with evidence synthesis, source-conflict handling, and explicit uncertainty. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Research-backed idea generation and comparison before choosing a direction. |
 | `product-designer` | Turning research into product decisions, feature briefs, scope boundaries, or validation plans. |
 | `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, and integration boundaries. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |
-| `japan-company-info-researcher` | Retrieving and summarizing Japanese corporate information from gBizINFO via `gbizinfo-mcp`. |
-| `japan-weather-data-researcher` | Retrieving JMA observation, station, recent-history, time-series, and forecast data via `jma-data-mcp`. |
-| `github-maintainer` | Read-first triage of GitHub issues and PRs with recommended next maintainer actions. |
+| `japan-weather-data-researcher` | Retrieving timestamped JMA station, AMeDAS, recent-history, time-series, and forecast data. |
+| `japan-company-info-researcher` | Looking up identified Japanese companies and corporate activity data through gBizINFO. |
+| `github-maintainer` | Read-only triage of GitHub issues and PRs with recommended next maintainer actions. |
 | `global-patent-researcher` | Planning or conducting public-web global patent research for prior art, novelty, invalidity candidates, FTO prechecks, or landscapes. Not legal advice. |
+| `japan-patent-researcher` | Conducting Japan-focused public patent research with J-PlatPat, Japanese terms, FI, and F-term search logs. Not legal advice. |
 | `api-terms-checker` | Checking current practical usage restrictions for third-party APIs or SaaS terms. Not legal advice. |
 | `keiba-yosou-agent` | Analyzing Japanese horse racing races from official, licensed, or user-provided data with probability ranges, value checks, ticket-structure caveats, and responsible-use guardrails. |
 
 Notable support files:
 
-- `agents/openai.yaml` exists for `web-researcher`, `deep-researcher`, `domain-researcher`, `idea-explorer`, `product-designer`, `japan-company-info-researcher`, `japan-weather-data-researcher`, and `keiba-yosou-agent`.
+- Selected specialist skills include `agents/openai.yaml` when display metadata or a real tool dependency materially helps invocation.
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`
 - `plugins/stray-research/skills/japan-company-info-researcher/references/endpoint-guide.md` maps gBizINFO data groups to tool families.
@@ -101,9 +105,9 @@ Notable support files:
 | `slack-app-builder` | Planning, building, validating, installing, deploying, or debugging Slack apps with Slack CLI, manifests, Bolt, Deno Slack SDK, events, workflows, and Web API calls. |
 | `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
+| `test-design-strategist` | Designing risk-based software test strategies, matrices, cases, regression scopes, and release gates without implementing test code. |
 | `reviewer` | Reviewing code, skills, artifacts, docs, UI, validation plans, release/compliance readiness, and plugin skill sets. |
 | `security-preflight` | Running security-focused preflights for repositories, diffs, CI/CD workflows, dependencies, secrets, IaC, containers, and release surfaces before shipping. |
-| `test-design-strategist` | Designing software test strategies, test viewpoints, test cases, QA plans, regression scope, coverage criteria, and manual-versus-automation recommendations. |
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
 | `brand-designer` | Defining or refining brand identity, visual principles, tone guidance, and mini style guides. |
 | `article-writer` | Drafting or revising publishable articles, blog posts, newsletters, or editorial pieces. |
@@ -142,12 +146,12 @@ Notable support files:
 | `japan-gov-proposal-context-adapter` | Translating a business idea or service into proposal-ready government context without overstating endorsement. |
 | `japan-gov-citation-auditor` | Auditing existing citations for officialness, freshness, edition fit, and claim/source alignment. |
 | `japan-gov-kpi-finder` | Finding official KPI or indicator candidates for Japan policy and social issues. |
+| `japan-gov-estat-data-analyst` | Searching, retrieving, and analyzing identified Japanese official statistics through e-Stat tooling. |
+| `japan-gov-project-links-data-analyst` | Discovering, profiling, joining, and analyzing MLIT Project LINKS datasets. |
+| `japan-real-estate-info-library-analyst` | Retrieving and analyzing MLIT Real Estate Information Library data and layers. |
 | `japan-gov-budget-tracer` | Tracing policy issues to government programs, budgets, and administrative review materials. |
 | `japan-gov-case-finder` | Finding official case examples from whitepapers and government documents. |
 | `japan-gov-chart-data-tracer` | Tracing chart, table, figure, or statistic source data behind whitepaper figures. |
-| `japan-gov-estat-data-analyst` | Searching, retrieving, and analyzing Japanese official statistics from e-Stat via `e-stats-mcp`. |
-| `japan-gov-project-links-data-analyst` | Inventorying, profiling, and analyzing MLIT Project LINKS CSV/GeoJSON datasets from the G-Spatial Information Center. |
-| `japan-real-estate-info-library-analyst` | Retrieving and analyzing MLIT Real Estate Information Library data (transaction prices, land prices, urban planning, disaster risk) via `reinfolib-mcp`. |
 | `japan-govdoc-cache-manager` | Managing temporary local caches and traceability for official PDFs, HTML, spreadsheets, and source indexes. |
 | `japan-whitepaper-brief` | Briefing a named whitepaper, annual report, chapter, or official policy document. |
 
@@ -189,4 +193,10 @@ json.load(open('plugins/stray-japan-govdocs/.codex-plugin/plugin.json'))
 json.load(open('plugins/stray-robotics/.codex-plugin/plugin.json'))
 print('json-ok')
 PY
+```
+
+5. Validate skill routing, frontmatter, local references, companion metadata, manifest JSON, and README inventory:
+
+```bash
+uv run --with pyyaml python plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py
 ```

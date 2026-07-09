@@ -1,55 +1,48 @@
 ---
 name: "japan-govdoc-cache-manager"
-description: "Use when the user asks to temporarily save, cache, inspect, or trace Japanese government whitepapers, government資料, official PDFs/HTML, source files, local paths, manifest records, or tmp/japan-govdocs/. Trigger on Japanese requests like 白書を一時保存, 政府資料をキャッシュ, PDF/HTMLを保存, 索引を残す, 取得元を追跡, ローカルに保存していない. Do not use for ordinary summaries unless local caching or traceability is central."
+description: "Use when the user wants Japanese official documents 一時保存・索引・cache inspected, repaired, or traced under tmp/japan-govdocs/. Do not use for ordinary reading unless local storage or provenance is central."
 ---
 
 # Japan Govdoc Cache Manager
 
-Manage temporary local storage and traceability for Japanese government whitepapers and official documents.
+Manage temporary official-document files and source indexes with a schema that distinguishes index-only work from downloaded-file caching.
 
-Use this skill when the user asks:
+## Do Not Use For
 
-- "白書をローカルに一時保存して"
-- "政府PDF/HTMLをキャッシュしてから読んで"
-- "取得した公式資料の索引を残して"
-- "白書を参照したのに保存していないので追跡できるようにして"
-- "tmp/japan-govdocs/ のファイル名ルールを確認して"
+- Ordinary summaries or evidence gathering that do not require local caching or provenance repair.
+- Persistent/versioned document archives unless the user explicitly requests a bounded artifact.
 
 ## Workflow
 
-1. Confirm the source type.
-   - Japanese government whitepaper, annual report, official policy document, PDF, HTML, spreadsheet, or related source file.
-2. Check the official route before caching.
-   - Use `../../references/egov-whitepaper-route-map.md` for listed whitepapers.
-   - Use `../../references/official-url-model.md` for URL roles and edition selection.
-3. Prepare the temporary folder.
-   - Use `tmp/japan-govdocs/sources/`, `tmp/japan-govdocs/downloads/`, and `tmp/japan-govdocs/extracted/`.
-   - Confirm `tmp/` is ignored by git before downloading.
-4. Apply deterministic names.
-   - Use canonical `ministry_slug` and `document_slug` from the route map when available.
-   - Store files under the path rules in `../../references/download-cache-policy.md`.
-5. Record traceability.
-   - Append `manifest.jsonl` records with official URL, local path, hash, size, title, ministry, year, and reason.
-   - Add or update `tmp/japan-govdocs/sources/whitepaper-index.json` when a reusable route is learned.
-6. Validate cache records when the user asks to inspect, repair, or confirm the cache.
-   - Prefer `uv run python plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py tmp/japan-govdocs`; fall back to the repo's established Python runner when needed.
-   - Treat validation failures as cache hygiene issues, not source-truth failures; re-check official landing pages before recaching.
-   - Map failure types to actions: hash mismatch -> re-download from the official URL and update the manifest record; missing local file -> re-fetch from the official landing page or remove the stale manifest line; missing or invalid manifest fields -> fix the record from the official source metadata.
-7. Return a concise cache report.
-   - Say what was cached, what was only indexed, what was skipped, and why.
+1. Verify the official landing route using `../../references/official-url-model.md` and, for listed whitepapers, `../../references/egov-whitepaper-route-map.md`.
+2. Select one mode:
+   - `index-only`: record verified official routes without downloading content.
+   - `download-cache`: save task-needed source/extracted files and create manifest records.
+3. Use `tmp/japan-govdocs/{sources,downloads,extracted}` and confirm `tmp/` is ignored by git before any download.
+4. Follow deterministic paths and the exact schema in `../../references/download-cache-policy.md`.
+   - Canonical source index shape: `{"records": [...]}`; an empty `records` array is valid for an initialized index.
+   - Every non-empty source-index record requires `document_id`, `title`, `ministry`, `year`, and `landing_page`.
+   - Every downloaded or extracted file requires one `manifest.jsonl` record with all policy-required fields.
+   - In index-only mode, `manifest.jsonl` may be absent or empty only when no files exist under `downloads/` or `extracted/`.
+5. Hash and size downloaded files after writing them; never copy guessed metadata into the manifest.
+6. Validate with:
+   `uv run python plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py tmp/japan-govdocs`
+   Use the repository's Python runner if `uv` is unavailable.
+7. Repair only the invalid record/file requested. Re-run validation once; if failure remains, preserve the error and stop rather than deleting unrelated cache entries.
+8. Report what was cached, only indexed, skipped, or unresolved.
 
-## Output Expectations
+## Output
 
+- `mode`: index-only / download-cache
 - `確認した公式経路`
 - `保存したファイル`
 - `更新した索引`
 - `manifest記録`
+- `validator結果`
 - `保存しなかった資料と理由`
-- `次に読むべきローカルファイル`
 
 ## Guardrails
 
-- Do not download whole archives unless the user explicitly asks for a bounded dataset build.
-- Do not treat direct PDF URLs as sufficient without an official landing page.
-- Do not cite local cache paths as final sources; cite official URLs.
-- Do not move cached files into versioned docs folders unless the user explicitly asks for a persistent research artifact.
+- Do not bulk-download archives without an explicit bounded dataset request.
+- Do not cite local paths as final sources or accept a direct file URL without its official landing route.
+- Do not write outside `tmp/japan-govdocs/` unless the user explicitly asks for a persistent artifact.

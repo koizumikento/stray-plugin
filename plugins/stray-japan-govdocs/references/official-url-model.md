@@ -72,25 +72,27 @@ tmp/japan-govdocs/sources/whitepaper-index.json
 
 Do not treat cached URLs as current. Before reading, citing, or downloading a cached URL, re-check the relevant official landing page.
 
-## Suggested Record Shape
+## Canonical Record Example
+
+The required and optional fields are defined once in `download-cache-policy.md`; use that schema for every source-index record. The URL roles above map directly to fields in that canonical schema.
 
 ```json
 {
-  "document_id": "cao-disaster-management-white-paper",
-  "title": "防災白書",
-  "ministry": "内閣府",
-  "ministry_slug": "cao",
-  "document_slug": "disaster-management-white-paper",
-  "series_landing_page": "https://www.bousai.go.jp/kaigirep/hakusho/index.html",
-  "editions": [
+  "records": [
     {
+      "document_id": "cao-disaster-management-white-paper-2025",
+      "title": "防災白書",
+      "ministry": "内閣府",
       "year": "2025",
       "edition": "令和7年版",
+      "landing_page": "https://www.bousai.go.jp/kaigirep/hakusho/r07/",
+      "ministry_slug": "cao",
+      "document_slug": "disaster-management-white-paper",
+      "series_landing_page": "https://www.bousai.go.jp/kaigirep/hakusho/index.html",
       "edition_landing_page": "https://www.bousai.go.jp/kaigirep/hakusho/r07/",
       "pdf_index_url": "https://www.bousai.go.jp/kaigirep/hakusho/r7.html",
       "html_url": "https://www.bousai.go.jp/kaigirep/hakusho/r07/",
       "chapter_urls": [],
-      "summary_url": null,
       "last_checked_at": "YYYY-MM-DDTHH:MM:SSZ"
     }
   ]

@@ -191,6 +191,20 @@
       "reason": "The task is an application flow without a narrower Slack, MCP, or robotics owner."
     },
     {
+      "id": "studio-platform-native-ui-spec",
+      "prompt": "Using my own notes from official Apple design pages, with exact URLs and access dates, turn this defined iPadOS split-view flow into an implementation-ready UI specification; do not implement it.",
+      "expect": ["platform-native-ui-designer"],
+      "reject": ["product-designer", "reviewer", "fullstack-app-builder"],
+      "reason": "The feature is already defined and the requested deliverable is an evidence-backed Apple-platform UI specification."
+    },
+    {
+      "id": "studio-platform-native-ui-implementation",
+      "prompt": "Implement this approved iOS interface specification in the current repository with SwiftUI and validate the resulting app flow.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["platform-native-ui-designer"],
+      "reason": "The user is asking for application implementation from an approved specification, not a new UI specification."
+    },
+    {
       "id": "studio-json-canvas",
       "prompt": "Repair this .canvas file's node IDs, edge targets, type-specific fields, and layout, then validate JSON Canvas structure.",
       "expect": ["json-canvas-editor"],

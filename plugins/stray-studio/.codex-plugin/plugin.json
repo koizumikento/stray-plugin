@@ -1,12 +1,12 @@
 {
   "name": "stray-studio",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Studio",
     "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
-    "longDescription": "A repo-local Codex plugin for implementation, bounded review-fix loops, security preflights, and artifact production. It routes full-stack app work to specialist Slack, static corporate-site, and landing-page builders; designs software tests without silently implementing them; reviews and optionally repairs confirmed findings; keeps security review separate from remediation; applies artifact themes with native-format checks; and produces brands, articles, proposals, operational playbooks, validated JSON Canvas files, sanitized marketing screenshots, current-constraint Slack GIFs, and production-oriented pixel-art assets.",
+    "longDescription": "A repo-local Codex plugin for implementation, platform-native UI specification, bounded review-fix loops, security preflights, and artifact production. It routes full-stack app work to specialist Slack, static corporate-site, and landing-page builders; turns defined iOS, iPadOS, macOS, watchOS, tvOS, and visionOS features into UI specifications using user-authored notes attributed to current official Apple documentation; designs software tests without silently implementing them; reviews and optionally repairs confirmed findings; keeps security review separate from remediation; applies artifact themes with native-format checks; and produces brands, articles, proposals, operational playbooks, validated JSON Canvas files, sanitized marketing screenshots, current-constraint Slack GIFs, and production-oriented pixel-art assets.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -14,6 +14,7 @@
       "Build, modify, validate, install, or deploy a Slack app using the Slack CLI, app manifests, Bolt, events, slash commands, workflows, or Slack Web API calls.",
       "Create or revise a static, repository-managed corporate website with company information architecture, business/service pages, news, careers, IR, sustainability, trust links, and responsive implementation.",
       "Create or overhaul a landing page with conversion-focused structure, messaging, CTA flow, SEO basics, and responsive implementation.",
+      "Use the user's own notes about current official Apple design pages, with source URLs and user-reported access dates, to turn a defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS feature or flow into an implementation-ready platform-native UI specification with adaptation, accessibility, state, and acceptance checks.",
       "Design a software test strategy, QA plan, test matrix, regression scope, release checklist, or automation candidate list without implementing test code.",
       "Review code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, or repository compliance findings-first, and run a bounded repair loop only when fixes are explicitly requested.",
       "Run a security preflight on a repository, diff, CI/CD workflow, dependency set, IaC/container setup, secrets posture, or release surface before shipping.",

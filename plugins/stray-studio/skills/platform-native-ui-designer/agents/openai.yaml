@@ -1,0 +1,4 @@
+interface:
+  display_name: "Platform-Native UI Designer"
+  short_description: "Create evidence-backed UI specifications for Apple platforms."
+  default_prompt: "Use $platform-native-ui-designer with my own notes about current official Apple design pages, source URLs, and user-reported access dates to turn this defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS feature or flow into an implementation-ready UI specification. Separate guidance reported in my notes from design recommendations and include adaptation, accessibility, state, and acceptance checks."

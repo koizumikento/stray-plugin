@@ -102,6 +102,7 @@ Notable support files:
 | Skill | Use for |
 |---|---|
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
+| `platform-native-ui-designer` | Turning defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS features and flows into implementation-ready UI specifications using the user's own notes attributed to current official Apple documentation. |
 | `slack-app-builder` | Planning, building, validating, installing, deploying, or debugging Slack apps with Slack CLI, manifests, Bolt, Deno Slack SDK, events, workflows, and Web API calls. |
 | `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
@@ -120,6 +121,8 @@ Notable support files:
 
 Notable support files:
 
+- `plugins/stray-studio/skills/platform-native-ui-designer/agents/openai.yaml`
+- `plugins/stray-studio/skills/platform-native-ui-designer/references/`
 - `plugins/stray-studio/skills/article-writer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/references/`
@@ -131,6 +134,8 @@ Notable support files:
 - `plugins/stray-studio/skills/landing-page-builder/references/`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/scripts/`
+
+Trademark notice: Apple, iPadOS, macOS, watchOS, tvOS, and visionOS are trademarks of Apple Inc. IOS is a Cisco trademark or registered trademark in the United States and other countries, used under license. This independent project is not sponsored, endorsed, or approved by Apple Inc. See the current [Apple Trademark List](https://www.apple.com/legal/intellectual-property/trademark/appletmlist.html).
 
 ### Stray Japan Gov Docs
 

@@ -1,0 +1,91 @@
+name: Deterministic validation
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  validate:
+    name: JSON, YAML, routing, and script safety
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install deterministic dependencies
+        run: >-
+          python -m pip install
+          --disable-pip-version-check
+          --no-compile
+          PyYAML==6.0.3
+          pytest==9.1.1
+          iniconfig==2.3.0
+          packaging==26.2
+          pluggy==1.6.0
+          Pygments==2.20.0
+          Pillow==12.3.0
+
+      - name: Reject tracked generated Python artifacts
+        shell: bash
+        run: |
+          tracked="$(git ls-files | grep -E '(^|/)__pycache__/|\.py[co]$' || true)"
+          if [[ -n "$tracked" ]]; then
+            printf 'Tracked generated Python artifacts are not allowed:\n'
+            printf '%s\n' "$tracked"
+            exit 1
+          fi
+
+      - name: Validate tracked JSON and YAML syntax
+        run: |
+          python - <<'PY'
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          validator_dir = Path(
+              "plugins/stray-skillops/skills/skill-routing-validator/scripts"
+          ).resolve()
+          sys.path.insert(0, str(validator_dir))
+          from validate_routing_cases import load_unique_json, load_unique_yaml
+
+          output = subprocess.check_output(
+              ["git", "ls-files", "-z", "--", "*.json", "*.yaml", "*.yml"]
+          )
+          paths = [Path(raw.decode()) for raw in output.split(b"\0") if raw]
+          for path in paths:
+              with path.open(encoding="utf-8") as handle:
+                  if path.suffix == ".json":
+                      load_unique_json(handle.read())
+                  else:
+                      load_unique_yaml(handle.read())
+          print(f"structured-data-ok files={len(paths)}")
+          PY
+
+      - name: Validate routing structure
+        run: >-
+          python
+          plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py
+
+      - name: Run deterministic tests
+        run: >-
+          python -m pytest -q -p no:cacheprovider
+          plugins/stray-skillops/skills/skill-routing-validator/tests
+          plugins/stray-studio/skills/corporate-site-builder/tests
+          plugins/stray-studio/skills/pixel-art-asset-creator/tests

@@ -9,6 +9,9 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from _output_pipeline import commit_outputs, resolve_output, stage_image
+from _run_safety import resolve_run_path
+
 LABEL_HEIGHT = 22
 
 
@@ -30,10 +33,13 @@ def checker(size: tuple[int, int], square: int = 8) -> Image.Image:
 
 def load_request(args: argparse.Namespace) -> tuple[dict[str, object], Path, Path]:
     run_dir = Path(args.run_dir).expanduser().resolve()
-    request = load_json(run_dir / "asset_request.json")
-    image_path = Path(args.image).expanduser().resolve() if args.image else run_dir / "final" / "asset.png"
-    output_path = Path(args.output).expanduser().resolve() if args.output else run_dir / "qa" / "contact-sheet.png"
-    return request, image_path, output_path
+    request = load_json(resolve_run_path(run_dir, "asset_request.json", field="asset request"))
+    image_path = (
+        Path(args.image).expanduser().resolve()
+        if args.image
+        else resolve_run_path(run_dir, "final/asset.png", field="default asset image")
+    )
+    return request, image_path, run_dir
 
 
 def main() -> None:
@@ -42,9 +48,16 @@ def main() -> None:
     parser.add_argument("--image", default="")
     parser.add_argument("--output", default="")
     parser.add_argument("--scale", type=float, default=2.0)
+    parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
-    request, image_path, output_path = load_request(args)
+    request, image_path, run_dir = load_request(args)
+    output_path = resolve_output(
+        run_dir,
+        args.output or "qa/contact-sheet.png",
+        field="contact sheet output",
+        force=args.force,
+    )
     sheet = request.get("sheet")
     if not isinstance(sheet, dict):
         raise SystemExit("asset_request.json is missing sheet contract")
@@ -81,8 +94,8 @@ def main() -> None:
             draw.rectangle((x, y + LABEL_HEIGHT, x + view_w - 1, y + LABEL_HEIGHT + view_h - 1), outline=outline)
             draw.text((x + 4, y + LABEL_HEIGHT + 4), str(index), fill="#111111", font=font)
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    contact.save(output_path)
+    staged = stage_image(output_path, contact, image_format="PNG")
+    commit_outputs(run_dir, [(staged, output_path)], force=args.force)
     print(json.dumps({"ok": True, "contact_sheet": str(output_path)}, indent=2))
 
 

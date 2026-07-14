@@ -10,6 +10,17 @@ from pathlib import Path
 
 from PIL import Image
 
+from _output_pipeline import (
+    cleanup_staged_directory,
+    commit_staged_directory,
+    create_staged_directory,
+    preflight_directory_outputs,
+    resolve_output_directory,
+    write_staged_image,
+    write_staged_text,
+)
+from _run_safety import resolve_run_path
+
 
 def load_json(path: Path) -> dict[str, object]:
     if not path.exists():
@@ -43,7 +54,7 @@ def main() -> None:
     args = parser.parse_args()
 
     run_dir = Path(args.run_dir).expanduser().resolve()
-    request = load_json(run_dir / "asset_request.json")
+    request = load_json(resolve_run_path(run_dir, "asset_request.json", field="asset request"))
     sheet = request.get("sheet")
     if not isinstance(sheet, dict):
         raise SystemExit("asset_request.json is missing sheet contract")
@@ -53,29 +64,70 @@ def main() -> None:
     cell_h = int(sheet["cell_height"])
     used_cells = int(sheet["used_cells"])
 
-    image_path = Path(args.image).expanduser().resolve() if args.image else run_dir / "final" / "asset.png"
-    output_dir = Path(args.output_dir).expanduser().resolve() if args.output_dir else run_dir / "final" / "cells"
-    if output_dir.exists() and any(output_dir.iterdir()) and not args.force:
-        raise SystemExit(f"{output_dir} is not empty; pass --force to replace files")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    image_path = (
+        Path(args.image).expanduser().resolve()
+        if args.image
+        else resolve_run_path(run_dir, "final/asset.png", field="default asset image")
+    )
+    output_dir = resolve_output_directory(
+        run_dir,
+        args.output_dir or "final/cells",
+        field="sliced cells output directory",
+    )
 
     names = cell_names(request, used_cells)
-    written: list[str] = []
-    with Image.open(image_path) as opened:
-        image = opened.convert("RGBA")
-        for index in range(columns * rows):
-            if index >= used_cells and not args.include_unused:
-                continue
-            row = index // columns
-            column = index % columns
-            crop = image.crop((column * cell_w, row * cell_h, (column + 1) * cell_w, (row + 1) * cell_h))
-            name = names[index] if index < len(names) else f"unused-{index:02d}"
-            target = output_dir / f"{index:02d}-{name}.png"
-            crop.save(target)
-            written.append(str(target))
+    file_names = []
+    for index in range(columns * rows):
+        if index >= used_cells and not args.include_unused:
+            continue
+        name = names[index] if index < len(names) else f"unused-{index:02d}"
+        file_names.append(f"{index:02d}-{name}.png")
+    output_names = [*file_names, "cells-manifest.json"]
+    preflight_directory_outputs(
+        run_dir,
+        output_dir,
+        output_names,
+        field="sliced cell output",
+        force=args.force,
+    )
 
+    written = [str(output_dir / name) for name in file_names]
     manifest = {"ok": True, "output_dir": str(output_dir), "files": written}
-    (output_dir / "cells-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    staged_dir = create_staged_directory(output_dir)
+    try:
+        with Image.open(image_path) as opened:
+            image = opened.convert("RGBA")
+            for index in range(columns * rows):
+                if index >= used_cells and not args.include_unused:
+                    continue
+                row = index // columns
+                column = index % columns
+                crop = image.crop(
+                    (
+                        column * cell_w,
+                        row * cell_h,
+                        (column + 1) * cell_w,
+                        (row + 1) * cell_h,
+                    )
+                )
+                name = names[index] if index < len(names) else f"unused-{index:02d}"
+                target_name = f"{index:02d}-{name}.png"
+                write_staged_image(staged_dir / target_name, crop, image_format="PNG")
+
+        write_staged_text(
+            staged_dir / "cells-manifest.json",
+            json.dumps(manifest, indent=2) + "\n",
+        )
+        commit_staged_directory(
+            run_dir,
+            staged_dir,
+            output_dir,
+            output_names,
+            field="sliced cells output directory",
+            force=args.force,
+        )
+    finally:
+        cleanup_staged_directory(staged_dir)
     print(json.dumps(manifest, indent=2))
 
 

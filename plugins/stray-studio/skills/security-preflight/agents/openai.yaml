@@ -1,4 +1,4 @@
 interface:
   display_name: "Security Preflight"
-  short_description: "Run a bounded, read-only security preflight for repos, diffs, CI/CD, dependencies, secrets, IaC, and release surfaces."
-  default_prompt: "Run a read-only security preflight: inspect without modifying files or systems, preserve secrets, report findings-first with evidence, and separate repository evidence from unverified external state."
+  short_description: "Run read-only security preflights with evidence."
+  default_prompt: "Use $security-preflight to run a read-only security preflight; inspect without modifying files or systems, preserve secrets, report findings-first with evidence, and distinguish repository evidence from unverified external state."

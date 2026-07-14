@@ -13,7 +13,7 @@ Use deterministic tools only for organizing prompts, slicing generated sheets, c
 - `prepare_asset_run.py`: create `asset_request.json`, prompt files, copied references, and `imagegen-jobs.json`
 - `asset_job_status.py`: show ready and blocked visual generation jobs
 - `record_imagegen_result.py`: record selected image generation outputs and create the canonical base reference
-- `generate_asset_images.py`: secondary direct Image API fallback when the normal image generation skill cannot be used
+- `generate_asset_images.py`: explicit direct Image API path for a user-authorized, separately billed request; never an automatic fallback
 - `extract_sheet_cells.py`: normalize chroma key or alpha, resize to the asset contract, and slice cells
 - `inspect_asset_cells.py`: inspect extracted cells for empty cells, opaque backgrounds, clipping risk, and size outliers
 - `compose_asset_sheet.py`: compose extracted cells into `final/asset.png` and `final/asset.webp`
@@ -38,7 +38,7 @@ uv run --with pillow python plugins/stray-studio/skills/pixel-art-asset-creator/
   --reference /absolute/path/to/reference.png
 ```
 
-All arguments are optional except the ones needed to express the user's asset contract. For animation, pass `--sheet-structure sprite-row --frame-count <n> --motion-beats "<beats>"`. For item or tile sets, pass `--item`, `--items`, `--tile`, or `--tiles`.
+All arguments are optional except the ones needed to express the user's asset contract. Reference inputs must be valid PNG, JPEG, or WebP images no larger than 20 MiB; the workflow verifies their content instead of trusting the filename and records the copied reference hash in `asset_request.json`. For animation, pass `--sheet-structure sprite-row --frame-count <n> --motion-beats "<beats>"`. For item or tile sets, pass `--item`, `--items`, `--tile`, or `--tiles`.
 
 2. Inspect ready visual jobs.
 
@@ -97,14 +97,19 @@ uv run --with pillow python plugins/stray-studio/skills/pixel-art-asset-creator/
 
 Then repeat job status, image generation, result recording, and finalization.
 
-## Secondary Image API Fallback
+When replacing derived `cells/`, `final/`, or `qa/` artifacts from the failed pass, rerun finalization with `--force`. The writer scripts still reject every symlink component; `--force` permits replacement only of contained regular outputs that the repair is expected to regenerate.
 
-Use the fallback only when the installed image generation path is unavailable or blocked. This fallback calls the OpenAI Image API directly, so only this fallback requires `OPENAI_API_KEY`:
+## Explicit Direct Image API Path
+
+Do not select this path merely because installed image generation is unavailable. Use it only when the user specifically requests direct OpenAI Image API execution and authorizes sending the run's prompts and input images to that separately billed API. Otherwise, stop with the asset contract and ready-to-run prompts as described in `SKILL.md`.
+
+After that authorization, set `OPENAI_API_KEY` in the environment and pass the required confirmation flag:
 
 ```bash
 uv run --with pillow python plugins/stray-studio/skills/pixel-art-asset-creator/scripts/generate_asset_images.py \
   --run-dir /absolute/path/to/run \
-  --model gpt-image-2
+  --model gpt-image-2 \
+  --confirm-direct-api
 ```
 
-Do not use the fallback just because `OPENAI_API_KEY` is absent; absent API keys are fine for the normal installed-image-generation path.
+The script sends credentials in an in-process HTTP header rather than a command-line argument, refuses HTTP redirects, and revalidates every input image and its prepared hash before the request. The direct path accepts at most eight input images, at most 60 MiB total input-image bytes, a prompt no larger than 1 MiB, and a complete request body no larger than 64 MiB. Never print, persist, or pass the API key as an argument. An absent API key is fine for the normal installed-image-generation path.

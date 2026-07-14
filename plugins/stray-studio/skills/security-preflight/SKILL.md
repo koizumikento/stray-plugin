@@ -20,8 +20,9 @@ Use this skill when the user asks for a security review, security preflight, sec
 
 ## Reference Selection
 
-Load only the smallest reference set that matches the scope:
+Always load the evidence contract, then add only the smallest domain reference set that matches the scope:
 
+- `references/evidence-contract.md`: mandatory receipt statuses, coverage ledger, proof gaps, and final decision reconciliation for every preflight.
 - `references/application.md`: app, API, auth, authorization, sessions, input handling, SSRF, uploads, errors, and logs.
 - `references/secrets-and-data.md`: secrets, credentials, `.env`, PII, telemetry, logs, backups, exports, and rotation guidance.
 - `references/supply-chain.md`: dependency manifests, lockfiles, SCA, SBOM, package publishing, provenance, signing, and malicious package risk.
@@ -37,10 +38,12 @@ Use the relevant existing `reviewer` references only for non-security review dim
    - Name the intended audience, environment, data sensitivity, and deployment or publication path when known.
    - If the scope is too broad for reliable coverage, narrow it explicitly and state exclusions.
 
-2. Establish the evidence boundary.
+2. Establish the evidence boundary and ledger.
+   - Load `evidence-contract.md` before recording candidates or findings.
    - Separate local repository evidence, command output, connected GitHub/project settings, connected cloud/runtime settings, and user-provided claims.
    - Do not infer hosted settings such as branch protection, secret scanning, cloud IAM usage, or deployment approvals from YAML alone.
    - Mark unavailable hosted settings or runtime state as unverified, not safe.
+   - Initialize coverage rows for every selected high-risk boundary and record explicit exclusions.
 
 3. Load the matching reference files.
    - For an app or API, start with `application.md`.
@@ -52,6 +55,7 @@ Use the relevant existing `reviewer` references only for non-security review dim
    - Check authentication, authorization, tenant/object ownership, secrets, privileged CI paths, release credentials, dependency risks, public exposure, and destructive or externally reachable workflows before style or hygiene.
    - Prefer structured parsers or project-native tools where available; use `rg` for targeted static searches.
    - If running scanners such as CodeQL, Semgrep, OSV-Scanner, npm audit, pip-audit, trivy, checkov, tfsec, or OpenSSF Scorecard, report the exact command and scope.
+   - Create a candidate evidence receipt for each plausible security claim; do not promote it to a finding before the evidence supports `confirmed` status.
 
 5. Protect secrets and sensitive data throughout the review.
    - Never print, quote, validate, call, or reuse discovered secret or PII values.
@@ -59,6 +63,8 @@ Use the relevant existing `reviewer` references only for non-security review dim
    - If a committed secret is suspected, treat it as compromised and recommend revoke/rotate plus history/log/artifact review by the owner.
 
 6. Classify findings by decision impact.
+   - Resolve every candidate as `confirmed`, `suppressed`, `deferred`, or `not_applicable` using `evidence-contract.md`.
+   - Assign finding severity only to confirmed candidates. Link every deferred candidate to a proof gap and never suppress a candidate merely because it could not be reproduced safely.
    - Use Critical for likely credential exposure, privileged untrusted-code execution, unauthenticated sensitive access, tenant breakout, or public exposure of sensitive data.
    - Use High for broad authorization gaps, dangerous CI permissions, unpinned third-party workflow actions in privileged paths, long-lived deploy credentials, exploitable injection patterns, or public admin/storage/network exposure.
    - Use Medium for missing hardening, weak evidence, stale dependency hygiene, missing automated checks, or safeguards that are present but incomplete.
@@ -66,8 +72,8 @@ Use the relevant existing `reviewer` references only for non-security review dim
 
 7. Produce a findings-first preflight result.
    - Start with findings ordered by severity and grounded in concrete files, lines, settings, commands, or missing evidence.
-   - Then list unverified areas, assumptions, and required human or external verification.
-   - End with a practical recommendation: ready, ready with fixes, hold, or needs specialist sign-off.
+   - Then include the candidate receipt disposition summary, coverage ledger, proof gaps, assumptions, and required human or external verification.
+   - Reconcile every finding, candidate status, coverage row, and material proof gap before ending with ready, ready with fixes, hold, or needs specialist sign-off.
 
 8. Hand remediation off without editing under this skill.
    - If the user also requested fixes, finish the review artifact first and map each confirmed finding to the smallest remediation direction and validation needed.
@@ -78,10 +84,13 @@ Use the relevant existing `reviewer` references only for non-security review dim
 
 - Scope reviewed, evidence sources used, and references loaded.
 - Findings first, each with severity, evidence, impact, and smallest reasonable remediation direction.
+- Candidate evidence receipts with `confirmed`, `suppressed`, `deferred`, or `not_applicable` disposition; sensitive values omitted.
+- Coverage ledger showing `covered`, `partial`, and `not_reviewed` boundaries plus explicit exclusions, without treating no findings as proof of coverage.
+- Proof gaps with decision impact, verification owner, and the smallest safe evidence needed to close them.
 - Secret/PII findings redacted by design.
 - Commands or scanners run, skipped, unavailable, or intentionally avoided.
 - Clear separation between confirmed findings, unverified settings, and specialist-review items.
-- Ship recommendation: ready, ready with fixes, hold, or needs specialist sign-off.
+- Reconciled ship recommendation naming the confirmed candidate IDs and material proof-gap IDs that control it: ready, ready with fixes, hold, or needs specialist sign-off.
 - For mixed requests, a remediation handoff naming the implementation owner and the security checks that must be rerun; no edits made under this skill.
 
 ## Guardrails
@@ -89,6 +98,7 @@ Use the relevant existing `reviewer` references only for non-security review dim
 - Do not claim the artifact is secure, compliant, certified, penetration-tested, or audit-passed.
 - Do not modify application code, configuration, workflows, dependencies, infrastructure, secrets, or hosted settings under this skill; hand fixes to the relevant implementation skill.
 - Do not execute exploits, active probes, credential checks, login attempts, cloud mutations, destructive commands, or production scans.
+- Do not treat inability to reproduce through prohibited active testing as counter-evidence; record a deferred candidate and proof gap instead.
 - Do not call external services with discovered tokens, keys, cookies, credentials, or private URLs.
 - Do not expose secret or PII values in final answers, comments, logs, screenshots, PR descriptions, or issue text.
 - Do not revoke, rotate, delete, rewrite history, change branch protection, change cloud IAM, or publish artifacts under this skill. Even after an explicit request, hand the reviewed finding and required safeguards to the relevant implementation or operations workflow.

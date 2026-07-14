@@ -9,6 +9,15 @@ from pathlib import Path
 
 from PIL import Image
 
+from _output_pipeline import (
+    commit_outputs,
+    resolve_output,
+    resolve_output_directory,
+    stage_image,
+    stage_text,
+)
+from _run_safety import resolve_run_path
+
 
 def load_json(path: Path) -> dict[str, object]:
     if not path.exists():
@@ -41,7 +50,12 @@ def selected_output(run_dir: Path, request: dict[str, object], manifest: dict[st
             output = job.get("output_path")
             if not isinstance(output, str):
                 raise SystemExit(f"job {job_id} has no output_path")
-            path = run_dir / output
+            path = resolve_run_path(
+                run_dir,
+                output,
+                field=f"job {job_id} output_path",
+                allowed_roots=("decoded",),
+            )
             if not path.is_file():
                 raise SystemExit(f"job {job_id} output is missing: {path}")
             return path
@@ -110,18 +124,40 @@ def main() -> None:
     args = parser.parse_args()
 
     run_dir = Path(args.run_dir).expanduser().resolve()
-    request = load_json(run_dir / "asset_request.json")
-    manifest = load_json(run_dir / "imagegen-jobs.json")
+    request = load_json(resolve_run_path(run_dir, "asset_request.json", field="asset request"))
+    manifest = load_json(resolve_run_path(run_dir, "imagegen-jobs.json", field="job manifest"))
     require_complete(manifest)
     source = selected_output(run_dir, request, manifest)
 
-    output_dir = Path(args.output_dir).expanduser().resolve() if args.output_dir else run_dir / "final"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    png_path = output_dir / "asset.png"
-    webp_path = output_dir / "asset.webp"
-    manifest_path = output_dir / "asset-manifest.json"
-    if not args.force and any(path.exists() for path in [png_path, webp_path, manifest_path]):
-        raise SystemExit(f"{output_dir} already contains packaged files; pass --force to replace them")
+    output_dir = resolve_output_directory(
+        run_dir,
+        args.output_dir or "final",
+        field="package output directory",
+    )
+    png_path = resolve_output(
+        run_dir,
+        output_dir / "asset.png",
+        field="packaged PNG output",
+        force=args.force,
+    )
+    webp_path = resolve_output(
+        run_dir,
+        output_dir / "asset.webp",
+        field="packaged WebP output",
+        force=args.force,
+    )
+    manifest_path = resolve_output(
+        run_dir,
+        output_dir / "asset-manifest.json",
+        field="package manifest output",
+        force=args.force,
+    )
+    summary_path = resolve_output(
+        run_dir,
+        "qa/package-summary.json",
+        field="package summary output",
+        force=args.force,
+    )
 
     image, warnings = normalize_image(
         source,
@@ -129,9 +165,6 @@ def main() -> None:
         no_resize=args.no_resize,
         chroma_tolerance=args.chroma_tolerance,
     )
-    image.save(png_path)
-    image.save(webp_path, format="WEBP", lossless=True, quality=100, method=6)
-
     package = {
         "asset_id": request.get("asset_id"),
         "display_name": request.get("display_name"),
@@ -145,7 +178,6 @@ def main() -> None:
         "files": {"png": png_path.name, "webp": webp_path.name},
         "warnings": warnings,
     }
-    manifest_path.write_text(json.dumps(package, indent=2) + "\n", encoding="utf-8")
 
     summary = {
         "ok": True,
@@ -155,10 +187,38 @@ def main() -> None:
         "asset_manifest": str(manifest_path),
         "warnings": warnings,
     }
-    (run_dir / "qa").mkdir(parents=True, exist_ok=True)
-    (run_dir / "qa" / "package-summary.json").write_text(
-        json.dumps(summary, indent=2) + "\n", encoding="utf-8"
-    )
+    staged_outputs: list[tuple[Path, Path]] = []
+    try:
+        staged_outputs.append((stage_image(png_path, image, image_format="PNG"), png_path))
+        staged_outputs.append(
+            (
+                stage_image(
+                    webp_path,
+                    image,
+                    image_format="WEBP",
+                    lossless=True,
+                    quality=100,
+                    method=6,
+                ),
+                webp_path,
+            )
+        )
+        staged_outputs.append(
+            (
+                stage_text(manifest_path, json.dumps(package, indent=2) + "\n"),
+                manifest_path,
+            )
+        )
+        staged_outputs.append(
+            (
+                stage_text(summary_path, json.dumps(summary, indent=2) + "\n"),
+                summary_path,
+            )
+        )
+        commit_outputs(run_dir, staged_outputs, force=args.force)
+    finally:
+        for staged, _ in staged_outputs:
+            staged.unlink(missing_ok=True)
     print(json.dumps(summary, indent=2))
 
 

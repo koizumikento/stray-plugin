@@ -76,7 +76,7 @@ Notable support files:
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Research-backed idea generation and comparison before choosing a direction. |
 | `product-designer` | Turning research into product decisions, feature briefs, scope boundaries, or validation plans. |
-| `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, and integration boundaries. |
+| `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, integration boundaries, and read-only agent evaluation contracts. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |
 | `japan-weather-data-researcher` | Retrieving timestamped JMA station, AMeDAS, recent-history, time-series, and forecast data. |
 | `japan-company-info-researcher` | Looking up identified Japanese companies and corporate activity data through gBizINFO. |

@@ -1,7 +1,7 @@
 interface:
   display_name: "Japan Gov e-Stat Data Analyst"
-  short_description: "Search, retrieve, and analyze selected e-Stat tables with explicit access state."
-  default_prompt: "Find or use the requested e-Stat table, inspect metadata before values, and return table IDs, filters, units, access path or fallback, derivations, and caveats."
+  short_description: "Analyze selected e-Stat tables with explicit provenance."
+  default_prompt: "Use $japan-gov-estat-data-analyst to find or analyze the requested e-Stat table; inspect metadata first and report table IDs, filters, units, access state, derivations, and caveats."
 dependencies:
   tools:
     - type: "mcp"

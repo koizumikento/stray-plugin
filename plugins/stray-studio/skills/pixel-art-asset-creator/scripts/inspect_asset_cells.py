@@ -10,6 +10,9 @@ from statistics import median
 
 from PIL import Image
 
+from _output_pipeline import commit_outputs, resolve_output, stage_text
+from _run_safety import resolve_run_path
+
 
 def load_json(path: Path) -> dict[str, object]:
     if not path.exists():
@@ -72,15 +75,18 @@ def inspect_cell(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--cells-dir", required=True)
+    parser.add_argument("--run-dir", default="")
     parser.add_argument("--json-out", default="")
     parser.add_argument("--min-used-pixels", type=int, default=20)
     parser.add_argument("--edge-padding", type=int, default=1)
     parser.add_argument("--small-outlier-ratio", type=float, default=0.35)
     parser.add_argument("--large-outlier-ratio", type=float, default=2.5)
+    parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
     cells_dir = Path(args.cells_dir).expanduser().resolve()
-    manifest = load_json(cells_dir / "cells-manifest.json")
+    run_dir = Path(args.run_dir).expanduser().resolve() if args.run_dir else cells_dir.parent
+    manifest = load_json(resolve_run_path(cells_dir, "cells-manifest.json", field="cells manifest"))
     sheet = manifest.get("sheet")
     if not isinstance(sheet, dict):
         raise SystemExit("cells manifest is missing sheet contract")
@@ -96,8 +102,9 @@ def main() -> None:
             rows.append({"index": item.get("index"), "ok": False, "errors": ["used cell has no file path"], "warnings": []})
             continue
         index = int(item.get("index", 0))
+        cell_path = resolve_run_path(cells_dir, raw_path, field=f"cell {index} path")
         result, area = inspect_cell(
-            cells_dir / raw_path,
+            cell_path,
             index=index,
             expected_size=expected_size,
             min_used_pixels=args.min_used_pixels,
@@ -126,9 +133,14 @@ def main() -> None:
         "warnings": warnings,
         "cells": rows,
     }
-    output = Path(args.json_out).expanduser().resolve() if args.json_out else cells_dir / "review.json"
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    output = resolve_output(
+        run_dir,
+        args.json_out or (cells_dir / "review.json"),
+        field="cell review output",
+        force=args.force,
+    )
+    staged = stage_text(output, json.dumps(result, indent=2) + "\n")
+    commit_outputs(run_dir, [(staged, output)], force=args.force)
     print(json.dumps({k: v for k, v in result.items() if k != "cells"}, indent=2))
     raise SystemExit(0 if result["ok"] else 1)
 

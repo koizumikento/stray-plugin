@@ -4,12 +4,20 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
+import os
 import re
 import shutil
+import sys
+import tempfile
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+
+from _image_input_safety import read_validated_image_input
+from _run_safety import require_safe_managed_replacement, write_run_marker
 
 DEFAULT_STYLE = (
     "Pixel-art-adjacent game asset style: compact readable silhouette, "
@@ -96,12 +104,41 @@ def infer_name(args: argparse.Namespace, references: list[Path]) -> str:
 
 def resolve_references(paths: list[str] | None) -> list[Path]:
     references: list[Path] = []
+    seen_hashes: set[str] = set()
     for raw in paths or []:
         path = Path(raw).expanduser().resolve()
         if not path.is_file():
             raise SystemExit(f"reference image not found: {path}")
+        _, payload = read_validated_image_input(path, field="reference image")
+        digest = hashlib.sha256(payload).hexdigest()
+        if digest in seen_hashes:
+            raise SystemExit(f"duplicate reference image content is not allowed: {path}")
+        seen_hashes.add(digest)
         references.append(path)
     return references
+
+
+def resolve_output_destination(raw_path: str) -> Path:
+    """Resolve an output directory only after rejecting every lexical symlink."""
+    supplied = Path(raw_path).expanduser()
+    if supplied.is_absolute():
+        cursor = Path(supplied.anchor)
+        parts = supplied.parts[1:]
+    else:
+        cursor = Path.cwd()
+        parts = supplied.parts
+    for part in parts:
+        if part in {"", "."}:
+            continue
+        if part == "..":
+            cursor = cursor.parent
+            continue
+        cursor /= part
+        if cursor.is_symlink():
+            raise SystemExit(
+                f"--output-dir must not contain symlink components: {supplied}"
+            )
+    return supplied.resolve()
 
 
 def choose_structure(args: argparse.Namespace, items: list[str], tiles: list[str]) -> str:
@@ -258,17 +295,24 @@ Do not include visible grid lines, borders, labels, frame numbers, scenery, chec
 
 def copy_references(references: list[Path], run_dir: Path) -> list[dict[str, object]]:
     entries: list[dict[str, object]] = []
+    seen_hashes: set[str] = set()
     reference_dir = run_dir / "references" / "source-images"
     reference_dir.mkdir(parents=True, exist_ok=True)
     for index, source in enumerate(references, start=1):
-        suffix = source.suffix or ".png"
+        validated, payload = read_validated_image_input(source, field="reference image")
+        digest = hashlib.sha256(payload).hexdigest()
+        if digest in seen_hashes:
+            raise SystemExit(f"duplicate reference image content is not allowed: {source}")
+        seen_hashes.add(digest)
+        suffix = validated.suffix
         target = reference_dir / f"reference-{index:02d}{suffix}"
-        shutil.copy2(source, target)
+        target.write_bytes(payload)
         entries.append(
             {
                 "path": str(target.relative_to(run_dir)),
                 "role": "source visual reference",
                 "original_path": str(source),
+                "sha256": digest,
             }
         )
     return entries
@@ -282,6 +326,25 @@ def write_text(path: Path, content: str) -> None:
 def write_json(path: Path, data: dict[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def install_staged_run(staging_dir: Path, run_dir: Path, *, replacing: bool) -> None:
+    """Publish a complete sibling run, restoring the old run if publication fails."""
+    if not replacing:
+        os.replace(staging_dir, run_dir)
+        return
+
+    backup = run_dir.with_name(f".{run_dir.name}.replaced-{uuid.uuid4().hex}")
+    os.replace(run_dir, backup)
+    try:
+        os.replace(staging_dir, run_dir)
+    except Exception:
+        os.replace(backup, run_dir)
+        raise
+    try:
+        shutil.rmtree(backup)
+    except OSError as exc:
+        print(f"warning: new run installed but old backup remains at {backup}: {exc}", file=sys.stderr)
 
 
 def main() -> None:
@@ -334,77 +397,105 @@ def main() -> None:
     )
 
     if args.output_dir:
-        run_dir = Path(args.output_dir).expanduser().resolve()
+        run_dir = resolve_output_destination(args.output_dir)
     else:
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        run_dir = (Path.cwd() / "tmp" / "pixel-art-assets" / f"{asset_id}-{timestamp}").resolve()
-    if run_dir.exists():
+        run_dir = resolve_output_destination(
+            str(Path.cwd() / "tmp" / "pixel-art-assets" / f"{asset_id}-{timestamp}")
+        )
+    replacing = run_dir.exists()
+    if replacing:
         if not args.force:
             raise SystemExit(f"{run_dir} already exists; pass --force to replace it")
-        shutil.rmtree(run_dir)
+        require_safe_managed_replacement(run_dir)
+        for reference in references:
+            try:
+                reference.relative_to(run_dir)
+            except ValueError:
+                continue
+            raise SystemExit(
+                f"refusing to replace a run that contains its own reference image: {reference}"
+            )
 
-    for directory in ["prompts", "decoded", "final", "qa", "references"]:
-        (run_dir / directory).mkdir(parents=True, exist_ok=True)
+    run_dir.parent.mkdir(parents=True, exist_ok=True)
+    staging_dir = Path(
+        tempfile.mkdtemp(prefix=f".{run_dir.name}.staging-", dir=run_dir.parent)
+    ).resolve()
+    try:
+        for directory in ["prompts", "decoded", "final", "qa", "references"]:
+            (staging_dir / directory).mkdir(parents=True, exist_ok=True)
+        write_run_marker(
+            staging_dir,
+            asset_id=asset_id,
+            declared_run_dir=run_dir,
+        )
 
-    copied_references = copy_references(references, run_dir)
-    request = {
-        "asset_id": asset_id,
-        "display_name": display_name,
-        "description": args.description.strip() or "A clean pixel-art asset.",
-        "asset_type": args.asset_type,
-        "target_use": args.target_use,
-        "target_size": {"width": target_size[0], "height": target_size[1]},
-        "sheet": sheet,
-        "items": items,
-        "tiles": tiles,
-        "background": {"strategy": args.background, "chroma_key": args.chroma_key.upper()},
-        "style_contract": style_contract(args),
-        "references": copied_references,
-        "created_at": datetime.now(timezone.utc).isoformat(),
-    }
-    write_json(run_dir / "asset_request.json", request)
-    write_text(run_dir / "prompts" / "base-asset.md", base_prompt(args, request))
-
-    jobs: list[dict[str, object]] = [
-        {
-            "id": "base",
-            "kind": "base-asset",
-            "status": "pending",
-            "prompt_file": "prompts/base-asset.md",
-            "output_path": "decoded/base.png",
-            "input_images": copied_references,
-            "allow_prompt_only_generation": not copied_references,
-            "generation_skill": "imagegen",
-            "recording_owner": "parent",
+        copied_references = copy_references(references, staging_dir)
+        request = {
+            "asset_id": asset_id,
+            "display_name": display_name,
+            "description": args.description.strip() or "A clean pixel-art asset.",
+            "asset_type": args.asset_type,
+            "target_use": args.target_use,
+            "target_size": {"width": target_size[0], "height": target_size[1]},
+            "sheet": sheet,
+            "items": items,
+            "tiles": tiles,
+            "background": {"strategy": args.background, "chroma_key": args.chroma_key.upper()},
+            "style_contract": style_contract(args),
+            "references": copied_references,
+            "created_at": datetime.now(timezone.utc).isoformat(),
         }
-    ]
+        write_json(staging_dir / "asset_request.json", request)
+        write_text(staging_dir / "prompts" / "base-asset.md", base_prompt(args, request))
 
-    if structure != "standalone":
-        write_text(run_dir / "prompts" / "asset-sheet.md", sheet_prompt(args, request, items=items, tiles=tiles))
-        jobs.append(
+        jobs: list[dict[str, object]] = [
             {
-                "id": "asset-sheet",
-                "kind": structure,
+                "id": "base",
+                "kind": "base-asset",
                 "status": "pending",
-                "depends_on": ["base"],
-                "prompt_file": "prompts/asset-sheet.md",
-                "output_path": "decoded/asset-sheet.png",
-                "input_images": copied_references
-                + [{"path": "references/canonical-base.png", "role": "canonical base asset"}],
-                "allow_prompt_only_generation": False,
-                "requires_grounded_generation": True,
+                "prompt_file": "prompts/base-asset.md",
+                "output_path": "decoded/base.png",
+                "input_images": copied_references,
+                "allow_prompt_only_generation": not copied_references,
                 "generation_skill": "imagegen",
                 "recording_owner": "parent",
             }
-        )
+        ]
 
-    manifest = {
-        "asset_id": asset_id,
-        "run_dir": str(run_dir),
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "jobs": jobs,
-    }
-    write_json(run_dir / "imagegen-jobs.json", manifest)
+        if structure != "standalone":
+            write_text(
+                staging_dir / "prompts" / "asset-sheet.md",
+                sheet_prompt(args, request, items=items, tiles=tiles),
+            )
+            jobs.append(
+                {
+                    "id": "asset-sheet",
+                    "kind": structure,
+                    "status": "pending",
+                    "depends_on": ["base"],
+                    "prompt_file": "prompts/asset-sheet.md",
+                    "output_path": "decoded/asset-sheet.png",
+                    "input_images": copied_references
+                    + [{"path": "references/canonical-base.png", "role": "canonical base asset"}],
+                    "allow_prompt_only_generation": False,
+                    "requires_grounded_generation": True,
+                    "generation_skill": "imagegen",
+                    "recording_owner": "parent",
+                }
+            )
+
+        manifest = {
+            "asset_id": asset_id,
+            "run_dir": str(run_dir),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "jobs": jobs,
+        }
+        write_json(staging_dir / "imagegen-jobs.json", manifest)
+        install_staged_run(staging_dir, run_dir, replacing=replacing)
+    except BaseException:
+        shutil.rmtree(staging_dir, ignore_errors=True)
+        raise
 
     print(
         json.dumps(

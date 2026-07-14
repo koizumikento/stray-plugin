@@ -9,6 +9,9 @@ from pathlib import Path
 
 from PIL import Image
 
+from _output_pipeline import commit_outputs, resolve_output, stage_image
+from _run_safety import resolve_run_path
+
 
 def load_json(path: Path) -> dict[str, object]:
     if not path.exists():
@@ -24,10 +27,11 @@ def main() -> None:
     parser.add_argument("--duration", type=int, default=140)
     parser.add_argument("--scale", type=int, default=4)
     parser.add_argument("--force-non-row", action="store_true")
+    parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
     run_dir = Path(args.run_dir).expanduser().resolve()
-    request = load_json(run_dir / "asset_request.json")
+    request = load_json(resolve_run_path(run_dir, "asset_request.json", field="asset request"))
     sheet = request.get("sheet")
     if not isinstance(sheet, dict):
         raise SystemExit("asset_request.json is missing sheet contract")
@@ -35,9 +39,17 @@ def main() -> None:
         print(json.dumps({"ok": True, "skipped": True, "reason": "asset is not a sprite-row"}, indent=2))
         return
 
-    image_path = Path(args.image).expanduser().resolve() if args.image else run_dir / "final" / "asset.png"
-    output = Path(args.output).expanduser().resolve() if args.output else run_dir / "qa" / "previews" / "animation.gif"
-    output.parent.mkdir(parents=True, exist_ok=True)
+    image_path = (
+        Path(args.image).expanduser().resolve()
+        if args.image
+        else resolve_run_path(run_dir, "final/asset.png", field="default asset image")
+    )
+    output = resolve_output(
+        run_dir,
+        args.output or "qa/previews/animation.gif",
+        field="animation preview output",
+        force=args.force,
+    )
     columns = int(sheet["columns"])
     cell_w = int(sheet["cell_width"])
     cell_h = int(sheet["cell_height"])
@@ -56,8 +68,10 @@ def main() -> None:
 
     if not frames:
         raise SystemExit("no frames to render")
-    frames[0].save(
+    staged = stage_image(
         output,
+        frames[0],
+        image_format="GIF",
         save_all=True,
         append_images=frames[1:],
         duration=args.duration,
@@ -65,6 +79,7 @@ def main() -> None:
         disposal=2,
         transparency=0,
     )
+    commit_outputs(run_dir, [(staged, output)], force=args.force)
     print(json.dumps({"ok": True, "preview": str(output), "frames": len(frames)}, indent=2))
 
 

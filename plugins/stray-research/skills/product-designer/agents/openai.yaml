@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Designer"
-  short_description: "Commit current evidence to product direction, scope, and validation."
+  short_description: "Turn current evidence into product scope and validation."
   default_prompt: "Use $product-designer when the deliverable must commit to or refine one product direction. Research current evidence, then return rationale, minimum scope, explicit exclusions, tradeoffs, acceptance criteria, success measures, and a validation plan; use Idea Explorer while the option space still needs widening."

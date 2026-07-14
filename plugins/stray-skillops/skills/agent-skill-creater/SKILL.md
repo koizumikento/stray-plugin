@@ -38,6 +38,7 @@ Create or update focused Codex agent skills. Route the request first, then write
 Keep `SKILL.md` short enough to route and act from. Add one-hop references only when the detail would distract from routing.
 
 - Use `references/authoring-guide.md` for detailed authoring rules, metadata guidance, and validation checklists.
+- Use `references/execution-trust-contract.md` when a new or materially changed skill can mutate state, use credentials, incur cost, send data externally, or act on retrieved content.
 - Add `scripts/` only for deterministic work that text instructions cannot reliably express.
 - Add `agents/openai.yaml` only for display metadata, invocation policy, or real tool dependencies.
 
@@ -71,6 +72,11 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 - <Expected deliverable>
 - <Important assumptions or paths touched>
 
+## Execution And Trust Contract
+
+- <For side-effectful skills only: dependencies, credential names, and network destinations.>
+- <Read/write/create/delete/external-send effects, authorization gates, failure behavior, cleanup, and untrusted-content boundary.>
+
 ## Guardrails
 
 - <Safety or ownership boundary>
@@ -82,10 +88,11 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 1. Read existing repo guidance and the nearest relevant skill examples.
 2. Decide the skill's owned job, trigger, non-goals, and handoffs before writing.
 3. Create or update `SKILL.md` using the compact template unless the existing local style requires a small variation.
-4. Move detailed guidance to `references/` instead of expanding the entry point.
-5. Validate placement, frontmatter, local references, companion metadata, and any edited JSON manifests.
-6. When routing behavior changed, add or update cases owned by `skill-routing-validator` and check both intended and near-miss prompts.
-7. Report changed paths, target surface, final trigger description, validation evidence, and any added references, scripts, or metadata.
+4. For a side-effectful skill, apply `references/execution-trust-contract.md` and declare its dependencies, credentials, destinations, effects, authorization gates, outputs, failure and cleanup behavior, and untrusted-content boundary.
+5. Move detailed guidance to `references/` instead of expanding the entry point.
+6. Validate placement, frontmatter, local references, companion metadata, and any edited JSON manifests.
+7. When routing behavior changed, add or update cases owned by `skill-routing-validator` and check both intended and near-miss prompts.
+8. Report changed paths, target surface, final trigger description, validation evidence, and any added references, scripts, or metadata.
 
 For detailed authoring rules, use `references/authoring-guide.md`.
 

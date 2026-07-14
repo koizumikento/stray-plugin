@@ -25,14 +25,16 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
    - Add ambiguous or mixed-intent cases only when the expected ordered handoff can be stated objectively.
    - Prefer a small high-signal set over paraphrase-heavy volume.
 3. Maintain the versioned case inventory.
-   - Store cases in `references/routing-cases.json` with unique IDs, prompt, expected skills, rejected skills, and a short reason.
+   - Store schema-versioned cases in `references/routing-cases.json` with unique IDs, prompt, expected skills, rejected skills, and a short reason.
+   - Treat `expect` as an ordered handoff sequence. Keep its skill names unique.
+   - Represent an intentional no-skill result with an empty `expect` array and `no_skill: true`; still list the nearest specialist skills in `reject`.
    - Give every installed local skill both positive coverage and reject coverage.
 4. Run deterministic validation.
    - Prefer `uv run --with pyyaml python plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py`; otherwise use a Python 3 runner with PyYAML installed.
-   - Treat missing skills, name/path mismatch, malformed frontmatter, overlong descriptions, broken local references, invalid plugin JSON or companion metadata, stale README inventory, missing case coverage, and contradictory expectations as failures.
+   - Treat missing skills, name/path mismatch, malformed or duplicate-key JSON/YAML, overlong descriptions, broken local references, marketplace/manifest drift, invalid companion metadata, stale README inventory, missing case coverage, and contradictory expectations as failures.
 5. Evaluate routing behavior.
    - When a classifier or Codex eval harness is available, run the case prompts and record actual selections separately from the expected inventory.
-   - Otherwise review each case against frontmatter descriptions and mark runtime selection as unverified; structural validation alone is not behavioral proof.
+   - Otherwise review each case against frontmatter descriptions and report `runtime=not-run`; structural validation alone is not behavioral proof.
 6. Repair narrowly.
    - Change the smallest trigger, handoff, case, or metadata boundary that explains the failure.
    - Rerun the failing cases after each change and stop after two focused attempts on the same unresolved collision.

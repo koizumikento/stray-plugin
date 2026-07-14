@@ -1,6 +1,6 @@
 interface:
   display_name: "Japan Weather Data Researcher"
-  short_description: "Retrieve traceable JMA weather observations, series, or forecasts."
+  short_description: "Research traceable JMA observations, series, and forecasts."
   default_prompt: "Use $japan-weather-data-researcher for traceable JMA data. Choose a compact snapshot for a simple JMA-backed question or a provenance-rich data extract for station, AMeDAS, comparison, or time-series analysis; include exact timestamps, units, freshness, and caveats."
 dependencies:
   tools:

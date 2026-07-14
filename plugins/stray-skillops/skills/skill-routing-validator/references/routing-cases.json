@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "cases": [
     {
       "id": "skillops-author-skill",
@@ -126,6 +126,13 @@
       "expect": ["mcp-server-designer"],
       "reject": ["fullstack-app-builder"],
       "reason": "The requested output is an MCP protocol design, not application code."
+    },
+    {
+      "id": "research-mcp-read-only-eval-contract",
+      "prompt": "Define a read-only acceptance and evaluation contract for this planned MCP server with eight stable multi-tool tasks, expected call relationships, pagination and schema assertions, error recovery, and fixture provenance. Do not run the server or build a harness.",
+      "expect": ["mcp-server-designer"],
+      "reject": ["ai-eval-ci", "test-design-strategist", "fullstack-app-builder"],
+      "reason": "The deliverable is a protocol-aware design contract for agent use, not executable CI or server implementation."
     },
     {
       "id": "research-product-decision",
@@ -399,6 +406,94 @@
       "expect": ["ros2-development"],
       "reject": ["fullstack-app-builder"],
       "reason": "The work is a ROS 2 software workflow with an explicit hardware boundary."
+    },
+    {
+      "id": "mixed-skill-discovery-to-authoring",
+      "prompt": "Before creating a new Codex skill, search local and official catalogs for a maintained match. If none fits, create the repo-local skill and validate its placement and trigger.",
+      "expect": ["skills-search", "agent-skill-creater"],
+      "reject": ["subagent-creator"],
+      "reason": "Discovery must precede authoring, and the requested artifact is a skill rather than a custom subagent."
+    },
+    {
+      "id": "mixed-page-distillation-to-article",
+      "prompt": "Distill the supplied source page into provenance-preserving notes first, then turn only those notes into a publishable explanatory article for engineering leaders.",
+      "expect": ["web-content-distiller", "article-writer"],
+      "reject": ["web-researcher", "proposal-writer"],
+      "reason": "The supplied page is normalized before the resulting evidence is transformed into an editorial artifact."
+    },
+    {
+      "id": "mixed-deep-research-to-product-decision",
+      "prompt": "Run technical, regulatory, market, and counter-evidence research, then use the completed report to choose one product direction with scope and acceptance criteria.",
+      "expect": ["deep-researcher", "product-designer"],
+      "reject": ["web-researcher", "idea-explorer"],
+      "reason": "Durable multi-track evidence must be completed before the product decision is committed."
+    },
+    {
+      "id": "mixed-native-ui-spec-to-implementation",
+      "prompt": "Using my supplied notes from official Apple pages, produce an implementation-ready iPadOS UI specification, then implement that approved specification in the current SwiftUI repository.",
+      "expect": ["platform-native-ui-designer", "fullstack-app-builder"],
+      "reject": ["product-designer", "reviewer"],
+      "reason": "Evidence-backed native UI specification precedes repository implementation."
+    },
+    {
+      "id": "mixed-security-preflight-to-bounded-review-fix",
+      "prompt": "First run a read-only security preflight on this small existing Python validation helper. If confirmed fixes are bounded to that helper and its existing tests, apply them in an explicitly requested findings-first review-fix loop and rerun the affected checks; otherwise stop at the remediation handoff.",
+      "expect": ["security-preflight", "reviewer"],
+      "reject": ["test-design-strategist", "fullstack-app-builder"],
+      "reason": "The security specialist produces evidence first; the explicitly bounded existing-artifact repair then fits the reviewer's review-fix contract without claiming generic implementation ownership."
+    },
+    {
+      "id": "mixed-gov-router-to-evidence",
+      "prompt": "政府資料でこの曖昧な政策課題を調べたい。まず適切な調査順を決め、その順に中立的な背景を整理し、主要な主張の公式根拠まで確認して。",
+      "expect": ["japan-gov-request-router", "japan-gov-background-builder", "japan-gov-evidence-finder"],
+      "reject": ["japan-gov-proposal-context-adapter", "japan-whitepaper-brief"],
+      "reason": "The broad request is routed first, followed by neutral background synthesis and claim-level evidence collection."
+    },
+    {
+      "id": "mixed-gov-chart-to-estat-analysis",
+      "prompt": "この白書グラフの元になったe-Stat表を特定してから、同じ表を地域別に取得・絞り込みし、単位を確認して再分析して。",
+      "expect": ["japan-gov-chart-data-tracer", "japan-gov-estat-data-analyst"],
+      "reject": ["japan-gov-kpi-finder", "japan-whitepaper-brief"],
+      "reason": "Published-chart provenance is established before the identified statistical table is retrieved and analyzed."
+    },
+    {
+      "id": "mixed-gov-context-to-proposal",
+      "prompt": "このサービスを政府の課題・根拠・所管に接続した提案文脈へ変換し、その文脈を使って決裁者、承認事項、期限を明記した提案書を作って。",
+      "expect": ["japan-gov-proposal-context-adapter", "proposal-writer"],
+      "reject": ["japan-gov-background-builder", "article-writer"],
+      "reason": "Official-context adaptation must precede production of the decision-oriented proposal artifact."
+    },
+    {
+      "id": "no-skill-codex-pet-packaging",
+      "prompt": "Create a Codex-compatible animated pet with an 8x9 atlas, pet.json, and installation under ${CODEX_HOME}/pets/.",
+      "expect": [],
+      "reject": ["pixel-art-asset-creator", "fullstack-app-builder"],
+      "no_skill": true,
+      "reason": "No installed local skill owns Codex pet packaging; the general pixel-art skill must report the boundary instead of pretending to support it."
+    },
+    {
+      "id": "no-skill-git-status-explanation",
+      "prompt": "Explain what the two columns in `git status --short` mean. Do not browse or modify any files.",
+      "expect": [],
+      "reject": ["web-researcher", "domain-researcher", "deep-researcher"],
+      "no_skill": true,
+      "reason": "A stable, concise technical explanation does not require any repository-specific specialist workflow."
+    },
+    {
+      "id": "no-skill-trivial-readme-typo",
+      "prompt": "Fix the single typo `teh` to `the` in the README sentence I identified; make no other edits.",
+      "expect": [],
+      "reject": ["article-writer", "reviewer", "ops-playbook-writer"],
+      "no_skill": true,
+      "reason": "A precisely scoped one-word edit does not need an editorial, review, or operational skill."
+    },
+    {
+      "id": "no-skill-small-code-change",
+      "prompt": "Add a pure `add(a, b)` function to the existing utility module and run its existing unit test; do not redesign the application.",
+      "expect": [],
+      "reject": ["fullstack-app-builder", "test-design-strategist", "reviewer"],
+      "no_skill": true,
+      "reason": "A small, fully specified local code edit uses ordinary repository work rather than a specialized builder or test-design workflow."
     }
   ]
 }

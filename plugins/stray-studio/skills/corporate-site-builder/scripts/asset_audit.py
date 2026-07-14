@@ -8,6 +8,7 @@ derivatives without overwriting source files.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -41,6 +42,31 @@ def rel(path: Path, root: Path) -> str:
         return path.relative_to(root).as_posix()
     except ValueError:
         return path.as_posix()
+
+
+def source_path(row_path: str, project_root: Path) -> Path:
+    """Resolve a reported asset path without trusting it as an output path."""
+    path = Path(row_path)
+    if not path.is_absolute():
+        path = project_root / path
+    return path.resolve()
+
+
+def derivative_path(src: Path, project_root: Path, out_dir: Path) -> Path:
+    """Return a contained derivative path for project and external sources."""
+    try:
+        relative = src.relative_to(project_root)
+    except ValueError:
+        digest = hashlib.sha256(os.fsencode(src)).hexdigest()[:12]
+        relative = Path("_external") / digest / src.name
+
+    target = out_dir / relative.with_suffix(".webp")
+    resolved_target = target.resolve()
+    try:
+        resolved_target.relative_to(out_dir)
+    except ValueError as exc:
+        raise OSError(f"output path escapes optimize directory: {target}") from exc
+    return resolved_target
 
 
 def image_size(path: Path) -> tuple[int | None, int | None]:
@@ -156,10 +182,13 @@ def optimize_images(rows: list[dict[str, Any]], project_root: Path, out_dir: Pat
     except ImportError as exc:
         raise SystemExit("Pillow is required for --optimize-dir. Run with: uv run --with pillow python asset_audit.py ...") from exc
 
+    project_root = project_root.resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = out_dir.resolve()
+    source_paths = {source_path(row["path"], project_root) for row in rows}
     written: list[dict[str, Any]] = []
     for row in rows:
-        src = project_root / row["path"]
+        src = source_path(row["path"], project_root)
         ext = src.suffix.lower()
         if row["kind"] != "image" or ext not in OPTIMIZABLE_EXTS:
             continue
@@ -170,10 +199,25 @@ def optimize_images(rows: list[dict[str, Any]], project_root: Path, out_dir: Pat
                 if width > args.max_width:
                     ratio = args.max_width / width
                     im = im.resize((args.max_width, int(height * ratio)), Image.LANCZOS)
-                target = out_dir / Path(row["path"]).with_suffix(".webp")
+                target = derivative_path(src, project_root, out_dir)
+                if target in source_paths:
+                    raise OSError(f"refusing to overwrite source asset: {target}")
+                if target.exists() or target.is_symlink():
+                    raise OSError(f"refusing to overwrite existing output: {target}")
                 target.parent.mkdir(parents=True, exist_ok=True)
+                if target.parent.resolve() != target.parent:
+                    raise OSError(f"output parent escapes optimize directory: {target.parent}")
                 save_im = im.convert("RGB") if im.mode == "RGBA" and not has_alpha(im) else im
-                save_im.save(target, "WEBP", quality=args.quality, method=6)
+                try:
+                    output = target.open("xb")
+                except FileExistsError as exc:
+                    raise OSError(f"refusing to overwrite existing output: {target}") from exc
+                try:
+                    with output:
+                        save_im.save(output, "WEBP", quality=args.quality, method=6)
+                except Exception:
+                    target.unlink(missing_ok=True)
+                    raise
                 written.append(
                     {
                         "source": row["path"],

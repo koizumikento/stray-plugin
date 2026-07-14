@@ -6,7 +6,7 @@
   "interface": {
     "displayName": "Stray Research",
     "shortDescription": "Research and analysis plugin for current, source-backed investigation and decision support.",
-    "longDescription": "A repo-local Codex plugin for source-backed research workflows. It separates concise web briefs, bounded domain research, and long-form multi-track reports; distills supplied pages safely; explores ideas and makes evidence-backed product decisions; designs MCP servers; summarizes Japan news; retrieves JMA weather and identified-company gBizINFO data; triages GitHub maintenance read-only; conducts global or Japan-focused public patent research; checks practical API or SaaS terms; and analyzes Japanese horse racing with current-source, confidentiality, prompt-injection, legal-boundary, and responsible-use guardrails.",
+    "longDescription": "A repo-local Codex plugin for source-backed research workflows. It separates concise web briefs, bounded domain research, and long-form multi-track reports; distills supplied pages safely; explores ideas and makes evidence-backed product decisions; designs MCP servers and read-only agent evaluation contracts; summarizes Japan news; retrieves JMA weather and identified-company gBizINFO data; triages GitHub maintenance read-only; conducts global or Japan-focused public patent research; checks practical API or SaaS terms; and analyzes Japanese horse racing with current-source, confidentiality, prompt-injection, legal-boundary, and responsible-use guardrails.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -16,7 +16,7 @@
       "Investigate a specialized technical, regulatory, market, or academic topic and return a concise sourced brief.",
       "Generate research-backed ideas or option sets using current web signals before choosing a direction.",
       "Design a product direction or feature brief using current web research.",
-      "Plan or review an MCP server before implementation.",
+      "Plan or review an MCP server and its read-only agent evaluation contract before implementation.",
       "Summarize the latest Japanese news in a fixed brief format using current web sources.",
       "Retrieve Japan Meteorological Agency station, AMeDAS, recent historical, time-series, and forecast weather data with exact timestamps and caveats.",
       "Search and summarize Japanese corporate information from gBizINFO with corporate numbers, endpoint provenance, and missing-data boundaries.",

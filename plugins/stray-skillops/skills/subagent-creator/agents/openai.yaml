@@ -1,4 +1,4 @@
 interface:
   display_name: "Subagent Creator"
-  short_description: "Create focused project or explicitly requested personal Codex subagents."
-  default_prompt: "Create a narrow project-scoped Codex subagent under .codex/agents/, or use personal scope only if I explicitly request it; validate the resulting TOML."
+  short_description: "Create focused project or personal Codex subagents."
+  default_prompt: "Use $subagent-creator to create a narrow project-scoped Codex subagent under .codex/agents/, or use personal scope only if I explicitly request it; validate the resulting TOML."

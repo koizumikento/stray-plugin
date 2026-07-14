@@ -9,6 +9,9 @@ from pathlib import Path
 
 from PIL import Image
 
+from _output_pipeline import commit_outputs, resolve_output, stage_text
+from _run_safety import resolve_run_path
+
 
 def load_json(path: Path) -> dict[str, object]:
     if not path.exists():
@@ -21,15 +24,23 @@ def alpha_nonzero_count(image: Image.Image) -> int:
     return sum(alpha.histogram()[1:])
 
 
-def request_from_args(args: argparse.Namespace, image_path: Path) -> tuple[dict[str, object] | None, Path]:
+def request_from_args(
+    args: argparse.Namespace,
+    image_path: Path,
+) -> tuple[dict[str, object] | None, Path, Path]:
     if args.run_dir:
         run_dir = Path(args.run_dir).expanduser().resolve()
-        request = load_json(run_dir / "asset_request.json")
-        path = Path(args.image).expanduser().resolve() if args.image else run_dir / "final" / "asset.png"
-        return request, path
+        request = load_json(resolve_run_path(run_dir, "asset_request.json", field="asset request"))
+        path = (
+            Path(args.image).expanduser().resolve()
+            if args.image
+            else resolve_run_path(run_dir, "final/asset.png", field="default asset image")
+        )
+        return request, path, run_dir
     if not args.image:
         raise SystemExit("pass --run-dir or --image")
-    return None, image_path.expanduser().resolve()
+    path = image_path.expanduser().resolve()
+    return None, path, path.parent
 
 
 def sheet_from_request(request: dict[str, object] | None, args: argparse.Namespace) -> dict[str, int]:
@@ -76,9 +87,23 @@ def main() -> None:
     parser.add_argument("--min-used-pixels", type=int, default=20)
     parser.add_argument("--allow-opaque", action="store_true")
     parser.add_argument("--allow-unused-content", action="store_true")
+    parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
-    request, image_path = request_from_args(args, Path(args.image) if args.image else Path())
+    request, image_path, output_root = request_from_args(
+        args,
+        Path(args.image) if args.image else Path(),
+    )
+    json_output = (
+        resolve_output(
+            output_root,
+            args.json_out,
+            field="validation JSON output",
+            force=args.force,
+        )
+        if args.json_out
+        else None
+    )
     sheet = sheet_from_request(request, args)
     errors: list[str] = []
     warnings: list[str] = []
@@ -150,10 +175,9 @@ def main() -> None:
         "warnings": warnings,
         "cells": cells,
     }
-    if args.json_out:
-        Path(args.json_out).expanduser().resolve().write_text(
-            json.dumps(result, indent=2) + "\n", encoding="utf-8"
-        )
+    if json_output is not None:
+        staged = stage_text(json_output, json.dumps(result, indent=2) + "\n")
+        commit_outputs(output_root, [(staged, json_output)], force=args.force)
     print(json.dumps({k: v for k, v in result.items() if k != "cells"}, indent=2))
     raise SystemExit(0 if result["ok"] else 1)
 

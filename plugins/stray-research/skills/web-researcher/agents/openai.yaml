@@ -1,4 +1,4 @@
 interface:
   display_name: "Web Researcher"
-  short_description: "Answer one general current question from a small live source set."
+  short_description: "Answer current questions from a small live source set."
   default_prompt: "Use $web-researcher for one general current question or small comparison. Check a small live source set, return a concise answer with exact dates and uncertainty, and route specialized single-track or multi-track work to Domain or Deep Researcher."

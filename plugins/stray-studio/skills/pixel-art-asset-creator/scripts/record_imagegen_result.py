@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -12,6 +13,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from PIL import Image
+
+from _image_input_safety import validate_image_input
+from _run_safety import (
+    atomic_write_bytes,
+    commit_staged_path,
+    create_staging_path,
+    resolve_run_mutation_path,
+    resolve_run_output_path,
+    resolve_run_path,
+)
 
 CANONICAL_BASE_PATH = "references/canonical-base.png"
 
@@ -56,6 +67,36 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def stage_bytes(target: Path, payload: bytes) -> Path:
+    """Fully write and sync a same-directory staging file."""
+    staged = create_staging_path(target)
+    try:
+        with staged.open("wb") as handle:
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+    except BaseException:
+        staged.unlink(missing_ok=True)
+        raise
+    return staged
+
+
+def stage_image_copy(source: Path, target: Path) -> Path:
+    """Copy and revalidate an image before exposing it at the target path."""
+    staged = create_staging_path(target)
+    try:
+        with source.open("rb") as source_handle, staged.open("wb") as staged_handle:
+            shutil.copyfileobj(source_handle, staged_handle)
+            staged_handle.flush()
+            os.fsync(staged_handle.fileno())
+        validate_image_input(staged, field="staged source image")
+        image_metadata(staged)
+    except BaseException:
+        staged.unlink(missing_ok=True)
+        raise
+    return staged
+
+
 def is_relative_to(path: Path, root: Path) -> bool:
     try:
         path.relative_to(root)
@@ -72,7 +113,8 @@ def default_generated_images_root() -> Path:
 def source_provenance(source: Path, run_dir: Path, *, allow_run_source: bool) -> str:
     if is_relative_to(source, run_dir) and not allow_run_source:
         raise SystemExit(
-            "source image is inside the asset run directory; record the original image generation output instead"
+            "source image is inside the asset run directory; record the original image "
+            "generation output instead"
         )
     generated_root = default_generated_images_root()
     if is_relative_to(source, generated_root) and source.name.startswith("ig_"):
@@ -98,7 +140,12 @@ def validate_required_grounding(job: dict[str, object], run_dir: Path) -> None:
     for item in inputs:
         if not isinstance(item, dict) or not isinstance(item.get("path"), str):
             raise SystemExit(f"job {job.get('id')} has an invalid input image entry")
-        path = run_dir / item["path"]
+        path = resolve_run_path(
+            run_dir,
+            item["path"],
+            field=f"job {job.get('id')} input image path",
+            allowed_roots=("references",),
+        )
         if not path.is_file():
             missing.append(str(path))
     if missing:
@@ -112,28 +159,75 @@ def manifest_relative(path: Path, run_dir: Path) -> str:
     return str(path.resolve().relative_to(run_dir.resolve()))
 
 
-def update_base_reference(
-    *, run_dir: Path, output: Path, manifest: dict[str, object], job: dict[str, object], metadata: dict[str, object]
-) -> None:
+def prepare_base_reference(
+    *,
+    run_dir: Path,
+    staged_output: Path,
+    manifest: dict[str, object],
+    job: dict[str, object],
+    metadata: dict[str, object],
+) -> tuple[Path, bytes, Path | None, bytes | None] | None:
+    """Prepare canonical and request updates without publishing either file."""
     if job.get("id") != "base":
-        return
-    canonical = run_dir / CANONICAL_BASE_PATH
-    canonical.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(output, canonical)
+        return None
+    canonical = resolve_run_mutation_path(
+        run_dir,
+        CANONICAL_BASE_PATH,
+        field="canonical base path",
+        allowed_roots=("references",),
+    )
     reference = {
         "path": manifest_relative(canonical, run_dir),
         "source_job": "base",
-        "sha256": file_sha256(canonical),
+        "sha256": file_sha256(staged_output),
         "metadata": metadata,
     }
     job["canonical_reference_path"] = reference["path"]
     manifest["canonical_identity_reference"] = reference
 
-    request_path = run_dir / "asset_request.json"
+    request_path = resolve_run_mutation_path(run_dir, "asset_request.json", field="asset request")
+    request_payload = None
     if request_path.exists():
         request = json.loads(request_path.read_text(encoding="utf-8"))
+        if not isinstance(request, dict):
+            raise SystemExit("asset_request.json must contain a JSON object")
         request["canonical_identity_reference"] = reference
-        request_path.write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+        request_payload = (json.dumps(request, indent=2) + "\n").encode("utf-8")
+    else:
+        request_path = None
+    return canonical, staged_output.read_bytes(), request_path, request_payload
+
+
+def recording_manifest_payload(manifest: dict[str, object], job_id: str, timestamp: str) -> bytes:
+    """Create a non-complete transaction marker before replacing published artifacts."""
+    recording_manifest = copy.deepcopy(manifest)
+    recording_job = find_job(recording_manifest, job_id)
+    recording_job["status"] = "recording"
+    recording_job["recording_started_at"] = timestamp
+    for key in [
+        "source_path",
+        "source_provenance",
+        "source_sha256",
+        "output_sha256",
+        "completed_at",
+        "metadata",
+    ]:
+        recording_job.pop(key, None)
+    return (json.dumps(recording_manifest, indent=2) + "\n").encode("utf-8")
+
+
+def commit_recording_transaction(
+    *,
+    manifest_path: Path,
+    recording_payload: bytes,
+    artifacts: list[tuple[Path, Path, bool]],
+    final_manifest_staged: Path,
+) -> None:
+    """Mark incomplete, publish artifacts, then atomically publish complete state."""
+    atomic_write_bytes(manifest_path, recording_payload, force=True)
+    for staged, target, force in artifacts:
+        commit_staged_path(staged, target, force=force)
+    commit_staged_path(final_manifest_staged, manifest_path, force=True)
 
 
 def main() -> None:
@@ -149,9 +243,15 @@ def main() -> None:
     source = Path(args.source).expanduser().resolve()
     if not source.is_file():
         raise SystemExit(f"source image not found: {source}")
+    validate_image_input(source, field="source image")
+    image_metadata(source)
     provenance = source_provenance(source, run_dir, allow_run_source=args.allow_run_source)
 
-    manifest_path = run_dir / "imagegen-jobs.json"
+    manifest_path = resolve_run_mutation_path(
+        run_dir,
+        "imagegen-jobs.json",
+        field="job manifest",
+    )
     manifest = load_jobs(manifest_path)
     job = find_job(manifest, args.job_id)
 
@@ -162,33 +262,74 @@ def main() -> None:
     ]
     if missing_deps:
         raise SystemExit(
-            f"job {args.job_id} is not ready; missing dependency result(s): {', '.join(missing_deps)}"
+            f"job {args.job_id} is not ready; missing dependency result(s): "
+            f"{', '.join(missing_deps)}"
         )
     validate_required_grounding(job, run_dir)
 
     output_raw = job.get("output_path")
     if not isinstance(output_raw, str):
         raise SystemExit(f"job {args.job_id} has no output_path")
-    output = run_dir / output_raw
-    if output.exists() and not args.force:
-        raise SystemExit(f"{output} already exists; pass --force to replace it")
+    output = resolve_run_output_path(
+        run_dir,
+        output_raw,
+        field=f"job {args.job_id} output_path",
+        allowed_roots=("decoded",),
+        force=args.force,
+    )
+    timestamp = datetime.now(timezone.utc).isoformat()
+    recording_payload = recording_manifest_payload(manifest, args.job_id, timestamp)
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(source, output)
-    metadata = image_metadata(output)
+    staged_paths: list[Path] = []
+    try:
+        output_staged = stage_image_copy(source, output)
+        staged_paths.append(output_staged)
+        metadata = image_metadata(output_staged)
+        output_sha256 = file_sha256(output_staged)
 
-    job["status"] = "complete"
-    job["source_path"] = str(source)
-    job["source_provenance"] = provenance
-    job["source_sha256"] = file_sha256(source)
-    job["output_sha256"] = file_sha256(output)
-    job["completed_at"] = datetime.now(timezone.utc).isoformat()
-    job["metadata"] = metadata
-    for key in ["last_error", "repair_reason", "queued_at"]:
-        job.pop(key, None)
-    update_base_reference(run_dir=run_dir, output=output, manifest=manifest, job=job, metadata=metadata)
+        job["status"] = "complete"
+        job["source_path"] = str(source)
+        job["source_provenance"] = provenance
+        job["source_sha256"] = output_sha256
+        job["output_sha256"] = output_sha256
+        job["completed_at"] = timestamp
+        job["metadata"] = metadata
+        job.pop("recording_started_at", None)
+        for key in ["last_error", "repair_reason", "queued_at"]:
+            job.pop(key, None)
 
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        artifacts: list[tuple[Path, Path, bool]] = [
+            (output_staged, output, args.force)
+        ]
+        base_update = prepare_base_reference(
+            run_dir=run_dir,
+            staged_output=output_staged,
+            manifest=manifest,
+            job=job,
+            metadata=metadata,
+        )
+        if base_update is not None:
+            canonical, canonical_payload, request_path, request_payload = base_update
+            canonical_staged = stage_bytes(canonical, canonical_payload)
+            staged_paths.append(canonical_staged)
+            artifacts.append((canonical_staged, canonical, True))
+            if request_path is not None and request_payload is not None:
+                request_staged = stage_bytes(request_path, request_payload)
+                staged_paths.append(request_staged)
+                artifacts.append((request_staged, request_path, True))
+
+        final_manifest_payload = (json.dumps(manifest, indent=2) + "\n").encode("utf-8")
+        final_manifest_staged = stage_bytes(manifest_path, final_manifest_payload)
+        staged_paths.append(final_manifest_staged)
+        commit_recording_transaction(
+            manifest_path=manifest_path,
+            recording_payload=recording_payload,
+            artifacts=artifacts,
+            final_manifest_staged=final_manifest_staged,
+        )
+    finally:
+        for staged in staged_paths:
+            staged.unlink(missing_ok=True)
     print(
         json.dumps(
             {

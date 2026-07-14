@@ -7,9 +7,11 @@ import argparse
 import json
 from pathlib import Path
 
+from _run_safety import resolve_run_path
+
 
 def load_manifest(run_dir: Path) -> dict[str, object]:
-    path = run_dir / "imagegen-jobs.json"
+    path = resolve_run_path(run_dir, "imagegen-jobs.json", field="job manifest")
     if not path.exists():
         raise SystemExit(f"job manifest not found: {path}")
     return json.loads(path.read_text(encoding="utf-8"))
@@ -46,7 +48,12 @@ def job_view(job: dict[str, object], run_dir: Path, completed: set[str]) -> dict
         if not isinstance(item, dict) or not isinstance(item.get("path"), str):
             input_images.append({"path": None, "role": None, "exists": False})
             continue
-        path = run_dir / item["path"]
+        path = resolve_run_path(
+            run_dir,
+            item["path"],
+            field=f"job {job.get('id')} input image path",
+            allowed_roots=("references",),
+        )
         input_images.append(
             {
                 "path": str(path),
@@ -58,9 +65,31 @@ def job_view(job: dict[str, object], run_dir: Path, completed: set[str]) -> dict
         "id": job.get("id"),
         "kind": job.get("kind"),
         "status": job.get("status", "pending"),
-        "prompt_file": str(run_dir / prompt_file) if isinstance(prompt_file, str) else None,
+        "prompt_file": (
+            str(
+                resolve_run_path(
+                    run_dir,
+                    prompt_file,
+                    field=f"job {job.get('id')} prompt_file",
+                    allowed_roots=("prompts",),
+                )
+            )
+            if isinstance(prompt_file, str)
+            else None
+        ),
         "input_images": input_images,
-        "output_path": str(run_dir / output_path) if isinstance(output_path, str) else None,
+        "output_path": (
+            str(
+                resolve_run_path(
+                    run_dir,
+                    output_path,
+                    field=f"job {job.get('id')} output_path",
+                    allowed_roots=("decoded",),
+                )
+            )
+            if isinstance(output_path, str)
+            else None
+        ),
         "missing_dependencies": missing_deps(job, completed),
         "generation_skill": job.get("generation_skill"),
         "requires_grounded_generation": job.get("requires_grounded_generation", False),

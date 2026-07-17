@@ -254,10 +254,38 @@
       "reason": "The document exists to secure a decision rather than inform readers or run operations."
     },
     {
+      "id": "studio-change-readiness-local-push",
+      "prompt": "Inspect my exact committed, staged, unstaged, and untracked local Git state and tell me whether it is ready to push; do not modify anything.",
+      "expect": ["change-readiness-review"],
+      "reject": ["reviewer", "security-preflight", "github-maintainer"],
+      "reason": "The author requests a read-only push-readiness gate over mutable local Git state, not general critique, security-first review, or GitHub triage."
+    },
+    {
+      "id": "studio-change-readiness-pr-rerequest",
+      "prompt": "Check my open pull request at its exact current head, required checks, and unresolved change requests, then tell me whether I can ask the human reviewer to review it again; do not post anything.",
+      "expect": ["change-readiness-review"],
+      "reject": ["reviewer", "security-preflight", "github-maintainer"],
+      "reason": "The PR author requests a state-sealed repeat-review readiness decision rather than ordinary PR review or maintenance triage."
+    },
+    {
+      "id": "studio-general-code-review-not-readiness",
+      "prompt": "Review this third-party pull request findings-first for correctness and regressions, but do not decide whether the author should request review and do not edit it.",
+      "expect": ["reviewer"],
+      "reject": ["change-readiness-review", "security-preflight", "github-maintainer"],
+      "reason": "This is general third-party code critique without an author-side push or review-request readiness decision."
+    },
+    {
+      "id": "studio-review-fix-then-readiness",
+      "prompt": "Review these local changes findings-first, apply only confirmed fixes, then independently decide whether the resulting exact Git state is ready to push.",
+      "expect": ["reviewer", "change-readiness-review"],
+      "reject": ["security-preflight"],
+      "reason": "The reviewer owns the explicit bounded repair loop, followed by the separate read-only readiness gate over the resulting state."
+    },
+    {
       "id": "studio-review-fix",
       "prompt": "Review these skill changes findings-first, apply only confirmed fixes, then re-review until the bounded stop condition.",
       "expect": ["reviewer"],
-      "reject": ["security-preflight", "test-design-strategist"],
+      "reject": ["change-readiness-review", "security-preflight", "test-design-strategist"],
       "reason": "The user requests a general review-fix loop, not a security-only audit or new test design."
     },
     {

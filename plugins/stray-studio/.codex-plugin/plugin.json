@@ -1,14 +1,22 @@
 {
   "name": "stray-studio",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
+  "author": {
+    "name": "Local Workspace"
+  },
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Studio",
     "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
-    "longDescription": "A repo-local Codex plugin for implementation, platform-native UI specification, bounded review-fix loops, security preflights, and artifact production. It routes full-stack app work to specialist Slack, static corporate-site, and landing-page builders; turns defined iOS, iPadOS, macOS, watchOS, tvOS, and visionOS features into UI specifications using user-authored notes attributed to current official Apple documentation; designs software tests without silently implementing them; reviews and optionally repairs confirmed findings; keeps security review separate from remediation; applies artifact themes with native-format checks; and produces brands, articles, proposals, operational playbooks, validated JSON Canvas files, sanitized marketing screenshots, current-constraint Slack GIFs, and production-oriented pixel-art assets.",
+    "longDescription": "A repo-local Codex plugin for implementation, platform-native UI specification, findings-first review, evidence-sealed change-readiness gates, security preflights, and artifact production. It routes full-stack app work to specialist Slack, static corporate-site, and landing-page builders; turns defined iOS, iPadOS, macOS, watchOS, tvOS, and visionOS features into UI specifications using user-authored notes attributed to current official Apple documentation; designs software tests without silently implementing them; reviews and optionally repairs confirmed findings; independently decides whether exact local or pull-request state is ready to share without mutating it; keeps security review separate from remediation; applies artifact themes with native-format checks; and produces brands, articles, proposals, operational playbooks, validated JSON Canvas files, sanitized marketing screenshots, current-constraint Slack GIFs, and production-oriented pixel-art assets.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write",
+      "Read-only"
+    ],
     "defaultPrompt": [
       "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
       "Build, modify, validate, install, or deploy a Slack app using the Slack CLI, app manifests, Bolt, events, slash commands, workflows, or Slack Web API calls.",
@@ -17,6 +25,7 @@
       "Use the user's own notes about current official Apple design pages, with source URLs and user-reported access dates, to turn a defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS feature or flow into an implementation-ready platform-native UI specification with adaptation, accessibility, state, and acceptance checks.",
       "Design a software test strategy, QA plan, test matrix, regression scope, release checklist, or automation candidate list without implementing test code.",
       "Review code, docs, UI, artifacts, skills, plugins, prompts, evals, release readiness, or repository compliance findings-first, and run a bounded repair loop only when fixes are explicitly requested.",
+      "Seal and review my exact local Git or open PR state, then decide whether it is ready to push or request human review again.",
       "Run a security preflight on a repository, diff, CI/CD workflow, dependency set, IaC/container setup, secrets posture, or release surface before shipping.",
       "Apply a coherent visual theme to an existing artifact such as a doc, deck, HTML page, or existing landing page without changing its core structure.",
       "Create or refine a brand identity direction, brand brief, or mini style guide.",

@@ -10,5 +10,6 @@
 
 ## Validation
 
+- Run `PYTHONDONTWRITEBYTECODE=1 uv run --with pytest==9.1.1 python -m pytest -q -p no:cacheprovider plugins/stray-studio/skills/change-readiness-review/tests` after changing the change-readiness state helpers, contracts, or safety boundaries.
 - Run `PYTHONDONTWRITEBYTECODE=1 uv run --with pytest==9.1.1 --with pillow==12.3.0 python -m pytest -q -p no:cacheprovider plugins/stray-studio/skills/corporate-site-builder/tests plugins/stray-studio/skills/pixel-art-asset-creator/tests` after changing their scripts.
 - Run the repository routing validator after changing `SKILL.md`, companion metadata, or plugin discovery text.

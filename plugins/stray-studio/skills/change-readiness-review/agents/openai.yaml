@@ -1,0 +1,4 @@
+interface:
+  display_name: "Change Readiness Review"
+  short_description: "Gate exact local or PR state before sharing."
+  default_prompt: "Use $change-readiness-review to decide whether my exact local changes are ready to push or my open pull request is ready for an initial or repeat human review request; remain read-only, seal the reviewed state, and return READY, CHANGES_REQUIRED, or INCOMPLETE with evidence."

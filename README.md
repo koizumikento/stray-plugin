@@ -8,7 +8,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, validate, evaluate, and operate Codex skills and subagents. |
 | Stray Research | `plugins/stray-research/` | Run current briefs, deep research, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
-| Stray Studio | `plugins/stray-studio/` | Build, review, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
+| Stray Studio | `plugins/stray-studio/` | Build, review, gate change readiness, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, cases, chart data, statistics, open data, citations, and caches. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
 
@@ -97,7 +97,7 @@ Notable support files:
 
 ### Stray Studio
 
-`plugins/stray-studio/` owns delivery, review, security preflight, and artifact production. It is execution-oriented: build the thing, review the change, or produce the usable artifact.
+`plugins/stray-studio/` owns delivery, review, read-only change-readiness gates, security preflight, and artifact production. It is execution-oriented: build the thing, review or gate the change, or produce the usable artifact.
 
 | Skill | Use for |
 |---|---|
@@ -108,6 +108,7 @@ Notable support files:
 | `landing-page-builder` | Creating or revising landing pages with conversion structure, messaging hierarchy, CTA flow, responsive implementation, and SEO basics. |
 | `test-design-strategist` | Designing risk-based software test strategies, matrices, cases, regression scopes, and release gates without implementing test code. |
 | `reviewer` | Reviewing code, skills, artifacts, docs, UI, validation plans, release/compliance readiness, and plugin skill sets. |
+| `change-readiness-review` | Deciding read-only whether an author's exact local changes are ready to push or an open PR is ready for an initial or repeat human review request. |
 | `security-preflight` | Running security-focused preflights for repositories, diffs, CI/CD workflows, dependencies, secrets, IaC, containers, and release surfaces before shipping. |
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
 | `brand-designer` | Defining or refining brand identity, visual principles, tone guidance, and mini style guides. |
@@ -126,6 +127,10 @@ Notable support files:
 - `plugins/stray-studio/skills/article-writer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/references/`
+- `plugins/stray-studio/skills/change-readiness-review/agents/openai.yaml`
+- `plugins/stray-studio/skills/change-readiness-review/references/`
+- `plugins/stray-studio/skills/change-readiness-review/scripts/`
+- `plugins/stray-studio/skills/change-readiness-review/tests/`
 - `plugins/stray-studio/skills/security-preflight/references/`
 - `plugins/stray-studio/skills/security-preflight/agents/openai.yaml`
 - `plugins/stray-studio/skills/slack-app-builder/references/`

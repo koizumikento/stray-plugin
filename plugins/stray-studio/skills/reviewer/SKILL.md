@@ -1,6 +1,6 @@
 ---
 name: "reviewer"
-description: "Use when the user wants a findings-first review of code, docs, UI, skills, plugins, prompts, evals, or releases, including an explicitly requested bounded review-fix loop. Do not use for unrequested implementation, blank-slate creation, security-only preflights, research, or legal advice."
+description: "Use when the user wants a findings-first review of code, docs, UI, skills, plugins, prompts, evals, or releases, including an explicitly requested bounded review-fix loop. Do not use for push or PR review-request readiness, blank-slate creation, security-only preflights, research, or legal advice."
 ---
 
 # Reviewer
@@ -15,6 +15,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
 - Building, writing, or redesigning an artifact from scratch
 - Creating a new software test strategy, test matrix, QA plan, regression scope, or release checklist from scratch; use `test-design-strategist`
 - General debugging without an explicit review request
+- Author-side decisions about whether exact local changes are ready to push or an open pull request is ready for an initial or repeat human review request; use `change-readiness-review`
 - Broad brainstorming or strategy work that is not grounded in a concrete artifact
 - Dedicated security preflights for repositories, diffs, CI/CD, dependencies, IaC, containers, secrets, or release surfaces; use `security-preflight`
 - Negotiated legal advice, jurisdiction-specific legal interpretation, or a full dependency license audit
@@ -29,6 +30,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
    - if the scope is too large to review reliably, narrow it explicitly and state what is excluded
 2. Select the smallest relevant reference set:
    - code changes: `references/code-review.md`, then relevant aspect packs
+   - explicit local-push or pull-request review-request readiness: route to `change-readiness-review` instead of continuing here
    - Codex skills: `references/skill-review.md`
    - multiple skills as a routing system: `references/skill-set-review.md`
    - plugin manifests or marketplace packaging: `references/plugin-review.md`
@@ -84,6 +86,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
 - Do not claim complete legal compliance, complete security coverage, or exhaustive test coverage.
 - Do not replace specialized creation skills. Route broad implementation follow-up to the relevant builder, writer, skill authoring, or research skill.
 - Do not absorb dedicated security preflight work when `security-preflight` owns the requested review.
+- Do not issue a push or pull-request review-request readiness decision; `change-readiness-review` owns the state-sealed gate.
 - Do not load every reference by default. Use only the references that match the review target.
 
 ## Reference

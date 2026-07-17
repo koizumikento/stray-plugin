@@ -39,5 +39,7 @@ Use this checklist for nearly every review, regardless of stack.
 ## Review Guidance
 
 - Report only the issues you can support with concrete evidence.
+- Calibrate the main evidence as observed, reproduced, source-confirmed, or inferred.
+- For inferred findings, state the confirmed premises, realistic failure path, concrete impact, and why safer direct verification is unavailable.
 - Prefer a few high-signal findings over a long list of weak nits.
 - Treat style as non-blocking unless it obscures correctness, safety, or maintenance.

@@ -37,16 +37,16 @@ def test_skill_has_focused_trigger_and_all_references() -> None:
         assert f"references/{name}" in skill
 
 
-def test_helpers_and_metadata_are_packaged_with_the_skill() -> None:
+def test_helpers_and_skill_identity_are_packaged_with_the_skill() -> None:
     for name in (
         "_snapshot_common.py",
         "capture_local_state.py",
         "capture_pr_state.py",
     ):
         assert (SKILL_ROOT / "scripts" / name).is_file()
-    metadata = (SKILL_ROOT / "agents" / "openai.yaml").read_text(encoding="utf-8")
-    assert 'display_name: "Change Readiness Review"' in metadata
-    assert "$change-readiness-review" in metadata
+    skill = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
+    assert 'name: "change-readiness-review"' in skill
+    assert "Use when the author asks if local Git state is ready to push" in skill
     pull_reference = (SKILL_ROOT / "references" / "pull-request-gate.md").read_text(
         encoding="utf-8"
     )
@@ -71,7 +71,7 @@ def test_manifest_and_readme_discover_the_new_skill() -> None:
     manifest = json.loads(
         (STUDIO_ROOT / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8")
     )
-    assert manifest["version"] == "0.1.7"
+    assert manifest["version"] == "0.1.8"
     assert "change-readiness" in manifest["interface"]["longDescription"]
     prompts = manifest["interface"]["defaultPrompt"]
     readiness_prompts = [

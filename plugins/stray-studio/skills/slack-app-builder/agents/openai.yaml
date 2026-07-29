@@ -1,4 +1,0 @@
-interface:
-  display_name: "Slack App Builder"
-  short_description: "Build and debug Slack apps with supported toolchains."
-  default_prompt: "Use $slack-app-builder to classify, implement, validate, or debug this Slack app task with the smallest matching reference and runtime evidence."

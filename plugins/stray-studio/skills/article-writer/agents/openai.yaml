@@ -1,4 +1,0 @@
-interface:
-  display_name: "Article Writer"
-  short_description: "Draft or revise publishable articles with clear structure."
-  default_prompt: "Use $article-writer to draft or revise this article for a clear audience, angle, and structure; clarify missing essentials, verify time-sensitive facts, and avoid Markdown emphasis unless requested."

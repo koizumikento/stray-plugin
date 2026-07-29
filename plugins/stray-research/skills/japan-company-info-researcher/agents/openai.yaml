@@ -1,9 +1,0 @@
-interface:
-  display_name: "Japan Company Info Researcher"
-  short_description: "Look up an identified Japanese entity through gbizinfo-mcp."
-  default_prompt: "Use $japan-company-info-researcher only when a company name, corporate number, or explicit entity search anchors the request. Resolve the entity, retrieve needed gBizINFO groups, and report corporate number, endpoint provenance, identity confidence, missing data, and caveats."
-dependencies:
-  tools:
-    - type: "mcp"
-      value: "gbizinfo-mcp"
-      description: "Resolve Japanese entities and retrieve gBizINFO company data."

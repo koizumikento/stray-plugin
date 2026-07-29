@@ -6,7 +6,7 @@ Use this reference when reviewing multiple local skills as a routing system for 
 
 1. Define the audit scope:
    - list the local skills included
-   - decide whether the review covers only `SKILL.md` files or also `agents/openai.yaml`
+   - decide whether the review covers only `SKILL.md` files or also references, scripts, tests, and plugin discovery text
    - note excluded skills
 2. Build a compact inventory for each skill:
    - trigger description

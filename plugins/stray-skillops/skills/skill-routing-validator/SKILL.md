@@ -17,7 +17,7 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
 ## Workflow
 
 1. Define the routing surface.
-   - Inventory the selected `SKILL.md` files and companion `agents/openai.yaml` metadata.
+   - Inventory the selected `SKILL.md` files and any companion `agents/openai.yaml` metadata that is present in the selected scope.
    - Record each skill's owned job, nearest neighbors, direct handoffs, and explicit non-goals.
 2. Design discriminating cases.
    - Add intended prompts that should select one named skill.

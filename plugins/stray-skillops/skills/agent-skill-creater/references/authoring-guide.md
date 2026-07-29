@@ -20,7 +20,7 @@ Use this reference after `SKILL.md` has routed the request to skill authoring.
 
 - Add `references/` for large examples, detailed rules, domain background, or reusable checklists that would make `SKILL.md` harder to route from.
 - Add `scripts/` only when deterministic execution, parsing, rendering, or validation is needed.
-- Add `agents/openai.yaml` only for display metadata, dependency declarations, or invocation policy changes.
+- Do not add `agents/openai.yaml` to this plugin family. If an explicitly selected target repository has a nearer rule requiring companion metadata, follow that rule only within the target repository.
 
 ## Execution And Trust Contract
 
@@ -34,37 +34,13 @@ Load `execution-trust-contract.md` when a skill can write or delete data, change
 
 Integrate these declarations into an existing mutation gate or guardrail section when that is clearer. Omit a dedicated section only for genuinely instruction-only or read-only skills whose existing text already covers every applicable boundary.
 
-## `agents/openai.yaml`
+## Skill Identity And Tool Requirements
 
-Keep metadata small and purposeful:
-
-```yaml
-interface:
-  display_name: "<Display Name>"
-  short_description: "<One-line user-facing summary>"
-  default_prompt: "<Useful starter prompt>"
-policy:
-  allow_implicit_invocation: false
-dependencies:
-  tools:
-    - type: "mcp"
-      value: "<server-name>"
-      description: "<why the skill requires it>"
-      transport: "streamable_http"
-      url: "<server-url>"
-```
-
-Apply these constraints exactly:
-
-- Quote every string value and leave keys unquoted.
-- Use a human-facing title for `interface.display_name`.
-- Keep `interface.short_description` between 25 and 64 characters, inclusive.
-- Make `interface.default_prompt` a helpful, short starter prompt, typically one sentence, that explicitly names the skill as `$<skill-name>` using the exact frontmatter name.
-- Add `interface.icon_small` or `interface.icon_large` only for real assets under the skill's `assets/` directory, using paths relative to the skill directory.
-- Use a hexadecimal color string for `interface.brand_color` when it is provided.
-- Omit `policy` unless implicit invocation must differ from the default. `policy.allow_implicit_invocation` is a boolean and defaults to `true`.
-- Omit `dependencies` unless the skill has a real MCP dependency. The only currently supported `dependencies.tools[].type` is `"mcp"`; document CLI and other runtime prerequisites in frontmatter `compatibility` or the skill workflow instead.
-- For MCP dependencies, provide quoted `value` and `description` strings. Omit `transport` and `url` unless the dependency is a remote MCP server that needs them or the install surface cannot resolve it by name; do not invent connection metadata.
+- Treat frontmatter `name` and `description` as the source of truth for discovery and implicit routing.
+- Put required MCP servers, CLIs, credentials, and services in frontmatter `compatibility` or the workflow.
+- State how to confirm each required tool is available.
+- State the exact fallback or stop behavior when a tool is unavailable or authorization fails.
+- Keep plugin-level display copy in the matching `.codex-plugin/plugin.json`; do not duplicate it in per-skill metadata.
 
 ## Quality Bar
 
@@ -73,5 +49,5 @@ Apply these constraints exactly:
 - The non-goals should name realistic neighboring requests.
 - The skill should not own an entire domain when it only needs to own one workflow.
 - References should extend the entry point; they should not repeat it.
-- Companion metadata should describe the same scope as the frontmatter and default workflow.
+- Tool prerequisites and unavailable-tool behavior should agree with the workflow and guardrails.
 - Trigger changes are incomplete until intended and near-miss prompts can be distinguished.

@@ -224,7 +224,7 @@ Analyze Japanese horse racing races with a cautious, evidence-first posture. Pro
 ## 実装時の判断
 
 1. まず `SKILL.md` と `references/` 3本で作る。
-2. `agents/openai.yaml` は表示メタデータが必要なら追加する。既存スキルには入っているものが多いので、追加推奨。
+2. スキル名、トリガー、必要なツール、利用不能時の挙動は `SKILL.md` に集約し、このプラグイン群では `agents/openai.yaml` を追加しない。
 3. `plugins/stray-research/.codex-plugin/plugin.json` は、競馬予想スキルを追加すると実用面の発見範囲が広がるため、`longDescription` と `defaultPrompt` に1行追加するのが妥当。
 4. JSON編集後は AGENTS.md の検証コマンドで marketplace と各 plugin.json を検証する。
 

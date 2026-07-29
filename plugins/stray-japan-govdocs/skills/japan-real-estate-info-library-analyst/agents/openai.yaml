@@ -1,9 +1,0 @@
-interface:
-  display_name: "Japan Real Estate Info Library Analyst"
-  short_description: "Analyze MLIT real-estate and geospatial data layers."
-  default_prompt: "Use $japan-real-estate-info-library-analyst to retrieve or analyze the requested MLIT data; report access state, layers, dates, geography, derivations, and interpretation limits."
-dependencies:
-  tools:
-    - type: "mcp"
-      value: "reinfolib-mcp"
-      description: "Retrieve MLIT Real Estate Information Library datasets and layers."

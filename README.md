@@ -37,7 +37,7 @@ AGENTS.md
 README.md
 ```
 
-Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest and a `skills/` directory. Most skills are instruction-first `SKILL.md` files. Add `scripts/`, `references/`, or `agents/openai.yaml` only when the skill needs deterministic tooling, larger supporting material, display metadata, tool dependencies, or invocation policy changes.
+Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest and a `skills/` directory. Most skills are instruction-first `SKILL.md` files. Add `scripts/` or `references/` only when the skill needs deterministic tooling or larger supporting material. This plugin family keeps skill identity, routing descriptions, tool prerequisites, and unavailable-tool behavior in `SKILL.md` and does not ship per-skill `agents/openai.yaml` files.
 
 ## Plugin Contents
 
@@ -57,9 +57,7 @@ Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest
 
 Notable support files:
 
-- `plugins/stray-skillops/skills/agent-skill-creater/agents/openai.yaml`
 - `plugins/stray-skillops/skills/agent-skill-creater/references/authoring-guide.md`
-- `plugins/stray-skillops/skills/subagent-creator/agents/openai.yaml`
 - `plugins/stray-skillops/skills/subagent-creator/references/subagent-best-practices.md`
 - `plugins/stray-skillops/skills/skill-routing-validator/references/routing-cases.json`
 - `plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py`
@@ -88,7 +86,7 @@ Notable support files:
 
 Notable support files:
 
-- Selected specialist skills include `agents/openai.yaml` when display metadata or a real tool dependency materially helps invocation.
+- Specialist skills declare required tools, setup expectations, and unavailable-tool behavior in `SKILL.md`.
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`
 - `plugins/stray-research/skills/japan-company-info-researcher/references/endpoint-guide.md` maps gBizINFO data groups to tool families.
@@ -122,22 +120,15 @@ Notable support files:
 
 Notable support files:
 
-- `plugins/stray-studio/skills/platform-native-ui-designer/agents/openai.yaml`
 - `plugins/stray-studio/skills/platform-native-ui-designer/references/`
-- `plugins/stray-studio/skills/article-writer/agents/openai.yaml`
-- `plugins/stray-studio/skills/reviewer/agents/openai.yaml`
 - `plugins/stray-studio/skills/reviewer/references/`
-- `plugins/stray-studio/skills/change-readiness-review/agents/openai.yaml`
 - `plugins/stray-studio/skills/change-readiness-review/references/`
 - `plugins/stray-studio/skills/change-readiness-review/scripts/`
 - `plugins/stray-studio/skills/change-readiness-review/tests/`
 - `plugins/stray-studio/skills/security-preflight/references/`
-- `plugins/stray-studio/skills/security-preflight/agents/openai.yaml`
 - `plugins/stray-studio/skills/slack-app-builder/references/`
-- `plugins/stray-studio/skills/slack-app-builder/agents/openai.yaml`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
 - `plugins/stray-studio/skills/landing-page-builder/references/`
-- `plugins/stray-studio/skills/pixel-art-asset-creator/agents/openai.yaml`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/scripts/`
 
 Trademark notice: Apple, iPadOS, macOS, watchOS, tvOS, and visionOS are trademarks of Apple Inc. IOS is a Cisco trademark or registered trademark in the United States and other countries, used under license. This independent project is not sponsored, endorsed, or approved by Apple Inc. See the current [Apple Trademark List](https://www.apple.com/legal/intellectual-property/trademark/appletmlist.html).

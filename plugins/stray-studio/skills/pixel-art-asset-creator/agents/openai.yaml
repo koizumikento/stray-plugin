@@ -1,4 +1,0 @@
-interface:
-  display_name: "Pixel Art Asset Creator"
-  short_description: "Create, repair, and package pixel-art game assets."
-  default_prompt: "Use $pixel-art-asset-creator to plan, create, repair, or package this pixel-art asset; define the asset contract and mode first, and use image generation or bundled scripts only when needed."

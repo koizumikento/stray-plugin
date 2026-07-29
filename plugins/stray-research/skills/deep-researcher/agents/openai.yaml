@@ -1,4 +1,0 @@
-interface:
-  display_name: "Deep Researcher"
-  short_description: "Reconcile multiple evidence tracks in a durable research report."
-  default_prompt: "Use $deep-researcher only when this request needs multiple independent research tracks. Plan the tracks, verify primary sources, reconcile conflicts, and return a durable report with sources, caveats, uncertainty, and stop conditions."

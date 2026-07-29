@@ -36,7 +36,7 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
 - Keep each skill focused on one job.
 - Prefer instruction-first skills. Add `scripts/` only when deterministic execution is necessary.
 - Add `references/` only when the material is too large or too specialized for `SKILL.md`.
-- Add `agents/openai.yaml` only when the skill needs display metadata, tool dependencies, or invocation policy changes.
+- Do not add `agents/openai.yaml` to this plugin family. Keep skill identity, routing descriptions, tool prerequisites, and unavailable-tool behavior in `SKILL.md`.
 - Write a frontmatter `name` and a trigger-oriented `description` that says when the skill should and should not be used.
 - Keep workflows imperative and numbered.
 - State outputs, assumptions, and guardrails explicitly.

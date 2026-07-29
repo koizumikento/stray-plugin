@@ -102,9 +102,20 @@ Do not let a reference override clear repository conventions.
    - Stop with a blocker report after three failed repair attempts, or when the same failure repeats twice without a new hypothesis.
    - Classify the likely missing layer as prompt ambiguity, missing context, missing harness, loop limit, or external blocker.
 
-7. Hand off clearly.
+7. Run an independent reviewer subagent loop after implementation and validation.
+   - Start a fresh subagent dedicated to review and instruct it to use the `reviewer` skill in review-only mode.
+   - Give the reviewer the user request, acceptance criteria, relevant repository guidance, current diff or changed files, and validation evidence. Do not give it the builder's conclusions or ask it to edit.
+   - Require findings-first output with concrete file, line, screen, or artifact evidence. Treat optional improvements, unsupported concerns, and questions separately from confirmed actionable findings.
+   - Fix every confirmed actionable finding that is within the user's scope, rerun the smallest relevant validation, then ask a fresh reviewer subagent to review the updated state.
+   - Repeat the fix, validation, and fresh-review cycle until the reviewer reports no actionable findings.
+   - Do not self-certify completion or substitute the implementing agent's own review for the reviewer subagent.
+   - If subagents are unavailable, or a finding requires a material product decision, external mutation, destructive action, or scope expansion, stop with a concrete blocker instead of claiming the review gate passed.
+   - If the same finding survives two repair attempts without a new hypothesis, apply the bounded-repair guardrail and report the residual finding as a loop-limit blocker.
+
+8. Hand off clearly.
    - Summarize the user-visible result, key implementation decisions, and residual risks.
    - Include validation run, skipped, unavailable, or unverified.
+   - Include the reviewer-subagent pass count and state explicitly that no actionable findings remain, or list the blocker and residual findings.
    - Include the route, local URL, command, migration status, deployment status, and any reload or cache caveat that affects verification.
    - Separate implemented, reviewed, merged, deployed, and migrated status.
 
@@ -141,3 +152,4 @@ Do not let a reference override clear repository conventions.
 - Do not rely on client-only validation or client-only authorization.
 - Do not add opaque migrations or destructive production-only changes without surfacing the risk.
 - Do not stop at code changes without checking whether the main end-to-end flow actually works.
+- Do not hand off completed implementation while the independent reviewer subagent still has an unresolved actionable finding.

@@ -1,0 +1,15 @@
+{
+  "admin-procedures": {
+    "command": "uv",
+    "args": [
+      "run",
+      "--locked",
+      "--extra",
+      "excel",
+      "python",
+      "-m",
+      "admin_procedures"
+    ],
+    "cwd": "./mcp/administrative-procedures-mcp"
+  }
+}

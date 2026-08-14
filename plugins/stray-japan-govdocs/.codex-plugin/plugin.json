@@ -1,12 +1,13 @@
 {
   "name": "stray-japan-govdocs",
-  "version": "0.1.3",
-  "description": "Repo-local Codex plugin for answering user requests with Japanese government whitepapers, statistics, budgets, cases, official policy documents, and temporary source caches.",
+  "version": "0.1.4",
+  "description": "Repo-local Codex plugin for answering user requests with Japanese government whitepapers, statistics, administrative-procedures survey data, budgets, cases, official policy documents, and temporary source caches.",
   "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Stray Japan Gov Docs",
-    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, e-Stat, Project LINKS, real-estate-library data, budget, case, chart-data, citation, cache, and whitepaper workflows.",
-    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers, policy documents, and selected open datasets. It dispatches broad requests in the same turn, separates neutral background from proposal synthesis, supports supplied claims with official evidence, distinguishes KPI discovery from chart-source tracing and e-Stat retrieval, grades ownership and priority evidence, traces budget lifecycle and official cases, analyzes Project LINKS and Real Estate Information Library data with explicit fallbacks, audits citations, manages schema-validated temporary caches, and briefs named documents using conservative official-source boundaries.",
+    "shortDescription": "Turn user requests into Japan government-backed background, evidence, KPI, e-Stat, administrative-procedures, Project LINKS, real-estate, budget, case, citation, cache, and whitepaper workflows.",
+    "longDescription": "A repo-local Codex plugin for request-driven use of Japanese government whitepapers, policy documents, and selected open datasets. It bundles the Digital Agency administrative-procedures MCP for provenance-aware survey search and aggregation, dispatches broad requests in the same turn, separates neutral background from proposal synthesis, supports supplied claims with official evidence, distinguishes KPI discovery from chart-source tracing and e-Stat retrieval, grades ownership and priority evidence, traces budget lifecycle and official cases, analyzes Project LINKS and Real Estate Information Library data with explicit fallbacks, audits citations, manages schema-validated temporary caches, and briefs named documents using conservative official-source boundaries.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -19,6 +20,7 @@
       "Audit whether existing whitepaper or government-document citations are official, current, and correctly described.",
       "Find KPI and outcome-indicator candidates for a Japan policy or social issue; use e-Stat analysis separately for table retrieval.",
       "Search, retrieve, and analyze e-Stat official statistics with table IDs, metadata, filters, units, and caveats.",
+      "Search, filter, summarize, compare, and analyze the Digital Agency administrative-procedures survey through the bundled MCP with provenance and quality notes.",
       "Inventory, inspect, download, profile, or analyze MLIT Project LINKS datasets from G-Spatial Information Center with source and quality cautions.",
       "Retrieve and analyze MLIT Real Estate Information Library data such as land prices, transaction prices, urban planning, nearby facilities, and disaster-risk layers.",
       "Trace a policy issue to budget programs, administrative review sheets, and funding signals.",

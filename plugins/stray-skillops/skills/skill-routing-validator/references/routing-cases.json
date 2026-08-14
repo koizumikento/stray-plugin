@@ -355,8 +355,30 @@
       "id": "gov-estat",
       "prompt": "e-Statで人口動態の統計表を検索し、表ID、絞り込み、単位を示してデータを取得・比較して。",
       "expect": ["japan-gov-estat-data-analyst"],
-      "reject": ["japan-gov-kpi-finder", "japan-gov-chart-data-tracer"],
+      "reject": ["japan-gov-kpi-finder", "japan-gov-chart-data-tracer", "japan-gov-administrative-procedures-data-analyst"],
       "reason": "The user requests direct table discovery, retrieval, and analysis."
+    },
+    {
+      "id": "gov-administrative-procedures-summary",
+      "prompt": "デジタル庁の行政手続等の棚卸調査を使い、省庁別のオンライン化実施状況とオンライン率を比較し、出典・基準時点・欠損上の注意も示して。",
+      "expect": ["japan-gov-administrative-procedures-data-analyst"],
+      "reject": ["japan-gov-estat-data-analyst", "japan-gov-kpi-finder"],
+      "reason": "The named Digital Agency survey and server-defined online-rate analysis belong to the bundled administrative-procedures workflow."
+    },
+    {
+      "id": "gov-administrative-procedures-records",
+      "prompt": "行政手続等の棚卸調査から、結婚・離婚に関係する手続を府省横断で検索し、手続名、所管、オンライン化状況を一覧にして。",
+      "expect": ["japan-gov-administrative-procedures-data-analyst"],
+      "reject": ["japan-gov-estat-data-analyst", "japan-gov-case-finder"],
+      "reason": "This is a bounded record search over a named life-event field in the administrative-procedures survey."
+    },
+    {
+      "id": "no-skill-current-application-instructions",
+      "prompt": "今週、横浜市で婚姻届を出すために必要な書類、窓口、受付時間、手数料を教えて。",
+      "expect": [],
+      "reject": ["japan-gov-administrative-procedures-data-analyst", "japan-gov-request-router"],
+      "no_skill": true,
+      "reason": "Current municipality-specific application instructions require live responsible-authority guidance, not historical survey analysis."
     },
     {
       "id": "gov-evidence",
@@ -483,6 +505,13 @@
       "expect": ["japan-gov-chart-data-tracer", "japan-gov-estat-data-analyst"],
       "reject": ["japan-gov-kpi-finder", "japan-whitepaper-brief"],
       "reason": "Published-chart provenance is established before the identified statistical table is retrieved and analyzed."
+    },
+    {
+      "id": "mixed-gov-chart-to-administrative-procedures-analysis",
+      "prompt": "このデジタル庁資料のオンライン化率グラフが行政手続等の棚卸調査に基づくか特定し、元データが確認できたら同じ定義で府省別に再集計して。",
+      "expect": ["japan-gov-chart-data-tracer", "japan-gov-administrative-procedures-data-analyst"],
+      "reject": ["japan-gov-estat-data-analyst", "japan-gov-kpi-finder"],
+      "reason": "Chart provenance must be established before the identified administrative-procedures survey is reaggregated."
     },
     {
       "id": "mixed-gov-context-to-proposal",

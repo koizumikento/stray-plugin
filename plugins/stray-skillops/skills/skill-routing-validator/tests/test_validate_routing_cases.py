@@ -156,6 +156,116 @@ def test_marketplace_must_match_plugin_manifests_and_local_paths(tmp_path: Path)
     assert any("stale plugin entries: ['stale']" in error for error in errors)
 
 
+def write_plugin_fixture(
+    root: Path,
+    *,
+    manifest_extra: dict[str, object] | None = None,
+) -> Path:
+    plugin_root = root / "plugins" / "fixture"
+    (plugin_root / "skills").mkdir(parents=True)
+    manifest = {"name": "fixture", "skills": "./skills/", **(manifest_extra or {})}
+    manifest_path = plugin_root / ".codex-plugin" / "plugin.json"
+    manifest_path.parent.mkdir()
+    manifest_path.write_text(json.dumps(manifest) + "\n", encoding="utf-8")
+    marketplace = root / ".agents" / "plugins" / "marketplace.json"
+    marketplace.parent.mkdir(parents=True)
+    marketplace.write_text(
+        json.dumps(
+            {
+                "plugins": [
+                    {
+                        "name": "fixture",
+                        "source": {"source": "local", "path": "./plugins/fixture"},
+                    }
+                ]
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return plugin_root
+
+
+def test_plugin_mcp_servers_accepts_direct_and_wrapped_maps(tmp_path: Path) -> None:
+    direct_root = tmp_path / "direct"
+    direct = write_plugin_fixture(direct_root, manifest_extra={"mcpServers": "./.mcp.json"})
+    (direct / "server").mkdir()
+    (direct / ".mcp.json").write_text(
+        json.dumps(
+            {
+                "local": {
+                    "command": "uv",
+                    "args": ["run", "server"],
+                    "cwd": "./server",
+                    "env": {"MODE": "readonly"},
+                }
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    wrapped_root = tmp_path / "wrapped"
+    wrapped = write_plugin_fixture(wrapped_root, manifest_extra={"mcpServers": "./mcp.json"})
+    (wrapped / "mcp.json").write_text(
+        json.dumps({"mcp_servers": {"remote": {"url": "https://example.test/mcp"}}}) + "\n",
+        encoding="utf-8",
+    )
+
+    assert validator.validate_json_files(direct_root) == []
+    assert validator.validate_json_files(wrapped_root) == []
+
+
+def test_plugin_mcp_servers_rejects_escape_and_invalid_server_shape(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    plugin = write_plugin_fixture(root, manifest_extra={"mcpServers": "./.mcp.json"})
+    (plugin / ".mcp.json").write_text(
+        json.dumps(
+            {
+                "bad-local": {
+                    "command": "uv",
+                    "url": "http://example.test/mcp",
+                    "args": "run server",
+                    "cwd": "./../outside",
+                },
+                "bad-remote": {"url": "http://example.test/mcp", "env": {"PORT": 8000}},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    errors = validator.validate_json_files(root)
+
+    assert any("exactly one non-empty command or url" in error for error in errors)
+    assert any(".args must be a string array" in error for error in errors)
+    assert any(".cwd escapes plugin root" in error for error in errors)
+    assert any(".url must use https://" in error for error in errors)
+    assert any(".env must be a string-to-string object" in error for error in errors)
+
+    manifest_path = plugin / ".codex-plugin" / "plugin.json"
+    manifest_path.write_text(
+        json.dumps({"name": "fixture", "skills": "./skills/", "mcpServers": "./../outside.json"})
+        + "\n",
+        encoding="utf-8",
+    )
+    errors = validator.validate_json_files(root)
+    assert any("mcpServers path escapes plugin root" in error for error in errors)
+
+
+def test_plugin_mcp_servers_rejects_duplicate_json_keys(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    plugin = write_plugin_fixture(root, manifest_extra={"mcpServers": "./.mcp.json"})
+    (plugin / ".mcp.json").write_text(
+        '{"local": {"command": "uv", "command": "python"}}\n',
+        encoding="utf-8",
+    )
+
+    errors = validator.validate_json_files(root)
+
+    assert any("invalid JSON" in error and "duplicate key 'command'" in error for error in errors)
+
+
 def test_duplicate_yaml_keys_fail_for_metadata_and_skill_frontmatter(tmp_path: Path) -> None:
     metadata = tmp_path / "plugins" / "fixture" / "skills" / "duplicate" / "agents" / "openai.yaml"
     metadata.parent.mkdir(parents=True)
@@ -269,4 +379,4 @@ def test_repository_validator_reports_structural_only_runtime_status() -> None:
 
     assert result.returncode == 0, result.stderr
     assert "structural=passed runtime=not-run" in result.stdout
-    assert "multi_skill=9 no_skill=4" in result.stdout
+    assert "multi_skill=10 no_skill=5" in result.stdout

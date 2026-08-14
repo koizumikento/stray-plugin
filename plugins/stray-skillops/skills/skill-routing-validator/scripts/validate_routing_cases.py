@@ -116,6 +116,93 @@ def repo_root() -> Path:
     return Path(__file__).resolve().parents[5]
 
 
+def validate_mcp_servers_file(
+    manifest_path: Path,
+    manifest: dict[str, object],
+) -> list[str]:
+    """Validate an optional plugin-relative MCP server definition."""
+    errors: list[str] = []
+    raw_path = manifest.get("mcpServers")
+    if raw_path is None:
+        return errors
+    if not isinstance(raw_path, str) or not raw_path.startswith("./"):
+        return [f"{manifest_path}: mcpServers must be a plugin-relative './' path"]
+
+    plugin_root = manifest_path.parents[1].resolve()
+    mcp_path = (plugin_root / raw_path).resolve()
+    try:
+        mcp_path.relative_to(plugin_root)
+    except ValueError:
+        return [f"{manifest_path}: mcpServers path escapes plugin root: {raw_path!r}"]
+    if not mcp_path.is_file():
+        return [f"{manifest_path}: mcpServers file is missing: {raw_path!r}"]
+
+    try:
+        payload = load_unique_json(mcp_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, DuplicateJsonKeyError) as exc:
+        return [f"{mcp_path}: invalid JSON: {exc}"]
+    if not isinstance(payload, dict):
+        return [f"{mcp_path}: top level must be an object"]
+
+    if "mcp_servers" in payload:
+        if set(payload) != {"mcp_servers"}:
+            errors.append(f"{mcp_path}: wrapped format may contain only 'mcp_servers'")
+        servers = payload.get("mcp_servers")
+    else:
+        servers = payload
+    if not isinstance(servers, dict) or not servers:
+        errors.append(f"{mcp_path}: MCP server map must be a non-empty object")
+        return errors
+
+    for server_name, config in servers.items():
+        location = f"{mcp_path}: server {server_name!r}"
+        if not isinstance(server_name, str) or not server_name.strip():
+            errors.append(f"{mcp_path}: server names must be non-empty strings")
+            continue
+        if not isinstance(config, dict):
+            errors.append(f"{location} must be an object")
+            continue
+
+        command = config.get("command")
+        url = config.get("url")
+        has_command = isinstance(command, str) and bool(command.strip())
+        has_url = isinstance(url, str) and bool(url.strip())
+        if has_command == has_url:
+            errors.append(f"{location} must declare exactly one non-empty command or url")
+        if has_url and not url.startswith("https://"):
+            errors.append(f"{location}.url must use https://")
+
+        if "args" in config:
+            args = config["args"]
+            if not isinstance(args, list) or not all(isinstance(arg, str) for arg in args):
+                errors.append(f"{location}.args must be a string array")
+            if not has_command:
+                errors.append(f"{location}.args requires command")
+
+        if "cwd" in config:
+            cwd = config["cwd"]
+            if not isinstance(cwd, str) or not cwd.startswith("./"):
+                errors.append(f"{location}.cwd must be a plugin-relative './' path")
+            else:
+                resolved_cwd = (plugin_root / cwd).resolve()
+                try:
+                    resolved_cwd.relative_to(plugin_root)
+                except ValueError:
+                    errors.append(f"{location}.cwd escapes plugin root: {cwd!r}")
+                else:
+                    if not resolved_cwd.is_dir():
+                        errors.append(f"{location}.cwd directory is missing: {cwd!r}")
+
+        if "env" in config:
+            env = config["env"]
+            if not isinstance(env, dict) or not all(
+                isinstance(key, str) and isinstance(value, str)
+                for key, value in env.items()
+            ):
+                errors.append(f"{location}.env must be a string-to-string object")
+    return errors
+
+
 def validate_json_files(root: Path) -> list[str]:
     errors: list[str] = []
     marketplace_path = root / ".agents" / "plugins" / "marketplace.json"
@@ -148,6 +235,7 @@ def validate_json_files(root: Path) -> list[str]:
                 continue
             if not resolved_skills.is_dir():
                 errors.append(f"{path}: skills path is missing or invalid: {skills_path!r}")
+            errors.extend(validate_mcp_servers_file(path, data))
 
     manifest_names = {path.parents[1].name for path in manifest_paths}
     marketplace = loaded.get(marketplace_path)

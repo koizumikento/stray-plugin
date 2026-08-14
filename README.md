@@ -9,7 +9,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, validate, evaluate, and operate Codex skills and subagents. |
 | Stray Research | `plugins/stray-research/` | Run current briefs, deep research, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, gate change readiness, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
-| Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, cases, chart data, statistics, open data, citations, and caches. |
+| Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, cases, chart data, statistics, the bundled administrative-procedures MCP, open data, citations, and caches. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
 
 ## Repository Layout
@@ -148,6 +148,7 @@ Trademark notice: Apple, iPadOS, macOS, watchOS, tvOS, and visionOS are trademar
 | `japan-gov-citation-auditor` | Auditing existing citations for officialness, freshness, edition fit, and claim/source alignment. |
 | `japan-gov-kpi-finder` | Finding official KPI or indicator candidates for Japan policy and social issues. |
 | `japan-gov-estat-data-analyst` | Searching, retrieving, and analyzing identified Japanese official statistics through e-Stat tooling. |
+| `japan-gov-administrative-procedures-data-analyst` | Searching and aggregating the Digital Agency administrative-procedures survey through the bundled MCP with provenance and quality notes. |
 | `japan-gov-project-links-data-analyst` | Discovering, profiling, joining, and analyzing MLIT Project LINKS datasets. |
 | `japan-real-estate-info-library-analyst` | Retrieving and analyzing MLIT Real Estate Information Library data and layers. |
 | `japan-gov-budget-tracer` | Tracing policy issues to government programs, budgets, and administrative review materials. |

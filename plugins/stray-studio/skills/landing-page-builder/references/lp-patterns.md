@@ -17,6 +17,8 @@ When analyzing a reference LP, capture:
 
 ## Proof Modes
 
+Use supplied or verified facts for all proof modes. Omit unsupported customer, metric, certification, and security claims; label simulated workflows and data visibly as demos or examples rather than actual usage or outcomes.
+
 - Workflow simulation: best for operational, developer, productivity, and AI tools. Show a recognizable task in progress with real-looking objects, statuses, assignees, prompts, outputs, timestamps, or integrations.
 - Live product or demo surface: best when the product's interaction is the selling point. Put the editor, terminal, prompt box, dashboard, or app composer in the hero or first section.
 - Customer outcome gallery: best for creative tools, website builders, marketplaces, and services where the result is more persuasive than the tool chrome.
@@ -101,3 +103,8 @@ When analyzing a reference LP, capture:
 - For broad platforms, segment by buyer type, job, or build path before visitors feel lost.
 - For organic pages, keep title, H1, meta description, and visible copy aligned around category, audience, and wedge.
 - For campaign or paid pages, decide whether to noindex, canonicalize, or keep a lean indexable surface.
+
+## Proof Boundary Checks
+
+- A new B2B service with no customers or measured outcomes may show a labeled workflow demo, but no invented customer logos, testimonials, adoption counts, or certifications.
+- Supplied customer evidence may support the corresponding claim; preserve its scope and attribution, and keep any simulated data visibly distinct.

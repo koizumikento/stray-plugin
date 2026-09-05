@@ -16,6 +16,8 @@ This record captures the external skill patterns reviewed on 2026-07-14 and how 
 
 ## Local Implementation Mapping
 
+On 2026-09-05, the [OpenAI skill guidance](https://learn.chatgpt.com/docs/build-skills) and [OpenAI instruction-following guidance](https://developers.openai.com/api/docs/guides/latest-model#instruction-following) were also checked. The local updates clarify companion-file scope, progress-based repair conditions, retained authorization state, and representative behavioral checks. These are independently written instructions; no external skill code or text was copied.
+
 - Script containment, deletion markers, secret handling, and deterministic tests are implemented under `plugins/stray-studio/skills/pixel-art-asset-creator/` and `corporate-site-builder/`.
 - Ordered handoffs, intentional no-skill cases, metadata validation, and structural-only reporting are implemented under `plugins/stray-skillops/skills/skill-routing-validator/`.
 - Deterministic validation runs in `.github/workflows/deterministic-validation.yml`; it does not call a model provider or require evaluator secrets.

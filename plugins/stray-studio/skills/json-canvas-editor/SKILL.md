@@ -20,9 +20,10 @@ Use this skill when working with `.canvas` files for mind maps, flowcharts, note
 ## Workflow
 
 1. Confirm the canvas job and source file:
-   - identify whether you are creating a new canvas or editing an existing one
-   - read the target `.canvas` file before changing anything
-   - if the user did not provide a file, ask for the path or the desired canvas content
+   - identify whether you are creating a new canvas or editing an existing one from the request, attachments, and conversation
+   - when editing, identify and read the target `.canvas` file before changing it
+   - when creating, use the supplied content and a reasonable unused filename in the workspace if no path was specified
+   - ask only when the existing target cannot be identified or the desired content cannot be determined; do not ask again for known inputs
 
 2. Preserve the JSON Canvas shape:
    - keep a top-level object; JSON Canvas 1.0 permits `nodes` and `edges` to be omitted, but each must be an array when present

@@ -3,10 +3,10 @@
   "cases": [
     {
       "id": "skillops-author-skill",
-      "prompt": "Update this plugin's SKILL.md trigger and workflow, then validate its placement.",
+      "prompt": "Add a skill named official-source-comparison to stray-research for comparing two user-supplied official documents, and validate it.",
       "expect": ["agent-skill-creater"],
       "reject": ["skills-search", "subagent-creator"],
-      "reason": "The requested artifact is an existing skill, not discovery or a custom agent."
+      "reason": "The requested artifact is a skill. Its required shared fixtures and README entries are companion changes, not an unrelated scope expansion requiring another approval."
     },
     {
       "id": "skillops-ai-eval-ci",
@@ -17,10 +17,10 @@
     },
     {
       "id": "skillops-compress-context",
-      "prompt": "Compact this long debugging task so another turn can continue with paths, decisions, failures, and next action intact.",
+      "prompt": "Compact this long debugging task with paths and next steps intact: pushing this branch is approved, the publication question is unanswered, and an earlier permission to send a message was revoked.",
       "expect": ["context-compression"],
       "reject": ["deep-researcher"],
-      "reason": "This preserves active task state rather than researching a topic."
+      "reason": "Preserve active task state and the distinct approved, pending, and revoked authorization states; do not ask again for the approved push or authorize either send."
     },
     {
       "id": "skillops-design-multi-agent",
@@ -304,10 +304,10 @@
     },
     {
       "id": "studio-slack-gif",
-      "prompt": "Create a Slack message GIF from these screenshots and verify dimensions, duration, frame count, and file size.",
+      "prompt": "Create a Slack message GIF from these screenshots to demonstrate the successful save animation; verify dimensions, duration, frame count, and file size.",
       "expect": ["slack-gif-creator"],
       "reject": ["marketing-screenshot-creator"],
-      "reason": "The final artifact is an animated Slack-optimized GIF."
+      "reason": "The final artifact is an animated Slack-optimized GIF. Its purpose and message are already supplied, so do not ask for them again."
     },
     {
       "id": "studio-test-design",
@@ -339,10 +339,10 @@
     },
     {
       "id": "gov-chart-source",
-      "prompt": "この白書の図3-2が参照するe-Stat表と元データを特定し、再分析可能な形にして。",
+      "prompt": "この白書の図3-2が参照するe-Stat表と元データの所在・取得手順を特定して。今回はデータの取得や再分析は不要です。",
       "expect": ["japan-gov-chart-data-tracer"],
       "reject": ["japan-gov-kpi-finder", "japan-gov-estat-data-analyst"],
-      "reason": "A specific published figure is the starting point."
+      "reason": "The deliverable ends at chart provenance and retrieval instructions; actual table retrieval and reanalysis are explicitly excluded."
     },
     {
       "id": "gov-citation-audit",
@@ -519,6 +519,62 @@
       "expect": ["japan-gov-proposal-context-adapter", "proposal-writer"],
       "reject": ["japan-gov-background-builder", "article-writer"],
       "reason": "Official-context adaptation must precede production of the decision-oriented proposal artifact."
+    },
+    {
+      "id": "research-japan-primary-multijurisdiction-patent",
+      "prompt": "日本を主対象として、米国・欧州も同じ技術の特許ランドスケープを調べ、国別比較をまとめて。",
+      "expect": ["global-patent-researcher"],
+      "reject": ["japan-patent-researcher", "japan-company-info-researcher"],
+      "reason": "Multiple jurisdictions make global the overall owner even when Japan is primary; do not transfer the entire task back and forth."
+    },
+    {
+      "id": "research-delegated-japan-patent-track",
+      "prompt": "複数国調査の全体担当から、日本のFI/F-term検索だけを任されました。日本の公開特許の候補と検索ログを調べて全体担当へ返して。海外分の再調査は不要です。",
+      "expect": ["japan-patent-researcher"],
+      "reject": ["global-patent-researcher", "japan-company-info-researcher"],
+      "reason": "The delegated task is Japan-only even though its parent is global; finish that bounded track and return evidence instead of rerouting it."
+    },
+    {
+      "id": "skillops-routing-other-repository",
+      "prompt": "Use the installed routing skill to inspect this other repository's .agents/skills triggers. It has no marketplace.json or local validation script.",
+      "expect": ["skill-routing-validator"],
+      "reject": ["agent-skill-creater", "ai-eval-ci"],
+      "reason": "Review the selected files and report unavailable mechanical checks. The bundled marketplace CLI and plugin cache are not the requested validation target."
+    },
+    {
+      "id": "studio-json-canvas-new-known-content",
+      "prompt": "新規の.canvasを作って。テキストノードA、B、Cを左から並べ、AからB、BからCへ矢印を引いて。ファイル名は任せます。",
+      "expect": ["json-canvas-editor"],
+      "reject": ["fullstack-app-builder", "artifact-theme-applier"],
+      "reason": "The new canvas content is already specified; choose an unused workspace filename without requesting a nonexistent source file."
+    },
+    {
+      "id": "studio-slack-local-validation-only",
+      "prompt": "Slackアプリのmanifestを修正してローカルで検証して。workspaceへのインストール、再インストール、デプロイはまだ実施しないで。",
+      "expect": ["slack-app-builder"],
+      "reject": ["fullstack-app-builder"],
+      "reason": "Use offline validation. Do not run a workspace-changing slack run or edit a manifest under a watcher that would reinstall the app."
+    },
+    {
+      "id": "studio-slack-approved-local-run",
+      "prompt": "Run the already-configured Slack development app A in workspace W after this manifest fix. Reinstallation of A in W by slack run is approved; do not post messages or deploy.",
+      "expect": ["slack-app-builder"],
+      "reject": ["fullstack-app-builder"],
+      "reason": "Resolve the approved app and workspace and proceed without repeating approval; permission for reinstallation does not cover messages or deployment."
+    },
+    {
+      "id": "gov-estat-discover-capability",
+      "prompt": "e-StatのこのstatsDataIdを取得して地域別に集計して。統計ツールは接続済みですが、サーバー名はe-stats-mcpとは異なります。",
+      "expect": ["japan-gov-estat-data-analyst"],
+      "reject": ["japan-gov-chart-data-tracer", "japan-gov-administrative-procedures-data-analyst"],
+      "reason": "Discover the equivalent capability before declaring it unavailable, verify the schema and metadata, and distinguish complete retrieval from a partial aggregate."
+    },
+    {
+      "id": "research-weather-without-mcp",
+      "prompt": "JMA専用MCPはありません。この提供済み気象庁CSVから札幌の観測値の時系列と欠測を整理し、出典と取得日を残して。",
+      "expect": ["japan-weather-data-researcher"],
+      "reject": ["web-researcher", "domain-researcher"],
+      "reason": "The JMA observation task stays with the specialist; analyze the supplied data with provenance and disclose the unavailable live MCP rather than inventing a connection."
     },
     {
       "id": "no-skill-codex-pet-packaging",

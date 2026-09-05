@@ -6,7 +6,7 @@ compatibility: "Requires internet access and a browsing-capable Codex environmen
 
 # Global Patent Researcher
 
-Plan and run public-web patent research across current global patent databases. Help the user define the search question, build search strategies, inspect candidate patent documents, and report findings with links, search logs, search dates, and uncertainty. Treat Japan as a supplemental jurisdiction unless the user explicitly asks for deeper Japanese patent work.
+Plan and run public-web patent research across current global patent databases. Help the user define the search question, build search strategies, inspect candidate patent documents, and report findings with links, search logs, search dates, and uncertainty. Keep cross-jurisdiction synthesis here, including when Japan is the principal target.
 
 Use this skill when the user needs:
 
@@ -32,7 +32,7 @@ Use this skill when the user needs:
 - Google Patents for fast keyword, CPC, assignee, inventor, claims, and non-patent-literature discovery.
 - The Lens when patent-scholar links, collection management, or broader patent analytics are useful.
 - USPTO Patent Public Search when the research specifically needs U.S. patent text or U.S. search syntax.
-- J-PlatPat only as a supplemental source in a global search. Route Japan-only or FI/F-term-led work to `japan-patent-researcher`.
+- J-PlatPat for the Japanese portion of a global search. Use `japan-patent-researcher` for Japan-only searches or a bounded Japanese FI/F-term research track.
 
 ## Workflow
 
@@ -41,7 +41,8 @@ Use this skill when the user needs:
    - invalidity-candidate research: map candidate references to the target claim elements and priority date
    - freedom-to-operate precheck: focus on active or pending rights in the target jurisdictions and current claims
    - landscape research: focus on classification, assignee, filing-year, citation, family, and jurisdiction patterns
-   - if Japan is the primary jurisdiction or FI/F-term is the primary search method, stop and use `japan-patent-researcher`
+   - route Japan-only research to `japan-patent-researcher`; retain ownership of every multi-jurisdiction search, including Japan-led ones
+   - when Japanese FI/F-term work needs a specialist, delegate only that bounded track to `japan-patent-researcher` and integrate its findings here
 2. Protect confidential information before using external tools.
    - ask for confirmation before putting unpublished invention details, client names, non-public target claims, or sensitive product plans into external websites
    - if the user has not cleared external disclosure, work from abstracted technical features, generic terminology, or locally provided public patent numbers only

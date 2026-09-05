@@ -26,7 +26,7 @@ Use this skill when the user wants to:
 
 ## References
 
-- Load `references/validation-cases.md` before classifying restrictions; it calibrates allowed, needs-review, and restricted judgments with worked accept, reject, and borderline cases.
+- Load `references/validation-cases.md` before classifying restrictions; it provides routing cases and synthetic worked examples for allowed, needs-review, and restricted judgments.
 
 ## Workflow
 

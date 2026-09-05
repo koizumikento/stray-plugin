@@ -17,9 +17,9 @@ Use these templates as starting points. Trim sections that do not fit the user's
 | Tier | No. | Horse | Win range | Place range | Positives | Concerns |
 |---|---:|---|---:|---:|---|---|
 
-## Market Comparison
-| No. | Horse | Odds | Market probability rough | Evaluation | Note |
-|---:|---|---:|---:|---|---|
+## Single-Win Market Comparison
+| No. | Horse | Odds | Break-even win probability (1 / odds) | Normalized market share (comparison only) | Expected net return range (p * odds - 1) | Note |
+|---:|---|---:|---:|---:|---:|---|
 
 ## Race Thesis
 - Pace:

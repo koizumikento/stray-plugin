@@ -14,7 +14,7 @@ For official URL roles and hierarchy, also follow `official-url-model.md`.
 
 ## Temporary Storage
 
-Use the repository-local temporary folder:
+Use the target project's temporary folder, not the installed plugin directory:
 
 ```text
 tmp/japan-govdocs/
@@ -109,7 +109,13 @@ Use `egov-whitepaper-route-map.md` for the canonical `ministry_slug` and `docume
 
 ## Manifest
 
-Append one JSON object per downloaded file to `tmp/japan-govdocs/manifest.jsonl`.
+Keep exactly one JSON object per cached file in `tmp/japan-govdocs/manifest.jsonl`.
+
+Before final placement or adding a record, check the resolved `local_path` against existing records and files:
+
+1. If the existing file and its record match the staged content's full `sha256` and byte count, reuse both without overwriting or appending. Keep the original `fetched_at`; report the new source check separately.
+2. If the content changed, place it at its new hash-based path and append one new record, preserving the previous validated file and record.
+3. If a path already exists but the file or record disagrees, report the mismatch and use the requested repair workflow; do not overwrite it or append a duplicate record.
 
 Do not create manifest records for source-index entries that have no local file. Conversely, a file under `downloads/` or `extracted/` without a manifest record is invalid. An empty manifest is valid only when those folders contain no files.
 

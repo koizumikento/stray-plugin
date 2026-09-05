@@ -379,6 +379,8 @@ def main() -> None:
     references = resolve_references(args.reference)
     display_name = infer_name(args, references)
     asset_id = slugify(display_name)
+    if not asset_id and any(character.isalnum() for character in display_name):
+        asset_id = f"asset-{hashlib.sha256(display_name.encode('utf-8')).hexdigest()[:12]}"
     if not asset_id:
         raise SystemExit("asset name must contain at least one letter or digit")
 

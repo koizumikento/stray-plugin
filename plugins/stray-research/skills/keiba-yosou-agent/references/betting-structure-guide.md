@@ -4,7 +4,7 @@ Use this only when the user asks for 買い目, 券種, ボックス, ながし,
 
 ## Ticket Types
 
-- 単勝: Pick the winner. Best aligned with a strong win thesis and easy to compare with market probability.
+- 単勝: Pick the winner. Compare estimated win probability with `1 / odds` for break-even; normalized market share alone does not establish value. See `analysis-checklist.md` for expected net return and uncertainty checks.
 - 複勝: Pick a horse to finish in the placing range. Useful for stability, but popular horses can have little value.
 - 応援馬券: Single-win and place/show together. Treat as separate 単勝 and 複勝 components for analysis.
 - 枠連: Pick the frame-number combination for first and second. Check same-frame implications.

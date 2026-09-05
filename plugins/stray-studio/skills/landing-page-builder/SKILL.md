@@ -30,6 +30,7 @@ Use this skill when the user wants to:
 - Make the page easy to scan: strong hierarchy, short sections, and proof near claims.
 - Make the product, service, or outcome feel already in use. Prefer concrete UI, workflow states, outputs, examples, or customer outcomes over generic illustration.
 - Put credible proof early enough to support the first major claim: logos, quantified outcomes, named customers, security posture, marketplace depth, or fresh product activity.
+- Use only supplied or verified facts for customer names, logos, testimonials, results, certifications, and security or compliance claims. Omit unsupported proof; label simulated screens, workflows, and data visibly as demos or examples on the page.
 - Choose a proof mode intentionally: workflow simulation, live product/demo surface, customer outcome gallery, quantified enterprise proof, ecosystem depth, or trust/compliance proof.
 - Treat dynamic style as communication, not decoration. Motion, layering, scroll effects, and interactive states should reveal product value, guide attention, or make proof easier to understand.
 - Always decide the search posture: indexable page, campaign-only page, or explicitly noindex page.
@@ -92,19 +93,21 @@ Use this skill when the user wants to:
    - Add social proof, trust cues, objection-handling, or FAQ content where the page needs it.
    - Make forms, buttons, links, and anchor navigation obvious and reliable.
    - Use CTA labels that match the user's actual next job, such as `Deploy`, `Open account`, `Download for macOS`, `Start with AI`, `Request a demo`, or `Talk to sales`.
-   - If copy is missing, write concise placeholder or production-ready copy based on the available product context and state the assumption.
+   - If copy is missing, write from the available product facts and state assumptions. Do not invent customer, performance, financial, certification, or security claims to fill proof blocks; use a visibly labeled demo or omit the block.
 
 9. Validate the shipped LP.
    - Check the main path on desktop and mobile layouts.
    - Verify CTA targets, forms, anchors, and obvious broken states.
    - Check the SEO minimums: title, description, heading structure, index or noindex choice, and obvious performance problems.
    - Confirm the first viewport communicates the offer, primary CTA, and concrete proof without relying on in-page explanatory text.
+   - Trace factual proof to supplied or verified sources and confirm simulated screens and data are visibly labeled on the page, not only in the handoff.
    - Check dynamic visuals with motion enabled and reduced motion, and confirm they do not block CTA access, readability, or mobile layout stability.
    - Run the repository's relevant lint, typecheck, tests, or build steps when they apply.
 
-10. Run a bounded repair loop when validation fails.
-   - Make the smallest targeted fix, then rerun the affected browser, build, CTA, responsive, motion, or SEO check.
-   - Stop after three failed repair attempts or two repeats of the same failure with a blocker note.
+10. Repair from validation evidence.
+    - Make the smallest targeted fix, then rerun the affected browser, build, CTA, responsive, motion, or SEO check.
+    - If the same failure repeats twice without a new hypothesis or measurable progress, reassess the cause and available diagnostics before retrying. Continue when new evidence supports an in-scope fix; a different failure does not consume a fixed total attempt limit.
+    - Stop only when no safe, useful next step is available or required input or authorization is missing. Report the remaining failure and unverified requirements; do not claim completion while required checks or confirmed in-scope defects remain unresolved.
 
 11. Hand off clearly.
    - Summarize the audience, CTA, and section logic that shaped the page.

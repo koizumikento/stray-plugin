@@ -1,6 +1,6 @@
 ---
 name: "japan-patent-researcher"
-description: "Use when a Japan-only patent search needs current J-PlatPat records, Japanese keywords, FI, or F-term for prior-art, invalidity-candidate, FTO precheck, or landscape work. Do not use for legal opinions, drafting, filing strategy, or primarily global searches."
+description: "Use when a Japan-only patent search or delegated Japanese track needs J-PlatPat, Japanese keywords, FI, or F-term for prior-art, invalidity, FTO precheck, or landscape work. Do not use for legal opinions, drafting, filing strategy, or cross-jurisdiction synthesis."
 compatibility: "Requires internet access and a browsing-capable Codex environment because J-PlatPat records, JPO guidance, service status, and legal-status leads must be checked live."
 ---
 
@@ -12,7 +12,7 @@ Plan and conduct reproducible Japan-focused public patent research. Use current 
 
 - Patentability, validity, infringement, clearance, or freedom-to-operate legal opinions.
 - Claim drafting, amendment language, filing strategy, prosecution advice, or representation before the JPO.
-- A primarily worldwide, PCT, U.S., European, or multi-jurisdiction search; use `global-patent-researcher`.
+- Ownership of a worldwide, PCT, U.S., European, or multi-jurisdiction search, even when Japan is the principal target; use `global-patent-researcher`. A delegated Japanese track stays here.
 - Trademark, design, copyright, licensing, contract, API, scraping, bulk-download, or paid-database automation work.
 - A conclusive statement that a search is exhaustive or that no relevant Japanese document exists.
 
@@ -29,7 +29,8 @@ Open and inspect the current official sources during every task. Record the sear
 1. Classify the Japan search.
    - Choose prior-art/novelty research, invalidity-candidate research, FTO precheck, or landscape research.
    - Capture the relevant dates, target Japanese rights, jurisdictions, products or claim elements, and the decision the search will inform.
-   - Stop and use `global-patent-researcher` when Japan is only one part of a genuinely global search.
+   - Route an overall multi-jurisdiction request to `global-patent-researcher`, even when Japan is the principal target.
+   - For a delegated Japanese track, complete its bounded search and return evidence to the delegating agent; do not route it back merely because the overall project includes other countries.
 
 2. Protect confidential inputs before any external query.
    - Identify unpublished invention details, non-public claims, client or counterparty names, product roadmaps, and other sensitive facts.

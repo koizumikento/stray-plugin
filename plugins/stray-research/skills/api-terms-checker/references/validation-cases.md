@@ -42,6 +42,18 @@ The skill should stay out when the request is really about:
 | "I copied a code snippet from a vendor SDK example. Is that allowed?" | Borderline: do not trigger `api-terms-checker` by default | This is closer to source reuse or repository compliance than service terms review. |
 | "Can we ship this plugin if it depends on a hosted LLM API with nonstandard usage restrictions?" | Borderline: trigger `reviewer` or use both sequentially | Compliance preflight owns the release decision, while terms checking can support it. |
 
+## Worked Classification Cases
+
+These clauses and contexts are synthetic fixtures, not real vendor terms or legal advice. Classify only the stated use; do not carry these permissions or restrictions into a real service review. Unless a row says otherwise, assume Customer A contracts with Provider B on the paid Pro plan in Japan, synthetic terms version 1 is current and applicable, and no other incorporated documents or negotiated overrides apply.
+
+| Case and Intended Use | Evidence Clause | Expected Classification and Reason | Next Check |
+| --- | --- | --- | --- |
+| Explicit permission: incorporate API outputs into a paid customer-facing application and deliver those outputs to customers. | "Pro customers may incorporate API outputs into paid applications and redistribute those outputs to their customers." | `allowed` for the stated use: both paid embedding and output redistribution are expressly permitted under the assumed governing terms. | Confirm the actual use stays within output delivery; a real review must verify current official terms and applicable overrides before reusing this conclusion. |
+| Missing evidence: redistribute outputs to customers; an enterprise order form governs this account but has not been supplied. | "Commercial use is permitted. Output redistribution is governed by the customer's order form." | `needs-review`: commercial-use permission does not establish redistribution rights, and the controlling document is missing. | Obtain the applicable order form and confirm its redistribution clause and precedence; leave the decision unresolved until that evidence is available. |
+| Explicit prohibition: sell customers copies of the account's API credentials. | "Customers must not resell, sublicense, or distribute API credentials to third parties." | `restricted`: the planned credential resale directly matches the express prohibition. | Change the design to avoid credential resale or obtain an applicable written amendment before proceeding; do not assume one exists. |
+
+Check each case independently for the expected classification, supporting clause, assumptions, and next check. Passing the routing cases alone does not validate these judgments.
+
 ## Release Recommendation Rules
 
 - Ready if the skill clearly triggers on current API terms questions and rejects repo-level or OSS-license requests.

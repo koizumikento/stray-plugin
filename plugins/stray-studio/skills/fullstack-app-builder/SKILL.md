@@ -95,27 +95,27 @@ Do not let a reference override clear repository conventions.
    - For UI work, open the app on the real target surface when feasible and inspect the affected flow at relevant desktop and mobile viewports.
    - Repeat a focused unfinished-work scan for placeholders, TODOs, disabled actions, no-op handlers, and newly stale docs or specs.
 
-6. Run a bounded repair loop when validation fails.
+6. Repair from validation evidence.
    - Read the failing output before editing again and name the current failure hypothesis.
    - Change one clear thing at a time, then rerun the smallest relevant check that can prove or disprove the hypothesis.
    - Do not rerun the same failing command without new evidence, a code/config change, or a narrower diagnostic command.
-   - Stop with a blocker report after three failed repair attempts, or when the same failure repeats twice without a new hypothesis.
-   - Classify the likely missing layer as prompt ambiguity, missing context, missing harness, loop limit, or external blocker.
+   - If the same failure repeats twice without a new hypothesis or measurable progress, reassess the cause and available diagnostics before retrying. Continue when new evidence supports an in-scope fix; a different failure does not consume a fixed total attempt limit.
+   - Stop only when no safe, useful next step is available or required input or authorization is missing. Report the remaining failure and unverified requirements; do not claim completion while required checks or confirmed in-scope defects remain unresolved.
+   - Classify the likely missing layer as prompt ambiguity, missing context, missing harness, stalled repair, or external blocker.
 
-7. Run an independent reviewer subagent loop after implementation and validation.
+7. Run an independent review after implementation and validation.
    - Start a fresh subagent dedicated to review and instruct it to use the `reviewer` skill in review-only mode.
    - Give the reviewer the user request, acceptance criteria, relevant repository guidance, current diff or changed files, and validation evidence. Do not give it the builder's conclusions or ask it to edit.
    - Require findings-first output with concrete file, line, screen, or artifact evidence. Treat optional improvements, unsupported concerns, and questions separately from confirmed actionable findings.
-   - Fix every confirmed actionable finding that is within the user's scope, rerun the smallest relevant validation, then ask a fresh reviewer subagent to review the updated state.
-   - Repeat the fix, validation, and fresh-review cycle until the reviewer reports no actionable findings.
-   - Do not self-certify completion or substitute the implementing agent's own review for the reviewer subagent.
-   - If subagents are unavailable, or a finding requires a material product decision, external mutation, destructive action, or scope expansion, stop with a concrete blocker instead of claiming the review gate passed.
-   - If the same finding survives two repair attempts without a new hypothesis, apply the bounded-repair guardrail and report the residual finding as a loop-limit blocker.
+   - Default to one review plus one focused correction check when fixes are needed. Fix confirmed in-scope findings, rerun the relevant validation, and have the reviewer check the corrections and affected behavior; do not restart a full review by default.
+   - Add review passes only for new material changes or unresolved confirmed findings, and state the reason. Apply step 6 to stalled repairs; a pass count never makes an unresolved defect acceptable or turns optional suggestions into required work.
+   - If subagents are unavailable, perform self-review and all feasible validation, then disclose that independent review was not performed. If the user explicitly required independent review, finish the available work and report that requirement as unmet instead of claiming completion.
+   - When a finding needs a material product decision, unapproved external or destructive action, or scope expansion, complete independent work and report the specific blocker. Reuse authorization already covering the action and target.
 
 8. Hand off clearly.
    - Summarize the user-visible result, key implementation decisions, and residual risks.
    - Include validation run, skipped, unavailable, or unverified.
-   - Include the reviewer-subagent pass count and state explicitly that no actionable findings remain, or list the blocker and residual findings.
+   - Include the independent-review pass count or its unavailability, the self-review and validation performed, and any residual findings or unmet requirements. Claim completion only when required checks and confirmed in-scope findings are resolved.
    - Include the route, local URL, command, migration status, deployment status, and any reload or cache caveat that affects verification.
    - Separate implemented, reviewed, merged, deployed, and migrated status.
 
@@ -137,7 +137,7 @@ Do not let a reference override clear repository conventions.
 - Source-of-truth drift found and how it was resolved or deferred.
 - Exact route, screen, command, or URL used for user-visible verification when applicable.
 - Explicit assumptions, risks, or follow-up items when relevant.
-- Blocker classification when work could not be completed: prompt ambiguity, missing context, missing harness, loop limit, or external blocker.
+- Blocker classification when work could not be completed: prompt ambiguity, missing context, missing harness, stalled repair, or external blocker.
 - Security, data, platform, or observability notes when the change touches them.
 
 ## Guardrails
@@ -152,4 +152,4 @@ Do not let a reference override clear repository conventions.
 - Do not rely on client-only validation or client-only authorization.
 - Do not add opaque migrations or destructive production-only changes without surfacing the risk.
 - Do not stop at code changes without checking whether the main end-to-end flow actually works.
-- Do not hand off completed implementation while the independent reviewer subagent still has an unresolved actionable finding.
+- Do not report completed implementation while a required check fails, a user-required independent review is missing, or a confirmed in-scope actionable finding remains unresolved.

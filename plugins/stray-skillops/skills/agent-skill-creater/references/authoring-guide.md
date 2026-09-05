@@ -15,6 +15,7 @@ Use this reference after `SKILL.md` has routed the request to skill authoring.
 9. Validate that the skill is under `skills/`, not inside `.codex-plugin/`.
 10. Review the matching plugin manifest only when a new or materially broadened skill changes user-facing discovery.
 11. Add or update routing cases when the trigger or nearest handoff changes.
+12. Include the selected skills' required routing fixtures, README inventory entries, and validation updates in the authorized change, even when they live outside the selected plugin. Keep unrelated files out of scope.
 
 ## When To Add Extra Files
 
@@ -39,6 +40,7 @@ Integrate these declarations into an existing mutation gate or guardrail section
 - Treat frontmatter `name` and `description` as the source of truth for discovery and implicit routing.
 - Put required MCP servers, CLIs, credentials, and services in frontmatter `compatibility` or the workflow.
 - State how to confirm each required tool is available.
+- Inspect exposed tools and available tool discovery before declaring a dependency missing; match the required capability and schema, not just a server's example name.
 - State the exact fallback or stop behavior when a tool is unavailable or authorization fails.
 - Keep plugin-level display copy in the matching `.codex-plugin/plugin.json`; do not duplicate it in per-skill metadata.
 
@@ -51,3 +53,4 @@ Integrate these declarations into an existing mutation gate or guardrail section
 - References should extend the entry point; they should not repeat it.
 - Tool prerequisites and unavailable-tool behavior should agree with the workflow and guardrails.
 - Trigger changes are incomplete until intended and near-miss prompts can be distinguished.
+- Count repeated repair failures per unresolved issue, not across independent issues. Reassess when evidence stops improving; do not stop useful work merely because a total attempt count was reached.

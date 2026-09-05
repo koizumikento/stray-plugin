@@ -24,9 +24,9 @@ Use this skill when the user asks for:
 ## Workflow
 
 1. Define the target and the message.
-   - Ask whether the GIF is for emoji, a message, or a lightweight demo.
-   - Ask what the GIF must communicate in one sentence.
-   - If the source material is missing, stop and request the image, screenshot, or a concrete scene description.
+   - Identify whether the GIF is for emoji, a message, or a lightweight demo and what it must communicate from the request, attachments, and conversation.
+   - Ask only for missing details that prevent choosing the loop or export target; use reasonable defaults for minor gaps.
+   - If neither usable source material nor a concrete scene description is available, request the missing input before building frames.
 
 2. Set Slack-specific constraints first.
    - Distinguish custom emoji upload from message/file upload; they can have different format, dimension, byte-size, duration, and workspace-policy limits.

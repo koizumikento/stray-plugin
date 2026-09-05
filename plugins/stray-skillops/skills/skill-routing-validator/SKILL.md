@@ -17,6 +17,7 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
 ## Workflow
 
 1. Define the routing surface.
+   - Record the selected repository and skill paths explicitly. The bundled CLI validates this Stray marketplace checkout, not arbitrary repositories or an installed plugin cache.
    - Inventory the selected `SKILL.md` files and any companion `agents/openai.yaml` metadata that is present in the selected scope.
    - Record each skill's owned job, nearest neighbors, direct handoffs, and explicit non-goals.
 2. Design discriminating cases.
@@ -25,19 +26,21 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
    - Add ambiguous or mixed-intent cases only when the expected ordered handoff can be stated objectively.
    - Prefer a small high-signal set over paraphrase-heavy volume.
 3. Maintain the versioned case inventory.
-   - Store schema-versioned cases in `references/routing-cases.json` with unique IDs, prompt, expected skills, rejected skills, and a short reason.
+   - In this checkout, store schema-versioned cases in `references/routing-cases.json` with unique IDs, prompt, expected skills, rejected skills, and a short reason. For another repository, use its existing case inventory or a task-local result; do not write into the installed plugin cache.
    - Treat `expect` as an ordered handoff sequence. Keep its skill names unique.
    - Represent an intentional no-skill result with an empty `expect` array and `no_skill: true`; still list the nearest specialist skills in `reject`.
-   - Give every installed local skill both positive coverage and reject coverage.
+   - Give every skill in the selected scope both positive coverage and reject coverage.
 4. Run deterministic validation.
-   - Prefer `uv run --with pyyaml python plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py`; otherwise use a Python 3 runner with PyYAML installed.
+   - For this marketplace checkout, run `uv run --with pyyaml python plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py` from its root; otherwise use a Python 3 runner with PyYAML installed.
+   - For another repository or an installed plugin, use that repository's existing validator or inspect the selected files directly. Report which mechanical checks were unavailable; running the bundled CLI against its own checkout does not validate the user's repository.
    - Treat missing skills, name/path mismatch, malformed or duplicate-key JSON/YAML, overlong descriptions, broken local references, marketplace/manifest drift, invalid companion metadata, stale README inventory, missing case coverage, and contradictory expectations as failures.
 5. Evaluate routing behavior.
    - When a classifier or Codex eval harness is available, run the case prompts and record actual selections separately from the expected inventory.
+   - Start with changed boundaries and their nearest neighbors. Record the case ID, evaluated revision, actual ordered selections, unexpected questions or stops, completion evidence, and pass/fail. If testing a shortened description list, record the actual visible text rather than assuming a fixed host truncation length.
    - Otherwise review each case against frontmatter descriptions and report `runtime=not-run`; structural validation alone is not behavioral proof.
 6. Repair narrowly.
    - Change the smallest trigger, handoff, case, or metadata boundary that explains the failure.
-   - Rerun the failing cases after each change and stop after two focused attempts on the same unresolved collision.
+   - Rerun the failing cases after each change. After two attempts on the same collision without new evidence, reassess the owned-job boundary rather than repeating the same edit; continue while the evidence supports progress.
 
 ## Output
 
@@ -57,4 +60,4 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
 ## Stop Conditions
 
 - Stop when expected behavior cannot be stated without a product or ownership decision.
-- Stop after two focused repairs leave the same collision unresolved and return the prompts, actual evidence, and decision needed.
+- Stop when the remaining collision cannot be resolved without unavailable evidence or an ownership decision; return the prompts, actual evidence, and decision needed.

@@ -1,6 +1,6 @@
 {
   "name": "stray-research",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Repo-local Codex plugin for research, analysis, product direction, and terms checks.",
   "skills": "./skills/",
   "interface": {

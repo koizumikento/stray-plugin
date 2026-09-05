@@ -50,7 +50,7 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 7. Prove the gate locally or record why it cannot be run.
    - Run the eval locally before relying on CI when the repository supports it.
    - Record the exact command and pass/fail result.
-   - If it fails, make at most two focused repair attempts before stopping with the failing output and next diagnostic step.
+   - If the same failure remains after two focused repairs without new evidence, reassess the hypothesis or use an available narrower diagnostic. Continue when evidence improves; stop only when the remaining step requires unavailable input, capability, or authorization, and preserve the failing output.
 
 8. Document the gate.
    - State what change should trigger the eval.

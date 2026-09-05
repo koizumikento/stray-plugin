@@ -38,11 +38,11 @@ Analyze Japanese horse racing races with a cautious, evidence-first posture. Pro
    - Evaluate race conditions, recent performance (default: the last 3-5 starts, weighted toward runs under comparable surface, distance, and class), pace, surface/distance fit, draw, weight, jockey/trainer changes, condition, and late-breaking updates.
    - Separate observed facts from inference.
    - Identify the main race script and at least one credible alternative script, especially lone-speed, inside-trip, pace-collapse, or rain/track-bias outcomes.
-5. Separate subjective probability from market probability.
-   - Convert odds to market-implied probabilities when useful.
+5. Separate subjective probability, market comparison, and break-even probability.
+   - For 単勝, `1 / odds` is the break-even win probability at that payout multiplier; normalized inverse odds are only a relative market comparison.
    - Use cautious probability ranges or tiers; avoid false precision.
 6. Check value and uncertainty.
-   - Treat a horse as a value candidate only when estimated probability meaningfully exceeds market probability.
+   - For 単勝, expected net return per unit staked is `p * odds - 1`, with win probability `p` and payout odds including the stake. Use "value candidate" only when this remains meaningfully positive after allowing for probability error and final-odds movement; exceeding the normalized market share alone is insufficient.
    - Recommend 見送り when the edge is unclear, the data is stale, or the odds no longer justify the hypothesis.
 7. Discuss tickets only when requested.
    - Match the wager type to the prediction hypothesis.

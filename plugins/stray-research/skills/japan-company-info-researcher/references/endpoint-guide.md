@@ -1,6 +1,6 @@
 # gBizINFO Endpoint Guide
 
-Map the user's question to the right gBizINFO data group before calling tools. Tool names follow the `hojin_get_*` and `hojin_update_info_*` patterns; verify the exact names from the configured `gbizinfo-mcp` tool list at runtime instead of assuming them.
+Map the user's question to the right gBizINFO data group before retrieval. The `hojin_get_*` and `hojin_update_info_*` patterns below are examples; discover tools and verify their descriptions and schemas at runtime, including equivalent tools under different names. For a public-page or supplied-data fallback, retain the same data-group mapping and cite the actual page or file.
 
 ## Data Group Map
 
@@ -22,4 +22,4 @@ Map the user's question to the right gBizINFO data group before calling tools. T
 - Always resolve the corporate number first (via search or user input) before detail retrieval; detail endpoints key off the corporate number.
 - Retrieve only the data groups the question needs; do not sweep every endpoint per company.
 - gBizINFO aggregates data from other government systems; coverage varies by company and data group. An empty result means "not present in gBizINFO," not "the activity never happened."
-- Patent data here is a company-keyed convenience view; for real patent research use `global-patent-researcher`.
+- Patent data here is a company-keyed convenience view; use `japan-patent-researcher` for Japan-only patent research and `global-patent-researcher` for cross-jurisdiction research.

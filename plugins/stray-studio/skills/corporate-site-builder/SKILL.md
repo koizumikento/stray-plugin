@@ -151,9 +151,10 @@ Use motion only when it clarifies hierarchy, transitions, comparison, or progres
    - Run the asset audit script when images, PDFs, downloads, videos, or source-like assets were added or reorganized.
    - Run the repository's relevant lint, typecheck, tests, or build commands when available.
 
-8. Run a bounded repair loop when validation fails.
+8. Repair from validation evidence.
    - Fix the smallest failing surface, then rerun only the relevant browser, build, accessibility, link, metadata, or asset check.
-   - Stop with a blocker report after three failed attempts, or when the same failure repeats twice without a new hypothesis.
+   - If the same failure repeats twice without a new hypothesis or measurable progress, reassess the cause and available diagnostics before retrying. Continue when new evidence supports an in-scope fix; a different failure does not consume a fixed total attempt limit.
+   - Stop only when no safe, useful next step is available or required input or authorization is missing. Report the remaining failure and unverified requirements; do not claim completion while required checks or confirmed in-scope defects remain unresolved.
 
 9. Hand off clearly.
    - Summarize the chosen corporate pattern, sitemap, key visitor routes, and trust elements.

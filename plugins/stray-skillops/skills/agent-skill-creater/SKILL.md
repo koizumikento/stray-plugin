@@ -21,6 +21,7 @@ Create or update focused Codex agent skills. Route the request first, then write
 3. Lock the storage boundary:
    - plugin-family skills may touch the selected plugin's `skills/` directory and, only if discoverability changes, its plugin manifest
    - project-scoped repo skills may touch only `.agents/skills/` in the target repo unless the user explicitly asks otherwise
+   - include the selected skills' required routing cases, README inventory entries, and associated validation updates in the same repository; these necessary companion changes do not require a second approval
 4. Ask one short clarification if the target surface is still ambiguous after reading the repo and user request.
 
 ## Description Rules
@@ -65,7 +66,7 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 2. <Gather the required context explicitly: files, docs, tools, repo guidance, or external sources to inspect before acting.>
 3. <Main execution step.>
 4. <Run or name the harness validation: commands, checks, scripts, review rubric, or tool result that proves the work.>
-5. <If repair is needed, retry only N focused times; stop and report the failure artifact or escalation condition.>
+5. <If repair stalls on the same failure without new evidence, reassess the approach; continue while making progress and report a blocker only when required input, authority, or execution capability is missing.>
 
 ## Output
 
@@ -100,6 +101,6 @@ For detailed authoring rules, use `references/authoring-guide.md`.
 
 - Stop if the request is really plugin scaffolding rather than skill authoring.
 - Stop and route to `subagent-creator` for custom subagents.
-- Stop if the target path falls outside the selected plugin's `skills/` directory or the target repo's `.agents/skills/` without explicit instruction.
+- Stop before unrelated changes outside the selected skills and their necessary manifest, routing, README inventory, and validation updates unless the user authorized the broader scope.
 - Stop before broadening a plugin manifest unless the new or changed skill materially changes discoverability.
 - Stop and route to `skill-routing-validator` when the requested deliverable is an eval set rather than a skill artifact.

@@ -10,6 +10,7 @@ Use current official Slack docs before relying on remembered command behavior:
 - Install for Mac and Linux: https://docs.slack.dev/tools/slack-cli/guides/installing-the-slack-cli-for-mac-and-linux/
 - Authorizing the Slack CLI: https://docs.slack.dev/tools/slack-cli/guides/authorizing-the-slack-cli/
 - Running Slack CLI commands: https://docs.slack.dev/tools/slack-cli/guides/running-slack-cli-commands/
+- Local development and manifest-watch reinstalls: https://docs.slack.dev/tools/slack-cli/guides/developing-locally/
 - `slack create`: https://docs.slack.dev/tools/slack-cli/reference/commands/slack_create/
 - `slack install`: https://docs.slack.dev/tools/slack-cli/reference/commands/slack_install/
 - `slack deploy`: https://docs.slack.dev/tools/slack-cli/reference/commands/slack_deploy/
@@ -126,13 +127,13 @@ Key files:
 5. Validate manifest changes with `slack manifest validate` or the closest project-specific command.
 6. Use `slack api auth.test` when token resolution or API access must be proven.
 7. Prefer `slack auth list` and `slack api auth.test` over token-printing commands. Only use token-revealing commands when the user explicitly needs token extraction, suppress command output, and report only non-secret status.
-8. Treat `slack install`, `slack deploy`, deletion commands, trigger mutation, and any Web API write or user-visible action as workspace-changing actions.
+8. Apply the skill's External Mutation Gate to `slack run`, `slack install`, `slack deploy`, deletion commands, trigger mutation, and any Web API write or user-visible action. Check an existing dev process before manifest edits: its watcher can reinstall the app. Approval already covering the same target and effects remains valid.
 
 ## Run, Install, Deploy, And Hosting Decisions
 
 | Task | Prefer | Notes |
 | --- | --- | --- |
-| Local development | `slack run` or the repository's Slack-backed dev command | Confirms the local project/runtime path. It is not proof that production hosting or OAuth install is configured. |
+| Local development | `slack run` or the repository's Slack-backed dev command | Can install/reinstall the workspace app, including when a watched manifest changes, and execute workspace-facing handlers. Apply the External Mutation Gate first. It is not proof of production hosting or distributed OAuth setup. |
 | Workspace installation | `slack install` or project-specific app install commands | Use only after confirming the target workspace, app, and environment. Installing a CLI-managed app is not a substitute for implementing OAuth install routes and persistent installation storage for distributed Bolt apps. |
 | Slack Platform deployment | `slack deploy` | Use only when the selected project is deployable to the Slack Platform, such as supported Deno Slack SDK or Slack-hosted app shapes. |
 | Externally hosted Bolt deployment | Repository or host-specific deployment commands | Ordinary HTTP Bolt apps usually need external hosting, request URL configuration, signing-secret handling, OAuth redirect routes when applicable, and persistent installation storage. |
@@ -152,3 +153,8 @@ Key files:
 - For repeated or scripted calls, handle pagination, `Retry-After`, duplicate work, and idempotency.
 - Use `--json` for structured request bodies when it avoids quoting ambiguity.
 - Treat methods such as `chat.postMessage`, `chat.update`, `conversations.create`, `files.upload`, `pins.add`, `reactions.add`, trigger mutation, and modal operations as writes even when invoked through `slack api`.
+
+## Mutation Gate Checks
+
+- "Validate locally; do not install": use disconnected tests; do not start `slack run` or edit a manifest while a watcher can reinstall it.
+- "Reinstall and run app A in workspace W, including its test-handler effects": proceed within those approved effects without asking again; a different target or effect needs its own authorization.

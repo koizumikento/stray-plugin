@@ -67,18 +67,34 @@ Write inference as judgment:
 
 ## Probability Handling
 
-- Convert decimal odds to rough market probability with `1 / odds` when useful.
-- Remember that parimutuel odds include takeout and pool effects, so implied probabilities will not sum cleanly without normalization.
+- For 単勝, use payout odds including the stake: `1 / odds` is the break-even win probability at those odds, not an estimate of true win probability. See the [JRA odds definition](https://jra.jp/kouza/yougo/w406.html) (checked 2026-09-05).
+- For a complete field at one timestamp, `(1 / odds_i) / sum(1 / odds_j)` gives a relative market share. Parimutuel takeout and pool effects mean the unnormalized inverses need not sum to one. Use normalization only for market comparison, never as the break-even threshold.
 - Prefer probability ranges or tiers over exact percentages unless the user provides model outputs.
 - Separate win probability, place/show probability, and "in the mix" confidence.
-- Use "value candidate" only when the subjective probability range is meaningfully above the market-implied probability.
+- For 単勝, expected net return per unit staked is `p * odds - 1`: break-even is `p * odds = 1`. Use "value candidate" only when the return remains meaningfully positive after allowing for probability error and final-odds movement. Do not deduct takeout again from payout odds.
+
+Synthetic arithmetic example: with odds `[2, 4, 4, 4]`, the first horse's inverse odds are `0.5` and normalized market share is `0.5 / 1.25 = 0.4`. An estimated win probability of `0.45` exceeds that share but gives `0.45 * 2 - 1 = -0.10` expected net return (-10% per unit staked). The break-even probability is 50%, so this is above the normalized market assessment but has no positive-return edge at those assumed odds. The probability estimate and final odds remain uncertain.
+
+Runnable arithmetic check (Python standard library):
+
+```python
+from math import isclose
+
+odds, p = [2, 4, 4, 4], 0.45
+market_share = (1 / odds[0]) / sum(1 / o for o in odds)
+expected_net_return = p * odds[0] - 1
+assert isclose(market_share, 0.4)
+assert isclose(1 / odds[0], 0.5)
+assert isclose(expected_net_return, -0.1)
+assert p > market_share and expected_net_return < 0
+```
 
 ## Value Checks
 
 Before suggesting a candidate:
 
 - Is the data current enough?
-- Does the estimated probability exceed the market enough to cover uncertainty?
+- For 単勝, does `p * odds - 1` remain meaningfully positive after accounting for probability and final-odds uncertainty?
 - Did odds collapse after the initial analysis?
 - Are scratches, jockey changes, body weight, weather, and going rechecked?
 - Is the conclusion still valid if the main pace assumption is wrong?

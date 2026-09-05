@@ -13,6 +13,8 @@ Use this reference when an LP needs motion, layered product visuals, interactive
 
 ## Product Visual Treatments
 
+Use the skill's fact-and-demo boundary for every treatment: real claims need supplied or verified evidence, and simulated screens or data need a visible demo/example label.
+
 - Real UI frame: use when screenshots or product surfaces are available. Keep labels, data, and states plausible enough to feel in use.
 - Workflow stack: layer cards, messages, tickets, files, charts, or dashboards to show a process rather than a static screen.
 - Output gallery: show finished artifacts, templates, generated results, customer examples, or before/after states.

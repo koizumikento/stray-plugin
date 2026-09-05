@@ -196,8 +196,9 @@ Prefer repository commands first, then Slack-specific checks:
 ```bash
 slack manifest validate
 slack api auth.test
-slack run
 ```
+
+Use `slack run` or a Slack-connected runtime only after the skill's External Mutation Gate covers the target and effects. Manifest watching can reinstall the workspace app, and running handlers can write to Slack; use disconnected tests when only local validation is authorized.
 
 For generated Bolt JavaScript starters, useful local commands may include:
 

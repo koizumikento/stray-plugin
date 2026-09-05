@@ -18,16 +18,16 @@ Manage temporary official-document files and source indexes with a schema that d
 2. Select one mode:
    - `index-only`: record verified official routes without downloading content.
    - `download-cache`: save task-needed source/extracted files and create manifest records.
-3. Use `tmp/japan-govdocs/{sources,downloads,extracted}` and confirm `tmp/` is ignored by git before any download.
+3. Resolve `tmp/japan-govdocs/{sources,downloads,extracted}` under the target project, not the installed plugin directory, and confirm `tmp/` is ignored by git before any download.
 4. Follow deterministic paths and the exact schema in `../../references/download-cache-policy.md`.
    - Canonical source index shape: `{"records": [...]}`; an empty `records` array is valid for an initialized index.
    - Every non-empty source-index record requires `document_id`, `title`, `ministry`, `year`, and `landing_page`.
    - Every downloaded or extracted file requires one `manifest.jsonl` record with all policy-required fields.
    - In index-only mode, `manifest.jsonl` may be absent or empty only when no files exist under `downloads/` or `extracted/`.
-5. Hash and size downloaded files after writing them; never copy guessed metadata into the manifest.
-6. Validate with:
-   `uv run python plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/scripts/validate_cache.py tmp/japan-govdocs`
-   Use the repository's Python runner if `uv` is unavailable.
+5. Hash and size staged downloads before final placement; follow the policy's existing-file and record reuse rules, and never copy guessed metadata into the manifest.
+6. Resolve `scripts/validate_cache.py` relative to this loaded `SKILL.md` as an absolute path, then validate the separately resolved target cache:
+   `uv run python "<absolute-skill-directory>/scripts/validate_cache.py" "<absolute-cache-root>"`
+   Keep the target project as the working directory. Use its Python runner if `uv` is unavailable.
 7. Repair only the invalid record/file requested. Re-run validation once; if failure remains, preserve the error and stop rather than deleting unrelated cache entries.
 8. Report what was cached, only indexed, skipped, or unresolved.
 

@@ -52,6 +52,7 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
 
 - Read-only inspection, local file edits, local tests, manifest validation, and non-mutating API checks do not by themselves authorize Slack workspace changes.
 - Before running `slack install`, `slack deploy`, remote app or manifest updates, app deletion, trigger creation/update/deletion, datastore writes, message posting, channel or user changes, or any other workspace mutation, require an explicit user request for that mutation category or explicit approval. Resolve the exact workspace/app/channel target in either case; if it is not unambiguous from the user's request, present the target and expected effect and receive approval before execution.
+- Apply this gate before `slack run` or a Slack-backed dev command, and before editing a manifest watched by an existing run: local development can install or reinstall the workspace app and execute handlers with workspace effects. Reuse approval for the same target and effects; without it, use local tests that do not connect to Slack.
 - Explaining the impact without receiving approval is not permission. If approval is absent, stop at local/read-only validation and provide the exact command or action that remains pending.
 - Reconfirm when the target workspace, app, channel, or mutation category differs materially from what the user approved. Never infer approval from an implementation request that did not mention workspace changes.
 - If a workspace mutation partially succeeds, stop, report the exact created, updated, deleted, and pending effects, preserve redacted failure evidence, and propose rollback or cleanup. Do not execute a compensating mutation, deletion, or retry until the same gate is satisfied for that action.
@@ -98,7 +99,7 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
 7. Validate with path-appropriate evidence.
    - Run `slack manifest validate` or the closest project-specific manifest validation when a manifest changes.
    - Run `slack api auth.test` when token resolution or API access must be proven.
-   - Run `slack run`, the repository dev command, or the framework's local runtime command when local behavior must be exercised.
+   - Exercise local behavior with repository tests or a local runtime command. Before `slack run` or any Slack-connected dev command, satisfy the External Mutation Gate for its installation, manifest-watch, and handler effects.
    - Run targeted lint, type-check, tests, or build commands according to the repository's established tooling when files were changed.
    - Use `slack install`, `slack deploy`, remote app updates, deletion commands, trigger mutation, datastore writes, or message posting only after the External Mutation Gate is satisfied for the exact target and action.
    - State exactly which workspace-facing actions were not run and what remains unproven.

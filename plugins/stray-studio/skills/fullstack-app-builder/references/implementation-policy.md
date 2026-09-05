@@ -95,3 +95,10 @@ Use this reference for non-trivial full-stack app changes where security, data, 
 - When local and CI or deploy environments differ, state which environment was proven and which remains unverified.
 - Update docs, runbooks, API notes, env var docs, setup instructions, or release notes when the change alters operation, configuration, packaging, or extension.
 - Include new required dependencies, environment variables, migration steps, permissions, packaging steps, or rollout concerns in the handoff.
+
+## Repair And Review Checks
+
+- Four successive, distinct failures with evidence of progress: continue the targeted repairs; do not stop solely at the third attempt.
+- The same failure twice with no new hypothesis or progress: reassess diagnostics before retrying; if no safe next step exists, report the unresolved failure rather than success.
+- Independent review finds an in-scope defect: fix and validate it, then request one focused correction check. Add another pass only for a new material change or unresolved confirmed finding.
+- Subagents unavailable: self-review and run feasible checks, disclose the missing independent review, and preserve any unresolved requirements. If the user required independent review, report completion as blocked on that requirement.

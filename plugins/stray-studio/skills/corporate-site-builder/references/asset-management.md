@@ -56,19 +56,21 @@ file: "/documents/sustainability-report-2026.pdf"
 
 ## Asset Audit Script
 
-Use `scripts/asset_audit.py` to find oversized or risky assets. The default mode is read-only:
+Resolve `scripts/asset_audit.py` from the directory containing the loaded `SKILL.md`, independently of the working directory. Replace the placeholders below with quoted absolute paths: the installed skill directory, the target site root, and an output directory inside that site. Never write derivatives into the installed skill directory. The default mode is read-only:
 
 ```bash
-python plugins/stray-studio/skills/corporate-site-builder/scripts/asset_audit.py --project-root .
+python "<absolute-skill-dir>/scripts/asset_audit.py" --project-root "<absolute-site-root>"
 ```
 
 To write optimized WebP derivatives without overwriting sources, run with Pillow:
 
 ```bash
-uv run --with pillow python plugins/stray-studio/skills/corporate-site-builder/scripts/asset_audit.py --project-root . --optimize-dir tmp/optimized-assets
+uv run --with pillow python "<absolute-skill-dir>/scripts/asset_audit.py" --project-root "<absolute-site-root>" --optimize-dir "<absolute-site-root>/tmp/optimized-assets"
 ```
 
-Review generated derivatives before replacing any committed assets.
+Pass any explicit input paths as absolute paths too; relative input and output paths are resolved from the process working directory, not `--project-root`. Review generated derivatives before replacing any committed assets.
+
+For a portability check, run the audit from a third directory with the skill and site in separate locations. Confirm only the site's assets are reported and, when optimization is requested, derivatives stay in the selected site output directory.
 
 ## Guardrails
 

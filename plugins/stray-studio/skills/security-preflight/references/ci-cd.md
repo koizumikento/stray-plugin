@@ -5,8 +5,8 @@ Use this reference for GitHub Actions, release workflows, deployment workflows, 
 ## Review Focus
 
 1. Workflow permissions.
-   - Check top-level and job-level `permissions`.
-   - Flag missing explicit permissions, `write-all`, broad `contents: write`, and write permissions in PR-triggered jobs.
+   - Determine each job's effective token permissions from verified enterprise/organization/repository defaults, workflow-level and job-level `permissions`, and event-specific restrictions.
+   - Assess `write-all`, broad `contents: write`, and other elevated permissions against the job's need and whether untrusted code can reach them. Missing top-level `permissions` alone is not a finding; record a proof gap when an inherited default needed for the decision is unavailable.
    - Allow job-level elevation only for a specific release, deployment, attestation, or publishing job with clear need.
 
 2. `pull_request_target` and untrusted code.
@@ -45,7 +45,7 @@ Use this reference for GitHub Actions, release workflows, deployment workflows, 
 ## Severity Defaults
 
 - Critical: `pull_request_target` executing PR head code with secrets/write/OIDC; `permissions: write-all` in untrusted paths; public repo self-hosted runner on PR triggers.
-- High: unpinned third-party actions in privileged paths; long-lived deploy credentials; broad artifact upload; release/deploy without protected environment; missing top-level permissions.
+- High: unpinned third-party actions in privileged paths; long-lived deploy credentials; broad artifact upload; release/deploy without protected environment.
 - Medium: missing artifact retention; no CODEOWNERS for workflows; no CodeQL/dependency review/Scorecard; no SBOM/provenance for release artifacts.
 
 ## Guardrails
@@ -58,9 +58,14 @@ Use this reference for GitHub Actions, release workflows, deployment workflows, 
 ## Useful Source Baselines
 
 - GitHub Actions secure-use reference.
-- GitHub workflow syntax for `permissions`.
+- [GitHub workflow syntax for `permissions`](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions).
 - GitHub Security Lab guidance on preventing unsafe `pull_request_target` use.
 - GitHub artifact attestations and `actions/attest`.
 - OpenSSF Scorecard.
 - SLSA and `slsa-verifier`.
 - NIST SSDF and NIST SP 800-204D for DevSecOps CI/CD supply-chain security.
+
+## Validation Cases
+
+1. No top-level `permissions`, but every job explicitly sets `permissions: { contents: read }`: do not report a token-permission finding solely for the missing top-level key.
+2. A `pull_request_target` job executes PR-head code with unnecessary effective `contents: write`: report a confirmed privilege-exposure finding, applying the Critical default above without executing the workflow.

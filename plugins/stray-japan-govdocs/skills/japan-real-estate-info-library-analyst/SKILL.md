@@ -16,15 +16,15 @@ Retrieve and analyze official real-estate/geospatial layers with explicit geogra
 ## Workflow
 
 1. Require a data action and scope: address/municipality/coordinates, radius or tile, property/layer type, period, and output. A topic word such as `地価` alone is not enough.
-2. Determine access state:
-   - `available`: configured `reinfolib-mcp` responds; continue.
-   - `tool unavailable`: report missing MCP configuration and use public official landing/specification pages only for bounded metadata discovery.
-   - `credential/authorization failure`: report the missing/rejected `REINFOLIB_API_KEY`; do not guess credentials.
+2. Inspect exposed tools and any available tool search before determining access state. Honor an explicitly required MCP; otherwise match the required official data capability by description and input schema, not only the example server name `reinfolib-mcp`.
+   - `available`: a verified matching tool responds; continue.
+   - `tool unavailable`: no matching tool is found after discovery; continue bounded metadata discovery through public official landing/specification pages or analyze supplied data with verified provenance and coverage. If the user requires a named MCP, report that requirement as unmet and link only verified setup documentation; do not present fallback work as MCP execution.
+   - `credential/authorization failure`: report the actual missing/rejected credential (for example, `REINFOLIB_API_KEY`) without exposing its value; do not guess credentials.
    - `tool/data error`: retain the error and try one narrower geography/layer request; if it repeats, stop.
 3. Resolve municipality codes before transaction queries when needed. Use coordinate/geospatial paths for land prices, planning, facilities, ridership, population mesh, or risk layers.
 4. Prefer GeoJSON for mapping/spatial joins and JSON/table output for summaries. Record feature count, geometry/CRS assumptions, period, layer name, missing/generalized values, and tile `z/x/y` when used.
 5. Separate official records from derived medians, averages, counts, buffers, and spatial joins. State formulas, buffers, CRS, join behavior, and excluded records.
-6. When API access is unavailable, label public-page findings `official-web fallback`; do not claim unavailable values or coverage. Stop if the requested result requires API-only data.
+6. When API access is unavailable, label public-page findings `official-web fallback` and identify supplied data separately; do not claim unavailable values or coverage. Report the unresolved portion if it requires API-only data, while completing supported work.
 7. Report that the result is exploratory official-data analysis, not an appraisal or legal conclusion.
 
 ## Output

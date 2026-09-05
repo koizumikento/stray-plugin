@@ -58,6 +58,42 @@ def base_job(manifest: dict[str, object]) -> dict[str, object]:
     return jobs[0]
 
 
+def test_prepare_preserves_names_and_stable_ids_from_another_workspace(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    monkeypatch.chdir(workspace)
+    asset_ids = []
+    for index, name in enumerate(("招き猫", "招き猫", "Lucky Cat")):
+        run_dir = workspace / f"run-{index}"
+        result = run_script(
+            "prepare_asset_run.py", "--asset-name", name, "--output-dir", run_dir
+        )
+        assert result.returncode == 0, result.stderr
+        request = json.loads((run_dir / "asset_request.json").read_text(encoding="utf-8"))
+        assert request["display_name"] == name
+        assert name in (run_dir / "prompts/base-asset.md").read_text(encoding="utf-8")
+        assert request["asset_id"] == load_manifest(run_dir)["asset_id"]
+        asset_ids.append(request["asset_id"])
+
+    assert asset_ids[0] == asset_ids[1]
+    assert asset_ids[0].startswith("asset-")
+    assert asset_ids[0].isascii() and asset_ids[0].replace("-", "").isalnum()
+    assert asset_ids[2] == "lucky-cat"
+    assert {path.name for path in workspace.iterdir()} == {"run-0", "run-1", "run-2"}
+
+
+def test_prepare_still_rejects_names_without_letters_or_digits(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    result = run_script(
+        "prepare_asset_run.py", "--asset-name", "../!!!", "--output-dir", run_dir
+    )
+    assert result.returncode != 0
+    assert "asset name must contain at least one letter or digit" in result.stderr
+    assert not run_dir.exists()
+
+
 def test_force_replacement_rejects_reference_inside_run(tmp_path: Path) -> None:
     run_dir = prepare_run(tmp_path)
     reference = run_dir / "references" / "self.png"

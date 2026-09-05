@@ -30,6 +30,7 @@ Use this skill when a conversation or task has grown large enough that the next 
    - changed files
    - read-only files worth remembering
    - decisions already made
+   - authorization state: approved actions with their targets and limits, unanswered approval requests, and revoked approvals
    - exact failures, warnings, or constraints
    - open questions and next steps
 2. Preserve the artifact trail explicitly:
@@ -47,6 +48,7 @@ Use this skill when a conversation or task has grown large enough that the next 
    - `Files Modified`
    - `Files Read`
    - `Decisions Made`
+   - `Authorization State`
    - `Harness State`
    - `Current State`
    - `Next Steps`
@@ -59,6 +61,7 @@ Use this skill when a conversation or task has grown large enough that the next 
    - are the key files and decisions still named explicitly
    - are unresolved issues still visible instead of flattened away
    - can a reader distinguish current state from an earlier result that has been replaced
+   - can the next agent continue already-authorized work without asking again, while keeping unanswered and revoked approvals distinct
 6. If compression would remove a critical fact, keep the fact and compress elsewhere instead:
    - prefer a slightly larger summary over a misleadingly small one
    - never invent continuity that is not actually present
@@ -74,6 +77,7 @@ Return a compact task summary that lets the next agent or future turn continue s
 - the current task goal
 - the important file paths or identifiers
 - the last known decisions
+- approved actions, targets, and limits; pending requests and revoked approvals, with the user instruction that establishes each state
 - commands run, validation results, active sessions or servers, failed attempts, and remaining checks
 - the active blocker or uncertainty
 - the next concrete step
@@ -90,6 +94,7 @@ Return a compact task summary that lets the next agent or future turn continue s
 - Do not use this skill as a substitute for a domain-specific brief or a code review.
 - Do not present inferred or stale state as freshly observed.
 - Do not silently drop an earlier blocker merely because a newer summary is shorter.
+- Do not turn an unanswered question into approval, revive revoked approval, or generalize approval to another target or effect.
 
 ## Stop Conditions
 

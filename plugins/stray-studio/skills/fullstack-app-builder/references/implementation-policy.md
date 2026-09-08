@@ -1,6 +1,6 @@
 # Implementation Policy Reference
 
-Use this reference for non-trivial full-stack app changes where security, data, release, contract, dependency, async, source-of-truth, or validation policy matters. Keep `SKILL.md` focused on trigger, gates, workflow, validation, handoff, and guardrails.
+Use this reference when security/session handling, rollout, runtime/dependency choices, or source-of-truth alignment needs a decision. Select data, API, and asynchronous implementation details through the Reference Loading table in `SKILL.md`; this file is not required reading for every edit.
 
 ## Surface And Framework Policy
 
@@ -28,17 +28,7 @@ Use this reference for non-trivial full-stack app changes where security, data, 
 - Apply least privilege and resource-level checks instead of relying only on coarse roles.
 - Use secure session, token, cookie, keychain, or local secret handling when credentials are involved.
 - Keep secrets and environment-specific config out of source-controlled code.
-- Prefer committed, versioned, reviewable database migrations for non-trivial schema changes.
 - Make write paths observable enough to debug failures and investigate incidents.
-
-## Data Change Safety
-
-- Treat schema, backfill, and persistence changes as operational events.
-- Prefer additive, backward-compatible schema changes before destructive or shape-tightening ones.
-- When tightening constraints, think through deploy order, existing data cleanup, and how old and new code coexist during rollout.
-- Surface any need for backfills, dual reads, dual writes, or one-time repair scripts instead of hiding them inside feature work.
-- For migrations, distinguish generating files, applying locally, confirming pending or unapplied migrations, and applying to remote or production-like environments.
-- Check code and query contracts after schema work for stale fields, wildcard selection assumptions, generated types, fixture drift, and runtime-only failures that type-checking may not catch.
 
 ## Release And Rollout
 
@@ -47,14 +37,11 @@ Use this reference for non-trivial full-stack app changes where security, data, 
 - Use feature flags, staged rollout patterns, or guarded code paths when the repository or product already supports them and the risk justifies the control.
 - Surface changes that require coordination, sequencing, downtime planning, store review, installer updates, or data backfill.
 
-## Caching And Idempotency
+## Cross-Boundary Correctness
 
 - Treat caches, revalidation, deduplication, retries, offline sync, and repeated submissions as correctness concerns when the flow depends on them.
-- Make freshness expectations explicit at read and write boundaries.
-- Design write paths and async triggers to be safe under retry or duplicate delivery when the surrounding system can replay them.
-- Call out operations that are not idempotent or that can leave user-visible state inconsistent if retried midway.
-- For idempotent command flows, verify that first success and replayed success have the same contract shape and enough persisted data for the UI to render identically.
-- Keep the side effect and stored command result in the same transaction or equivalent atomic boundary when the platform supports it. If not, call out the partial-write failure mode.
+- Identify authoritative state and freshness expectations at read and write boundaries.
+- Keep success, acceptance, replay, and partial-failure semantics consistent across UI, APIs, persistence, and jobs. Record any unresolved gap instead of treating one successful boundary as proof of the whole flow.
 
 ## Source Of Truth
 
@@ -65,26 +52,12 @@ Use this reference for non-trivial full-stack app changes where security, data, 
 - When the same missing context, setup step, validation command, or reproduction path blocks repeated work, prefer updating the durable source of truth such as `AGENTS.md`, docs, scripts, tests, fixtures, or CI instead of relying on another one-off explanation.
 - For design-system or shared component work, verify export inventory, CSS ownership, app usage, tests, and documentation together.
 
-## API And Contracts
-
-- Treat contracts between UI, platform bridges, server handlers, APIs, jobs, and persistence layers as first-class boundaries.
-- Make input and output shapes explicit in code and keep validation close to the boundary.
-- Prefer additive and backward-compatible contract changes.
-- When a breaking contract change is unavoidable, call it out clearly and update affected callers in the same change when feasible.
-
 ## Dependencies
 
 - Prefer existing dependencies and platform primitives when they already solve the problem well enough.
 - Add a dependency only when it meaningfully improves correctness, safety, maintainability, or delivery speed.
 - Avoid overlapping libraries that create competing ways to solve the same problem inside one repository.
 - When introducing a dependency, consider maintenance health, ecosystem fit, security posture, and how hard it will be to remove later.
-
-## Background Jobs And Async Work
-
-- If the shipped flow depends on queues, emails, webhooks, scheduled work, sync engines, background tasks, or retries, treat async behavior as part of the feature.
-- Make trigger conditions, retry behavior, idempotency expectations, and failure visibility explicit.
-- Do not assume async work succeeded just because the synchronous request returned successfully.
-- Verify the user-visible consequence of async work or state clearly what could not be verified.
 
 ## Validation And Handoff Detail
 

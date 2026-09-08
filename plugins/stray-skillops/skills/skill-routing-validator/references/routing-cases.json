@@ -6,7 +6,28 @@
       "prompt": "Add a skill named official-source-comparison to stray-research for comparing two user-supplied official documents, and validate it.",
       "expect": ["agent-skill-creater"],
       "reject": ["skills-search", "subagent-creator"],
-      "reason": "The requested artifact is a skill. Its required shared fixtures and README entries are companion changes, not an unrelated scope expansion requiring another approval."
+      "reason": "The requested artifact is a skill. Its containing plugin's required version bump, shared fixtures, and README entries are companion changes, not an unrelated scope expansion requiring another approval."
+    },
+    {
+      "id": "skillops-update-reference-version",
+      "prompt": "Update an existing plugin skill's reference to fix its retry policy, keeping the skill name and trigger description unchanged. Do not publish it.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["skill-routing-validator", "subagent-creator"],
+      "reason": "Packaged reference changes are skill authoring and require the containing plugin's version update even when discovery stays unchanged. Version-linked metadata and tests belong in the change; publication does not."
+    },
+    {
+      "id": "skillops-reuse-version-bump",
+      "prompt": "Fix another instruction in the skill we updated earlier in this unreleased change set. Its containing plugin manifest was already bumped for that work.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["skill-routing-validator"],
+      "reason": "Reuse the existing version bump for the same change set instead of incrementing again for another edit or repair."
+    },
+    {
+      "id": "skillops-project-skill-no-plugin-version",
+      "prompt": "Update this project's existing .agents/skills/release-notes/SKILL.md. It is a project-scoped skill with no plugin manifest or skill-version metadata.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["subagent-creator", "skill-routing-validator"],
+      "reason": "Project-scoped authoring stays in the selected skill and its required companions. Do not invent plugin metadata or change the application's package version."
     },
     {
       "id": "skillops-ai-eval-ci",
@@ -196,6 +217,27 @@
       "expect": ["fullstack-app-builder"],
       "reject": ["slack-app-builder", "mcp-server-designer", "ros2-development"],
       "reason": "The task is an application flow without a narrower Slack, MCP, or robotics owner."
+    },
+    {
+      "id": "studio-fullstack-app-data-only",
+      "prompt": "Fix concurrent duplicate reservations in this existing app's database write path and add the required migration. The UI does not need edits; verify the affected reservation flow.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["reviewer", "test-design-strategist"],
+      "reason": "Persistence serving an app remains fullstack work without mandatory UI edits or a separate database skill. Read the business-rule and data references for the invariant and competing writers."
+    },
+    {
+      "id": "studio-fullstack-client-async",
+      "prompt": "Fix this app's search results being overwritten by an older fetch response after the user changes the filter. Keep the existing async/await request-response API.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["platform-native-ui-designer", "test-design-strategist"],
+      "reason": "The app's client state and request lifecycle need implementation and validation. UI and API references apply; async/await alone does not call for durable-workflow guidance or queue infrastructure."
+    },
+    {
+      "id": "studio-fullstack-durable-import",
+      "prompt": "Repair this app's CSV import so accepted work survives a worker restart, duplicate deliveries do not duplicate rows, and the status screen eventually shows the persisted result.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["ops-playbook-writer", "test-design-strategist"],
+      "reason": "One fullstack workflow owns durable acceptance, persistence, replay, and user-visible completion. Load the relevant async, data, API, and UI references as those boundaries are investigated; do not delegate ownership to new skills."
     },
     {
       "id": "studio-platform-native-ui-spec",

@@ -19,9 +19,9 @@ Create or update focused Codex agent skills. Route the request first, then write
    - use `skill-routing-validator` for trigger cases, near-miss prompts, or routing-eval maintenance
    - use `reviewer` for findings-first skill or plugin audits when no authoring is requested
 3. Lock the storage boundary:
-   - plugin-family skills may touch the selected plugin's `skills/` directory and, only if discoverability changes, its plugin manifest
+   - plugin-family skills may touch the selected plugin's `skills/` directory and its plugin manifest for required version bumps or discovery updates
    - project-scoped repo skills may touch only `.agents/skills/` in the target repo unless the user explicitly asks otherwise
-   - include the selected skills' required routing cases, README inventory entries, and associated validation updates in the same repository; these necessary companion changes do not require a second approval
+   - include the selected skills' required routing cases, README inventory entries, version-linked metadata or test expectations, and associated validation updates in the same repository; these necessary companion changes do not require a second approval
 4. Ask one short clarification if the target surface is still ambiguous after reading the repo and user request.
 
 ## Description Rules
@@ -91,9 +91,10 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 3. Create or update `SKILL.md` using the compact template unless the existing local style requires a small variation.
 4. For a side-effectful skill, apply `references/execution-trust-contract.md` and declare its dependencies, credentials, destinations, effects, authorization gates, outputs, failure and cleanup behavior, and untrusted-content boundary.
 5. Move detailed guidance to `references/` instead of expanding the entry point.
-6. Validate placement, frontmatter, local references, absence of per-skill `agents/openai.yaml`, and any edited JSON manifests.
-7. When routing behavior changed, add or update cases owned by `skill-routing-validator` and check both intended and near-miss prompts.
-8. Report changed paths, target surface, final trigger description, validation evidence, and any added references, scripts, or metadata.
+6. For changed packaged skill content, update the containing plugin's version before final validation, using the versioning rules in `references/authoring-guide.md`. Count the change set once, respect explicit version instructions, and do not invent plugin metadata for project-scoped skills.
+7. Validate placement, frontmatter, local references, absence of per-skill `agents/openai.yaml`, any edited JSON manifests, and affected version-linked checks.
+8. When routing behavior changed, add or update cases owned by `skill-routing-validator` and check both intended and near-miss prompts.
+9. Report changed paths, target surface, final trigger description, old and new plugin versions or why unchanged, validation evidence, and any added references, scripts, or metadata.
 
 For detailed authoring rules, use `references/authoring-guide.md`.
 
@@ -102,5 +103,5 @@ For detailed authoring rules, use `references/authoring-guide.md`.
 - Stop if the request is really plugin scaffolding rather than skill authoring.
 - Stop and route to `subagent-creator` for custom subagents.
 - Stop before unrelated changes outside the selected skills and their necessary manifest, routing, README inventory, and validation updates unless the user authorized the broader scope.
-- Stop before broadening a plugin manifest unless the new or changed skill materially changes discoverability.
+- Stop before broadening plugin discovery text unless the new or changed skill materially changes discoverability; required version bumps remain part of skill authoring.
 - Stop and route to `skill-routing-validator` when the requested deliverable is an eval set rather than a skill artifact.

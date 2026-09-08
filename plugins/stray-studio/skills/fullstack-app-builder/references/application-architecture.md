@@ -1,6 +1,14 @@
 # Application Architecture Reference
 
-Use this reference when the task depends on choosing or refining app structure, not just editing code inside an already-settled shape.
+Use this reference when changing business invariants, permissions, state transitions, orchestration, or app structure, or when rules disagree across entry points. A routine edit inside a settled shape with unchanged rules does not need it.
+
+## Business Rules And Use Cases
+
+1. Trace the operation through UI actions, API or platform handlers, and workers. Identify the authoritative rule and every caller that can change the same business state.
+2. Separate business meaning from execution: keep calculations, allowed transitions, and invariants in the existing domain code; use application orchestration for sequencing, authorization enforcement, transaction boundaries, and external side effects. Translate failures into API or UI outcomes at those boundaries. A rule may also need a database constraint to hold under concurrency.
+3. Define the affected states and allowed transitions before editing. For business-critical flows, cover zero/one/many records, missing baseline, selection, locked/read-only/archived state, stale route or form state, permission denial, and retry after failure when applicable. Distinguish durable business state from transient UI state.
+4. Reuse established functions and modules. Do not introduce domain classes, repositories, services, or a new process merely to reflect these conceptual responsibilities. Apply stronger structure only when the rules or reuse warrant it.
+5. Verify the invariant through relevant entry points, including direct requests that bypass UI controls and workers that replay an operation. Use the data, communication, or async reference if those boundaries need further decisions.
 
 ## Good Defaults
 

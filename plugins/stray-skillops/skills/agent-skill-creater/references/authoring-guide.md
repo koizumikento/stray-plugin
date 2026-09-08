@@ -13,9 +13,17 @@ Use this reference after `SKILL.md` has routed the request to skill authoring.
 7. For new or materially changed side-effectful skills, apply `execution-trust-contract.md` and make the execution, authorization, cleanup, and untrusted-content boundaries explicit.
 8. Keep repeated background, examples, and long decision rules in `references/`.
 9. Validate that the skill is under `skills/`, not inside `.codex-plugin/`.
-10. Review the matching plugin manifest only when a new or materially broadened skill changes user-facing discovery.
+10. Review the containing plugin's version whenever packaged skill content changes, using Plugin Versioning below. Update discovery text only when the skill's practical surface changes.
 11. Add or update routing cases when the trigger or nearest handoff changes.
-12. Include the selected skills' required routing fixtures, README inventory entries, and validation updates in the authorized change, even when they live outside the selected plugin. Keep unrelated files out of scope.
+12. Include the selected skills' required routing fixtures, README inventory entries, version-linked metadata or test expectations, and validation updates in the authorized change, even when they live outside the selected plugin. Keep unrelated files out of scope.
+
+## Plugin Versioning
+
+1. Identify the release unit from repository guidance. In this plugin family, use `version` in the containing plugin's `.codex-plugin/plugin.json`; do not add per-skill version fields or edit an installed cache. For a project-scoped skill without plugin metadata, follow any existing skill-version convention and do not bump unrelated application packages or create a plugin manifest.
+2. Bump the containing plugin when adding or changing packaged skill content, including `SKILL.md`, references, scripts, or assets, even if discovery text stays unchanged. Read-only reviews, no-op edits, and proposals outside the package do not require a bump.
+3. Follow an explicit user version or instruction to defer the bump, then repository release policy. Otherwise use the next patch version for a backward-compatible skill change. Inspect the current diff, release history, and session decisions: reuse a version already advanced for the same unreleased change set, and never increment per file, repair attempt, or validation rerun or lower an existing version.
+4. Search for current-version consumers before editing, and update required mirrors or pinned test expectations in the same change. Preserve historical provenance and unrelated dependency versions. Validate edited JSON and the affected checks; a version bump must not leave a stale assertion failing.
+5. Report the before/after version or the reason it stayed unchanged. A version bump alone does not authorize commit, push, publication, or installation. Reuse authorization already given for those actions and preserve any user-excluded files.
 
 ## When To Add Extra Files
 

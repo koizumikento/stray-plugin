@@ -46,13 +46,15 @@ Own the flow within this one skill. Consider UI state, business rules, persisten
 
 | Read when | Reference |
 |---|---|
-| Changing or diagnosing screen state, forms, navigation, rendering, accessibility, or platform behavior | The relevant surface: `references/web.md`, `references/mobile.md`, or `references/desktop.md` |
+| Changing or diagnosing layout, rendering, navigation integration, accessibility, or platform behavior | The relevant surface: `references/web.md`, `references/mobile.md`, or `references/desktop.md` |
+| Deciding ownership or lifetime of UI, URL, draft, cache, or pending-operation state; diagnosing stale responses, optimistic updates, account switching, or restoration | `references/client-state.md` |
+| Changing authentication, token/session handling, access enforcement, or tenant isolation; diagnosing stale permissions or identity changes | `references/identity-access.md` |
 | Scaffolding or adding an Android target, or deciding Android lifecycle, platform integration, tooling, or release behavior | `references/android.md` |
-| Changing business invariants, authorization rules, business state transitions, use-case orchestration, or architecture; investigating rules that differ between entry points | `references/application-architecture.md` |
+| Changing business invariants, business permission rules, state transitions, use-case orchestration, or architecture; investigating rules that differ between entry points | `references/application-architecture.md` |
 | Changing schema, queries, persistence, or migrations; diagnosing concurrency, data integrity, or database performance | `references/data-persistence.md` |
 | Changing API contracts or integrations; diagnosing latency, lost responses, connectivity, cancellation, or streams | `references/api-communication.md` |
 | Implementing or diagnosing work that continues after acceptance, durable jobs, events, redelivery, or offline reconciliation; not merely using `async/await` | `references/async-workflows.md` |
-| Making security/session, rollout, dependency/runtime, or source-of-truth decisions | `references/implementation-policy.md` |
+| Making general trust/secret-handling, rollout, dependency/runtime, or source-of-truth decisions | `references/implementation-policy.md` |
 | Needing language-specific runtime, concurrency, tooling, or validation guidance | The relevant ecosystem: `references/typescript-javascript.md`, `references/python.md`, `references/go.md`, or `references/rust.md` |
 | Changing telemetry, tracing, metrics, crash signals, or audit coverage | `references/observability.md` |
 | Designing log events, correlation, redaction, retention, volume, or incident diagnostics | `references/logging.md` |

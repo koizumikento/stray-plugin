@@ -2,6 +2,8 @@
 
 Use this reference when the primary user-facing surface is a browser-based application.
 
+Use [client-state.md](client-state.md) when state ownership, draft preservation, or cache races need a decision, and [identity-access.md](identity-access.md) for session or access decisions. Keep browser-specific implementation and render checks here.
+
 ## Surface Conventions
 
 - Follow the repository's established routing, rendering, hydration, and cache model.

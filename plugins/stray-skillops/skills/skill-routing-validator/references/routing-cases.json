@@ -230,7 +230,7 @@
       "prompt": "Fix this app's search results being overwritten by an older fetch response after the user changes the filter. Keep the existing async/await request-response API.",
       "expect": ["fullstack-app-builder"],
       "reject": ["platform-native-ui-designer", "test-design-strategist"],
-      "reason": "The app's client state and request lifecycle need implementation and validation. UI and API references apply; async/await alone does not call for durable-workflow guidance or queue infrastructure."
+      "reason": "The app's client state and request lifecycle need implementation and validation. Client-state and API references apply; async/await alone does not call for durable-workflow guidance or queue infrastructure."
     },
     {
       "id": "studio-fullstack-durable-import",
@@ -238,6 +238,27 @@
       "expect": ["fullstack-app-builder"],
       "reject": ["ops-playbook-writer", "test-design-strategist"],
       "reason": "One fullstack workflow owns durable acceptance, persistence, replay, and user-visible completion. Load the relevant async, data, API, and UI references as those boundaries are investigated; do not delegate ownership to new skills."
+    },
+    {
+      "id": "studio-fullstack-identity-switch",
+      "prompt": "Fix this app showing the previous account's cached documents when a request completes after switching accounts. Verify the server's tenant permissions and the client transition.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["security-preflight", "reviewer"],
+      "reason": "The user asks for an implemented app fix. Load identity-access and client-state guidance for authority and lifetime, adding API or data guidance only for decisions that arise. Security review skills do not own implementation."
+    },
+    {
+      "id": "studio-fullstack-draft-refetch",
+      "prompt": "Fix this app's background refetch erasing unsaved form edits, while keeping draft behavior correct when navigating between records. Keep the current API and persistence model.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["test-design-strategist", "platform-native-ui-designer"],
+      "reason": "Client-state and surface guidance cover draft ownership, resource identity, and refetch. This does not require an auth redesign, new state library, or durable queue."
+    },
+    {
+      "id": "studio-fullstack-auth-review-only",
+      "prompt": "Audit this app's session revocation and cross-tenant cache isolation. Report security findings only; do not implement changes.",
+      "expect": ["security-preflight"],
+      "reject": ["fullstack-app-builder"],
+      "reason": "Security-focused findings are owned by security-preflight. Adding identity-access implementation guidance to fullstack does not expand it into review-only work."
     },
     {
       "id": "studio-platform-native-ui-spec",

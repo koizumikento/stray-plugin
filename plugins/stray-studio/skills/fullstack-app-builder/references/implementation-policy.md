@@ -1,6 +1,6 @@
 # Implementation Policy Reference
 
-Use this reference when security/session handling, rollout, runtime/dependency choices, or source-of-truth alignment needs a decision. Select data, API, and asynchronous implementation details through the Reference Loading table in `SKILL.md`; this file is not required reading for every edit.
+Use this reference when general trust/secret handling, rollout, runtime/dependency choices, or source-of-truth alignment needs a decision. Select identity/access, client state, data, API, and asynchronous details through the Reference Loading table in `SKILL.md`; this file is not required reading for every edit.
 
 ## Surface And Framework Policy
 
@@ -20,13 +20,10 @@ Use this reference when security/session handling, rollout, runtime/dependency c
 - On Windows, account for `.cmd` shims, PowerShell command behavior, path quoting, and workspace-local tools before declaring a command unavailable.
 - Check local secret and config conventions before running app, migration, or deploy commands. Distinguish tracked examples from ignored local secrets.
 
-## Security And Data
+## Security And Trust
 
 - Never trust client input by itself. Re-validate on the server or privileged boundary.
-- Keep authentication and authorization separate in design and implementation.
-- Prefer established auth protocols and libraries over hand-rolled auth flows.
-- Apply least privilege and resource-level checks instead of relying only on coarse roles.
-- Use secure session, token, cookie, keychain, or local secret handling when credentials are involved.
+- Use [identity-access.md](identity-access.md) for authentication, sessions, authorization, and tenant isolation when those decisions are involved.
 - Keep secrets and environment-specific config out of source-controlled code.
 - Make write paths observable enough to debug failures and investigate incidents.
 

@@ -2,6 +2,8 @@
 
 Use this reference for Terraform, CloudFormation, Bicep, ARM, Kubernetes, Helm, Kustomize, Dockerfiles, Compose files, IAM policies, cloud storage, and network exposure.
 
+For DB provisioning, credentials, IAM, or network paths, read the applicable sections of the [shared IaC baseline](../../../references/iac-baseline.md). It covers effective DB roles, ownership/future grants, privileged-secret aliasing, credential retries/rotation, full communication paths, and scoped evidence. Retain this skill's review-only evidence contract; identify prohibited live checks as proof gaps.
+
 ## Review Focus
 
 1. IAM and least privilege.

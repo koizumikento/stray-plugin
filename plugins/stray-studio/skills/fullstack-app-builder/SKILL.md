@@ -18,6 +18,8 @@ Own the flow within this one skill. Consider UI state, business rules, persisten
 - backend-only services, infra work, or protocol design with no shipped user-facing app flow
 - standalone libraries, SDKs, or packages that are not part of a shipped app flow
 
+Route standalone repository-managed IaC plans and changes to `iac-builder`. Keep IaC that supports the requested app flow here and load the shared baseline below; do not split ownership merely because infrastructure is involved.
+
 ## Decision Gates
 
 1. Route named specialist surfaces before treating the request as general app work.
@@ -52,6 +54,7 @@ Own the flow within this one skill. Consider UI state, business rules, persisten
 | Scaffolding or adding an Android target, or deciding Android lifecycle, platform integration, tooling, or release behavior | `references/android.md` |
 | Changing business invariants, business permission rules, state transitions, use-case orchestration, or architecture; investigating rules that differ between entry points | `references/application-architecture.md` |
 | Changing schema, queries, persistence, or migrations; diagnosing concurrency, data integrity, or database performance | `references/data-persistence.md` |
+| Adding or changing the app's DB provisioning, credentials, IAM, or network IaC, including initial scaffolding | [Shared DB/network IaC baseline](../../references/iac-baseline.md), before the first design or edit |
 | Changing API contracts or integrations; diagnosing latency, lost responses, connectivity, cancellation, or streams | `references/api-communication.md` |
 | Implementing or diagnosing work that continues after acceptance, durable jobs, events, redelivery, or offline reconciliation; not merely using `async/await` | `references/async-workflows.md` |
 | Making general trust/secret-handling, rollout, dependency/runtime, or source-of-truth decisions | `references/implementation-policy.md` |

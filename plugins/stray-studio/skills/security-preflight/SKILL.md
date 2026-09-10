@@ -28,6 +28,7 @@ Always load the evidence contract, then add only the smallest domain reference s
 - `references/supply-chain.md`: dependency manifests, lockfiles, SCA, SBOM, package publishing, provenance, signing, and malicious package risk.
 - `references/ci-cd.md`: GitHub Actions, workflow permissions, `pull_request_target`, third-party actions, OIDC, artifacts, protected environments, and release attestations.
 - `references/infra-containers.md`: Terraform/IaC, cloud IAM, public exposure, network rules, Dockerfiles, images, and Kubernetes manifests.
+- [Shared DB/network IaC baseline](../../references/iac-baseline.md): DB provisioning, effective privileges, credential lifecycle, and complete network paths. Use alongside the evidence contract for these boundaries; this does not authorize implementation or active checks.
 
 Use the relevant existing `reviewer` references only for non-security review dimensions that the user explicitly includes.
 
@@ -78,6 +79,7 @@ Use the relevant existing `reviewer` references only for non-security review dim
 8. Hand remediation off without editing under this skill.
    - If the user also requested fixes, finish the review artifact first and map each confirmed finding to the smallest remediation direction and validation needed.
    - Route code or configuration changes to the relevant builder or implementation skill with the review evidence intact.
+   - Use `iac-builder` for explicitly requested repository-managed infrastructure fixes; keep fixes belonging to a shipped application flow with `fullstack-app-builder`.
    - After implementation, rerun this preflight only on the affected security boundaries; do not convert the preflight itself into a repair loop.
 
 ## Output Expectations

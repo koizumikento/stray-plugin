@@ -2,6 +2,90 @@
   "version": 2,
   "cases": [
     {
+      "id": "studio-iac-db-create",
+      "prompt": "Add Terraform for a managed database for an existing application, including connection setup. Implement locally and do not deploy; there are no application feature changes.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "security-preflight", "reviewer"],
+      "reason": "Standalone IaC implementation must load the DB/network baseline before design without waiting for explicit least-privilege or credential-management prompts."
+    },
+    {
+      "id": "studio-iac-network-plan",
+      "prompt": "まずはDBと内部サービスのネットワークIaCの計画だけ立てて。ファイル変更やクラウドへのアクセスはまだしないで。",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "security-preflight"],
+      "reason": "A concrete repository IaC plan belongs to the IaC workflow, but plan-only authorization forbids implementation and live access."
+    },
+    {
+      "id": "studio-iac-secret-retry",
+      "prompt": "Fix this Terraform credential setup so an interrupted DB update and secret registration can be safely retried without secrets in state or automatic rotation on every apply. No live execution.",
+      "expect": ["iac-builder"],
+      "reject": ["security-preflight", "reviewer", "ops-playbook-writer"],
+      "reason": "The requested artifact is a working IaC fix with durable credential/version authority, partial-failure recovery, and version-supported secret handling."
+    },
+    {
+      "id": "studio-iac-secret-alias",
+      "prompt": "Fix this infrastructure module so an app cannot receive migration credentials through another environment variable key or another version of the same secret. Keep legitimate shared app secrets working.",
+      "expect": ["iac-builder"],
+      "reject": ["security-preflight", "reviewer"],
+      "reason": "Infrastructure grant and reference enforcement requires an implementation owner; inspect all references by secret identity, not only DATABASE_URL or exact version equality."
+    },
+    {
+      "id": "studio-iac-small-dev-network",
+      "prompt": "Implement the private DB path and required internet egress in this development IaC. Data is disposable and the external service has no fixed-IP requirement. Keep costs low and do not deploy.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "domain-researcher"],
+      "reason": "Use the baseline with explicit environment exceptions, not universal NAT, HA, production backups, or application-wide tests."
+    },
+    {
+      "id": "studio-iac-security-review-only",
+      "prompt": "Audit these Terraform DB roles, secret references, and firewall paths for security. Report findings and proof gaps only; do not change anything or test live credentials.",
+      "expect": ["security-preflight"],
+      "reject": ["iac-builder", "fullstack-app-builder", "reviewer"],
+      "reason": "The shared baseline supplements security-preflight's evidence contract; it never turns a security-only review into implementation or active testing."
+    },
+    {
+      "id": "studio-iac-general-review-only",
+      "prompt": "Review this infrastructure module diff for correctness, maintainability, cost, recovery, and security. Findings only; do not fix it or decide push readiness.",
+      "expect": ["reviewer"],
+      "reject": ["iac-builder", "security-preflight", "change-readiness-review"],
+      "reason": "General IaC critique uses reviewer with the shared baseline; no implementation or security-only workflow is requested."
+    },
+    {
+      "id": "studio-iac-app-flow",
+      "prompt": "Implement this app's new import workflow across UI and worker, including the database provisioning and private-network IaC it requires.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["iac-builder", "security-preflight"],
+      "reason": "One app builder owns the shipped flow and reads the shared IaC baseline before infrastructure decisions; do not require another owner for each layer."
+    },
+    {
+      "id": "studio-iac-schema-migration",
+      "prompt": "Add an index and a schema migration to improve this app's search queries. Do not change cloud resources.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["iac-builder", "security-preflight"],
+      "reason": "Application schema evolution stays with the existing app and migration authority, not infrastructure provisioning."
+    },
+    {
+      "id": "studio-iac-conceptual-research",
+      "prompt": "Explain private endpoints versus NAT using current official sources. I am comparing concepts, not planning a repository change.",
+      "expect": ["domain-researcher"],
+      "reject": ["iac-builder", "fullstack-app-builder"],
+      "reason": "A source-backed conceptual brief is research rather than a concrete IaC plan or implementation."
+    },
+    {
+      "id": "studio-iac-runbook-only",
+      "prompt": "Turn these database credential rotation notes into an operator runbook with owners, prerequisites, order, completion checks, and recovery. Do not edit the IaC.",
+      "expect": ["ops-playbook-writer"],
+      "reject": ["iac-builder", "security-preflight"],
+      "reason": "The requested artifact is an operational procedure, not infrastructure code or a security audit."
+    },
+    {
+      "id": "mixed-iac-security-review-fix",
+      "prompt": "Review this Terraform module for DB and network security, then implement the confirmed fixes locally. Do not access or apply to the cloud.",
+      "expect": ["security-preflight", "iac-builder"],
+      "reject": ["reviewer", "fullstack-app-builder"],
+      "reason": "Finish the read-only security evidence contract before handing the explicitly authorized infrastructure fixes to the IaC builder."
+    },
+    {
       "id": "skillops-author-skill",
       "prompt": "Add a skill named official-source-comparison to stray-research for comparing two user-supplied official documents, and validate it.",
       "expect": ["agent-skill-creater"],
@@ -657,9 +741,9 @@
     },
     {
       "id": "no-skill-trivial-readme-typo",
-      "prompt": "Fix the single typo `teh` to `the` in the README sentence I identified; make no other edits.",
+      "prompt": "Fix the single typo `teh` to `the` in the network README sentence I identified; make no other edits.",
       "expect": [],
-      "reject": ["article-writer", "reviewer", "ops-playbook-writer"],
+      "reject": ["article-writer", "reviewer", "ops-playbook-writer", "iac-builder"],
       "no_skill": true,
       "reason": "A precisely scoped one-word edit does not need an editorial, review, or operational skill."
     },

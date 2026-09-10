@@ -100,6 +100,7 @@ Notable support files:
 | Skill | Use for |
 |---|---|
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
+| `iac-builder` | Planning, implementing, or repairing repository-managed IaC with DB privilege separation, credential lifecycle, network paths, and scoped validation; live operations require matching authorization. |
 | `platform-native-ui-designer` | Turning defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS features and flows into implementation-ready UI specifications using the user's own notes attributed to current official Apple documentation. |
 | `slack-app-builder` | Planning, building, validating, installing, deploying, or debugging Slack apps with Slack CLI, manifests, Bolt, Deno Slack SDK, events, workflows, and Web API calls. |
 | `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |
@@ -128,6 +129,8 @@ Notable support files:
 - `plugins/stray-studio/skills/security-preflight/references/`
 - `plugins/stray-studio/skills/slack-app-builder/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
+- `plugins/stray-studio/references/iac-baseline.md` is shared by IaC/app implementation and general/security reviews; it distinguishes code, manual bootstrap, defaults, and runtime evidence.
+- `plugins/stray-studio/skills/iac-builder/references/validation-cases.md` defines synthetic behavioral cases; structural routing validation does not execute them or prove live infrastructure controls.
 - `plugins/stray-studio/skills/landing-page-builder/references/`
 - `plugins/stray-studio/skills/pixel-art-asset-creator/scripts/`
 

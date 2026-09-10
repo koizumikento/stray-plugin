@@ -114,7 +114,8 @@ def test_inventory_reports_every_missing_or_nested_skill_entrypoint(tmp_path: Pa
     assert paths == [skills_root / "complete" / "SKILL.md"]
     assert any("missing: skill directory is missing SKILL.md" in error for error in errors)
     assert any("nested: skill directory is missing SKILL.md" in error for error in errors)
-    assert any("nested/child/SKILL.md: SKILL.md must be directly" in error for error in errors)
+    nested_path = skills_root / "nested" / "child" / "SKILL.md"
+    assert any(f"{nested_path}: SKILL.md must be directly" in error for error in errors)
 
 
 def test_marketplace_must_match_plugin_manifests_and_local_paths(tmp_path: Path) -> None:
@@ -379,4 +380,4 @@ def test_repository_validator_reports_structural_only_runtime_status() -> None:
 
     assert result.returncode == 0, result.stderr
     assert "structural=passed runtime=not-run" in result.stdout
-    assert "multi_skill=10 no_skill=5" in result.stdout
+    assert "multi_skill=11 no_skill=5" in result.stdout

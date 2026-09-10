@@ -2,6 +2,8 @@
 
 Use this reference for Terraform, CloudFormation, Bicep, ARM, Kubernetes, Helm, Kustomize, Dockerfiles, Compose files, IAM policies, cloud storage, and network exposure.
 
+For repository-managed infrastructure, select security-relevant controls from the [shared IaC baseline](../../../references/iac-baseline.md), [IaC lifecycle](../../../references/iac-lifecycle.md), and [operations/runtime](../../../references/iac-operations.md). Retain this skill's review-only evidence contract; identify prohibited live checks as proof gaps. General performance and cost optimization stay outside a security-only review.
+
 ## Review Focus
 
 1. IAM and least privilege.
@@ -14,7 +16,7 @@ Use this reference for Terraform, CloudFormation, Bicep, ARM, Kubernetes, Helm, 
 
 3. Network rules.
    - Flag `0.0.0.0/0` or `::/0` to SSH, RDP, databases, admin ports, Kubernetes APIs, and internal services.
-   - Review egress-all rules, missing private endpoints, missing security groups, and overly broad ingress on load balancers.
+   - Review egress and endpoint/firewall choices against required clients and isolation; missing private endpoints alone are not defects. Check overly broad ingress on load balancers against their intended public/private role.
    - Do not claim actual reachability from security group rules alone; route tables, firewalls, NAT, load balancers, and cloud posture are needed.
 
 4. Secrets in infrastructure.
@@ -35,7 +37,7 @@ Use this reference for Terraform, CloudFormation, Bicep, ARM, Kubernetes, Helm, 
    - Repository manifests cannot prove cluster admission, namespace labels, managed defaults, or runtime drift.
 
 8. Compliance baselines.
-   - Treat CIS, NIST, OWASP, cloud provider benchmarks, Security Hub, Defender for Cloud, and Security Command Center as formal posture inputs when available.
+   - Use applicable CIS, NIST, OWASP, cloud provider benchmarks, or posture-service evidence as inputs. Distinguish recommendations, scanner results, and formally adopted requirements; verify target edition/profile and coverage before treating a control as mandatory.
    - Do not claim CIS or cloud-benchmark compliance from a static repo review.
 
 ## Common Evidence Searches

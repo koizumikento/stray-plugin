@@ -1,6 +1,6 @@
 ---
 name: "iac-builder"
-description: "Use when the user wants to plan, implement, or repair infrastructure as code for databases, credentials, IAM, or network paths. Do not use for review-only audits, application features or schema migrations, conceptual research, or live cloud operations without an IaC change."
+description: "Use when the user wants to plan, implement, or repair repository-managed IaC, including compute, storage, monitoring, IAM, DBs, or networks. Do not use for review-only work, app features/schema migrations, conceptual research, or live operations without an IaC change."
 compatibility: "Repository access is required. Use the repository's pinned IaC CLI and provider versions; official documentation access is needed for version-dependent decisions. Cloud credentials are unnecessary for offline validation."
 ---
 
@@ -17,8 +17,8 @@ Own a repository-managed infrastructure change from the requested plan or implem
 
 ## Workflow
 
-1. Read repository guidance, requirements, accepted architecture decisions, IaC modules and callers, environment examples, lockfiles, deployment scripts, and applicable tests. Identify the actual cloud, DB engine, versions, environment purpose, state backend, bootstrap owner, and app clients. Preserve existing changes and the repository's DDL/migration authority.
-2. Before designing, load the relevant sections of the [shared IaC baseline](../../references/iac-baseline.md). Check DB privilege separation, credential lifecycle, and network paths even when the user only says "create a database" or "add a network". Mark absent boundaries as out of scope with a reason; do not load unrelated container or application guidance by default.
+1. Read repository guidance, requirements, accepted architecture decisions, IaC modules and callers, environment examples, lockfiles, deployment scripts, and applicable tests. Identify the actual platform/services, versions, environment purpose, state backend, resource/bootstrap owners, and consumers. Preserve existing changes and the repository's DDL/migration authority.
+2. Before designing, use the [shared IaC baseline](../../references/iac-baseline.md) to classify applicable controls, including for "set up a test environment." Initial design considers the whole map; small changes consider affected contracts and direct dependencies. Select [lifecycle, identity, and dependencies](../../references/iac-lifecycle.md) and [operations, runtime, and capacity](../../references/iac-operations.md) when relevant. Record existing coverage, justified exclusions, and undecided requirements instead of waiting for the user to enumerate missing controls or loading every detail by default.
 3. Choose the smallest coherent change. Reuse modules and platform features, verify relevant defaults against the pinned provider/engine documentation, and record assumptions and justified exceptions. Ask only for missing decisions that block safe progress; continue independent local work. Do not silently replace accepted architecture, add a credential store, or make hand-managed resources Terraform-owned.
 4. Implement only when requested. Align resources, grants, secret references, consumers, ordering, and the applicable source of truth. For manual bootstrap, name the responsible role, prerequisites, order, completion check, and dependent work that must wait. Do not call it automated or complete merely because the README has a command.
 5. Run the repository's narrow checks for the changed contracts. Use offline validation or mock plans with synthetic data where supported. Check intended allow and deny behavior, invalid configuration, no-op reapply, partial failure, retry, and recovery for affected boundaries. Real reachability, effective privileges, and credential exchange require separate authorized runtime evidence.
@@ -28,7 +28,7 @@ Own a repository-managed infrastructure change from the requested plan or implem
 ## Output
 
 - The requested plan or working IaC change, with affected resources and consumers.
-- A compact control table using the baseline's implementation and evidence statuses; reuse an existing project record instead of requiring a new report file.
+- Applicable controls and a compact table distinguishing applicability, implementation, and evidence; reuse an existing project record instead of requiring a new report file. Do not impose a full matrix on an unrelated small edit.
 - Chosen defaults with version-specific sources, assumptions, exceptions, and remaining manual work with owners and completion checks.
 - Commands and results, unexecuted live checks, unresolved findings, and whether changes are local, committed, published, or applied.
 
@@ -44,7 +44,7 @@ Own a repository-managed infrastructure change from the requested plan or implem
 
 ## Guardrails
 
-- Never label arbitrary password lengths, rotation periods, private networking, fixed egress, or HA as universally mandatory. Explain the applicable requirement and cost/availability tradeoff.
+- Never label arbitrary password lengths, rotation periods, private networking, fixed egress, HA, key ownership, or retention periods as universally mandatory. Explain the applicable requirement and cost/availability tradeoff. Intentional service defaults are allowed with evidence; not every setting needs a variable.
 - Never substitute renamed users, separate secret names, or separate service accounts for verified effective DB privileges and secret access.
-- Never equate a successful validate/mock plan with real DB permission checks, network isolation, restoration, or a safe credential cutover.
+- Never equate a successful validate/mock plan with real permissions, network isolation, restoration, notification delivery, load capacity, spending enforcement, or a safe credential cutover.
 - Preserve the requested scope: docs/review-only work needs no application suite; IaC-only changes need infrastructure checks, not unrelated application or container gates. Expand validation only for an actual changed consumer or contract.

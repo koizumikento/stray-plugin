@@ -54,7 +54,9 @@ Route standalone repository-managed IaC plans and changes to `iac-builder`. Keep
 | Scaffolding or adding an Android target, or deciding Android lifecycle, platform integration, tooling, or release behavior | `references/android.md` |
 | Changing business invariants, business permission rules, state transitions, use-case orchestration, or architecture; investigating rules that differ between entry points | `references/application-architecture.md` |
 | Changing schema, queries, persistence, or migrations; diagnosing concurrency, data integrity, or database performance | `references/data-persistence.md` |
-| Adding or changing the app's DB provisioning, credentials, IAM, or network IaC, including initial scaffolding | [Shared DB/network IaC baseline](../../references/iac-baseline.md), before the first design or edit |
+| Adding or changing the app's infrastructure, including initial scaffolding, compute, storage, or monitoring | [Shared IaC baseline](../../references/iac-baseline.md), before the first design or edit; select applicable controls even when the request does not list them |
+| The app's IaC change affects state, provisioning identity, deployment execution, or infrastructure dependencies | [IaC lifecycle](../../references/iac-lifecycle.md) |
+| The app's IaC change affects runtime, storage, capacity, monitoring, recovery, or cost | [Infrastructure operations](../../references/iac-operations.md); reuse app observability/logging/async references for actual consumer changes |
 | Changing API contracts or integrations; diagnosing latency, lost responses, connectivity, cancellation, or streams | `references/api-communication.md` |
 | Implementing or diagnosing work that continues after acceptance, durable jobs, events, redelivery, or offline reconciliation; not merely using `async/await` | `references/async-workflows.md` |
 | Making general trust/secret-handling, rollout, dependency/runtime, or source-of-truth decisions | `references/implementation-policy.md` |

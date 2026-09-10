@@ -1,12 +1,34 @@
-# DB And Network IaC Baseline
+# Infrastructure Design And Review Baseline
 
-Use this shared reference when creating, changing, or reviewing database, credential, IAM, or network IaC. Select applicable sections before the first design or edit. This is a decision guide, not an instruction to deploy or a claim of benchmark compliance. The calling skill's implementation/review-only and authorization boundaries remain in force.
+Use this shared reference when creating, changing, or reviewing repository-managed infrastructure. Select applicable sections before the first design or edit, including for a vague request such as "set up a test environment." This is a decision guide, not an instruction to deploy or a claim of benchmark compliance. The calling skill's implementation/review-only and authorization boundaries remain in force. Security-only reviews select security-relevant controls; they do not become full cost or performance audits.
+
+## Select Applicable Controls
+
+For initial environment design, consider every row below. For a bounded change, inspect the changed contract and its direct dependencies; do not reopen settled unrelated design or create a checklist report for a typo. Classify each relevant area as **address**, **covered by an existing mechanism**, **out of scope with reason**, or **undecided**. An unknown requirement is not evidence that the area is unnecessary. Reuse repository evidence, infer low-impact choices from context, and ask only for a decision that blocks the work.
+
+| Area | Decision to make or evidence to locate |
+|---|---|
+| Requirements and ownership | Environment purpose, resource/schema owners, existing resources, policy constraints, data sensitivity, manual/external dependencies |
+| IAM and authentication | Human/CI/runtime identities, effective and inherited permissions, federation trust, emergency access, environment boundaries |
+| DB and credentials | App/migration/admin roles, current/future grants, secret generation/storage/state/retry/rotation |
+| Network | Intended clients and exposure, ingress/egress, DNS/routes, identity, TLS, environment boundaries |
+| Data and storage | Public/private intent, location, retention/deletion/recovery, key ownership, test-data handling |
+| Runtime and deployment | Execution privilege, health and shutdown, updates/cutover/recovery, runtime support lifecycle |
+| Capacity and asynchronous work | Concurrency/scaling versus downstream capacity, quotas, timeout/retry budgets, backlog and failed work |
+| Observability and operations | Service symptoms, logs/metrics/audit, retention/access, notification route and response owner |
+| Reliability and recovery | Acceptable outage/data loss, failure domains, backups, restore proof and recovery sequence |
+| IaC lifecycle and dependencies | State/access boundaries, locking, reviewed change identity, drift/import/replacement/deletion, trusted versioned dependencies |
+| Cost and resource lifetime | Cost drivers, budget notifications versus enforcement, owner, expiry/cleanup, unnecessary idle resources |
+
+Use the DB/credential/network sections below, [IaC lifecycle](iac-lifecycle.md), and [operations and runtime](iac-operations.md) only where applicable. Prefer the repository's existing modules, monitoring, logging, and asynchronous-work guidance over duplicated implementations. These controls may belong to a platform team or manual procedure; record that boundary and its completion evidence instead of claiming IaC owns everything.
 
 ## Establish The Basis
 
 1. Trace modules and all callers through environment inputs, grants, secret references, app clients, migration jobs, and bootstrap/runbook steps. Identify resource and schema owners, existing resources/import needs, DB engine and provider versions, environment purpose, data sensitivity, and recovery requirements.
 2. For each material default, distinguish a service default, a recommendation, a formal requirement, and a project decision. Check the exact supported engine/provider version in official documentation. Record the source URL and applicable version or access date. Do not infer current defaults from memory or copy a benchmark value into every environment.
 3. Prefer existing modules and native features. Consider cost, availability, client compatibility, and operation ownership before proposing new dependencies or resources. If evidence is unavailable, mark the decision unverified and continue independent work; ask only for a missing decision that materially blocks it.
+4. Use common practice as a starting point, not proof of universal adoption or a binding requirement. Well-Architected frameworks cover operations, security, reliability, performance, cost, and sustainability; CIS supplies product-specific security recommendations. Record the benchmark edition/profile and actual applicable controls before making a compliance claim. Do not invent control IDs or reproduce an unchecked benchmark as a mandatory baseline.
+5. Explicitly define values when safety, compatibility, cost, or a project requirement depends on them. Otherwise an intentional documented service default can be appropriate. Record the value's source, applicable version, and exception; do not parameterize every setting or freeze obsolete defaults merely to make the configuration look complete.
 
 ## DB Identity And Privileges
 
@@ -47,6 +69,7 @@ Reuse the project's record or a compact response table; do not require a new rep
 | Field | Meaning |
 |---|---|
 | Control and target | The intended property and affected resource/consumer |
+| Applicability | Address, covered by an existing mechanism, out of scope with reason, or undecided; existing coverage still needs evidence |
 | Implementation | Code-enforced, manual bootstrap, service-default-dependent, absent, or out of scope with reason; combine when necessary |
 | Evidence | Repository definition, static/mock result, or authorized runtime result; mark unverified parts explicitly |
 | Basis/exception | Applicable requirement, official source/version, adopted value, or justified exception |
@@ -67,3 +90,7 @@ Use the target provider's and DB engine's versioned documentation. These entry p
 - [PostgreSQL privileges](https://www.postgresql.org/docs/current/ddl-priv.html); switch to the deployed major version before applying defaults.
 - [Cloud SQL PostgreSQL roles and provider defaults](https://docs.cloud.google.com/sql/docs/postgres/users).
 - [Google Cloud VPC firewall behavior](https://docs.cloud.google.com/firewall/docs/firewalls); include routes, identity, and runtime evidence for the actual path.
+- [Google Cloud Well-Architected Framework](https://docs.cloud.google.com/architecture/framework) and [AWS Well-Architected pillars](https://docs.aws.amazon.com/wellarchitected/latest/framework/the-pillars-of-the-framework.html): whole-design coverage.
+- [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks): select the target product, edition, profile, and applicable recommendations; this reference does not certify compliance.
+
+Source entry points checked 2026-09-10. They establish official guidance, not measured industry adoption. Recheck version-dependent behavior for the actual target; a retrieval date is not a permanent compatibility guarantee.

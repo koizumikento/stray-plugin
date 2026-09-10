@@ -2,6 +2,55 @@
   "version": 2,
   "cases": [
     {
+      "id": "studio-iac-environment-baseline",
+      "prompt": "このリポジトリに、安価な開発検証環境のIaCを一式追加して。必要な観点は既存要件から判断して、クラウドには適用しないで。",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "security-preflight"],
+      "reason": "An initial repository infrastructure implementation needs the applicability map even without an explicit DB, monitoring, or recovery checklist."
+    },
+    {
+      "id": "studio-iac-storage-lifecycle",
+      "prompt": "Implement Terraform storage definitions for public static assets and private uploads, including appropriate retention and recovery behavior. Do not modify the app.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "security-preflight"],
+      "reason": "Storage access and lifecycle definitions are standalone IaC implementation; intentional public content must remain a valid exception."
+    },
+    {
+      "id": "studio-iac-monitoring",
+      "prompt": "Add infrastructure-as-code alert policies and notification routing using our existing service metrics. Do not change application instrumentation or send test notifications.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "ops-playbook-writer"],
+      "reason": "The deliverable is monitoring infrastructure, not app instrumentation or a runbook-only document."
+    },
+    {
+      "id": "studio-iac-runtime-capacity",
+      "prompt": "Plan a change to the compute and queue IaC so rollout concurrency fits our DB connection budget. Use the existing runtime; do not edit or deploy yet.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "domain-researcher"],
+      "reason": "A concrete repository IaC plan includes runtime and downstream capacity contracts while preserving plan-only scope."
+    },
+    {
+      "id": "studio-iac-apply-lifecycle",
+      "prompt": "Repair this Terraform plan/apply workflow locally: preserve the reviewed revision, backend locking, and reproducible module versions. Do not access the cloud.",
+      "expect": ["iac-builder"],
+      "reject": ["ai-eval-ci", "security-preflight"],
+      "reason": "The change owns infrastructure execution contracts; it is neither model-evaluation CI nor a findings-only audit."
+    },
+    {
+      "id": "studio-iac-cost-lifetime",
+      "prompt": "Implement the budget notifications and temporary-resource lifetime settings in our IaC, checking which controls actually enforce limits. Do not stop services or delete live resources.",
+      "expect": ["iac-builder"],
+      "reject": ["domain-researcher", "ops-playbook-writer"],
+      "reason": "Repository cost and lifecycle controls belong to IaC implementation; this is not conceptual finance research or live cleanup."
+    },
+    {
+      "id": "studio-iac-app-instrumentation-neighbor",
+      "prompt": "Add structured failure events and request metrics to this app's import worker and API. Keep the existing cloud monitoring resources unchanged.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["iac-builder", "security-preflight"],
+      "reason": "Application instrumentation remains an app behavior change, even though observability is also part of infrastructure design."
+    },
+    {
       "id": "studio-iac-db-create",
       "prompt": "Add Terraform for a managed database for an existing application, including connection setup. Implement locally and do not deploy; there are no application feature changes.",
       "expect": ["iac-builder"],

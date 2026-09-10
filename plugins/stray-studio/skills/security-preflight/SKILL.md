@@ -28,7 +28,8 @@ Always load the evidence contract, then add only the smallest domain reference s
 - `references/supply-chain.md`: dependency manifests, lockfiles, SCA, SBOM, package publishing, provenance, signing, and malicious package risk.
 - `references/ci-cd.md`: GitHub Actions, workflow permissions, `pull_request_target`, third-party actions, OIDC, artifacts, protected environments, and release attestations.
 - `references/infra-containers.md`: Terraform/IaC, cloud IAM, public exposure, network rules, Dockerfiles, images, and Kubernetes manifests.
-- [Shared DB/network IaC baseline](../../references/iac-baseline.md): DB provisioning, effective privileges, credential lifecycle, and complete network paths. Use alongside the evidence contract for these boundaries; this does not authorize implementation or active checks.
+- [Shared IaC baseline](../../references/iac-baseline.md): select security-relevant controls for the affected infrastructure, including DB privileges, credentials, and network paths. Use alongside the evidence contract; this does not authorize implementation or active checks.
+- [IaC lifecycle](../../references/iac-lifecycle.md) and [infrastructure operations](../../references/iac-operations.md): select relevant identity/state/dependency, storage/runtime, audit, or recovery controls. Security-only review does not require a general cost/performance audit.
 
 Use the relevant existing `reviewer` references only for non-security review dimensions that the user explicitly includes.
 

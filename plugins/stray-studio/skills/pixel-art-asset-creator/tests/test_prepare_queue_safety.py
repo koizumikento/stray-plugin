@@ -94,6 +94,68 @@ def test_prepare_still_rejects_names_without_letters_or_digits(tmp_path: Path) -
     assert not run_dir.exists()
 
 
+@pytest.mark.parametrize(
+    ("background", "key", "motion"),
+    [
+        ("chroma-key", "#00ff00", "loop: walking right with alternating foot contact"),
+        ("transparent", "#FF00FF", "single action: crouch, jump to apex, descend, land"),
+    ],
+)
+def test_prepare_animation_preserves_visual_contract(
+    tmp_path: Path, background: str, key: str, motion: str
+) -> None:
+    run_dir = tmp_path / "animation"
+    result = run_script(
+        "prepare_asset_run.py",
+        "--asset-name", "Pink Cat",
+        "--description", "A pink cat with purple eyes",
+        "--sheet-structure", "sprite-row",
+        "--target-size", "32x48",
+        "--frame-count", "6",
+        "--motion-beats", motion,
+        "--background", background,
+        "--chroma-key", key,
+        "--output-dir", run_dir,
+    )
+    assert result.returncode == 0, result.stderr
+    request = json.loads((run_dir / "asset_request.json").read_text(encoding="utf-8"))
+    assert request["background"] == {"strategy": background, "chroma_key": key.upper()}
+    assert request["sheet"]["used_cells"] == 6
+    assert (request["sheet"]["width"], request["sheet"]["height"]) == (192, 48)
+    base = (run_dir / "prompts/base-asset.md").read_text(encoding="utf-8")
+    sheet = (run_dir / "prompts/asset-sheet.md").read_text(encoding="utf-8")
+    assert "pink cat with purple eyes" in base
+    assert "6 animation frames" in sheet and "32x48" in sheet
+    assert motion in sheet
+    assert "body scale, pixel size" in sheet
+    assert "shared baseline for ground contact" in sheet
+    assert "preserve intentional jump height" in sheet
+    assert "clear background gaps" in sheet
+    assert request["sheet"]["extraction"] == "components"
+    assert "without forcing a return to the first pose" in sheet
+    assert "honor the action's specified position changes" in sheet
+    assert "complete centered pose" not in sheet
+    for prompt in (base, sheet):
+        if background == "transparent":
+            assert "clean transparent background" in prompt
+            assert "chroma-key background" not in prompt and key not in prompt
+        else:
+            assert key.upper() in prompt
+            assert "subject's reference colors preserved" in prompt
+    job = load_manifest(run_dir)["jobs"][1]
+    assert job["depends_on"] == ["base"]
+    assert job["input_images"][-1]["path"] == "references/canonical-base.png"
+    assert job["status"] == "pending"
+    assert not list((run_dir / "decoded").iterdir())
+    repair = run_script("queue_asset_repairs.py", "--run-dir", run_dir)
+    assert repair.returncode == 0, repair.stderr
+    repaired = (run_dir / "prompts/asset-sheet.md").read_text(encoding="utf-8")
+    assert motion in repaired
+    repair_note = repaired.split("Repair attempt 1:", 1)[1]
+    assert "honor the action's specified position changes" in repair_note
+    assert "complete centered asset" not in repair_note
+
+
 def test_force_replacement_rejects_reference_inside_run(tmp_path: Path) -> None:
     run_dir = prepare_run(tmp_path)
     reference = run_dir / "references" / "self.png"
@@ -161,12 +223,12 @@ def test_force_replacement_rejects_intermediate_symlink_component(tmp_path: Path
     assert stale.read_text(encoding="utf-8") == "keep"
 
 
-def test_default_output_rejects_symlinked_tmp_directory(tmp_path: Path) -> None:
+def test_default_output_rejects_symlinked_output_directory(tmp_path: Path) -> None:
     working = tmp_path / "working"
     outside = tmp_path / "outside"
     working.mkdir()
     outside.mkdir()
-    (working / "tmp").symlink_to(outside, target_is_directory=True)
+    (working / "output").symlink_to(outside, target_is_directory=True)
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
 

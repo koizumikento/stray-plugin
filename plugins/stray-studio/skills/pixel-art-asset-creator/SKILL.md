@@ -28,13 +28,13 @@ Use canonical visual references, strict sprite-style contracts, row or sheet pro
 
 When the user wants actual visual assets produced, use the installed image generation capability for the visual work. Treat this skill's prompts as authoritative visual specs: do not expand them into hero art, polished illustration, app-icon polish, marketing art, or generic image-generation embellishment.
 
-The normal path does not require `OPENAI_API_KEY` in the repository environment. Use deterministic scripts only for organizing prompts, slicing generated sheets, composing contact sheets, resizing, converting formats, checking dimensions, and packaging files.
+The normal path does not require `OPENAI_API_KEY` in the repository environment. Use deterministic scripts for organizing prompts, slicing generated sheets, composing contact sheets, resizing, converting formats, checking dimensions, and packaging files. For an explicitly scoped stationary animation, they may also preserve unchanged pixels from an accepted frame and restrict generated edits to that frame's palette; the animated content still comes from image generation.
 
 The bundled direct Image API script is an explicit opt-in path, not an automatic fallback. Use it only when the user specifically requests direct OpenAI Image API execution and authorizes the separately billed upload of prompts and input images. If installed image generation is unavailable and that authorization was not given, stop and return the asset contract plus ready-to-run prompts. Do not claim that an asset was created.
 
 ## Execution And Trust Contract
 
-- Dependencies and destinations: the normal visual path uses the installed image-generation capability; deterministic packaging uses Python and Pillow. The direct API path alone uses `OPENAI_API_KEY` and sends requests only to `https://api.openai.com/v1/images/generations` or `https://api.openai.com/v1/images/edits`.
+- Dependencies and destinations: the normal visual path uses the installed image-generation capability; deterministic packaging uses Python and Pillow; chroma cleanup additionally requires NumPy (see the script workflow). The direct API path alone uses `OPENAI_API_KEY` and sends requests only to `https://api.openai.com/v1/images/generations` or `https://api.openai.com/v1/images/edits`.
 - Effects: read only selected prompts and reference images; create or update the chosen run directory, manifests, decoded images, cells, QA files, and final assets. `--force` may replace only a tool-marked run directory. Generation sends the stated prompts and selected input images externally and may incur cost.
 - Authorization: an asset-generation request authorizes the selected installed generation path, but direct API billing and upload require the separate confirmation above. Replacing an existing marked run, deleting outputs, writing outside the selected run, or sending additional references requires explicit authorization.
 - Results and failure: keep manifests and redacted failure evidence, report partial job state, bound repair attempts as specified below, remove only incomplete temporary files, and do not delete usable outputs to conceal a failed pass. Claim completion only after the requested output exists and QA has run.
@@ -64,15 +64,21 @@ Collect only the details that affect the asset. Infer reasonable defaults when t
    - If references exist, use them as identity and design sources, not as images to copy literally.
    - If references are detailed, simplify them into the default pixel-art style before planning variants.
    - If no reference exists, create or specify one base asset first, then treat that base as the source of truth for every variant or frame.
+   - Verify one accepted base asset and its extracted outline on white/dark backgrounds before generating an animation sheet. Native alpha is optional: a palette-safe flat chroma background is valid after verified cleanup. A painted checkerboard is a failed background, not transparency; keep checker display in the viewer only.
+   - For pixel consistency, settle the final-size base's palette, outline and pixel clusters before creating variants. Compare a reduced-palette candidate with the original; preserve eyes, thin lines and alpha. Reusing thousands of near-identical colors is not palette cleanup. Follow the base refinement procedure in `prompt-templates.md`.
 
 3. Plan the sheet before generating.
    - For standalone assets, specify one centered asset with safe padding.
    - For icons or item sets, specify a consistent grid, scale, outline, palette, and lighting direction.
-   - For animation, list each frame or row, the intended motion beat, and exact frame count.
+   - For animation, list each frame or row, exact frame count, and motion beats; state whether playback loops or ends after one action. Fix orientation, scale, pixel size, and a ground-contact baseline while preserving intentional jump height or travel.
+   - For stationary idle/blink, name the animated parts and lock the torso, clothing and planted feet. Declare fixed contact registration only when the action calls for it; keep intentional travel free.
+   - Plan playback separately from unique drawings: name the frame order and each hold duration. For relaxed blinking, start with a long open-eye hold and short closing/opening beats, then judge the result in motion. Fix each eye's inner/outer corners and lid line weight against the base; keep non-animated anchors outside mutable rectangles where possible.
+   - For a new stationary idle/blink, prefer an accepted base at final cell size and generated edits confined to visually selected regions over regenerating the whole character in every frame. Mark the mutable rectangles in final-cell pixel coordinates. Prompts alone cannot guarantee unchanged pixels: opt into `animation.pixel_lock` as described in the script workflow when exact preservation outside those regions is required. This is not suitable for walking, jumps, or free/unspecified motion.
    - For tilesets, define tile size, edge behavior, repeatability, collision meaning when relevant, and neighbor connections.
 
 4. Build generation prompts.
    - Load `references/prompt-templates.md` when writing or adapting prompts.
+   - Choose a background compatible with the subject palette using that reference; pass the chosen color explicitly when using the script workflow.
    - Attach reference images whenever the chosen generation path supports them.
    - Ask the image generation layer for clean assets only.
    - Do not create missing visual content through local scripts unless the user explicitly asks for procedural placeholder art.
@@ -82,10 +88,17 @@ Collect only the details that affect the asset. Infer reasonable defaults when t
    - Load `references/script-workflow.md` when the output needs prompt files, run directories, slicing, validation, contact sheets, animation previews, or packaged PNG/WebP exports.
    - Use scripts for deterministic assembly, slicing, resizing, contact sheets, validation, or format conversion.
    - Record selected generated outputs with `record_imagegen_result.py` when using the bundled workflow.
+   - For animation rows, remove the background and unmix tinted edges at source resolution, extract complete poses by alpha components, then place them at one common scale on equal transparent cells. Use the fixed contact anchor only for planted idle/blink; preserve free-motion offsets. New row requests select component extraction; use `--extraction components` for older runs. Follow `script-workflow.md`; never silently fall back to equal cuts when pose detection fails.
+   - When pixel lock is requested, visually verify the placed final-size cell 0 as the reference and explicitly select the mutable rectangles. After cell placement, the extractor copies cell 0's RGBA outside those rectangles into every frame and maps visible edited colors to its nontransparent RGB palette while preserving alpha. This also supports a stationary-row repair; it does not infer body parts or generate missing motion.
+   - Keep generated runs under the workspace's `output/` by default; preserve an explicitly selected destination and verify Git exclusion in repository work.
 
 6. Inspect and repair.
    - Load `references/qa-rules.md` before accepting generated or packaged assets.
    - Check identity consistency, frame count, silhouette readability, palette consistency, transparency readiness, target-size legibility, and forbidden artifacts.
+   - Inspect transparency on white and dark backgrounds, and review animation in motion as well as frame by frame. Report automated checks and visual QA separately; an unviewed animation remains unverified.
+   - Use the generated HTML player to check frame stepping, normal/slow playback, backgrounds and contact guides. An automated pass never overrides a failed or unverified visual check. Do not increase chroma tolerance again when it damages outlines or subject colors; regenerate the affected visual instead.
+   - For pixel-locked output, verify the reference and rectangles, unchanged-area mismatch counts, edit boundaries, palette changes and actual intended motion. Exact copying outside the rectangles does not prove that the edited regions have a consistent pixel grid or a natural animation.
+   - Review base-relative and adjacent-frame differences, including the loop boundary, to locate unintended edits. Check the intended hold durations against actual playback. Follow `script-workflow.md` for current tool limits; do not claim per-frame timing or a difference viewer exists in the bundled player.
    - Repair the smallest failing unit first: one asset, one frame, one row, then the whole sheet only when the base identity is wrong.
    - Limit repair to at most three targeted regeneration or packaging passes.
    - If identity drift, transparency, frame count, or readability still fails after that, stop and return the best candidate, failed QA checks, and a narrower prompt or asset-contract recommendation.

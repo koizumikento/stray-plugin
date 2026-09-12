@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprite animation preview</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 24px auto; padding: 0 16px; max-width: 1000px; background: #101418; color: #edf0f3; font: 16px/1.5 system-ui, sans-serif; }
+  #stage { overflow: auto; min-height: 360px; padding: 24px; border: 1px solid #586572; background: #18202b; }
+  #stage[data-bg="white"] { background: white; }
+  #stage[data-bg="checker"] { background: conic-gradient(#ccc 25%,white 0 50%,#ccc 0 75%,white 0) 0 0 / 20px 20px; }
+  #viewport { position: relative; margin: auto; }
+  canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+  #viewport.guides::after { content: ''; pointer-events: none; position: absolute; inset: 0; border: 1px dashed #e65d22; background: linear-gradient(90deg,transparent calc(50% - 1px),#e65d22 calc(50% - 1px),#e65d22 calc(50% + 1px),transparent calc(50% + 1px)),linear-gradient(transparent calc(var(--baseline) - 1px),#e65d22 calc(var(--baseline) - 1px),#e65d22 calc(var(--baseline) + 1px),transparent calc(var(--baseline) + 1px)); }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; padding: 18px 0; }
+  label { display: inline-flex; gap: 8px; align-items: center; }
+  button, select, input { font: inherit; }
+  button, select { padding: 6px 12px; }
+  input[type="number"] { width: 100px; }
+  :focus-visible { outline: 3px solid #65c9ed; outline-offset: 3px; }
+</style>
+<h1>Sprite animation preview</h1>
+<p id="details"></p>
+<div id="stage" data-bg="dark"><div id="viewport"><canvas id="sprite" role="img" aria-label="Current animation frame"></canvas></div></div>
+<div class="controls">
+  <button id="play" disabled>Loading</button>
+  <button id="prev" disabled aria-label="Previous frame">←</button>
+  <button id="next" disabled aria-label="Next frame">→</button>
+  <output id="position" aria-label="Current frame"></output>
+  <label>Frame time <input id="duration" type="number" min="10" max="655350" step="1" required> ms</label>
+  <label>Zoom <select id="scale"></select></label>
+  <label>Background <select id="background"><option value="dark">Dark</option><option value="white">White</option><option value="checker">Checker</option></select></label>
+  <label><input id="loop" type="checkbox" checked>Loop</label>
+  <label><input id="guides" type="checkbox">Guides</label>
+  <label>Baseline Y <input id="baseline" type="number" min="0" step="1" required> px</label>
+</div>
+<p id="status" role="status">Loading embedded PNG.</p>
+<p>Frames are displayed as stored in the packaged sheet; this viewer adds no alignment correction. Guides mark the cell center and an adjustable baseline. Preview playback does not imply visual QA passed.</p>
+<script>
+const config = __PREVIEW_CONFIG__;
+const $ = id => document.getElementById(id);
+const canvas = $('sprite'), ctx = canvas.getContext('2d'), source = new Image();
+canvas.width = config.width;
+canvas.height = config.height;
+$('duration').value = config.duration;
+$('baseline').max = config.height;
+$('baseline').value = config.height - 1;
+for (const scale of [...new Set([1, 2, 3, 4, 8, config.scale])].sort((a, b) => a - b)) {
+  $('scale').add(new Option(`${scale}×`, scale, false, scale === config.scale));
+}
+$('details').textContent = `${config.count} frames · ${config.width} × ${config.height} px per cell · ${config.columns} columns × ${config.rows} rows`;
+let frame = 0, playing = false, ready = false, timer;
+function show(value) {
+  frame = ((value % config.count) + config.count) % config.count;
+  ctx.clearRect(0, 0, config.width, config.height);
+  if (ready) ctx.drawImage(source, (frame % config.columns) * config.width,
+    Math.floor(frame / config.columns) * config.height, config.width, config.height,
+    0, 0, config.width, config.height);
+  $('position').value = `${frame + 1} / ${config.count}`;
+}
+function pause() {
+  clearTimeout(timer);
+  playing = false;
+  if (ready) $('play').textContent = 'Play';
+}
+function schedule() {
+  clearTimeout(timer);
+  if (!$('duration').checkValidity()) { pause(); return; }
+  timer = setTimeout(() => {
+    if (!playing) return;
+    if (frame === config.count - 1 && !$('loop').checked) { pause(); return; }
+    show(frame + 1);
+    schedule();
+  }, Number($('duration').value));
+}
+$('play').onclick = () => {
+  if (!ready || !$('duration').reportValidity()) return;
+  if (playing) { pause(); return; }
+  if (frame === config.count - 1 && !$('loop').checked) show(0);
+  playing = true;
+  $('play').textContent = 'Pause';
+  schedule();
+};
+$('prev').onclick = () => { pause(); show(frame - 1); };
+$('next').onclick = () => { pause(); show(frame + 1); };
+$('duration').oninput = () => { if (playing) schedule(); };
+$('scale').onchange = () => {
+  $('viewport').style.width = `${config.width * Number($('scale').value)}px`;
+  $('viewport').style.height = `${config.height * Number($('scale').value)}px`;
+};
+$('background').onchange = () => { $('stage').dataset.bg = $('background').value; };
+$('guides').onchange = () => { $('viewport').classList.toggle('guides', $('guides').checked); };
+$('baseline').oninput = () => {
+  if ($('baseline').checkValidity()) $('viewport').style.setProperty('--baseline', `${Number($('baseline').value) / config.height * 100}%`);
+};
+document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+source.onload = () => {
+  ready = true;
+  for (const id of ['play', 'prev', 'next']) $(id).disabled = false;
+  $('play').textContent = 'Play';
+  $('status').textContent = 'Ready. Press Play to start; use stepping and backgrounds to inspect drift and edge residue.';
+  show(0);
+};
+source.onerror = () => { $('status').textContent = 'Embedded PNG could not be loaded.'; $('play').textContent = 'Load failed'; };
+$('scale').onchange();
+$('baseline').oninput();
+show(0);
+source.src = config.image;
+</script>
+</html>

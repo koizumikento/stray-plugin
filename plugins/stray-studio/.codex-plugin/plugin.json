@@ -1,6 +1,6 @@
 {
   "name": "stray-studio",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
   "author": {
     "name": "Local Workspace"

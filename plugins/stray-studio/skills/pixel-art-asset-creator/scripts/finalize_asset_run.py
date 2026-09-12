@@ -55,8 +55,10 @@ def append_force(command: list[str], *, force: bool) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", required=True)
-    parser.add_argument("--chroma-tolerance", type=int, default=8)
+    parser.add_argument("--chroma-tolerance", type=int, default=96)
     parser.add_argument("--no-resize", action="store_true")
+    parser.add_argument("--trim-align", action="store_true")
+    parser.add_argument("--extraction", choices=("grid", "components"), help="Override the request's extraction mode")
     parser.add_argument("--skip-preview", action="store_true")
     parser.add_argument("--allow-unused-content", action="store_true")
     parser.add_argument("--force", action="store_true")
@@ -149,6 +151,12 @@ def main() -> None:
             field="animation preview output",
             force=args.force,
         )
+        known_outputs["preview_html"] = resolve_output(
+            run_dir,
+            "qa/previews/animation.html",
+            field="interactive preview output",
+            force=args.force,
+        )
 
     extract_command = [
         sys.executable,
@@ -163,6 +171,10 @@ def main() -> None:
     append_force(extract_command, force=args.force)
     if args.no_resize:
         extract_command.append("--no-resize")
+    if args.trim_align:
+        extract_command.append("--trim-align")
+    if args.extraction:
+        extract_command.extend(["--extraction", args.extraction])
     run(extract_command)
 
     review_path = known_outputs["review"]
@@ -232,6 +244,7 @@ def main() -> None:
     run(contact_command)
 
     preview = None
+    preview_html = None
     if not args.skip_preview:
         preview_command = [
             sys.executable,
@@ -243,9 +256,15 @@ def main() -> None:
         preview_result = run(preview_command, check=False)
         if preview_result.returncode == 0 and request.get("sheet", {}).get("structure") == "sprite-row":
             preview = str(known_outputs["preview"])
+            preview_html = str(known_outputs["preview_html"])
+        elif preview_result.returncode != 0:
+            raise SystemExit(preview_result.returncode)
 
     summary = {
         "ok": True,
+        "automated_ok": True,
+        "visual_qa": "unverified",
+        "accepted": False,
         "run_dir": str(run_dir),
         "asset_png": str(known_outputs["asset_png"]),
         "asset_webp": str(known_outputs["asset_webp"]),
@@ -253,6 +272,7 @@ def main() -> None:
         "review": str(review_path),
         "contact_sheet": str(known_outputs["contact_sheet"]),
         "preview": preview,
+        "preview_html": preview_html,
     }
     summary_path = known_outputs["run_summary"]
     staged_summary = stage_text(summary_path, json.dumps(summary, indent=2) + "\n")

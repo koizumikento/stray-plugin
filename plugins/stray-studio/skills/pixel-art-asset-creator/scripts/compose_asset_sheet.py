@@ -89,6 +89,7 @@ def main() -> None:
         "asset_type": manifest.get("asset_type"),
         "target_use": manifest.get("target_use"),
         "sheet": sheet,
+        "animation": manifest.get("animation", {}),
         "items": manifest.get("items", []),
         "tiles": manifest.get("tiles", []),
         "files": {"png": output.name, "webp": webp_output.name},

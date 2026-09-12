@@ -87,7 +87,9 @@ Repair attempt {attempt}:
 - The previous output failed QA: {reason}
 - Regenerate the whole requested asset or sheet, not a partial crop.
 - Preserve the canonical base identity, palette, outline weight, lighting direction, material, and silhouette language.
-- Fill every requested used cell or frame with one complete centered asset.
+- For stationary idle/blink, keep torso, clothing and planted feet fixed; change only named animated parts. Preserve intentional travel in other actions.
+- Remove colored background fringes without erasing thin outlines or changing subject colors. Follow the background strategy declared in this prompt; do not switch it implicitly during this repair.
+- Fill every requested used cell or frame with one complete asset. Use the cell center as the default placement reference; honor the action's specified position changes within each slot.
 - Keep unused cells empty with only transparent or chroma-key background.
 - Avoid clipping, edge slivers, opaque background boxes, checkerboard backgrounds, visible grids, labels, frame numbers, shadows, glows, loose particles, and detached effects.
 """
@@ -163,6 +165,7 @@ def main() -> None:
     parser.add_argument("--run-dir", required=True)
     parser.add_argument("--job-id", default="")
     parser.add_argument("--repair-on-warnings", action="store_true")
+    parser.add_argument("--visual-defect", action="append", default=[], help="Observed visual defect to include in the repair prompt; repeat for multiple defects")
     args = parser.parse_args()
 
     run_dir = Path(args.run_dir).expanduser().resolve()
@@ -176,7 +179,7 @@ def main() -> None:
     structure = str(request.get("sheet", {}).get("structure", "standalone"))
     job_id = args.job_id or ("base" if structure == "standalone" else "asset-sheet")
     job = find_job(manifest, job_id)
-    reason = "; ".join(repair_reasons(run_dir, repair_on_warnings=args.repair_on_warnings))
+    reason = "; ".join(repair_reasons(run_dir, repair_on_warnings=args.repair_on_warnings) + args.visual_defect)
     attempt = next_repair_attempt(job)
     prompt_path, old_prompt, updated_prompt = repair_prompt_update(
         run_dir,

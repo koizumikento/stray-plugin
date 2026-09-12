@@ -41,6 +41,7 @@ jobs:
           pluggy==1.6.0
           Pygments==2.20.0
           Pillow==12.3.0
+          numpy==2.4.3
 
       - name: Reject tracked generated Python artifacts
         shell: bash

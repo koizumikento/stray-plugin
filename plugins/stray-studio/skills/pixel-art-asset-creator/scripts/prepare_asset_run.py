@@ -214,7 +214,10 @@ def sheet_contract(
 def background_text(args: argparse.Namespace) -> str:
     if args.background == "transparent":
         return "a clean transparent background"
-    return f"a perfectly flat pure {args.chroma_key.upper()} chroma-key background"
+    return (
+        f"a perfectly flat pure {args.chroma_key.upper()} chroma-key background, "
+        "with the selected key reserved for the background and the subject's reference colors preserved"
+    )
 
 
 def style_contract(args: argparse.Namespace) -> str:
@@ -264,9 +267,16 @@ Use this prompt as an authoritative production asset spec. Do not expand it into
     if structure == "sprite-row":
         beats = args.motion_beats.strip() or "clear readable motion beats from start to finish"
         body = f"""
-Create exactly {sheet["used_cells"]} animation frames arranged left-to-right in one horizontal row. Treat the row as {sheet["used_cells"]} equal-width invisible frame slots. Fill every used slot with exactly one complete centered pose. No pose may be cropped, overlap another pose, or cross into a neighboring slot.
+Create exactly {sheet["used_cells"]} animation frames arranged left-to-right in one horizontal row. Leave clear background gaps between complete poses. Keep roughly even spacing; honor the action's specified position changes relative to each nominal slot center. No pose may be cropped or overlap another pose. The grid and cell dimensions above describe the final export: extraction will find each whole pose before resizing, so do not draw separators or force limbs into exact equal-width cuts.
+
+Keep orientation, body scale, pixel size, and safe margins consistent with the base. Use a shared baseline for ground contact; preserve intentional jump height or travel instead of recentering each pose. Show actual limb movement and stable contact during walking or running.
+
+For stationary idle or blinking, lock the torso, clothing, face proportions, and planted feet to the same cell coordinates. Change only the named animated parts; do not redraw the whole pose between frames. Registration contract: {args.registration}. Fixed means the contact anchor stays fixed; free permits the action's intentional travel. Unspecified requires visual review before assuming either.
+
+For fixed idle/blink, use the accepted final-resolution reference frame and edit only the specified mutable regions. Preserve its pixel grid and palette. A whole-frame redraw is a motion draft; final packaging must restore reference pixels outside the visually selected regions when pixel locking is requested.
 
 Animation action: {beats}.
+Follow the playback intent in the action: for a loop, connect the final pose back to the first; for a single action, show a readable beginning, action, and ending without forcing a return to the first pose.
 """
     elif structure == "tileset":
         tile_list = ", ".join(tiles) if tiles else "terrain center, edges, corners, transitions, and a few simple decoration tiles"
@@ -289,7 +299,7 @@ Create a consistent multi-cell sprite or asset sheet. Each used cell must contai
         + f"""
 Background: {background_text(args)}.
 
-Do not include visible grid lines, borders, labels, frame numbers, scenery, checkerboard transparency, speed lines, motion blur, floor shadows, glows, dust, loose particles, watermarks, or detached effects unless the brief explicitly requires an attached hard-edged sprite effect. Leave unused cells empty with only the background color."""
+Do not include visible grid lines, borders, labels, frame numbers, scenery, checkerboard transparency, speed lines, motion blur, floor shadows, glows, dust, loose particles, watermarks, or detached effects unless the brief explicitly requires an attached hard-edged sprite effect. Leave unused cells empty using the specified background strategy."""
     )
 
 
@@ -365,6 +375,7 @@ def main() -> None:
     parser.add_argument("--tile", action="append")
     parser.add_argument("--tiles", action="append")
     parser.add_argument("--motion-beats", default="")
+    parser.add_argument("--registration", choices=["unspecified", "fixed", "free"], default="unspecified")
     parser.add_argument("--style-notes", default="")
     parser.add_argument("--reference", action="append")
     parser.add_argument("--background", default="chroma-key", choices=["chroma-key", "transparent"])
@@ -397,13 +408,14 @@ def main() -> None:
         items=items,
         tiles=tiles,
     )
+    sheet["extraction"] = "components" if structure == "sprite-row" else "grid"
 
     if args.output_dir:
         run_dir = resolve_output_destination(args.output_dir)
     else:
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         run_dir = resolve_output_destination(
-            str(Path.cwd() / "tmp" / "pixel-art-assets" / f"{asset_id}-{timestamp}")
+            str(Path.cwd() / "output" / "pixel-art-assets" / f"{asset_id}-{timestamp}")
         )
     replacing = run_dir.exists()
     if replacing:
@@ -441,6 +453,7 @@ def main() -> None:
             "target_use": args.target_use,
             "target_size": {"width": target_size[0], "height": target_size[1]},
             "sheet": sheet,
+            "animation": {"registration": args.registration, "motion_beats": args.motion_beats},
             "items": items,
             "tiles": tiles,
             "background": {"strategy": args.background, "chroma_key": args.chroma_key.upper()},

@@ -17,6 +17,7 @@ from _output_pipeline import (
     stage_text,
 )
 from _run_safety import resolve_run_path
+from extract_sheet_cells import remove_chroma_key
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -76,18 +77,6 @@ def parse_hex_color(value: str) -> tuple[int, int, int]:
     return int(raw[0:2], 16), int(raw[2:4], 16), int(raw[4:6], 16)
 
 
-def remove_chroma_key(image: Image.Image, key: tuple[int, int, int], tolerance: int) -> Image.Image:
-    rgba = image.convert("RGBA")
-    kr, kg, kb = key
-    pixels = rgba.load()
-    for y in range(rgba.height):
-        for x in range(rgba.width):
-            r, g, b, a = pixels[x, y]
-            if abs(r - kr) <= tolerance and abs(g - kg) <= tolerance and abs(b - kb) <= tolerance:
-                pixels[x, y] = (r, g, b, 0)
-    return rgba
-
-
 def normalize_image(
     source: Path,
     *,
@@ -119,12 +108,15 @@ def main() -> None:
     parser.add_argument("--run-dir", required=True)
     parser.add_argument("--output-dir", default="")
     parser.add_argument("--no-resize", action="store_true")
-    parser.add_argument("--chroma-tolerance", type=int, default=8)
+    parser.add_argument("--chroma-tolerance", type=int, default=96)
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
     run_dir = Path(args.run_dir).expanduser().resolve()
     request = load_json(resolve_run_path(run_dir, "asset_request.json", field="asset request"))
+    if (request.get("sheet", {}).get("extraction") == "components"
+            or request.get("animation", {}).get("pixel_lock") is not None):
+        raise SystemExit("component-row or pixel-lock runs require finalize_asset_run.py; whole-sheet packaging would bypass processing")
     manifest = load_json(resolve_run_path(run_dir, "imagegen-jobs.json", field="job manifest"))
     require_complete(manifest)
     source = selected_output(run_dir, request, manifest)

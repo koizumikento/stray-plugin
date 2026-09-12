@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import colorsys
 import json
 from pathlib import Path
 from statistics import median
@@ -12,6 +13,7 @@ from PIL import Image
 
 from _output_pipeline import commit_outputs, resolve_output, stage_text
 from _run_safety import resolve_run_path
+from extract_sheet_cells import contact_anchor, parse_hex_color, pixel_lock_mask
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -29,6 +31,43 @@ def alpha_bbox(image: Image.Image) -> tuple[int, int, int, int] | None:
     return image.getchannel("A").getbbox()
 
 
+def edge_key_pixels(image: Image.Image, key: tuple[int, int, int] | None) -> int:
+    """Flag saturated key-colored edge pixels; never remove subject colors."""
+    if key is None:
+        return 0
+    hue, saturation, _ = colorsys.rgb_to_hsv(*(value / 255 for value in key))
+    if saturation < 0.35:
+        return 0
+    pixels = image.load()
+    count = 0
+    # ponytail: hue is only a spill hint; visual review must distinguish real palette colors.
+    for y in range(image.height):
+        for x in range(image.width):
+            r, g, b, alpha = pixels[x, y]
+            if not alpha:
+                continue
+            h, s, _ = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            distance = abs(h - hue)
+            if s < 0.35 or min(distance, 1 - distance) > 1 / 12:
+                continue
+            if any(0 <= nx < image.width and 0 <= ny < image.height and pixels[nx, ny][3] == 0
+                   for nx, ny in ((x-1,y), (x+1,y), (x,y-1), (x,y+1))):
+                count += 1
+    return count
+
+
+def registration_warnings(rows: list[dict[str, object]], policy: str) -> list[str]:
+    anchors = [row.get("contact_anchor") for row in rows]
+    anchors = [anchor for anchor in anchors if anchor is not None]
+    if policy != "fixed" or len(anchors) < 2:
+        return []
+    dx = max(a[0] for a in anchors) - min(a[0] for a in anchors)
+    dy = max(a[1] for a in anchors) - min(a[1] for a in anchors)
+    if max(dx, dy) <= 1:
+        return []
+    return [f"fixed contact anchor drift: x={dx:g}px, y={dy:g}px; verify planted feet visually (lowest pixels may be props or effects)"]
+
+
 def inspect_cell(
     path: Path,
     *,
@@ -36,6 +75,7 @@ def inspect_cell(
     expected_size: tuple[int, int],
     min_used_pixels: int,
     edge_padding: int,
+    chroma_key: tuple[int, int, int] | None = None,
 ) -> tuple[dict[str, object], int]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -58,6 +98,9 @@ def inspect_cell(
             warnings.append("non-transparent pixels are close to the cell edge; inspect for clipping")
     if nontransparent == image.width * image.height:
         errors.append("cell is fully opaque; background removal probably failed")
+    key_pixels = edge_key_pixels(image, chroma_key)
+    if key_pixels:
+        warnings.append(f"cell {index}: {key_pixels} key-colored edge pixels; inspect for chroma fringe on white and dark backgrounds")
     return (
         {
             "index": index,
@@ -65,6 +108,8 @@ def inspect_cell(
             "ok": not errors,
             "nontransparent_pixels": nontransparent,
             "bbox": bbox,
+            "contact_anchor": contact_anchor(image),
+            "key_colored_edge_pixels": key_pixels,
             "errors": errors,
             "warnings": warnings,
         },
@@ -91,9 +136,16 @@ def main() -> None:
     if not isinstance(sheet, dict):
         raise SystemExit("cells manifest is missing sheet contract")
     expected_size = int(sheet["cell_width"]), int(sheet["cell_height"])
+    background = manifest.get("background", {})
+    chroma_key = None
+    if background.get("strategy") == "chroma-key":
+        chroma_key = parse_hex_color(str(background.get("chroma_key", "#FF00FF")))
 
     rows = []
     areas: list[int] = []
+    lock_config = manifest.get("animation", {}).get("pixel_lock")
+    mutable = list(pixel_lock_mask(expected_size, lock_config).get_flattened_data()) if lock_config is not None else None
+    locked_reference = None
     for item in manifest.get("cells", []):
         if not isinstance(item, dict) or not item.get("used"):
             continue
@@ -109,7 +161,20 @@ def main() -> None:
             expected_size=expected_size,
             min_used_pixels=args.min_used_pixels,
             edge_padding=args.edge_padding,
+            chroma_key=chroma_key,
         )
+        if mutable is not None:
+            with Image.open(cell_path) as opened:
+                pixels = list(opened.convert("RGBA").get_flattened_data())
+            if locked_reference is None:
+                if index != 0:
+                    raise SystemExit("pixel_lock inspection requires reference cell 0 first")
+                locked_reference = pixels
+            mismatch = sum(a != b and not m for a, b, m in zip(locked_reference, pixels, mutable))
+            result["changed_outside_reference"] = mismatch
+            if mismatch:
+                result["errors"].append(f"cell {index}: {mismatch} pixels changed outside mutable_rects")
+                result["ok"] = False
         rows.append(result)
         areas.append(area)
 
@@ -126,8 +191,10 @@ def main() -> None:
 
     errors = [error for row in rows for error in row.get("errors", []) if isinstance(row, dict)]
     warnings = [warning for row in rows for warning in row.get("warnings", []) if isinstance(row, dict)]
+    warnings.extend(registration_warnings(rows, manifest.get("animation", {}).get("registration", "unspecified")))
     result = {
         "ok": not errors,
+        "visual_qa": "unverified",
         "cells_dir": str(cells_dir),
         "errors": errors,
         "warnings": warnings,

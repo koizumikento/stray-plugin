@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import hashlib
 import json
+
+import pytest
 import sys
 from pathlib import Path
 
@@ -49,7 +52,7 @@ def test_generated_contract_and_visual_defects_reach_repair(tmp_path: Path) -> N
                         "--output-dir", run_dir)
     assert result.returncode == 0, result.stderr
     request = json.loads((run_dir / "asset_request.json").read_text())
-    assert request["animation"] == {"registration": "fixed", "motion_beats": "loop: blink only"}
+    assert request["animation"] == {"registration": "fixed", "motion_beats": "loop: blink only", "stage": "stationary"}
     result = run_script("queue_asset_repairs.py", "--run-dir", run_dir,
                         "--visual-defect", "green fringe at left ribbon",
                         "--visual-defect", "feet slide 3px")
@@ -63,45 +66,103 @@ def test_generated_contract_and_visual_defects_reach_repair(tmp_path: Path) -> N
     assert json.loads((run_dir / "asset_request.json").read_text())["background"]["strategy"] == "chroma-key"
 
 
-def test_free_run_prompt_and_repair_preserve_body_motion_without_idle_lock(tmp_path: Path) -> None:
+def test_motion_prompt_excludes_finish_context_and_repairs_do_not_accumulate(tmp_path: Path) -> None:
     run_dir = tmp_path / "run"
     motion = "loop: energetic run in place with landing compression and chest rising at push-off"
-    paint = "Flat-color diagnostic: skin base #FBEEDD, no skin shadows or highlights; retain hair shading"
+    paint = "Skin base #FBEEDD; hair shadow #886622"
     result = run_script("prepare_asset_run.py", "--asset-name", "Runner", "--frame-count", 6,
                         "--registration", "free", "--motion-beats", motion,
                         "--style-notes", paint, "--output-dir", run_dir)
     assert result.returncode == 0, result.stderr
     assert paint in (run_dir / "prompts/base-asset.md").read_text(encoding="utf-8")
-    assert paint in json.loads((run_dir / "asset_request.json").read_text())["style_contract"]
-    for repair in (False, True):
-        if repair:
-            result = run_script("queue_asset_repairs.py", "--run-dir", run_dir,
-                                "--visual-defect", "upper body is too stiff; preserve planned sway")
-            assert result.returncode == 0, result.stderr
-        prompt = (run_dir / "prompts/asset-sheet.md").read_text(encoding="utf-8")
-        assert motion in prompt and "Registration contract: free" in prompt
-        assert "shoulder/hip counter-rotation" in prompt and "landing compression" in prompt
-        assert "allow planned sway" in prompt and "head and chest respond to the pelvis" in prompt
-        assert "lock the torso" not in prompt and "restore reference pixels" not in prompt
-        assert "keep torso, clothing and planted feet fixed" not in prompt
-        assert "do not pin every foot or head" in prompt
-        assert "shared material-specific base/shadow colors" in prompt
-        assert paint in prompt and "keep those materials flat" in prompt
-        assert "shadow regions follow the changing surfaces and occlusion" in prompt
-        assert "limb lengths and footwear proportions" in prompt
-        assert "accepted base/shadow colors across face, hands and limbs" in prompt
-        assert "do not reinterpret or further simplify an already accepted base" in prompt
-        assert "approved design/color reference defines the current base version" in prompt
-        assert "reviewed contact and passing key poses" in prompt
-        assert "irregular strip spacing is not intentional travel" in prompt
-        if repair:
-            assert "Preserve accepted pose geometry and motion during a paint-only repair" in prompt
-            repair_note = prompt.split("Repair attempt 1:", 1)[1]
-            assert "limb lengths and footwear proportions" in repair_note
-            assert "accepted base/shadow colors across face, hands and limbs" in repair_note
-            assert "Preserve only verified pose and placement features" in repair_note
-            assert "declared reference roles" in repair_note
-            assert "do not restore them implicitly" in repair_note
+    prompt_path = run_dir / "prompts/asset-sheet.md"
+    prompt = prompt_path.read_text(encoding="utf-8")
+    assert paint not in prompt and "color-coded dummy" in prompt
+    assert motion in prompt and "passing under the pelvis" in prompt
+    assert "shoulder/hip counter-rotation" in prompt and "Do not pin every foot or head" in prompt
+    assert "restore reference pixels" not in prompt
+    for defect in ("left ankle missing", "right passing pose needs correction"):
+        result = run_script("queue_asset_repairs.py", "--run-dir", run_dir, "--visual-defect", defect)
+        assert result.returncode == 0, result.stderr
+        if defect == "left ankle missing":
+            with prompt_path.open("a", encoding="utf-8") as handle:
+                handle.write("\nUser note outside repair context: preserve the planned camera view.\n")
+    repaired = prompt_path.read_text(encoding="utf-8")
+    assert "left ankle missing" not in repaired and "right passing pose needs correction" in repaired
+    assert repaired.count("Repair attempt") == 1 and "Repair attempt 2:" in repaired
+    assert "User note outside repair context" in repaired
+    assert paint not in repaired and "Stage: flat-color" not in repaired and "Stage: finish" not in repaired
+    job = json.loads((run_dir / "imagegen-jobs.json").read_text())["jobs"][1]
+    assert len(job["repair_history"]) == 2
+    assert job["repair_history"][0]["prompt_before"] == prompt
+    assert "left ankle missing" in job["repair_history"][1]["prompt_before"]
+
+
+@pytest.mark.parametrize("stage", ["flat-color", "finish"])
+def test_paint_stage_requires_and_copies_previous_cycle(tmp_path: Path, stage: str) -> None:
+    design, prior = tmp_path / "design.png", tmp_path / "cycle.png"
+    Image.new("RGB", (8, 8), "red").save(design)
+    Image.new("RGB", (16, 8), "blue").save(prior)
+    run_dir = tmp_path / "run"
+    args = ["--asset-name", "Paint", "--frame-count", 2, "--registration", "free",
+            "--animation-stage", stage, "--reference", design, "--output-dir", run_dir]
+    result = run_script("prepare_asset_run.py", *args)
+    assert result.returncode != 0 and "requires --stage-reference" in result.stderr
+    assert not run_dir.exists()
+    result = run_script("prepare_asset_run.py", *args, "--stage-reference", prior)
+    assert result.returncode == 0, result.stderr
+    request = json.loads((run_dir / "asset_request.json").read_text())
+    previous = request["references"][-1]
+    assert request["animation"]["stage"] == stage
+    assert request["animation"]["stage_reference"] == previous["path"]
+    assert (run_dir / previous["path"]).read_bytes() == prior.read_bytes()
+    assert previous["sha256"] == hashlib.sha256(prior.read_bytes()).hexdigest()
+    jobs = json.loads((run_dir / "imagegen-jobs.json").read_text())["jobs"]
+    assert previous not in jobs[0]["input_images"] and previous in jobs[1]["input_images"]
+    expected_role = "accepted motion-block" if stage == "flat-color" else "accepted flat-color"
+    assert expected_role in previous["role"]
+    result = run_script("queue_asset_repairs.py", "--run-dir", run_dir, "--visual-defect", "skin changed")
+    assert result.returncode == 0, result.stderr
+    prompt = (run_dir / "prompts/asset-sheet.md").read_text(encoding="utf-8")
+    assert f"Stage: {stage}." in prompt and "Stage: motion." not in prompt
+    if stage == "flat-color":
+        assert "No optional shadows" in prompt and "Add only the planned hair" not in prompt
+    else:
+        assert "follow-through" in prompt and "accepted flat-color cycle" in prompt
+
+
+@pytest.mark.parametrize("extra", [
+    ["--animation-stage", "motion", "--registration", "fixed"],
+    ["--animation-stage", "stationary", "--registration", "free"],
+    ["--sheet-structure", "standalone", "--animation-stage", "motion"],
+    ["--animation-stage", "finish"],
+])
+def test_invalid_stage_contract_does_not_create_run(tmp_path: Path, extra: list[str]) -> None:
+    run_dir = tmp_path / "run"
+    result = run_script("prepare_asset_run.py", "--asset-name", "Invalid", "--frame-count", 2,
+                        "--output-dir", run_dir, *extra)
+    assert result.returncode != 0
+    assert not run_dir.exists()
+
+
+def test_untrusted_stage_cannot_read_template_paths_or_mutate_repair(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    result = run_script("prepare_asset_run.py", "--asset-name", "Stage safety", "--frame-count", 2,
+                        "--output-dir", run_dir)
+    assert result.returncode == 0, result.stderr
+    request_path = run_dir / "asset_request.json"
+    request = json.loads(request_path.read_text())
+    request["animation"]["stage"] = "../../../../outside"
+    write_json(request_path, request)
+    manifest_before = (run_dir / "imagegen-jobs.json").read_bytes()
+    prompt_before = (run_dir / "prompts/asset-sheet.md").read_bytes()
+    output = run_dir / "decoded/asset-sheet.png"
+    output.write_bytes(b"keep existing output")
+    result = run_script("queue_asset_repairs.py", "--run-dir", run_dir)
+    assert result.returncode != 0 and "unknown animation stage" in result.stderr
+    assert (run_dir / "imagegen-jobs.json").read_bytes() == manifest_before
+    assert (run_dir / "prompts/asset-sheet.md").read_bytes() == prompt_before
+    assert output.read_bytes() == b"keep existing output"
 
 
 def test_partial_checker_is_never_automatically_accepted(tmp_path: Path) -> None:

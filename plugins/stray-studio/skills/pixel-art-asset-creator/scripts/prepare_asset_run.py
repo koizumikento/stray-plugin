@@ -20,16 +20,40 @@ from _image_input_safety import read_validated_image_input
 from _run_safety import require_safe_managed_replacement, write_run_marker
 
 DEFAULT_STYLE = (
-    "Pixel-art-adjacent game asset style: compact readable silhouette, "
-    "low-resolution sprite logic, visible stepped edges, limited palette, crisp dark "
-    "outline when appropriate, flat fills with optional cel-style shading, one clear light direction, "
-    "minimal texture, no tiny detail that disappears at target size, and clean "
-    "transparent-background readiness. Use shared material-specific base/shadow colors "
-    "and optional highlights in broad coherent color regions; no accidental speckled "
-    "shading or dithering. Preserve essential small details and near/far limb contrast. "
-    "If the material plan omits shadows or highlights, keep those materials flat; "
-    "use overlap and outlines rather than changing their base colors to distinguish limbs."
+    "Pixel-art game asset: compact readable silhouette, consistent logical pixel density, "
+    "coherent color clusters, stepped contours and restrained detail. "
+    "Use the approved shared material palette and outline; optional shading follows the material plan."
 )
+
+ANIMATION_STAGES = ("motion", "flat-color", "finish", "stationary")
+
+
+def stage_prompt(stage: str) -> str:
+    if stage not in ANIMATION_STAGES:
+        raise SystemExit(f"unknown animation stage: {stage!r}")
+    return (Path(__file__).resolve().parents[1] / "references" / "stage-prompts" /
+            f"{stage}.txt").read_text(encoding="utf-8").strip()
+
+
+def animation_stage(args: argparse.Namespace, structure: str) -> str:
+    if structure != "sprite-row":
+        if args.animation_stage != "auto" or args.stage_reference:
+            raise SystemExit("animation stage options require --sheet-structure sprite-row")
+        return "asset"
+    stage = args.animation_stage
+    if stage == "auto":
+        stage = "stationary" if args.registration == "fixed" else "motion"
+    if (stage == "stationary") != (args.registration == "fixed"):
+        raise SystemExit("stationary requires fixed registration; motion/flat-color/finish must not use fixed")
+    if stage in {"flat-color", "finish"}:
+        if not args.reference:
+            raise SystemExit(f"{stage} requires --reference for the accepted design/color authority")
+        if not args.stage_reference:
+            raise SystemExit(f"{stage} requires --stage-reference to the reviewed previous-stage cycle")
+    elif args.stage_reference:
+        raise SystemExit("--stage-reference is only for flat-color or finish")
+    return stage
+
 
 AVOID_STYLE = (
     "Avoid polished illustration, anime key art, 3D render, glossy app icon, vector "
@@ -254,70 +278,37 @@ def sheet_prompt(
 ) -> str:
     sheet = request["sheet"]
     structure = str(sheet["structure"])
-    base = f"""Create a production pixel-art asset sheet for {request["display_name"]}.
-
-Use the attached reference image(s) for identity and the attached accepted base asset as the canonical design and pixel-density reference. Preserve its proportions, palette, outline, material, lighting direction, and silhouette language; do not reinterpret or further simplify an already accepted base between frames.
-Follow the supplied reference roles: the approved design/color reference defines the current base version, and approved pose references define the motion. Do not replace an approved reference with an earlier raw or repaired variant implicitly.
-
+    stage = request["animation"].get("stage", "asset")
+    style = ("Simple flat diagnostic part colors, readable joints, stepped pixel contours; "
+             "no character paint or finishing.") if stage == "motion" else style_contract(args)
+    references = "\n".join(f"- {entry['path']}: {entry['role']}" for entry in request["references"])
+    base = f"""Create a pixel-art asset sheet for {request["display_name"]}.
+Current stage: {stage}. Use only this stage's instructions and role-matched references.
+Canonical base: accepted design/proportions; for motion, not its surface paint.
+References:
+{references}
 Grid: {sheet["columns"]} columns x {sheet["rows"]} rows.
 Cell size: {sheet["cell_width"]}x{sheet["cell_height"]}.
 Full sheet target: {sheet["width"]}x{sheet["height"]}.
 Used cells: {sheet["used_cells"]}.
-Asset type: {request["asset_type"]}.
-Target use: {request["target_use"]}.
-Style contract: {style_contract(args)}
-
-Use this prompt as an authoritative production asset spec. Do not expand it into hero art, polished illustration, anime key art, 3D render, glossy icon, vector mascot, painterly image, or marketing artwork.
+Asset type: {request["asset_type"]}. Target use: {request["target_use"]}.
+Style contract: {style}
 """
     if structure == "sprite-row":
-        beats = args.motion_beats.strip() or "clear readable motion beats from start to finish"
-        stationary = "" if args.registration == "free" else """
-For stationary idle or blinking, lock the torso, clothing, face proportions, and planted feet to the same cell coordinates. Change only the named animated parts; do not redraw the whole pose between frames.
-For fixed idle/blink, use the accepted final-resolution reference frame and edit only the specified mutable regions. Preserve its pixel grid and palette. A whole-frame redraw is a motion draft; final packaging must restore reference pixels outside the visually selected regions when pixel locking is requested.
-"""
         body = f"""
-Create exactly {sheet["used_cells"]} animation frames arranged left-to-right in one horizontal row. Leave clear background gaps between complete poses. Keep roughly even spacing; honor the action's specified position changes relative to each nominal slot center. No pose may be cropped or overlap another pose. The grid and cell dimensions above describe the final export: extraction will find each whole pose before resizing, so do not draw separators or force limbs into exact equal-width cuts.
-
-Keep facing orientation, body scale, pixel size, and safe margins consistent with the base. Preserve character proportions, not an identical torso pose or silhouette. Use a shared baseline for ground contact; preserve intentional jump height, body compression and travel.
-For articulated characters, preserve limb lengths and footwear proportions, including readable ankle, heel and toe shapes. Allow justified foreshortening and occlusion, not unexplained shrinking or fused feet. A common body scale does not guarantee stable part proportions.
-
-Keep the material-color roles and light direction/frame of reference consistent across poses. Let simple shadow regions follow the changing surfaces and occlusion; do not pin shading to canvas coordinates or randomly change its coverage. Shared palette membership alone does not ensure stable shading. Preserve essential details and the intended body motion while simplifying paint.
-For skin, carry the accepted base/shadow colors across face, hands and limbs; preserve justified near/far shading without inventing a different skin tone at each phase.
-Use the reviewed contact and passing key poses when supplied; build intermediate beats between them without changing their anatomical limb identities. For a walk in place, keep the intended pelvis trajectory within each nominal slot consistent; irregular strip spacing is not intentional travel. Do not achieve this by freezing all head or foot coordinates.
-
-For dynamic actions, express the specified effort, weight, purpose and emotion through readable key poses: choose the overall head/chest/pelvis curve, lean, weight placement, limb reach and timing to suit that performance. An urgent accelerating run may use a pronounced forward lean, while an easy jog may be more upright and compact; do not apply a universal lean angle or maximum motion to every action. Make the intended impression readable in the key-pose silhouettes as well as in playback.
-
-For walking or running, show coordinated whole-body weight transfer, not a frozen upper body with cycling legs. For a humanlike run, distinguish landing compression through knees/hips, push-off with chest rising forward, and an airborne beat; alternate near/far legs with opposite arm swing and shoulder/hip counter-rotation. Let head and chest respond to the pelvis, with hair and clothing following slightly later when present. Adapt the motion to the subject's anatomy and requested energy; do not exaggerate a deliberately restrained action. In a run-in-place cycle, keep the overall root near its nominal slot but allow planned sway, forward lean and vertical bounce. A stance foot moves backward relative to the body; do not pin every foot or head to one coordinate. Do not substitute faster playback, random bobbing or effects for missing body mechanics.
-
-Registration contract: {args.registration}. Fixed is for a stationary planted contact anchor; free preserves intentional travel and internal body motion, including a run in place. Unspecified requires visual review before assuming either. Never apply stationary pixel locking to locomotion.
-{stationary}
-
-Animation action: {beats}.
-Follow the playback intent in the action: for a loop, connect the final pose back to the first; for a single action, show a readable beginning, action, and ending without forcing a return to the first pose.
+{stage_prompt(stage)}
+Create exactly {sheet["used_cells"]} animation frames left-to-right in one row with clear background gaps and roughly even nominal slots. Keep facing orientation, body scale, pixel size and a shared baseline for ground contact; preserve intentional jump height and travel. Use safe margins and honor the action's specified position changes relative to each nominal slot. No overlapping or cropped poses. These dimensions describe the final export; extraction finds complete poses before one common resize. Do not draw separators or force limbs into equal-width cuts.
+Registration contract: {args.registration}. Preserve the declared contact/travel behavior.
+Motion/sequence intent: {args.motion_beats.strip() or "use the reviewed motion plan"}.
+For a loop check last-to-first; for a single action keep its beginning and ending without forcing a return to the first pose.
 """
     elif structure == "tileset":
-        tile_list = ", ".join(tiles) if tiles else "terrain center, edges, corners, transitions, and a few simple decoration tiles"
-        body = f"""
-Create a tileset. Tiles required: {tile_list}. Every tile must align to the same grid, use the same perspective and palette, and connect cleanly to neighboring tiles when it represents an edge, corner, or transition.
-"""
+        body = f"Create these tiles with matching perspective, palette and neighbor connections: {', '.join(tiles) or 'centers, edges, corners and transitions'}."
     elif structure == "item-set":
-        item_list = ", ".join(items) if items else f"{sheet['used_cells']} related item assets"
-        body = f"""
-Create an item or icon sheet. Items required: {item_list}. Each used cell must contain one centered complete asset with consistent scale, outline, lighting, palette discipline, and safe padding. Keep silhouettes distinct.
-"""
+        body = f"Create these distinct, centered complete items with common scale/palette: {', '.join(items) or str(sheet['used_cells']) + ' related items'}."
     else:
-        body = """
-Create a consistent multi-cell sprite or asset sheet. Each used cell must contain one centered complete asset or pose with consistent scale, outline, lighting, palette discipline, and safe padding.
-"""
-
-    return (
-        base
-        + body
-        + f"""
-Background: {background_text(args)}.
-
-Do not include visible grid lines, borders, labels, frame numbers, scenery, checkerboard transparency, speed lines, motion blur, floor shadows, glows, dust, loose particles, watermarks, or detached effects unless the brief explicitly requires an attached hard-edged sprite effect. Leave unused cells empty using the specified background strategy."""
-    )
+        body = "Create one complete centered asset per used cell with common scale, palette and safe padding."
+    return base + body + f"\nBackground: {background_text(args)}.\n{AVOID_STYLE} Leave unused cells empty."
 
 
 def copy_references(references: list[Path], run_dir: Path) -> list[dict[str, object]]:
@@ -393,6 +384,8 @@ def main() -> None:
     parser.add_argument("--tiles", action="append")
     parser.add_argument("--motion-beats", default="")
     parser.add_argument("--registration", choices=["unspecified", "fixed", "free"], default="unspecified")
+    parser.add_argument("--animation-stage", choices=["auto", *ANIMATION_STAGES], default="auto")
+    parser.add_argument("--stage-reference", help="Reviewed previous-stage cycle image for flat-color/finish; not automatic visual approval")
     parser.add_argument("--style-notes", default="")
     parser.add_argument("--reference", action="append")
     parser.add_argument("--background", default="chroma-key", choices=["chroma-key", "transparent"])
@@ -404,7 +397,7 @@ def main() -> None:
     if not re.fullmatch(r"#[0-9A-Fa-f]{6}", args.chroma_key):
         raise SystemExit("--chroma-key must be a hex color like #FF00FF")
 
-    references = resolve_references(args.reference)
+    references = resolve_references((args.reference or []) + ([args.stage_reference] if args.stage_reference else []))
     display_name = infer_name(args, references)
     asset_id = slugify(display_name)
     if not asset_id and any(character.isalnum() for character in display_name):
@@ -417,6 +410,7 @@ def main() -> None:
     items = parse_list(args.items) + parse_list(args.item)
     tiles = parse_list(args.tiles) + parse_list(args.tile)
     structure = choose_structure(args, items, tiles)
+    stage = animation_stage(args, structure)
     sheet = sheet_contract(
         args,
         structure,
@@ -462,6 +456,16 @@ def main() -> None:
         )
 
         copied_references = copy_references(references, staging_dir)
+        if args.stage_reference:
+            copied_references[-1]["role"] = (
+                "accepted motion-block cycle: geometry and timing authority" if stage == "flat-color"
+                else "accepted flat-color cycle: geometry, timing and base-fill authority"
+            )
+        animation = {"registration": args.registration, "motion_beats": args.motion_beats}
+        if stage != "asset":
+            animation["stage"] = stage
+        if args.stage_reference:
+            animation["stage_reference"] = copied_references[-1]["path"]
         request = {
             "asset_id": asset_id,
             "display_name": display_name,
@@ -470,7 +474,7 @@ def main() -> None:
             "target_use": args.target_use,
             "target_size": {"width": target_size[0], "height": target_size[1]},
             "sheet": sheet,
-            "animation": {"registration": args.registration, "motion_beats": args.motion_beats},
+            "animation": animation,
             "items": items,
             "tiles": tiles,
             "background": {"strategy": args.background, "chroma_key": args.chroma_key.upper()},
@@ -488,8 +492,8 @@ def main() -> None:
                 "status": "pending",
                 "prompt_file": "prompts/base-asset.md",
                 "output_path": "decoded/base.png",
-                "input_images": copied_references,
-                "allow_prompt_only_generation": not copied_references,
+                "input_images": copied_references[:-1] if args.stage_reference else copied_references,
+                "allow_prompt_only_generation": not (copied_references[:-1] if args.stage_reference else copied_references),
                 "generation_skill": "imagegen",
                 "recording_owner": "parent",
             }

@@ -263,6 +263,7 @@ def main() -> None:
     summary = {
         "ok": True,
         "automated_ok": True,
+        "production_stage": request.get("animation", {}).get("stage", "unspecified"),
         "visual_qa": "unverified",
         "accepted": False,
         "run_dir": str(run_dir),

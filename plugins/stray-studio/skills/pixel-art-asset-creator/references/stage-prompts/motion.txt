@@ -1,0 +1,7 @@
+Stage: motion. Produce a simplified color-coded dummy cycle, not a finished character.
+Use the design reference only for proportions and foot/shoe volume; use the selected motion reference and reviewed keys for pose and phase order.
+For articulated characters, use distinct flat diagnostic colors for head, torso and anatomical left/right limbs. For non-articulated effects, use simple moving color masses instead; do not invent body parts. Keep each limb's color across screen-side changes. Omit final skin tones, costume details, hair strands, shading and highlights.
+Show contact, loading/down, passing under the pelvis and release/swing on both sides where appropriate to the anatomy. Preserve limb lengths and footwear proportions, including knee, ankle, heel and toe readability under justified occlusion/foreshortening.
+Express the requested effort through posture, lean, stride, weight transfer and timing. Coordinate head/chest/pelvis with opposite arm swing and shoulder/hip counter-rotation. For humanlike running show landing compression, push-off and flight; walking must not acquire a flight phase.
+In-place motion may have planned sway, bounce and lean; irregular strip spacing is not intentional travel. A stance foot moves backward relative to the body. Do not pin every foot or head or freeze the torso. Do not replace missing mechanics with faster playback.
+Keep the approved key poses and diagnostic proportions readable at target size. This stage must pass motion review before flat character color or finishing.

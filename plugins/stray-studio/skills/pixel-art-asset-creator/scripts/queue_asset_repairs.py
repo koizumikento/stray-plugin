@@ -18,7 +18,11 @@ from _run_safety import (
     resolve_run_path,
 )
 
+from prepare_asset_run import stage_prompt
+
 MAX_REPAIR_ATTEMPTS = 3
+REPAIR_CONTEXT_MARKER = "<!-- current-repair-context -->"
+REPAIR_CONTEXT_END = "<!-- end-current-repair-context -->"
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -67,7 +71,7 @@ def repair_prompt_update(
     job: dict[str, object],
     attempt: int,
     reason: str,
-    registration: str,
+    stage: str = "legacy",
 ) -> tuple[Path, str, str]:
     """Preflight the prompt path and return its old and proposed contents."""
     prompt_raw = job.get("prompt_file")
@@ -82,28 +86,34 @@ def repair_prompt_update(
     if not prompt_path.exists():
         raise SystemExit(f"prompt file not found: {prompt_path}")
     existing = prompt_path.read_text(encoding="utf-8")
-    motion_note = (
-        "Preserve planned weight transfer, torso motion, sway and intentional travel; do not freeze the upper body or flatten the motion during repair."
-        if registration == "free" else
-        "For stationary idle/blink, keep torso, clothing and planted feet fixed; change only named animated parts. Preserve intentional travel and whole-body motion in other actions."
-    )
+    if stage in {"legacy", "asset"}:
+        context = (
+            "Preserve only verified design, proportions and palette. "
+            "Keep intentional travel and whole-body motion; do not apply stationary locking to locomotion."
+        )
+    else:
+        context = stage_prompt(stage)
     note = f"""
-
+{REPAIR_CONTEXT_MARKER}
 Repair attempt {attempt}:
-- The previous output failed QA: {reason}
-- Regenerate the whole requested asset or sheet, not a partial crop.
-- Preserve the canonical base identity, palette, outline weight, lighting direction, material, and silhouette language.
-- Preserve only verified pose and placement features. Reopen defective geometry, strip-spacing drift and loop transitions; do not lock an unreviewed previous result wholesale. Use approved contact/passing keys and the declared reference roles rather than inheriting defects from an edit chain.
-- For articulated characters, preserve limb lengths and footwear proportions through joint motion and justified foreshortening; do not shrink or fuse feet to fit a pose. For skin, carry the accepted base/shadow colors across face, hands and limbs, preserving justified near/far shading.
-- For inconsistent paint, use shared material base/shadow/highlight roles and coherent color regions; remove accidental speckles without erasing essential details. Let shading follow pose and occlusion under the same lighting. Preserve accepted pose geometry and motion during a paint-only repair; palette mapping alone does not fix shading flicker.
-- Honor the declared material plan: if it omits shadows/highlights for a flat-color diagnostic, do not restore them implicitly. Distinguish near/far limbs by overlap and outlines without changing the declared skin base color.
-- {motion_note}
-- Remove colored background fringes without erasing thin outlines or changing subject colors. Follow the background strategy declared in this prompt; do not switch it implicitly during this repair.
-- Fill every requested used cell or frame with one complete asset. Use the cell center as the default placement reference; honor the action's specified position changes within each slot.
-- Keep unused cells empty with only transparent or chroma-key background.
-- Avoid clipping, edge slivers, opaque background boxes, checkerboard backgrounds, visible grids, labels, frame numbers, detached or floor shadows, glows, loose particles, and detached effects.
+- Observed failure: {reason}
+- Preserve only verified pose and placement features and use the accepted upstream references.
+- {context}
+- Return the complete requested frame/row/grid, not a partial crop. Keep declared scale, order and margins; honor the action's specified position changes.
+- Follow the background strategy declared in this prompt; do not switch it implicitly during this repair. Preserve outlines and subject colors.
+- Keep unused cells empty. Do not add text, checkerboards, detached effects or a later stage's finish.
+{REPAIR_CONTEXT_END}
 """
-    updated = existing.rstrip() + note.rstrip() + "\n"
+    # Prior generated repair context lives in manifest history, not the next visual prompt.
+    before, marker, remainder = existing.partition(REPAIR_CONTEXT_MARKER)
+    if marker:
+        _, end_marker, after = remainder.partition(REPAIR_CONTEXT_END)
+        if not end_marker:
+            raise SystemExit("incomplete repair context markers; review the prompt before retrying")
+        base_prompt = before.rstrip() + "\n" + after.lstrip()
+    else:
+        base_prompt = existing.rstrip()
+    updated = base_prompt + "\n\n" + note.strip() + "\n"
     return prompt_path, existing, updated
 
 
@@ -196,8 +206,11 @@ def main() -> None:
         job,
         attempt,
         reason,
-        str(request.get("animation", {}).get("registration", "unspecified")),
+        "asset" if job_id == "base" else str(request.get("animation", {}).get("stage", "legacy")),
     )
+    history = job.get("repair_history", [])
+    if not isinstance(history, list):
+        raise SystemExit("invalid repair_history: expected a list")
     planned_archive = archive_plan(run_dir, job, attempt)
 
     archive: Path | None = None
@@ -210,6 +223,9 @@ def main() -> None:
     prompt_updated = False
     manifest_updated = False
     try:
+        job["repair_history"] = history + [{
+            "attempt": attempt, "reason": reason, "prompt_before": old_prompt,
+        }]
         actual_attempt = reopen_job(job, reason)
         if actual_attempt != attempt:
             raise RuntimeError("repair attempt changed after preflight")

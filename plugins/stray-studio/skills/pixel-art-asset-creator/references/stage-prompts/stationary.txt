@@ -1,0 +1,4 @@
+Stage: stationary. Create only the named idle/blink edits from the accepted final-size base.
+For this stationary scope, lock the torso, clothing and planted feet outside the named animated regions. Preserve eye corners, width, lid weight, pixel grid and the shared palette.
+Keep the approved mutable regions in the reference coordinate system. If exact pixel lock was requested, final packaging must restore reference pixels outside those visually selected regions; the generator alone cannot guarantee exact preservation.
+Retain the requested hold and opening/closing sequence. Do not freeze the intended edits or invent missing motion by copying one frame. This stationary contract is unsuitable for locomotion, jumping or intentional travel.

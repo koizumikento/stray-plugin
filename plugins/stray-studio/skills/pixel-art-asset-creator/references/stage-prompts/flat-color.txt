@@ -1,0 +1,5 @@
+Stage: flat-color. Paint the character onto the accepted motion-block cycle.
+The attached accepted motion-block is geometry, contact, frame-order and timing authority. The canonical design/base and material plan define identity and shared colors; diagnostic part colors are not the final palette.
+Preserve accepted pose geometry and motion during this paint-only pass, including joints, foot volume, lean, compression and torso response. Keep body/foot proportions under justified projection; do not shrink or fuse feet while adding clothing.
+Use each material's declared flat base fill. Carry the same skin base across face, hands and limbs; retain depth through overlap and outlines. No optional shadows, highlights, dithering or speckled texture in this pass.
+Keep a shared palette and coherent connected regions while preserving essential tiny identity details. Do not independently quantize frames or reinterpret the motion. Base fills and retained motion must pass review before finish.

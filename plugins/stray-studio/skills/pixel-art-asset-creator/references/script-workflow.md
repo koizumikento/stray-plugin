@@ -13,11 +13,19 @@ skill_dir="/absolute/path/to/pixel-art-asset-creator"
 run_dir="/absolute/path/to/user-workspace/output/pixel-art-assets/<run-name>"
 ```
 
-Use deterministic tools for organizing prompts, slicing generated sheets, composing contact sheets, resizing, converting formats, checking dimensions, or packaging files. The opt-in stationary pixel lock below also preserves reference pixels and limits the palette of generated edits; it does not synthesize missing sprites, tiles, poses, or effects. Do not replace image generation with procedural content unless the user explicitly asks for procedural placeholder art.
+Use Blender for authored motion under `motion-toolchain.md`; use deterministic image tools for slicing, common scaling, color conversion, checks and packaging. The opt-in stationary pixel lock preserves reference pixels and limits the palette of generated edits; it cannot supply missing poses. The bundled scripts do not implement a Blender backend or rig builder.
 
 Use this reference for execution mechanics only. Design/color choices come from `design-contract.md`, stage advancement from `animation-workflow.md`, and acceptance from `qa-rules.md`.
 
 For private direct-API evidence on Windows, the shared writer uses the system Windows PowerShell 5.1/.NET ACL-aware `CreateNew` operation: a protected ACL grants only the current user access from file creation, and is verified before payload writes. It does not alter account or machine settings. POSIX retains `0600`; explicit private permissions survive forced replacement. Windows ACL setup failure aborts the write; an interrupted helper may leave an empty temporary file, never a published response. Local symlink tests skip only a Windows `WinError 1314` privilege failure and report the reason. CI sets `STRAY_REQUIRE_SYMLINKS=1` and requires real file/directory links on both OS runners; other link errors always fail.
+
+## Placement And Color Preservation
+
+1. Keep the generated original. Remove a verified background at native resolution, separate complete poses, then trim by occupancy while retaining each source rectangle and intended origin. For grid output, verify boundaries do not cut hair or footwear; for irregular rows, use reviewed pose spans rather than forcing equal cuts.
+2. Apply one common scale for the action/view under the design's logical body-size contract. Padding may differ across actions to accommodate travel or flight. Never independently fit each pose to a cell or normalize every pose's foot/bbox bottom to the ground. Determine ground from grounded reference poses and preserve airborne/root offsets; separate confirmed row-layout correction from motion correction.
+3. Apply the native interior-color and edge checks in `qa-rules.md` before downscaling or palette conversion. Separate alpha removal, boundary unmix and interior despill when diagnosing damage. The existing `remove_chroma_key` wrapper uses fixed cleanup settings; it exposes no per-call despill control. The underlying `_chroma_background.remove_chroma_background` accepts `unmix_reach` and `spill_max_fraction`: a reviewed run-local invocation can set `spill_max_fraction=0` when small-region despill damages legitimate fills, while retaining separately verified boundary treatment. Do not copy one run's numeric thresholds or disable all edge cleanup blindly; recheck interior regions and boundary spill. Preserve before/after evidence and settings. These controls are Python helper arguments, not new extractor CLI flags.
+4. Use the approved family palette, no dithering for flat color, and preserve necessary small colors. Do not learn the final palette from a damaged/noisy cycle or treat quantization as a cleanup fix. Compare sampled output before/after palette conversion for new speckles, broken outlines and material swaps; follow `design-contract.md` if colors collide. Record palette conversion separately from background removal.
+5. Export the actual frame rectangles, pivot/origin convention, drawing order and durations. Preview unequal holds with a player that supports them. Distinguish repeating a single action for inspection from an asset intended to loop; distinguish repeated video frames from additional drawings. Verify final frame bounds, alpha and timing, then inspect normal/slow playback and frame stepping.
 
 ## Bundled Scripts
 
@@ -35,17 +43,42 @@ For private direct-API evidence on Windows, the shared writer uses the system Wi
 - `package_asset_run.py`: one-step normalizer/packager for simpler runs
 - `slice_asset_sheet.py`: export packaged cells as individual PNG files
 
+## Design Package Before Stage Runs
+
+1. Follow `design-contract.md` to create or inspect the character package in the selected asset workspace's `design/` directory. Keep the accepted package separate from candidate generation run roots so later stage runs can copy its inputs without replacing their own source. Existing standalone generation is sufficient for a missing base/view; there is no `--animation-stage design` option and no automatic design-sheet generator or identity gate.
+2. Maintain `design/character-sheet.md` with accepted revision, relative image paths/hashes, proportions/coordinates, protected details, palette and deformation rules. Keep source images and clean final-size references distinct. Record original generation outputs with `record_imagegen_result.py`; record any cleanup/export transform separately rather than disguising a derived image as an original generation.
+3. For image-generation appearance stages, pass the selected accepted view and only relevant detail images via repeated `--reference`. Record the accepted current-view base into that run's `base` job; a contact board with labels is not a canonical sprite. Add the previous accepted cycle via `--stage-reference` for flat/finish. Annotate actual reference roles and copy applicable design facts into the run-local prompt before sending: proportions/coordinates in motion, identity/palette/deformation in paint. `--style-notes` is omitted from motion sheet prompts; put motion-relevant contract facts in `--motion-beats`. The scripts do not parse the design index or inject its content automatically.
+4. Carry the logical size, body scale, baseline/reference coordinates and chosen playback plan across stage runs. Source canvas dimensions can differ, so verify the actual extraction transform against this contract. The extractor does not enforce cross-stage scale, read the design index or apply arbitrary landmark transforms. Diagnose mismatches before accepting them; do not silently substitute independent per-frame fitting. Record supported processing choices and leave unsupported checks unverified.
+
 ## Stage Selection And References
 
 1. For sprite rows, `--animation-stage auto` selects `stationary` only with `--registration fixed`; otherwise it selects `motion`. Static assets retain their existing path. Choose the stage from the reviewed production plan, not an action-name heuristic. Whole-body motion/flat/finish cannot use fixed registration; stationary requires fixed.
-2. `motion` emits a diagnostic dummy prompt without final material paint. Put action, effort, view and phase details in `--motion-beats`. Final appearance in `--style-notes` is retained for the design/base and later stages, but omitted from the dummy sheet prompt. Choose a key absent from both the design and diagnostic colors, or use separate background choices/native alpha.
+2. `motion` emits an execution brief without final paint. The legacy preparer still creates image-generation jobs around it: use only its run metadata and planning inputs, never dispatch those motion jobs. Follow the authored handoff below. Put action, effort, view and phase details in `--motion-beats`; appearance in `--style-notes` is omitted from motion sheet context. Choose alpha or a key absent from diagnostic colors.
 3. After the motion gate passes, prepare a new run with `--animation-stage flat-color --reference <accepted-design.png> --stage-reference <accepted-motion-cycle.png>`. After flat color passes, prepare another with `--animation-stage finish --reference <accepted-design.png> --stage-reference <accepted-flat-cycle.png>`. Use new absolute `--output-dir` values, the same cell scale/phase contract, appropriate style notes and explicit background. Do not reuse a dummy prompt for finish.
 4. The preparer validates/copies/hashes images and records `animation.stage` and the previous-stage reference path. It requires both design and prior-stage image inputs for flat/finish and tags the prior-stage image's role in the sheet job. The file's presence does not prove visual approval; review and record the gate before invoking the next stage.
-5. Reuse the accepted base by recording it into the new run's `base` job with `record_imagegen_result.py`; there is no need to regenerate it. The previous cycle is excluded from the base job's input list and included in the sheet job. Verify these actual paths/roles before sending generation inputs. General `--reference` entries can include selected pose/view references; annotate their roles in the run-local prompt/manifest rather than attaching conflicting history.
-6. Scripts do not select footage frames, create 3D rigs, schedule key-pose generation or validate stage verdicts. Use installed image generation/editor capabilities for those visual tasks. Partial key-pose studies belong in separate runs; do not record them as a completed full cycle. Existing accepted input may satisfy a gate after inspection.
+5. For image-generation appearance stages, reuse the accepted base by recording it into the new run's `base` job with `record_imagegen_result.py`; there is no need to regenerate it. The previous cycle is excluded from the base job's input list and included in the sheet job. Verify these actual paths/roles before sending generation inputs. General `--reference` entries can include selected pose/view references; annotate their roles in the run-local prompt/manifest rather than attaching conflicting history.
+6. Scripts do not select footage frames, create rigs or validate stage verdicts. Author motion with the selected local toolchain; use image generation only for applicable appearance work. Partial key studies belong in separate runs; do not record them as a completed full cycle. Existing accepted input may satisfy a gate after inspection.
 7. Finalization can preview/package every stage. `production_stage` in its summary and `animation.stage` in the asset manifest identify the exported stage. A directory named `final/` can contain a dummy study; deliver it as such, never as finished character art.
 
-## Default Script Workflow
+## Authored-Motion Handoff
+
+1. Prepare the sprite-row request with explicit size, frame count, background and `--animation-stage motion --registration free` as appropriate. This creates metadata and legacy image jobs, not Blender execution. Keep these unexecuted jobs pending; do not fabricate completion or use the job-driven finalizer for this route.
+2. Execute a reviewed run-local Blender script/source as described in `motion-toolchain.md`. Keep rendered PNG frames, actual editable source and a frame/time table. Record producer/version, source paths/hashes, camera/scale, rendering and assembly transforms in `qa/production-source.md`. This is operator evidence, not an automatically validated schema.
+3. Assemble rendered frames into the declared equal-cell strip with one common canvas/scale. Use `grid` only for this verified layout; use component extraction for suitable separated free-layout sources. Do not independently fit frames. Do not send renders or assembled strips to `record_imagegen_result.py`: it records original image-generation outputs and rejects in-run sources. Moving a derived file outside the run does not make it original generation.
+4. Run the existing tools directly, with the environment shown above:
+
+```bash
+python "$skill_dir/scripts/extract_sheet_cells.py" --run-dir "$run_dir" --source "$run_dir/source/authored-strip.png" --extraction grid --no-resize
+python "$skill_dir/scripts/inspect_asset_cells.py" --run-dir "$run_dir" --cells-dir "$run_dir/cells" --json-out "$run_dir/qa/review.json"
+python "$skill_dir/scripts/compose_asset_sheet.py" --run-dir "$run_dir" --cells-dir "$run_dir/cells" --output "$run_dir/final/asset.png" --webp-output "$run_dir/final/asset.webp"
+python "$skill_dir/scripts/validate_asset_sheet.py" --run-dir "$run_dir" --json-out "$run_dir/final/validation.json"
+python "$skill_dir/scripts/make_contact_sheet.py" --run-dir "$run_dir"
+python "$skill_dir/scripts/render_animation_preview.py" --run-dir "$run_dir" --duration 120
+```
+
+5. The example assumes frames already at final cell size; omit `--no-resize` only for a verified common downscale. Replace the illustrative 120 ms with the playback plan. Check each command's result before continuing. Use `--force` only for authorized replacement of this run's derived outputs. Record visual QA against the final hash, including any unsupported timing/overlay checks. Flat/finish may use the appearance workflow below after motion acceptance.
+
+## Image-Generation Script Workflow
 
 1. Prepare the run.
 
@@ -73,7 +106,7 @@ uv run --with pillow==12.3.0 --with numpy==2.4.3 python "$skill_dir/scripts/asse
   --run-dir "$run_dir"
 ```
 
-3. Generate each ready job with the installed image generation capability.
+3. Generate each ready appearance job with the installed image generation capability. Motion briefs must use the authored-motion handoff instead; a ready status does not authorize dispatching them.
    - Use the prompt file listed by `asset_job_status.py`.
    - Verify and attach the actual listed input images with role, version and hash matching the accepted design and final color/pixel-density authority. Update run-local prompt/input records if refinement changed the reference; do not leave the raw base as the only generation input while treating a different refined palette as authoritative only during export.
    - The `base` job may be prompt-only when no references exist.
@@ -138,7 +171,7 @@ Extraction is independent of artistic stage. Preserve the current stage's diagno
 4. Crop each group by alpha, then use one common scale (never upscale) for all frames. For `fixed`, align the lowest opaque contact row to the common baseline after verifying that it represents planted feet. For `free`/`unspecified`, preserve source Y and each pose's X offset relative to its nominal source slot using one common transform. `--no-resize` requires a scale of 1 that fits; otherwise fail. No independent per-frame stretching or pixel-grid inference occurs.
    For a repair, derive the final transform from the original cleaned source and recorded reference coordinates; do not resize through an old exported row and then shrink it again. Integer nearest-neighbor enlargement for display is separate from asset resampling. Inspect final toes, soles, joints and thin outlines explicitly: preserving a character's connected component does not prove these details survived. See `qa-rules.md` for source-to-export diagnosis.
 5. Inspect the native cleaned `cells/source-normalized.png`, per-cell extraction metadata in `cells-manifest.json`, final PNG on white/dark backgrounds and animation playback. Heuristic segmentation and contact anchors still need visual approval. A successful extraction never makes a failed animation acceptable.
-6. For locomotion, inspect root drift separately from intentional weight transfer. The bundled free-placement path preserves source offsets; it does not identify the pelvis, correct accidental run-in-place drift, or match scale between separate action sheets. If a reviewed manual repair is needed, record the selected anatomical reference, planned trajectory, common scale, offsets and before/after evidence. Correct only unintended displacement; preserve planned sway, bounce and internal torso motion. Compare body proportions to the accepted base when choosing scale, and preserve shared vertical margins needed for flight. Do not normalize every pose to the same height or foot/head location. Regenerate missing body mechanics rather than trying to create them through alignment.
+6. For locomotion, inspect root drift separately from intentional weight transfer. The bundled free-placement path preserves source offsets; it does not identify the pelvis, correct accidental run-in-place drift, or match scale between separate action sheets. If a reviewed manual repair is needed, record the selected anatomical reference, planned trajectory, common scale, offsets and before/after evidence. Correct only unintended displacement; preserve planned sway, bounce and internal torso motion. Compare body proportions to the accepted base when choosing scale, and preserve shared vertical margins needed for flight. Do not normalize every pose to the same height or foot/head location. Repair missing body mechanics in the authored source rather than trying to create them through alignment.
    Its nominal source slots are equal-width even when the drawn pose spacing is not. Compare source/reference positions, equivalent phases and last-to-first before accepting the complete row. Use silhouette centers only as warning signals, then inspect body landmarks and the same supporting leg. There is no automatic root tracker or slot-drift correction; any demonstrated layout correction needs recorded transforms and a fresh whole-cycle review.
 
 ### Legacy Grid Trim And Align
@@ -164,7 +197,7 @@ Extraction is independent of artistic stage. Preserve the current stage's diagno
 
 ### Targeted Repair Loop
 
-If QA fails, queue a targeted repair and regenerate only the reopened job.
+For authored motion, repair the editable source and repeat its handoff checks; do not queue image-generation repairs. For an appearance failure, queue a targeted repair and regenerate only the reopened job.
 
 ```bash
 uv run --with pillow==12.3.0 --with numpy==2.4.3 python "$skill_dir/scripts/queue_asset_repairs.py" \

@@ -1,6 +1,6 @@
 # Sources And Scope
 
-Process references reviewed on 2026-09-13. These are examples from artists and tool documentation, not a claim that all artists use one method. The staged AI workflow is this skill's adaptation; its effectiveness must be tested, not inferred from the human examples alone.
+Process references reviewed on 2026-09-13. These are examples from artists and tool documentation, not a claim that all artists use one method. The authored-motion and optional generated-appearance workflow is this skill's adaptation; its effectiveness must be tested, not inferred from human examples alone.
 
 ## Human Production
 
@@ -10,8 +10,12 @@ Process references reviewed on 2026-09-13. These are examples from artists and t
 - [Saint11 — Basic Aseprite Animation](https://saint11.art/pixel_art_articles/article3/): straight-ahead and pose-to-pose methods, timing and preserving volume. This skill chooses pose-to-pose for articulated cycles; it is not the only valid animation method.
 - [Saint11 — Basic Shading](https://saint11.art/pixel_art_articles/article4/): simplify lighting into readable surfaces and limited colors rather than copying reduced imagery literally.
 - [Saint11 — Using 3D Reference](https://saint11.art/blog/3d-ref/): use a rough model for perspective, select frames and redraw; a render is reference, not finished pixel art.
-- [Aseprite — Onion Skin](https://www.aseprite.org/docs/onion-skinning/): compare previous/next frames in the editor. The bundled HTML player does not implement this feature.
-- [Aseprite — Indexed Color](https://www.aseprite.org/docs/color-mode/): pixels reference palette entries; semantic material assignment and temporal shading still require inspection.
+- [Blender — Animation and Rigging](https://www.blender.org/features/animation/): controllable keys, constraints, rigs and shape keys for authored motion.
+- [Blender — Background Python](https://docs.blender.org/api/5.0/info_tips_and_tricks.html): background script execution; verify the actual installed version and launcher.
+- [Blender — Physics](https://docs.blender.org/manual/en/latest/physics/introduction.html): choose relevant simulation tools for deforming subjects/effects instead of imposing a humanoid rig.
+- [FFmpeg — Documentation](https://ffmpeg.org/ffmpeg.html): frame extraction and preview encoding; preserve the selected timing.
+
+Aseprite-titled artist material above is historical process evidence, not adoption of that editor. The selected toolchain excludes Aseprite.
 
 No tutorial visual assets, recordings or paid source files are bundled. Attribute any selected external pose references separately in their actual run.
 
@@ -24,6 +28,6 @@ The isolated RGB background detection, soft-alpha unmix and small-cluster despil
 ## Actual Limits
 
 1. Bundled tools provide single-row alpha-component extraction, common scaling, explicit stationary pixel lock, structural QA and uniform-duration previews. They do not recognize anatomy/materials, validate stage approval, enforce motion semantics or schedule reference-based intermediate poses.
-2. Aseprite/3D tooling is optional and must actually be available to claim its use. No editor installation, model rig, automatic retargeter, per-frame timing player or semantic recoloring is added by this workflow.
+2. Blender is the selected external motion tool and must actually run before claiming execution. Aseprite is excluded. The bundled scripts add no automatic rig builder, retargeter, per-frame timing player or semantic recoloring; author source locally and use the documented direct packaging handoff.
 3. Arbitrary overlapping layouts, automatic pelvis anchors and pixel-grid estimation require demonstrated cases and acceptance checks before implementation. Engine timing/rectangle metadata and editable editor files require the actual requested consumer, not speculative formats.
 4. Further upstream code integration requires license, dependency, Windows and run-safety review. The upstream generation providers, video pipeline, curation UI and Codex pet support remain outside this skill.

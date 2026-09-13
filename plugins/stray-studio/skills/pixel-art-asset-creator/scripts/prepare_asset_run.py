@@ -22,16 +22,20 @@ from _run_safety import require_safe_managed_replacement, write_run_marker
 DEFAULT_STYLE = (
     "Pixel-art-adjacent game asset style: compact readable silhouette, "
     "low-resolution sprite logic, visible stepped edges, limited palette, crisp dark "
-    "outline when appropriate, flat cel-style shading, one clear light direction, "
+    "outline when appropriate, flat fills with optional cel-style shading, one clear light direction, "
     "minimal texture, no tiny detail that disappears at target size, and clean "
-    "transparent-background readiness."
+    "transparent-background readiness. Use shared material-specific base/shadow colors "
+    "and optional highlights in broad coherent color regions; no accidental speckled "
+    "shading or dithering. Preserve essential small details and near/far limb contrast. "
+    "If the material plan omits shadows or highlights, keep those materials flat; "
+    "use overlap and outlines rather than changing their base colors to distinguish limbs."
 )
 
 AVOID_STYLE = (
     "Avoid polished illustration, anime key art, 3D render, glossy app icon, vector "
     "mascot, painterly rendering, realistic fur or material texture, soft gradients, "
     "high-detail antialiasing, excessive tiny accessories, text, labels, scenery, "
-    "visible grids, checkerboard transparency, shadows, glows, halos, blur, smears, "
+    "visible grids, checkerboard transparency, detached or floor shadows, glows, halos, blur, smears, "
     "watermarks, and unrelated props."
 )
 
@@ -252,7 +256,8 @@ def sheet_prompt(
     structure = str(sheet["structure"])
     base = f"""Create a production pixel-art asset sheet for {request["display_name"]}.
 
-Use the attached reference image(s) for identity and the attached base asset as the canonical design. Do not redesign the asset family, palette, outline, material, lighting direction, or silhouette language. Simplify detailed references into the requested pixel-art style.
+Use the attached reference image(s) for identity and the attached accepted base asset as the canonical design and pixel-density reference. Preserve its proportions, palette, outline, material, lighting direction, and silhouette language; do not reinterpret or further simplify an already accepted base between frames.
+Follow the supplied reference roles: the approved design/color reference defines the current base version, and approved pose references define the motion. Do not replace an approved reference with an earlier raw or repaired variant implicitly.
 
 Grid: {sheet["columns"]} columns x {sheet["rows"]} rows.
 Cell size: {sheet["cell_width"]}x{sheet["cell_height"]}.
@@ -266,14 +271,26 @@ Use this prompt as an authoritative production asset spec. Do not expand it into
 """
     if structure == "sprite-row":
         beats = args.motion_beats.strip() or "clear readable motion beats from start to finish"
+        stationary = "" if args.registration == "free" else """
+For stationary idle or blinking, lock the torso, clothing, face proportions, and planted feet to the same cell coordinates. Change only the named animated parts; do not redraw the whole pose between frames.
+For fixed idle/blink, use the accepted final-resolution reference frame and edit only the specified mutable regions. Preserve its pixel grid and palette. A whole-frame redraw is a motion draft; final packaging must restore reference pixels outside the visually selected regions when pixel locking is requested.
+"""
         body = f"""
 Create exactly {sheet["used_cells"]} animation frames arranged left-to-right in one horizontal row. Leave clear background gaps between complete poses. Keep roughly even spacing; honor the action's specified position changes relative to each nominal slot center. No pose may be cropped or overlap another pose. The grid and cell dimensions above describe the final export: extraction will find each whole pose before resizing, so do not draw separators or force limbs into exact equal-width cuts.
 
-Keep orientation, body scale, pixel size, and safe margins consistent with the base. Use a shared baseline for ground contact; preserve intentional jump height or travel instead of recentering each pose. Show actual limb movement and stable contact during walking or running.
+Keep facing orientation, body scale, pixel size, and safe margins consistent with the base. Preserve character proportions, not an identical torso pose or silhouette. Use a shared baseline for ground contact; preserve intentional jump height, body compression and travel.
+For articulated characters, preserve limb lengths and footwear proportions, including readable ankle, heel and toe shapes. Allow justified foreshortening and occlusion, not unexplained shrinking or fused feet. A common body scale does not guarantee stable part proportions.
 
-For stationary idle or blinking, lock the torso, clothing, face proportions, and planted feet to the same cell coordinates. Change only the named animated parts; do not redraw the whole pose between frames. Registration contract: {args.registration}. Fixed means the contact anchor stays fixed; free permits the action's intentional travel. Unspecified requires visual review before assuming either.
+Keep the material-color roles and light direction/frame of reference consistent across poses. Let simple shadow regions follow the changing surfaces and occlusion; do not pin shading to canvas coordinates or randomly change its coverage. Shared palette membership alone does not ensure stable shading. Preserve essential details and the intended body motion while simplifying paint.
+For skin, carry the accepted base/shadow colors across face, hands and limbs; preserve justified near/far shading without inventing a different skin tone at each phase.
+Use the reviewed contact and passing key poses when supplied; build intermediate beats between them without changing their anatomical limb identities. For a walk in place, keep the intended pelvis trajectory within each nominal slot consistent; irregular strip spacing is not intentional travel. Do not achieve this by freezing all head or foot coordinates.
 
-For fixed idle/blink, use the accepted final-resolution reference frame and edit only the specified mutable regions. Preserve its pixel grid and palette. A whole-frame redraw is a motion draft; final packaging must restore reference pixels outside the visually selected regions when pixel locking is requested.
+For dynamic actions, express the specified effort, weight, purpose and emotion through readable key poses: choose the overall head/chest/pelvis curve, lean, weight placement, limb reach and timing to suit that performance. An urgent accelerating run may use a pronounced forward lean, while an easy jog may be more upright and compact; do not apply a universal lean angle or maximum motion to every action. Make the intended impression readable in the key-pose silhouettes as well as in playback.
+
+For walking or running, show coordinated whole-body weight transfer, not a frozen upper body with cycling legs. For a humanlike run, distinguish landing compression through knees/hips, push-off with chest rising forward, and an airborne beat; alternate near/far legs with opposite arm swing and shoulder/hip counter-rotation. Let head and chest respond to the pelvis, with hair and clothing following slightly later when present. Adapt the motion to the subject's anatomy and requested energy; do not exaggerate a deliberately restrained action. In a run-in-place cycle, keep the overall root near its nominal slot but allow planned sway, forward lean and vertical bounce. A stance foot moves backward relative to the body; do not pin every foot or head to one coordinate. Do not substitute faster playback, random bobbing or effects for missing body mechanics.
+
+Registration contract: {args.registration}. Fixed is for a stationary planted contact anchor; free preserves intentional travel and internal body motion, including a run in place. Unspecified requires visual review before assuming either. Never apply stationary pixel locking to locomotion.
+{stationary}
 
 Animation action: {beats}.
 Follow the playback intent in the action: for a loop, connect the final pose back to the first; for a single action, show a readable beginning, action, and ending without forcing a return to the first pose.

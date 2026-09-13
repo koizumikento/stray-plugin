@@ -6,9 +6,14 @@ from __future__ import annotations
 import json
 import os
 import stat
+import sys
 import tempfile
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from _private_files import create_private_windows_file as _create_private_windows_file
 
 RUN_MARKER_NAME = ".pixel-art-asset-run.json"
 RUN_MARKER_KIND = "stray-pixel-art-asset-run"
@@ -111,6 +116,10 @@ def resolve_run_output_path(
 def create_staging_path(target: Path, *, mode: int | None = None) -> Path:
     """Create a same-directory staging file for a fully formed output."""
     target.parent.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt" and mode == 0o600:
+        staged = target.parent / f".{target.name}.{uuid.uuid4().hex}.tmp"
+        _create_private_windows_file(staged)
+        return staged
     fd, raw_path = tempfile.mkstemp(
         prefix=f".{target.name}.",
         suffix=".tmp",
@@ -118,20 +127,26 @@ def create_staging_path(target: Path, *, mode: int | None = None) -> Path:
     )
     os.close(fd)
     staged = Path(raw_path)
-    if mode is None:
-        current_umask = os.umask(0)
-        os.umask(current_umask)
-        mode = 0o666 & ~current_umask
-    staged.chmod(mode)
+    try:
+        if mode is None:
+            current_umask = os.umask(0)
+            os.umask(current_umask)
+            mode = 0o666 & ~current_umask
+        staged.chmod(mode)
+    except BaseException:
+        staged.unlink(missing_ok=True)
+        raise
     return staged
 
 
-def commit_staged_path(staged: Path, target: Path, *, force: bool) -> None:
+def commit_staged_path(
+    staged: Path, target: Path, *, force: bool, retain_staging_permissions: bool = False,
+) -> None:
     """Commit a staged file atomically, without following an output symlink."""
     if staged.parent != target.parent:
         raise ValueError("staged output must share the target directory")
     if force:
-        if target.is_file() and not target.is_symlink():
+        if not retain_staging_permissions and target.is_file() and not target.is_symlink():
             staged.chmod(stat.S_IMODE(target.stat().st_mode))
         os.replace(staged, target)
         return
@@ -157,7 +172,10 @@ def atomic_write_bytes(
             handle.write(payload)
             handle.flush()
             os.fsync(handle.fileno())
-        commit_staged_path(staged, target, force=force)
+        if mode is None:
+            commit_staged_path(staged, target, force=force)
+        else:
+            commit_staged_path(staged, target, force=force, retain_staging_permissions=True)
     finally:
         staged.unlink(missing_ok=True)
 

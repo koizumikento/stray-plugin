@@ -28,6 +28,8 @@ python3 scripts/capture_local_state.py \
 
 The helper records exact OIDs, index state, Git-visible changed paths, raw worktree fingerprints for changed and untracked paths, changed gitlinks, and a canonical snapshot fingerprint. It does not decide findings and does not include file contents in standard output.
 
+On Windows, use an external temporary directory under the current user's profile. Both capture helpers use the plugin's shared `scripts/_private_files.py`: Windows PowerShell 5.1 creates files with a protected current-user-only ACL before any payload is written; POSIX uses `0600`. ACL setup failure aborts capture. An interrupted Windows helper can leave an empty file to clean up. Administrator and backup privileges are outside this ordinary-user protection. Raw diffs are written in binary mode so their saved bytes match the captured fingerprint on either OS.
+
 When displaying patches for review, use:
 
 ```bash

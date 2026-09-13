@@ -88,6 +88,42 @@ jobs:
         run: >-
           python -m pytest -q -p no:cacheprovider
           plugins/stray-skillops/skills/skill-routing-validator/tests
-          plugins/stray-studio/skills/change-readiness-review/tests
           plugins/stray-studio/skills/corporate-site-builder/tests
+
+  studio-platform:
+    name: Studio filesystem safety (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    env:
+      PYTHONUTF8: "1"
+      STRAY_REQUIRE_SYMLINKS: "1"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
+        run: >-
+          python -m pip install --disable-pip-version-check --no-compile
+          pytest==9.1.1 iniconfig==2.3.0 packaging==26.2 pluggy==1.6.0
+          Pygments==2.20.0 Pillow==12.3.0 numpy==2.4.3
+      - name: Require symlink creation on the runner
+        run: >-
+          python -c "import pathlib, tempfile;
+          d=tempfile.TemporaryDirectory(); p=pathlib.Path(d.name);
+          (p/'link').symlink_to(p/'target'); (p/'link').unlink();
+          (p/'dir-link').symlink_to(p/'target-dir', target_is_directory=True);
+          (p/'dir-link').unlink(); d.cleanup()"
+      - name: Test Studio scripts and platform permissions
+        run: >-
+          python -m pytest -q -rs -p no:cacheprovider
           plugins/stray-studio/skills/pixel-art-asset-creator/tests
+          plugins/stray-studio/skills/change-readiness-review/tests

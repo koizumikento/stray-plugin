@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from filesystem_support import assert_private_file
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
@@ -334,5 +335,5 @@ def test_cli_writes_private_snapshot_and_diff_outside_workspace(
     assert result == 0
     assert (snapshot_dir / "initial.json").is_file()
     assert (snapshot_dir / "initial.diff").read_bytes() == b"exact diff\n"
-    assert (snapshot_dir / "initial.json").stat().st_mode & 0o077 == 0
-    assert (snapshot_dir / "initial.diff").stat().st_mode & 0o077 == 0
+    assert_private_file(snapshot_dir / "initial.json")
+    assert_private_file(snapshot_dir / "initial.diff")

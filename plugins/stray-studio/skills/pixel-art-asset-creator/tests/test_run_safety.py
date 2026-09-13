@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from filesystem_support import make_symlink, assert_private_file
+
 import pytest
 from PIL import Image
 
@@ -60,7 +62,7 @@ def first_job(manifest: dict[str, object]) -> dict[str, object]:
     return jobs[0]
 
 
-def test_resolve_run_path_rejects_traversal_absolute_and_symlink_escape(tmp_path: Path) -> None:
+def test_resolve_run_path_rejects_traversal_and_absolute_paths(tmp_path: Path) -> None:
     run_dir = tmp_path / "run"
     run_dir.mkdir()
     (run_dir / "decoded").mkdir()
@@ -84,9 +86,12 @@ def test_resolve_run_path_rejects_traversal_absolute_and_symlink_escape(tmp_path
             allowed_roots=("decoded",),
         )
 
+def test_resolve_run_path_rejects_symlink_escape(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    (run_dir / "decoded").mkdir(parents=True)
     outside = tmp_path / "outside"
     outside.mkdir()
-    (run_dir / "decoded" / "link").symlink_to(outside, target_is_directory=True)
+    make_symlink((run_dir / "decoded" / "link"), outside, target_is_directory=True)
     with pytest.raises(SystemExit, match="escapes the asset run"):
         resolve_run_path(
             run_dir,
@@ -366,19 +371,76 @@ def test_direct_api_response_is_private_before_publish(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    observed_modes: list[int] = []
+    observed_stages: list[Path] = []
     original_commit = run_safety.commit_staged_path
 
-    def inspect_commit(staged: Path, target: Path, *, force: bool) -> None:
-        observed_modes.append(staged.stat().st_mode & 0o777)
-        original_commit(staged, target, force=force)
+    def inspect_commit(staged: Path, target: Path, *, force: bool,
+                       retain_staging_permissions: bool = False) -> None:
+        assert_private_file(staged)
+        observed_stages.append(staged)
+        original_commit(staged, target, force=force,
+                        retain_staging_permissions=retain_staging_permissions)
 
     monkeypatch.setattr(run_safety, "commit_staged_path", inspect_commit)
     response = tmp_path / "base.response.json"
     write_exclusive(response, b"private", field="Image API response")
 
-    assert observed_modes == [0o600]
-    assert response.stat().st_mode & 0o777 == 0o600
+    assert len(observed_stages) == 1
+    assert_private_file(response)
+
+
+def test_private_permissions_exist_before_payload_and_survive_replacement(tmp_path: Path) -> None:
+    response = tmp_path / "space 日本語 ' [file].json"
+    staged = run_safety.create_staging_path(response, mode=0o600)
+    try:
+        assert staged.read_bytes() == b""
+        assert_private_file(staged)
+    finally:
+        staged.unlink()
+    response.write_bytes(b"old")
+    response.chmod(0o666)
+    run_safety.atomic_write_bytes(response, b"new", force=True, mode=0o600)
+    assert response.read_bytes() == b"new"
+    assert_private_file(response)
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows ACL failure path")
+def test_acl_creation_failure_does_not_publish_payload(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    response = tmp_path / "response.json"
+    response.write_bytes(b"existing")
+
+    def fail_acl(path: Path) -> None:
+        raise PermissionError("ACL unavailable")
+
+    monkeypatch.setattr(run_safety, "_create_private_windows_file", fail_acl)
+    with pytest.raises(PermissionError, match="ACL unavailable"):
+        run_safety.atomic_write_bytes(response, b"private payload", force=True, mode=0o600)
+    assert response.read_bytes() == b"existing"
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["response.json"]
+
+
+def test_symlink_privilege_skip_is_narrow_and_ci_requires_coverage(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    error = OSError("test symlink failure")
+
+    def fail_link(*args: object, **kwargs: object) -> None:
+        raise error
+
+    monkeypatch.setattr(Path, "symlink_to", fail_link)
+    monkeypatch.delenv("STRAY_REQUIRE_SYMLINKS", raising=False)
+    with pytest.raises(OSError):
+        make_symlink(tmp_path / "link", "target")
+    error.winerror = 1314
+    if os.name == "nt":
+        with pytest.raises(pytest.skip.Exception, match="WinError 1314"):
+            make_symlink(tmp_path / "link", "target")
+        monkeypatch.setenv("STRAY_REQUIRE_SYMLINKS", "1")
+        with pytest.raises(pytest.fail.Exception, match="requires symlink coverage"):
+            make_symlink(tmp_path / "link", "target")
+    else:
+        with pytest.raises(OSError):
+            make_symlink(tmp_path / "link", "target")
 
 
 def test_repair_limit_preserves_third_attempt_output(tmp_path: Path) -> None:

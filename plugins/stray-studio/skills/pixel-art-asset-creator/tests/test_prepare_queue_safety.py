@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from filesystem_support import make_symlink
+
 import pytest
 from PIL import Image
 
@@ -184,7 +186,7 @@ def test_force_replacement_rejects_symlinked_run_destination(tmp_path: Path) -> 
     stale = run_dir / "stale.txt"
     stale.write_text("keep", encoding="utf-8")
     alias = tmp_path / "alias"
-    alias.symlink_to(run_dir, target_is_directory=True)
+    make_symlink(alias, run_dir, target_is_directory=True)
 
     result = run_script(
         "prepare_asset_run.py",
@@ -206,7 +208,7 @@ def test_force_replacement_rejects_intermediate_symlink_component(tmp_path: Path
     stale = run_dir / "stale.txt"
     stale.write_text("keep", encoding="utf-8")
     alias = tmp_path / "alias"
-    alias.symlink_to(run_dir, target_is_directory=True)
+    make_symlink(alias, run_dir, target_is_directory=True)
     disguised = alias / "prompts" / ".."
 
     result = run_script(
@@ -228,7 +230,7 @@ def test_default_output_rejects_symlinked_output_directory(tmp_path: Path) -> No
     outside = tmp_path / "outside"
     working.mkdir()
     outside.mkdir()
-    (working / "output").symlink_to(outside, target_is_directory=True)
+    make_symlink((working / "output"), outside, target_is_directory=True)
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
 
@@ -264,7 +266,7 @@ def test_queue_repair_rejects_repairs_symlink_without_data_loss(tmp_path: Path) 
 
     outside = tmp_path / "outside"
     outside.mkdir()
-    (run_dir / "repairs").symlink_to(outside, target_is_directory=True)
+    make_symlink((run_dir / "repairs"), outside, target_is_directory=True)
 
     result = run_script("queue_asset_repairs.py", "--run-dir", run_dir)
 

@@ -38,6 +38,7 @@ def test_skill_has_focused_trigger_and_all_references() -> None:
 
 
 def test_helpers_and_skill_identity_are_packaged_with_the_skill() -> None:
+    assert (STUDIO_ROOT / "scripts" / "_private_files.py").is_file()
     for name in (
         "_snapshot_common.py",
         "capture_local_state.py",
@@ -71,7 +72,7 @@ def test_manifest_and_readme_discover_the_new_skill() -> None:
     manifest = json.loads(
         (STUDIO_ROOT / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8")
     )
-    assert manifest["version"] == "0.1.13"
+    assert manifest["version"] == "0.1.14"
     assert "change-readiness" in manifest["interface"]["longDescription"]
     prompts = manifest["interface"]["defaultPrompt"]
     readiness_prompts = [

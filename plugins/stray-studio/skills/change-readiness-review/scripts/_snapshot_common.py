@@ -6,9 +6,14 @@ import os
 import re
 import stat
 import subprocess
+import sys
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from _private_files import create_private_windows_file
 
 
 _ARTIFACT_NAME_RE = re.compile(r"[a-z0-9][a-z0-9_-]{0,63}")
@@ -167,8 +172,16 @@ def write_artifact_set(
                 flags |= os.O_CLOEXEC
             if hasattr(os, "O_NOFOLLOW"):
                 flags |= os.O_NOFOLLOW
-            descriptor = os.open(target, flags, 0o600)
-            created.append(target)
+            if os.name == "nt":
+                try:
+                    create_private_windows_file(target)
+                except subprocess.SubprocessError as error:
+                    raise CaptureError("private Windows artifact creation failed") from error
+                created.append(target)
+                descriptor = os.open(target, os.O_WRONLY | os.O_BINARY | os.O_NOINHERIT)
+            else:
+                descriptor = os.open(target, flags, 0o600)
+                created.append(target)
             try:
                 view = memoryview(payloads[extension])
                 while view:
@@ -176,7 +189,8 @@ def write_artifact_set(
                     if written <= 0:
                         raise OSError("artifact write made no progress")
                     view = view[written:]
-                os.fchmod(descriptor, 0o600)
+                if os.name != "nt":
+                    os.fchmod(descriptor, 0o600)
                 os.fsync(descriptor)
             finally:
                 os.close(descriptor)

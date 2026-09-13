@@ -3,12 +3,12 @@ from __future__ import annotations
 import json
 import importlib.util
 import os
-import stat
 import subprocess
 import sys
 from pathlib import Path
 
 import pytest
+from filesystem_support import assert_private_file, make_symlink
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
@@ -96,7 +96,7 @@ def test_clean_capture_is_read_only_deterministic_and_private(tmp_path: Path) ->
     assert first_state["staged_files"] == []
     assert first_state["unstaged_files"] == []
     assert first_state["untracked_files"] == []
-    assert stat.S_IMODE((snapshot_dir / "initial.json").stat().st_mode) == 0o600
+    assert_private_file(snapshot_dir / "initial.json")
     after = git(repo, "status", "--porcelain=v1", "-z", "--untracked-files=all")
     assert after == before
 
@@ -145,10 +145,7 @@ def test_refuses_repository_internal_or_symlink_snapshot_directory(
     external = tmp_path / "external"
     external.mkdir()
     symlink = tmp_path / "snapshot-link"
-    try:
-        symlink.symlink_to(external, target_is_directory=True)
-    except OSError as error:
-        pytest.skip(f"directory symlinks are unavailable: {error}")
+    make_symlink(symlink, external, target_is_directory=True)
     symlink_result = capture(repo, symlink, base=initial_oid, name="initial")
     assert symlink_result.returncode == 1
     assert b"must not be a symlink" in symlink_result.stderr
@@ -177,10 +174,7 @@ def test_untracked_symlink_target_changes_snapshot_without_following_target(
     outside = tmp_path / "outside-secret.txt"
     outside.write_text("secret value never read\n", encoding="utf-8")
     link = repo / "link"
-    try:
-        link.symlink_to(outside)
-    except OSError as error:
-        pytest.skip(f"symlinks are unavailable: {error}")
+    make_symlink(link, outside)
 
     first = capture(repo, snapshot_dir, base=initial_oid, name="initial")
     assert first.returncode == 0, first.stderr
@@ -200,8 +194,7 @@ def test_snapshot_file_has_no_group_or_other_permissions(tmp_path: Path) -> None
     result = capture(repo, snapshot_dir, base=initial_oid, name="initial")
 
     assert result.returncode == 0, result.stderr
-    mode = os.stat(snapshot_dir / "initial.json").st_mode
-    assert mode & (stat.S_IRWXG | stat.S_IRWXO) == 0
+    assert_private_file(snapshot_dir / "initial.json")
 
 
 def test_artifact_set_preflights_all_targets_before_writing(tmp_path: Path) -> None:
@@ -239,6 +232,66 @@ def test_artifact_name_rejects_path_traversal(tmp_path: Path) -> None:
         )
 
     assert list(snapshot_dir.iterdir()) == []
+
+
+def test_artifact_bytes_and_permissions_before_payload(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    snapshot_dir = tmp_path / "日本語 ' [snapshots]"
+    snapshot_dir.mkdir()
+    target = snapshot_dir / "initial.diff"
+    payload = b"LF\nCRLF\r\nNUL\x00EOF\x1a\xff\n"
+    original_write = os.write
+
+    def inspect_write(descriptor: int, data: memoryview) -> int:
+        assert_private_file(target)
+        return original_write(descriptor, data)
+
+    monkeypatch.setattr(snapshot_common.os, "write", inspect_write)
+    write_artifact_set(str(snapshot_dir), "initial", {"diff": payload}, forbidden_roots=[])
+    assert target.read_bytes() == payload
+
+
+def test_failed_write_removes_only_created_artifacts(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    keep = tmp_path / "keep.txt"
+    keep.write_bytes(b"existing")
+    original_write = os.write
+    calls = 0
+
+    def fail_second_write(descriptor: int, data: memoryview) -> int:
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise OSError("disk write failed")
+        return original_write(descriptor, data)
+
+    monkeypatch.setattr(snapshot_common.os, "write", fail_second_write)
+    with pytest.raises(OSError, match="disk write failed"):
+        write_artifact_set(str(tmp_path), "initial", {"json": b"{}", "diff": b"diff"},
+                           forbidden_roots=[])
+    assert list(tmp_path.iterdir()) == [keep]
+    assert keep.read_bytes() == b"existing"
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows exclusive ACL creation")
+def test_acl_creation_collision_preserves_existing_file_and_rolls_back(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    original_create = snapshot_common.create_private_windows_file
+
+    def race_create(target: Path) -> None:
+        if target.suffix == ".diff":
+            target.write_bytes(b"created by another writer")
+        original_create(target)
+
+    monkeypatch.setattr(snapshot_common, "create_private_windows_file", race_create)
+    with pytest.raises(CaptureError, match="private Windows artifact creation failed"):
+        write_artifact_set(str(tmp_path), "initial", {"json": b"{}", "diff": b"private"},
+                           forbidden_roots=[])
+    assert not (tmp_path / "initial.json").exists()
+    assert (tmp_path / "initial.diff").read_bytes() == b"created by another writer"
 
 
 def test_option_like_base_is_not_executed_as_a_git_option(tmp_path: Path) -> None:

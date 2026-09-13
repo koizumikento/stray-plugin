@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from filesystem_support import make_symlink, assert_private_file
+
 import pytest
 from PIL import Image
 
@@ -145,7 +147,7 @@ def test_invalid_api_json_is_preserved_as_raw_evidence(
         )
 
     assert evidence.read_bytes() == payload
-    assert evidence.stat().st_mode & 0o777 == 0o600
+    assert_private_file(evidence)
     assert not list(evidence.parent.glob(f".{evidence.name}.*.tmp"))
 
 
@@ -343,7 +345,7 @@ def test_force_rejects_symlink_output_without_touching_target(tmp_path: Path) ->
     victim = run_dir / "decoded" / "victim.png"
     victim_before = write_png(victim, (10, 20, 30, 255))
     output = run_dir / "decoded" / "base.png"
-    output.symlink_to(victim.name)
+    make_symlink(output, victim.name)
     source = tmp_path / "source.png"
     write_png(source, (200, 100, 50, 255))
     manifest_before = manifest_path.read_bytes()
@@ -365,7 +367,7 @@ def test_force_rejects_symlink_canonical_before_replacing_output(tmp_path: Path)
     victim = run_dir / "references" / "victim.png"
     victim_before = write_png(victim, (40, 50, 60, 255))
     canonical = run_dir / "references" / "canonical-base.png"
-    canonical.symlink_to(victim.name)
+    make_symlink(canonical, victim.name)
     source = tmp_path / "source.png"
     write_png(source, (200, 100, 50, 255))
     manifest_before = manifest_path.read_bytes()

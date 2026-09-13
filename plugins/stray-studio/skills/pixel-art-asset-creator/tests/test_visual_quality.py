@@ -63,6 +63,47 @@ def test_generated_contract_and_visual_defects_reach_repair(tmp_path: Path) -> N
     assert json.loads((run_dir / "asset_request.json").read_text())["background"]["strategy"] == "chroma-key"
 
 
+def test_free_run_prompt_and_repair_preserve_body_motion_without_idle_lock(tmp_path: Path) -> None:
+    run_dir = tmp_path / "run"
+    motion = "loop: energetic run in place with landing compression and chest rising at push-off"
+    paint = "Flat-color diagnostic: skin base #FBEEDD, no skin shadows or highlights; retain hair shading"
+    result = run_script("prepare_asset_run.py", "--asset-name", "Runner", "--frame-count", 6,
+                        "--registration", "free", "--motion-beats", motion,
+                        "--style-notes", paint, "--output-dir", run_dir)
+    assert result.returncode == 0, result.stderr
+    assert paint in (run_dir / "prompts/base-asset.md").read_text(encoding="utf-8")
+    assert paint in json.loads((run_dir / "asset_request.json").read_text())["style_contract"]
+    for repair in (False, True):
+        if repair:
+            result = run_script("queue_asset_repairs.py", "--run-dir", run_dir,
+                                "--visual-defect", "upper body is too stiff; preserve planned sway")
+            assert result.returncode == 0, result.stderr
+        prompt = (run_dir / "prompts/asset-sheet.md").read_text(encoding="utf-8")
+        assert motion in prompt and "Registration contract: free" in prompt
+        assert "shoulder/hip counter-rotation" in prompt and "landing compression" in prompt
+        assert "allow planned sway" in prompt and "head and chest respond to the pelvis" in prompt
+        assert "lock the torso" not in prompt and "restore reference pixels" not in prompt
+        assert "keep torso, clothing and planted feet fixed" not in prompt
+        assert "do not pin every foot or head" in prompt
+        assert "shared material-specific base/shadow colors" in prompt
+        assert paint in prompt and "keep those materials flat" in prompt
+        assert "shadow regions follow the changing surfaces and occlusion" in prompt
+        assert "limb lengths and footwear proportions" in prompt
+        assert "accepted base/shadow colors across face, hands and limbs" in prompt
+        assert "do not reinterpret or further simplify an already accepted base" in prompt
+        assert "approved design/color reference defines the current base version" in prompt
+        assert "reviewed contact and passing key poses" in prompt
+        assert "irregular strip spacing is not intentional travel" in prompt
+        if repair:
+            assert "Preserve accepted pose geometry and motion during a paint-only repair" in prompt
+            repair_note = prompt.split("Repair attempt 1:", 1)[1]
+            assert "limb lengths and footwear proportions" in repair_note
+            assert "accepted base/shadow colors across face, hands and limbs" in repair_note
+            assert "Preserve only verified pose and placement features" in repair_note
+            assert "declared reference roles" in repair_note
+            assert "do not restore them implicitly" in repair_note
+
+
 def test_partial_checker_is_never_automatically_accepted(tmp_path: Path) -> None:
     run_dir = tmp_path / "run"
     request = {"sheet": {"structure": "standalone", "columns": 1, "rows": 1,

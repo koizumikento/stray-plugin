@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from filesystem_support import make_symlink
+
 from PIL import Image
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
@@ -73,7 +75,7 @@ def test_writer_rejects_broken_intermediate_symlink_escape(tmp_path: Path) -> No
     qa_dir = run_dir / "qa"
     qa_dir.mkdir()
     broken = qa_dir / "broken"
-    broken.symlink_to(tmp_path / "outside" / "missing", target_is_directory=True)
+    make_symlink(broken, tmp_path / "outside" / "missing", target_is_directory=True)
 
     result = run_script(
         "make_contact_sheet.py",
@@ -95,7 +97,7 @@ def test_force_still_refuses_final_output_symlink(tmp_path: Path) -> None:
     victim = qa_dir / "victim.png"
     victim.write_bytes(b"do-not-replace")
     output = qa_dir / "contact-sheet.png"
-    output.symlink_to(victim.name)
+    make_symlink(output, victim.name)
 
     result = run_script(
         "make_contact_sheet.py",

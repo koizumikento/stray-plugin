@@ -9,6 +9,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from filesystem_support import make_symlink
+
 import pytest
 from PIL import Image
 
@@ -90,12 +92,7 @@ def test_html_symlink_rejected_before_writes(tmp_path: Path) -> None:
     run = make_run(tmp_path)
     outside = tmp_path / "outside"
     outside.mkdir()
-    try:
-        (run / "alias").symlink_to(outside, target_is_directory=True)
-    except OSError as error:
-        if getattr(error, "winerror", None) == 1314:
-            pytest.skip("Windows symlink privilege unavailable")
-        raise
+    make_symlink((run / "alias"), outside, target_is_directory=True)
     result = render(run, "--html-output", "alias/animation.html", "--force")
     assert result.returncode != 0
     assert not list(outside.iterdir()) and not (run / "qa").exists()

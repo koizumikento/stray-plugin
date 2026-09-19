@@ -1,6 +1,6 @@
 ---
 name: "api-terms-checker"
-description: "Use when a team needs a current official-source check of API or SaaS usage terms for a defined service, account plan, contracting entity, region, and intended use. Do not use for legal opinions, OSS license review, vendor selection, or repository-wide release audits."
+description: "Use when checking current official API or SaaS usage terms for a specific service, plan, entity, region, and intended use. Excludes legal opinions and OSS license audits."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill should verify current official terms before answering."
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: "artifact-theme-applier"
-description: "Use when the user wants to restyle an existing deck, document, report, HTML page, landing page, or demo while preserving content and structure, with format-native visual verification. Do not use for brand strategy, blank-slate creation, UI review, or landing-page messaging, CTA, or SEO changes."
+description: "Use when restyling an existing artifact while preserving its content and structure, with native-format visual checks. Excludes new artifacts and landing-page message, CTA, or SEO changes."
 ---
 
 # Artifact Theme Applier

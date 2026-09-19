@@ -13,6 +13,7 @@ This record captures the external skill patterns reviewed on 2026-07-14 and how 
 | [Trail of Bits skills](https://github.com/trailofbits/skills/tree/cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af) | `cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af` | CC BY-SA 4.0; reference only unless compatibility is reviewed | External content as untrusted data, phase entry/exit criteria, artifact reconciliation, and CI hardening |
 | [obra/superpowers](https://github.com/obra/superpowers/tree/v6.1.1) | tag `v6.1.1` / `d884ae04edebef577e82ff7c4e143debd0bbec99` | MIT | Trigger pressure tests, evidence-before-completion, and separate specification/quality review |
 | [OpenAI plugins](https://github.com/openai/plugins/tree/11c74d6ba24d3a6d48f54a194cd00ef3beea18f9) | `11c74d6ba24d3a6d48f54a194cd00ef3beea18f9` | No repository-wide license grant identified; some plugin manifests are proprietary; reference only | Plugin structure, companion metadata constraints, and security coverage/proof-gap concepts |
+| [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra) | Published 2026-09-11; accessed 2026-09-19 | Official guidance; concepts adapted independently, no copied skill text or code | Concise task triggers, conditional reference loading, fewer prescribed steps, scoped authorization reuse, and explicit completion criteria |
 
 ## Local Implementation Mapping
 

@@ -1,6 +1,6 @@
 ---
 name: "ai-eval-ci"
-description: "Use when the user wants repeatable AI or agent evaluations enforced in CI, including model comparisons that must become a quality gate. Do not use for ordinary tests, one-off prompt checks, or skill-routing cases without CI."
+description: "Use when AI or agent evaluations must become a repeatable CI quality gate. Excludes ordinary tests and one-off prompt or skill-routing checks."
 ---
 
 # AI Eval CI

@@ -1,6 +1,6 @@
 ---
 name: "product-designer"
-description: "Use when current evidence must become a committed product or feature direction with scope, acceptance criteria, and a validation plan. Do not use for option-space exploration, research-only briefs, visual polish, or implementation after product decisions are settled."
+description: "Use when evidence must become a selected product or feature direction with scope, acceptance criteria, and a validation plan. Excludes idea exploration and implementation of settled decisions."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research."
 ---
 

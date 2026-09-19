@@ -1,19 +1,11 @@
 ---
 name: "landing-page-builder"
-description: "Use when the user wants to create or revise a conversion landing page in the current repository, including message, proof, CTA flow, search posture, and responsive implementation. Do not use for brand strategy, research-only work, product app flows, corporate sites, or theme-only restyling."
+description: "Use when building or revising a conversion landing page, including message, proof, CTA, SEO, and responsive implementation. Excludes corporate sites, app flows, and theme-only restyling."
 ---
 
 # Landing Page Builder
 
 Create or improve a landing page that is meant to persuade a specific audience to take a clear action. Focus on conversion structure, message clarity, proof strategy, visual hierarchy, minimum viable SEO hygiene, and shipped implementation in the current repository.
-
-Use this skill when the user wants to:
-
-- build a new LP or conversion-focused marketing landing page
-- refresh an existing landing page to improve clarity or conversion
-- turn product notes, feature bullets, or rough copy into a working page
-- add CTA sections, proof blocks, pricing teasers, FAQ sections, or hero messaging
-- make a landing page responsive, more polished, and easier to scan
 
 ## Do Not Use For
 
@@ -46,87 +38,14 @@ Use this skill when the user wants to:
 
 ## Workflow
 
-1. Frame the landing page brief.
-   - Identify the offer, target audience, primary CTA, and traffic context.
-   - Gather any available inputs such as existing copy, screenshots, logos, testimonials, pricing notes, or competitor references.
-   - Stop if the request is really about strategy, research, or a full application flow instead of an LP.
-
-2. Run a reference-led structure pass when design direction is weak, ambiguous, or explicitly requested.
-   - Use `references/lp-patterns.md` as the baseline pattern library.
-   - When comparable LPs are named or directly needed for implementation, check each LP separately for hero promise, CTA split, above-the-fold proof, section order, trust signals, product visualization, interaction, and SEO posture.
-   - Keep reference checks implementation-facing: page structure, proof, CTA, visual pattern, and SEO posture. Route broad market research, product positioning, or category strategy elsewhere.
-   - When at least two independent comparable LPs need inspection and parallel capacity is available, assign at most three read-only checks in parallel without waiting for an explicit delegation request. Give each check the same structure checklist, prohibit repository writes, and synthesize all results before editing.
-   - Keep a single LP, tightly coupled design decisions, and all repository changes with one owner; do not delegate merely to create activity.
-   - Synthesize references into a small set of usable decisions: section archetype, proof mode, CTA rhythm, first-screen visual proof, and SEO posture.
-   - Do not copy a reference page's styling wholesale; adapt only patterns that support the current offer and repository constraints.
-
-3. Inspect the current implementation surface.
-   - Find the existing route, page, layout, styling system, component conventions, and asset locations.
-   - If no landing page exists yet, choose the smallest credible web surface that fits the repository.
-   - Preserve established framework and styling patterns unless they block the page goal.
-
-4. Define the conversion structure before editing.
-   - Decide the section order, usually some subset of: hero, first-screen proof, problem, value proposition, product or output proof, trust, feature or benefit blocks, objection handling, CTA, FAQ, and footer.
-   - Make the message hierarchy explicit: headline, subhead, supporting proof, and CTA text.
-   - Pick the structure that matches buyer intent: workflow lifecycle, build path, product surface map, customer outcome story, platform taxonomy, or compliance/trust path.
-   - Remove or de-emphasize sections that distract from the main action.
-
-5. Define the dynamic visual approach when motion, interaction, product simulation, or higher-end polish is relevant.
-   - Use `references/dynamic-visual-style.md` to choose the motion role, layering model, product visual treatment, and interaction states.
-   - Skip heavy dynamic treatment for straightforward copy, structure, or static layout edits unless it improves conversion clarity.
-   - Prefer small, purposeful motion: reveal workflow progression, compare before/after, highlight live status, show product response, or clarify depth.
-   - Plan responsive behavior for every dynamic element before implementation so animation, media, and layered objects do not overlap text or shift layout.
-   - Respect `prefers-reduced-motion` and avoid motion that hides information, delays CTA access, or creates layout instability.
-
-6. Define the page metadata and search posture.
-   - Decide whether the page should be indexed, noindexed, or canonicalized elsewhere.
-   - Set or update the essential metadata: title, meta description, social sharing metadata, and canonical URL when relevant.
-   - Make sure the title, meta description, H1, and page copy name the category, audience, and current wedge when organic traffic matters.
-
-7. Implement the page end to end.
-   - Build or revise the layout, copy structure, components, assets, and CTA flow.
-   - Keep responsive behavior intentional on both desktop and mobile.
-   - Ensure the visual treatment supports the message rather than competing with it.
-   - Show real product state, output examples, customer results, or plausible workflow details above or immediately below the hero.
-
-8. Tighten credibility and conversion details.
-   - Add social proof, trust cues, objection-handling, or FAQ content where the page needs it.
-   - Make forms, buttons, links, and anchor navigation obvious and reliable.
-   - Use CTA labels that match the user's actual next job, such as `Deploy`, `Open account`, `Download for macOS`, `Start with AI`, `Request a demo`, or `Talk to sales`.
-   - If copy is missing, write from the available product facts and state assumptions. Do not invent customer, performance, financial, certification, or security claims to fill proof blocks; use a visibly labeled demo or omit the block.
-
-9. Validate the shipped LP.
-   - Check the main path on desktop and mobile layouts.
-   - Verify CTA targets, forms, anchors, and obvious broken states.
-   - Check the SEO minimums: title, description, heading structure, index or noindex choice, and obvious performance problems.
-   - Confirm the first viewport communicates the offer, primary CTA, and concrete proof without relying on in-page explanatory text.
-   - Trace factual proof to supplied or verified sources and confirm simulated screens and data are visibly labeled on the page, not only in the handoff.
-   - Check dynamic visuals with motion enabled and reduced motion, and confirm they do not block CTA access, readability, or mobile layout stability.
-   - Run the repository's relevant lint, typecheck, tests, or build steps when they apply.
-
-10. Repair from validation evidence.
-    - Make the smallest targeted fix, then rerun the affected browser, build, CTA, responsive, motion, or SEO check.
-    - If the same failure repeats twice without a new hypothesis or measurable progress, reassess the cause and available diagnostics before retrying. Continue when new evidence supports an in-scope fix; a different failure does not consume a fixed total attempt limit.
-    - Stop only when no safe, useful next step is available or required input or authorization is missing. Report the remaining failure and unverified requirements; do not claim completion while required checks or confirmed in-scope defects remain unresolved.
-
-11. Hand off clearly.
-   - Summarize the audience, CTA, and section logic that shaped the page.
-   - State the chosen proof mode and any reference-derived patterns used.
-   - State the dynamic visual approach and any reduced-motion or responsive assumptions.
-   - State the chosen SEO posture and any metadata or indexing assumptions.
-   - Report what was implemented, what was assumed, and what remains unverified.
-   - If the work expands into brand system design, route to `brand-designer`. If it becomes artifact-only restyling, route to `artifact-theme-applier`.
-
-## Output Expectations
-
-- A working LP change in the repository, or a concrete blocker report
-- The primary audience and CTA the page was optimized around
-- The section structure and key messaging choices
-- The proof mode, first-screen proof, and any reference patterns applied
-- The dynamic visual approach when relevant, including motion role, layered visual treatment, and reduced-motion handling
-- The chosen SEO posture and essential metadata decisions
-- Validation performed, especially responsive, CTA-path, and SEO-minimum checks
-- Any assumptions made for missing copy, assets, proof, or analytics details
+1. Identify the offer, audience, primary CTA, traffic context, and available product facts/assets. Inspect the affected route, layout, styles, components, and repository conventions. Preserve the current stack; choose the smallest credible surface only if no page exists. Route brand strategy, broad research, app flows, and theme-only changes elsewhere.
+2. Investigate design references only when direction is weak, ambiguous, or requested. Use `references/lp-patterns.md` and compare hero promise, CTA split, first-screen proof, section order, trust, product visualization, interaction, and SEO posture. Keep the work implementation-facing and adapt useful patterns without copying a site's styling wholesale.
+   - For at least two independent comparable pages, use at most three read-only checks in parallel when capacity is available and it materially helps. Give each the same checklist, prohibit repository writes, and synthesize before editing. Keep one page, coupled decisions, and all implementation with one owner.
+3. Define the smallest conversion structure: message hierarchy, headline/subhead, proof mode, CTA rhythm, objection handling, and justified sections. Choose a workflow, product surface, outcome, platform, or trust-led pattern that fits the buyer. Put real or visibly labeled demo proof near the hero and remove distractions from the main action.
+4. Decide search posture and relevant visuals. Choose index, noindex, or canonicalization and set title, description, social metadata, and canonical URL where needed; align category/audience wording for organic traffic. For motion or interactive product proof, use `references/dynamic-visual-style.md`; plan responsive and reduced-motion states before implementation. Static copy/layout edits need no heavy motion treatment.
+5. Implement layout, copy, assets, and CTA flow across relevant desktop/mobile widths. Keep forms, buttons, links, and anchors reliable, with labels matching the visitor's next action. Add trust and FAQs only from supplied/verified facts. Label simulated UI/data visibly on the page and omit unsupported proof.
+6. Validate the main path: offer/CTA/proof in the first viewport, working targets/forms/anchors, headings and search metadata, accessibility, responsive layouts, obvious performance issues, and applicable repository checks. Check motion and reduced-motion behavior when changed; neither may hide content, delay CTA access, or destabilize layout. Trace factual proof to sources and verify demo labels on the page.
+7. Fix confirmed defects and rerun affected checks. Reassess a stalled hypothesis instead of repeating unchanged failures; continue while evidence improves. Stop only an action missing safe capability, input, or authorization, and continue independent work. Report implemented behavior, audience/CTA, section/proof choices, reference use, SEO/motion decisions, assumptions, and validation gaps. Required failing checks or unresolved in-scope defects mean the work is incomplete.
 
 ## Guardrails
 

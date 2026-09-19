@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-administrative-procedures-data-analyst"
-description: "Use when the user wants the Digital Agency 行政手続等の棚卸調査 searched, filtered, summarized, compared, or analyzed through the bundled administrative-procedures MCP. Do not use for current individual application instructions, legal advice, e-Stat analysis, or municipality-specific service availability."
+description: "Use when searching or analyzing the Digital Agency 行政手続等の棚卸調査 with the bundled MCP. Excludes individual application guidance, e-Stat tables, and current municipal service availability."
 ---
 
 # Japan Gov Administrative Procedures Data Analyst

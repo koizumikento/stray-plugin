@@ -10,7 +10,7 @@ Use this reference when reviewing a single `SKILL.md`, a draft agent skill, trig
    - decision the review must support
 2. Check trigger quality:
    - description says when to use the skill
-   - description says when not to use it
+   - the trigger distinguishes likely neighboring requests; require an exclusion only when the positive wording does not make that boundary clear
    - wording avoids over-triggering on adjacent tasks
 3. Check scope and ownership:
    - the skill owns one clear job

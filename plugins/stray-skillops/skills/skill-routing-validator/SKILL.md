@@ -1,6 +1,6 @@
 ---
 name: "skill-routing-validator"
-description: "Use when the user wants to design, run, or repair trigger and near-miss routing cases for Codex skills. Do not use for authoring the skill itself, general software tests, or AI eval CI implementation."
+description: "Use when designing, running, or repairing Codex skill trigger and near-miss cases. Owns routing evaluation, not skill authoring or general AI eval CI."
 ---
 
 # Skill Routing Validator

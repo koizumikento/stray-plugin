@@ -1,6 +1,6 @@
 ---
 name: "multi-agent-patterns"
-description: "Use when the user wants to design or compare a multi-agent execution model with roles, dependencies, handoffs, shared state, and quality gates. Do not use for single-agent work or authoring `.codex/agents/` files."
+description: "Use when designing or comparing multi-agent roles, dependencies, handoffs, shared state, and quality gates. Use subagent-creator to author .codex/agents/ files."
 ---
 
 # Multi-Agent Patterns

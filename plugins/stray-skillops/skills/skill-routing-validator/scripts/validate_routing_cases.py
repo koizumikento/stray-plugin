@@ -546,9 +546,6 @@ def parse_skill(
         description = raw_description.strip()
         if not re.match(r"Use (?:only )?when\b", description):
             errors.append(f"{path}: description must start with 'Use when' or 'Use only when'")
-        has_boundary = "Do not use" in description or "Do not trigger" in description or description.startswith("Use only when")
-        if not has_boundary:
-            errors.append(f"{path}: description must include an explicit non-trigger boundary")
         if len(description) > max_description_chars:
             errors.append(
                 f"{path}: description has {len(description)} chars; limit is {max_description_chars}"

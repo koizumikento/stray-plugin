@@ -1,6 +1,6 @@
 ---
 name: "ros2-development"
-description: "Use when the user wants to build, debug, test, simulate, containerize, or CI-enable a ROS 2 workspace or application integration. Do not use for ROS 1, pure CAD/circuits, deep specialist stacks, firmware, or unapproved live-hardware operation."
+description: "Use when building, debugging, testing, simulating, containerizing, or CI-enabling ROS 2 software. Excludes ROS 1, CAD/circuits, firmware, and unapproved live-hardware operation."
 ---
 
 # ROS 2 Development

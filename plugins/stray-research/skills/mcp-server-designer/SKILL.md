@@ -1,6 +1,6 @@
 ---
 name: "mcp-server-designer"
-description: "Use when an MCP server needs protocol-aware design or review: tools/resources/prompts, transport, auth, pagination, errors, and client boundaries. Do not use for generic API design, skill authoring, or implementation-only coding with an already settled MCP contract."
+description: "Use when designing or reviewing MCP tools, resources, prompts, transport, auth, pagination, errors, or client contracts. Excludes generic API design and implementation of a settled contract."
 ---
 
 # MCP Server Designer

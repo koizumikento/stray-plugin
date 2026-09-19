@@ -803,6 +803,28 @@
       "reject": ["fullstack-app-builder", "test-design-strategist", "reviewer"],
       "no_skill": true,
       "reason": "A small, fully specified local code edit uses ordinary repository work rather than a specialized builder or test-design workflow."
+    },
+    {
+      "id": "research-single-official-fact",
+      "prompt": "Check whether this museum is open on Mondays using its current official opening-hours page, and answer briefly. No broader research is needed.",
+      "expect": ["web-researcher"],
+      "reject": ["domain-researcher", "deep-researcher", "web-content-distiller"],
+      "reason": "One general current fact needs sufficient authoritative evidence, not a source quota or page extraction."
+    },
+    {
+      "id": "studio-review-fix-progress",
+      "prompt": "Review and fix confirmed issues in this existing helper until its required checks pass. Two earlier passes fixed different issues; a remaining confirmed defect now has a clear local fix. No pass limit was requested.",
+      "expect": ["reviewer"],
+      "reject": ["change-readiness-review", "security-preflight"],
+      "reason": "An explicit findings-first repair task remains with reviewer; progress and completion determine its stopping condition."
+    },
+    {
+      "id": "no-skill-simple-provided-fact",
+      "prompt": "The provided table says Monday: closed. Translate that entry into Japanese only; do not research opening hours.",
+      "expect": [],
+      "reject": ["web-researcher", "domain-researcher", "web-content-distiller"],
+      "no_skill": true,
+      "reason": "A self-contained translation needs no research or extraction skill."
     }
   ]
 }

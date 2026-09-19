@@ -1,6 +1,6 @@
 ---
 name: "context-compression"
-description: "Use when an ongoing task must be compacted so another turn or agent can continue with its files, decisions, evidence, failures, and next action intact. Do not use for one-off summaries, research briefs, or domain implementation."
+description: "Use when compacting an ongoing task for continuation while preserving files, decisions, evidence, failures, authorization, and the next action."
 ---
 
 # Context Compression

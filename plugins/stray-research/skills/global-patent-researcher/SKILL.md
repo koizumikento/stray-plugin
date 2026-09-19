@@ -1,6 +1,6 @@
 ---
 name: "global-patent-researcher"
-description: "Use when global public patent databases are needed for prior-art, invalidity-candidate, FTO precheck, or landscape research across jurisdictions. Do not use for legal opinions, drafting, filing strategy, automation, or Japan-only J-PlatPat/FI/F-term research."
+description: "Use when researching public patent prior art, invalidity candidates, FTO prechecks, or landscapes across jurisdictions. Route Japan-only searches to japan-patent-researcher; no legal opinions."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill relies on current public patent databases and source-backed verification."
 ---
 

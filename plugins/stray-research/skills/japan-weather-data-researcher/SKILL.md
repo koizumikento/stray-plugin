@@ -1,6 +1,6 @@
 ---
 name: "japan-weather-data-researcher"
-description: "Use when a Japan weather request needs traceable JMA observations, AMeDAS stations, recent time series, or prefecture forecasts. Do not use for a provenance-free conversational forecast, climate research, non-Japan weather, or emergency instructions."
+description: "Use when retrieving or analyzing traceable JMA observations, AMeDAS stations, recent time series, or prefecture forecasts. Excludes casual forecasts and emergency instructions."
 ---
 
 # Japan Weather Data Researcher

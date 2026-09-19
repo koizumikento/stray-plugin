@@ -1,6 +1,6 @@
 ---
 name: "japan-gov-request-router"
-description: "Use only when a 政府資料・白書 request is broad, mixed, or ambiguous and its primary action is unclear. Classify by requested action, then apply the specialized skill in the same task; do not stop at routing."
+description: "Use only when a 政府資料・白書 request needs workflow selection. Resolve missing topic/action before selecting downstream skills; once scoped, apply them in the same task. Excludes clear specialist requests."
 ---
 
 # Japan Gov Request Router
@@ -15,6 +15,7 @@ Resolve mixed or ambiguous requests by the requested deliverable, not isolated k
 ## Workflow
 
 1. Identify the primary object and action: a document to read, a claim to support, a citation to audit, a measurement to design, data to retrieve, or a proposal to synthesize.
+   - If no topic, source, or substantive question is supplied, ask for that missing scope before choosing downstream skills. Do not turn a list of possible outputs into a commitment to run every specialist.
 2. Apply the first matching action test in this ordered table. Examples and nouns do not override the action test.
 
 | Order | Requested action / distinguishing test | Downstream skill |

@@ -1,6 +1,6 @@
 ---
 name: "proposal-writer"
-description: "Use when the user needs a proposal, business case, plan, or memo asking a decision-maker for approval, funding, permission, or commitment, with evidence status and an approval path. Do not use for articles, operational runbooks, research-only work, or brainstorming without a decision target."
+description: "Use when drafting a proposal, business case, plan, or memo seeking a decision-maker's approval, funding, or commitment. Excludes research-only briefs and ideas without a decision target."
 ---
 
 # Proposal Writer

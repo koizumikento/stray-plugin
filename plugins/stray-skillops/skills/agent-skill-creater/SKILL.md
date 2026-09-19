@@ -1,6 +1,6 @@
 ---
 name: "agent-skill-creater"
-description: "Use when the user wants to create or update a Codex `SKILL.md` in a plugin or repo `.agents/skills/` directory. Do not use for plugin scaffolding, custom subagents, review-only audits, or routing-eval-only work."
+description: "Use when creating or updating a Codex SKILL.md in a plugin or repo .agents/skills/. Use separate skills for plugin scaffolding, custom subagents, or routing-only evaluation."
 ---
 
 # Agent Skill Creater
@@ -28,7 +28,7 @@ Create or update focused Codex agent skills. Route the request first, then write
 
 - Start with `Use when...` and name the user intent, not the implementation detail.
 - Say the one job the skill owns.
-- Add `Do not use...` boundaries for the nearest likely collisions.
+- Add a short exclusion only when the positive trigger leaves a likely collision unresolved; put detailed handoffs in the body.
 - Keep it concrete enough for routing; avoid broad phrases like "helps with X" unless the owned workflow is named.
 - Preserve user-requested skill names unless asked to normalize them.
 - Put the decisive intent and nearest collision first because descriptions may be shortened in large skill sets.
@@ -37,6 +37,8 @@ Create or update focused Codex agent skills. Route the request first, then write
 ## Progressive Disclosure
 
 Keep `SKILL.md` short enough to route and act from. Add one-hop references only when the detail would distract from routing.
+
+Keep task-specific knowledge, completion evidence, and applicable safety boundaries. Delete repeated advice before moving detail to references; give each reference a loading condition. Reuse authorization for the same target and effects, continue while evidence supports progress, and stop only the blocked action when necessary input, capability, or authorization is missing.
 
 - Use `references/authoring-guide.md` for detailed authoring rules and validation checklists.
 - Use `references/execution-trust-contract.md` when a new or materially changed skill can mutate state, use credentials, incur cost, send data externally, or act on retrieved content.
@@ -48,24 +50,19 @@ Keep `SKILL.md` short enough to route and act from. Add one-hop references only 
 ```markdown
 ---
 name: "<skill-name>"
-description: "Use when <specific user intent and owned job>. Do not use for <nearest non-goals or neighboring skills>."
+description: "Use when <specific user intent and owned job>."
 ---
 
 # <Title>
 
 <One short paragraph that states the skill's job and default posture.>
 
-## Do Not Use For
-
-- <neighboring skill or non-goal>
-- <out-of-scope workflow>
-
 ## Workflow
 
 1. <First routing or scoping action.>
-2. <Gather the required context explicitly: files, docs, tools, repo guidance, or external sources to inspect before acting.>
+2. <Read the context needed for this task; name conditions for optional references.>
 3. <Main execution step.>
-4. <Run or name the harness validation: commands, checks, scripts, review rubric, or tool result that proves the work.>
+4. <Define completion and collect the evidence needed for the requested result.>
 5. <If repair stalls on the same failure without new evidence, reassess the approach; continue while making progress and report a blocker only when required input, authority, or execution capability is missing.>
 
 ## Output
@@ -73,15 +70,9 @@ description: "Use when <specific user intent and owned job>. Do not use for <nea
 - <Expected deliverable>
 - <Important assumptions or paths touched>
 
-## Execution And Trust Contract
+## Boundaries
 
-- <For side-effectful skills only: dependencies, credential names, and network destinations.>
-- <Read/write/create/delete/external-send effects, authorization gates, failure behavior, cleanup, and untrusted-content boundary.>
-
-## Guardrails
-
-- <Safety or ownership boundary>
-- <Stop condition>
+- <Applicable ownership, tool, trust, authorization, failure, and cleanup boundaries; omit inapplicable boilerplate.>
 ```
 
 ## Workflow

@@ -1,6 +1,6 @@
 ---
 name: "article-writer"
-description: "Use when the user wants to draft or substantially revise a publishable article, blog post, or newsletter from a brief or supplied sources, including angle, structure, prose, and source treatment. Do not use for research-only briefs, short marketing copy, or proofreading-only edits."
+description: "Use when drafting or substantially revising a publishable article, blog post, or newsletter from a brief or sources. Excludes research-only briefs and proofreading-only edits."
 ---
 
 # Article Writer

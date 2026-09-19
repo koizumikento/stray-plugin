@@ -1,6 +1,6 @@
 ---
 name: "japan-patent-researcher"
-description: "Use when a Japan-only patent search or delegated Japanese track needs J-PlatPat, Japanese keywords, FI, or F-term for prior-art, invalidity, FTO precheck, or landscape work. Do not use for legal opinions, drafting, filing strategy, or cross-jurisdiction synthesis."
+description: "Use when a Japan-only patent search or delegated Japan track needs J-PlatPat, Japanese keywords, FI, or F-term. Excludes cross-jurisdiction synthesis and legal opinions."
 compatibility: "Requires internet access and a browsing-capable Codex environment because J-PlatPat records, JPO guidance, service status, and legal-status leads must be checked live."
 ---
 

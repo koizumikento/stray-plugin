@@ -78,6 +78,18 @@ def test_schema_v2_accepts_ordered_handoffs_and_explicit_no_skill() -> None:
     assert stats == {"cases": 3, "multi_skill": 1, "no_skill": 1}
 
 
+def test_positive_trigger_needs_no_exclusion_but_still_requires_description(tmp_path: Path) -> None:
+    skill = tmp_path / "fixture" / "SKILL.md"
+    write_skill(skill)
+    text = skill.read_text(encoding="utf-8").replace(" Do not use for neighboring work.", "")
+    skill.write_text(text, encoding="utf-8")
+    assert validator.parse_skill(skill, 300, tmp_path) == ("fixture", [])
+
+    skill.write_text(text.replace("Use when a focused fixture is needed.", ""), encoding="utf-8")
+    _, errors = validator.parse_skill(skill, 300, tmp_path)
+    assert any("missing or invalid frontmatter description" in error for error in errors)
+
+
 def test_schema_v2_rejects_duplicate_expectations_and_no_skill_contradictions() -> None:
     payload = valid_case_payload()
     ordered = payload["cases"][0]
@@ -380,4 +392,4 @@ def test_repository_validator_reports_structural_only_runtime_status() -> None:
 
     assert result.returncode == 0, result.stderr
     assert "structural=passed runtime=not-run" in result.stdout
-    assert "multi_skill=11 no_skill=5" in result.stdout
+    assert "multi_skill=11 no_skill=6" in result.stdout

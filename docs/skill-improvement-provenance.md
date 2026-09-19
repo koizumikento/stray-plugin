@@ -23,7 +23,6 @@ On 2026-09-05, the [OpenAI skill guidance](https://learn.chatgpt.com/docs/build-
 - Ordered handoffs, intentional no-skill cases, metadata validation, and structural-only reporting are implemented under `plugins/stray-skillops/skills/skill-routing-validator/`.
 - Deterministic validation runs in `.github/workflows/deterministic-validation.yml`; it does not call a model provider or require evaluator secrets.
 - Execution/trust guidance is maintained with `agent-skill-creater`; evidence contracts remain local to the skills that use them.
-- The 2026-09-19 Astra update aligns authoring rules and trigger validation, reviews all 59 descriptions, and removes repeated instructions from selected entry points. [The update and evaluation record](astra-skill-refresh.md) separates deterministic checks, explicit model classification, code-output tests, and the still-unverified autonomous execution path. Existing authorization and domain safety boundaries remain in force.
 
 ## Reuse Rules
 

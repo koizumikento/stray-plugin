@@ -1,6 +1,6 @@
 ---
 name: "security-preflight"
-description: "Use when the user wants a review-only security preflight of a repository, diff, app/API, CI/CD, release, dependencies, IaC, containers, or secret/data handling. Do not use for fixes, broad code review, active probing, incident response, penetration testing, or legal/compliance advice."
+description: "Use when reviewing software, infrastructure, dependencies, or release surfaces for security findings only. Excludes remediation, broad code review, active probing, and incident response."
 compatibility: "Repository access is required. Internet or connected GitHub/cloud tools are useful for current advisories and hosted settings, but local static evidence must be separated from external or unverified evidence."
 ---
 

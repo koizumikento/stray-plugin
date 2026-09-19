@@ -1,6 +1,6 @@
 ---
 name: "platform-native-ui-designer"
-description: "Use when a defined feature for iOS, iPadOS, macOS, watchOS, tvOS, or visionOS needs an implementation-ready UI spec grounded in user-authored notes from official Apple design pages, with source URLs and access dates. Do not use for strategy, UI audits, implementation, or Apple-page extraction."
+description: "Use when turning a defined Apple-platform feature into an implementation-ready UI spec from user-authored official design notes with URLs and dates. Excludes implementation and Apple-page extraction."
 ---
 
 # Platform-Native UI Designer

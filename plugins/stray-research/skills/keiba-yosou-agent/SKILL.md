@@ -1,6 +1,6 @@
 ---
 name: "keiba-yosou-agent"
-description: "Use when a Japanese horse race needs evidence-based contender analysis, probability ranges, value checks, or user-requested ticket candidates from permitted current data. Do not use for profit guarantees, minors, prohibited collection, account operation, automated wagering, or professional advice."
+description: "Use when analyzing Japanese horse-race contenders, probability ranges, value, or requested ticket candidates from permitted current data. Excludes account operation, wagering, and profit guarantees."
 ---
 
 # Keiba Yosou Agent

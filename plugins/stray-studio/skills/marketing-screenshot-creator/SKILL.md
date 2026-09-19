@@ -1,6 +1,6 @@
 ---
 name: "marketing-screenshot-creator"
-description: "Use when the user wants polished app screenshots for docs, landing pages, releases, demos, or social posts, including shot planning, capture-state sanitization, framing, export, and QA. Do not use for general UI review, redesign, browser-automation debugging, or broad image editing."
+description: "Use when planning, capturing, sanitizing, or polishing app screenshots for docs, launches, demos, or social posts. Excludes general UI review, redesign, and browser debugging."
 ---
 
 # Marketing Screenshot Creator

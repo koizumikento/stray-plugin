@@ -1,6 +1,6 @@
 ---
 name: "brand-designer"
-description: "Use when the user wants to define or refine a brand identity as a brief, territory, or mini style guide with actionable visual and verbal rules. Do not use for one-off artifact theming, product strategy, campaign copy, or final asset production."
+description: "Use when defining or refining a brand identity brief or mini style guide with visual and verbal rules. Excludes one-off artifact theming and final asset production."
 ---
 
 # Brand Designer

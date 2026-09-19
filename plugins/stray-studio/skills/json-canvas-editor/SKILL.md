@@ -1,6 +1,6 @@
 ---
 name: "json-canvas-editor"
-description: "Use when the user wants to create, edit, or repair a JSON Canvas 1.0 `.canvas` file with valid typed nodes, edges, IDs, and readable layout. Do not use for Mermaid, draw.io, generic whiteboards, ordinary JSON cleanup, or visual design work outside the JSON Canvas format."
+description: "Use when creating, editing, or repairing JSON Canvas 1.0 .canvas files with valid nodes, edges, IDs, and readable layout. Excludes other diagram formats and ordinary JSON cleanup."
 ---
 
 # JSON Canvas Editor

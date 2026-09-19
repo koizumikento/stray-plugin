@@ -1,6 +1,6 @@
 ---
 name: "skills-search"
-description: "Use when the user wants to find and compare existing agent skills before deciding to adopt, adapt, or author one. Do not use for plugin-wide routing audits, implementation, generic web research, or package-manager workflows."
+description: "Use when finding and comparing existing agent skills before choosing to adopt, adapt, or author one."
 ---
 
 # Skills Search

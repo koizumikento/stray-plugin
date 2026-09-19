@@ -1,6 +1,6 @@
 ---
 name: "iac-builder"
-description: "Use when the user wants to plan, implement, or repair repository-managed IaC, including compute, storage, monitoring, IAM, DBs, or networks. Do not use for review-only work, app features/schema migrations, conceptual research, or live operations without an IaC change."
+description: "Use when planning, implementing, or repairing standalone repository-managed IaC. Supporting IaC inside a requested app flow stays with fullstack-app-builder. Excludes review-only work and live operations without IaC changes."
 compatibility: "Repository access is required. Use the repository's pinned IaC CLI and provider versions; official documentation access is needed for version-dependent decisions. Cloud credentials are unnecessary for offline validation."
 ---
 

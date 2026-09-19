@@ -1,6 +1,6 @@
 ---
 name: "ops-playbook-writer"
-description: "Use when the user wants operational knowledge or incident learnings turned into a maintainable SOP, runbook, checklist, or handoff guide for business or technical operators. Do not use for product specs, architecture decisions, implementation plans, or legal/HR policy writing."
+description: "Use when turning operational knowledge into a maintainable SOP, runbook, checklist, or handoff guide. Excludes product specs, implementation plans, and legal/HR policy writing."
 ---
 
 # Ops Playbook Writer

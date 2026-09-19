@@ -5,6 +5,7 @@
 - Treat each routing case's `expect` list as an ordered workflow, not an unordered label set.
 - Represent an intentional no-skill boundary with `expect: []` and `no_skill: true`.
 - Keep structural validation distinct from runtime or model-evaluated behavior; never imply that one proves the other.
+- Validate intended and neighboring requests with routing cases; do not require a negative sentence in every description. The 300-character lint limit is a repository convention, not a host truncation threshold.
 - Update the authoring guide, validator, fixtures, and tests together when metadata rules change.
 - Keep pull-request validation deterministic. Do not add paid model calls, provider secrets, or nondeterministic evaluators without explicit approval.
 

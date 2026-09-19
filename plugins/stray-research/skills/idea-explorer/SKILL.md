@@ -1,6 +1,6 @@
 ---
 name: "idea-explorer"
-description: "Use when current web signals should generate, widen, compare, or tentatively rank idea directions before a final choice is made. Do not use for evidence-free brainstorming, product selection or scope, PRDs, acceptance criteria, validation plans, or finished artifacts."
+description: "Use when current web evidence should generate, widen, compare, or tentatively rank ideas before product selection. Excludes evidence-free brainstorming and committed product scope."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research before proposing ideas."
 ---
 

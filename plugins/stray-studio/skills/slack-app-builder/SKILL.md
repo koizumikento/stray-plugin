@@ -1,21 +1,12 @@
 ---
 name: "slack-app-builder"
-description: "Use when the user wants to plan, build, debug, validate, install, deploy, or automate a Slack app using Slack CLI, manifests, Bolt, Deno SDK, events, commands, workflows, or Web API calls. Do not use for generic apps, terms/compliance research, message copywriting, GIFs, or Codex skills."
+description: "Use when planning, building, debugging, validating, installing, deploying, or automating Slack apps through CLI, manifests, runtimes, or Web API. Excludes generic apps, terms research, and message copy."
 compatibility: "Requires Slack CLI availability for CLI-driven implementation workflows. Requires internet access when checking current Slack CLI docs, Slack platform behavior, install commands, API method details, or deployment guidance."
 ---
 
 # Slack App Builder
 
 Build, modify, debug, validate, install, deploy, and automate Slack apps. Start by classifying the work, then load only the reference needed for that path: Slack CLI/project operations, runtime implementation, or both. Keep the main skill as the router so it can support CLI-only work without pretending every task needs Bolt, while still supporting framework-backed Slack app development when the user asks for it.
-
-Use this skill when the user wants to:
-
-- create, initialize, inspect, validate, run, install, deploy, or automate a Slack app project
-- plan or investigate a Slack app implementation, install path, CLI workflow, manifest, runtime behavior, or deployment shape
-- use `slack create`, `slack init`, `slack run`, `slack install`, `slack deploy`, `slack manifest`, `slack doctor`, `slack auth`, or `slack api`
-- work with Slack app manifests, workspace authorization, app installation, app deployment, or Slack CLI usage in CI/CD
-- implement or debug Slack app behavior in Bolt for JavaScript, Bolt for Python, Deno Slack SDK, or an existing custom runtime
-- add or debug slash commands, event subscriptions, interactive components, modals, shortcuts, workflow triggers, datastores, or Slack Web API calls
 
 ## Do Not Use For
 
@@ -59,68 +50,15 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
 
 ## Workflow
 
-1. Classify the Slack app task before changing files.
-   - Identify whether the user wants planning, investigation, implementation, debugging, validation, install, deployment, API command execution, or CI/CD setup.
-   - Stop with findings or a plan when the user says "first", "まずは", "investigate", "check", or "plan" and has not asked for implementation.
-   - Identify the primary path: CLI/project operations, runtime implementation, or both.
-   - Identify every expected Slack workspace mutation and whether it is explicitly requested, explicitly approved, or pending approval under the External Mutation Gate.
-   - Load the matching reference file or files from `references/`.
-   - If the request is not materially Slack-specific, route to the general app builder or the relevant non-implementation skill.
-
-2. Check local and workspace prerequisites when relevant.
-   - For CLI/project work, run `command -v slack`, `slack version`, and `slack auth list` when implementation or validation depends on the CLI.
-   - Run `slack doctor` when CLI, runtime, project, or auth state looks inconsistent.
-   - If authentication is missing, guide the user through `slack login` and pause for user-controlled Slack workspace steps such as slash-command authorization and challenge-code entry.
-   - For runtime work, identify the language, package manager, test command, app entry point, env conventions, and framework-specific Slack files before editing.
-
-3. Verify current Slack sources when needed.
-   - Browse official Slack developer docs before relying on install commands, auth behavior, deploy behavior, GitHub Actions behavior, current CLI command syntax, unstable platform features, API method shapes, or required scopes.
-   - Compare the local `slack version` with current documentation or release notes when behavior appears version-sensitive.
-   - Keep source-backed findings concise and separate verified facts from implementation assumptions.
-
-4. Read the repository shape.
-   - Find the nearest `AGENTS.md`, app docs, package manager, runtime, test commands, env conventions, and deploy workflow.
-   - Search for Slack app files and settings such as `slack.json`, `.slack/`, `manifest.json`, app manifest files, Bolt app files, Deno Slack SDK files, `SLACK_BOT_TOKEN`, `SLACK_USER_TOKEN`, `SLACK_SIGNING_SECRET`, and prior Slack Web API usage.
-   - Identify whether a local manifest or remote app settings are the intended source of truth.
-   - Preserve the repository's existing language, package manager, framework, test, and secret-management patterns.
-
-5. Design the smallest coherent Slack app slice.
-   - Define the Slack entry point, user action, expected response, side effects, source-of-truth files, and workspace side effects.
-   - Name the required OAuth scopes and justify each non-obvious scope.
-   - Decide how local development, runtime behavior, workspace install, deployment, and CI/CD token use should stay separately debuggable.
-   - For repeated events, commands, interactivity, or automated `slack api` usage, account for duplicate delivery, pagination, retry, rate limits, and idempotency.
-
-6. Implement the Slack app work.
-   - Update code, manifests, project config, routes, handlers, middleware, types, env examples, scripts, CI workflows, tests, and docs needed for the selected path.
-   - Keep secrets out of source-controlled files and final output.
-   - Prefer JSON manifests and structured config edits over ad hoc string edits when the repo provides a structured option.
-   - Do not leave a Slack surface or CLI path looking configured if the handler is a no-op, the command is missing, the manifest is invalid, the scope is missing, or auth state is unverified.
-
-7. Validate with path-appropriate evidence.
-   - Run `slack manifest validate` or the closest project-specific manifest validation when a manifest changes.
-   - Run `slack api auth.test` when token resolution or API access must be proven.
-   - Exercise local behavior with repository tests or a local runtime command. Before `slack run` or any Slack-connected dev command, satisfy the External Mutation Gate for its installation, manifest-watch, and handler effects.
-   - Run targeted lint, type-check, tests, or build commands according to the repository's established tooling when files were changed.
-   - Use `slack install`, `slack deploy`, remote app updates, deletion commands, trigger mutation, datastore writes, or message posting only after the External Mutation Gate is satisfied for the exact target and action.
-   - State exactly which workspace-facing actions were not run and what remains unproven.
-
-8. Hand off the result.
-   - Summarize the Slack app behavior or CLI workflow that was added, changed, or verified.
-   - List required environment variables by name only, never by value.
-   - List required Slack scopes and workspace-side setup that still matters.
-   - Report install, run, validation, test, and deploy commands that were run or skipped.
-   - Call out version assumptions, auth blockers, workspace permissions, rate-limit concerns, or manual Slack app settings that remain.
-
-## Output Expectations
-
-- selected path and reference files loaded
-- target Slack app surface, runtime, and CLI workflow when relevant
-- changed files and manifest/config source of truth
-- required scopes and environment variable names
-- local run command and validation commands
-- install or deploy status, including whether workspace-changing commands were run
-- approval status for each requested or pending workspace mutation, including its exact target
-- concise residual risks or manual Slack workspace steps
+1. Identify the requested deliverable, app/workspace target, and CLI, runtime, or combined path. Planning or investigation alone does not authorize implementation. Use the reference selector and External Mutation Gate; route non-Slack work elsewhere.
+2. Inspect relevant repository guidance, Slack entry points, manifests, configuration, runtime/package manager, tests, environment conventions, and deployment workflow. Identify the manifest/config source of truth and preserve existing patterns. For CLI-dependent tasks, check Slack CLI availability, version, and auth state; use `slack doctor` when inconsistent. Missing auth requires user-controlled login, not credential inspection; continue independent local work.
+3. Verify official Slack documentation for version-sensitive CLI syntax, install/auth/deploy/CI behavior, API methods, scopes, and platform features. Compare local CLI version when relevant. Separate source-confirmed facts from implementation assumptions.
+4. Implement the smallest coherent path across handlers, manifests/config, types, env examples, tests, and docs. Define entry point, response, effects, and least-privilege scopes. Handle duplicate events/commands/interactivity, pagination, rate limits, retry, and idempotent writes where relevant. Keep local authorization, runtime secrets, installation, and CI tokens distinct; prefer structured manifest edits and do not leave no-op or unverified surfaces looking complete.
+5. Validate and repair the affected path.
+   - Use `slack manifest validate` or the repository equivalent for manifest changes; use non-mutating `slack api auth.test` when token resolution/API access must be proven.
+   - Run relevant local tests, lint/typecheck/build, and safe runtime checks. Apply the External Mutation Gate before `slack run`, watched-manifest edits, install/deploy, or any workspace-changing check.
+   - Fix confirmed local defects and rerun affected checks while evidence supports progress. Reassess stalled failures; report unavailable capability or authorization and continue independent work. For partial workspace mutations, follow the gate's failure/cleanup rules rather than blindly retrying.
+6. Report the selected path, changed files/source of truth, behavior, required scopes and environment variable names, actual validation/run/install/deploy status, and exact pending targets/actions. Include relevant version, auth, permission, rate-limit, or manual-setting gaps. Do not claim a workspace action or runtime behavior was verified from local tests alone.
 
 ## Guardrails
 

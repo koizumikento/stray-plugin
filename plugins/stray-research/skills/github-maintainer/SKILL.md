@@ -1,6 +1,6 @@
 ---
 name: "github-maintainer"
-description: "Use when the user wants read-only triage of GitHub issues or pull requests and the next 1-3 maintainer actions. Do not use for comments, labels, assignments, closes, reviews, merges, CI repair, code changes, branch publishing, or any other GitHub write."
+description: "Use when triaging GitHub issues or PRs read-only and recommending the next 1-3 maintainer actions. Excludes code review, fixes, and all GitHub writes."
 ---
 
 # GitHub Maintainer

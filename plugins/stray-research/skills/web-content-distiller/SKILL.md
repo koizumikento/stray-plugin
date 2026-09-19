@@ -1,6 +1,6 @@
 ---
 name: "web-content-distiller"
-description: "Use when a provided page or URL should become clean, provenance-preserving notes or a permitted extraction with page chrome removed. Do not use for multi-source research, full-site crawling, or reproducing a third-party copyrighted page without permission."
+description: "Use when converting a supplied page into clean, provenance-preserving notes or permitted extraction. Excludes multi-source research, full-site crawling, and unauthorized full-text reproduction."
 ---
 
 # Web Content Distiller

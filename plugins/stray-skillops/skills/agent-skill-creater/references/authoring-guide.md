@@ -7,11 +7,11 @@ Use this reference after `SKILL.md` has routed the request to skill authoring.
 1. Name the skill exactly as requested unless the user asks to normalize it.
 2. Write frontmatter with `name` and a trigger-oriented `description`.
 3. State the skill's one owned job in the opening paragraph.
-4. Add a `Do Not Use For` section when neighboring skills or likely collisions exist.
+4. Add only the exclusions or handoffs needed to distinguish likely neighboring requests. A clear positive description need not contain a negative sentence or a separate non-goals section.
 5. Use numbered workflow steps for the main execution path.
 6. State output expectations, assumptions, guardrails, and stop conditions when they affect correct use.
 7. For new or materially changed side-effectful skills, apply `execution-trust-contract.md` and make the execution, authorization, cleanup, and untrusted-content boundaries explicit.
-8. Keep repeated background, examples, and long decision rules in `references/`.
+8. Delete repeated advice. Keep specialized detail in one-hop `references/` with explicit loading conditions; do not require every reference for every task.
 9. Validate that the skill is under `skills/`, not inside `.codex-plugin/`.
 10. Review the containing plugin's version whenever packaged skill content changes, using Plugin Versioning below. Update discovery text only when the skill's practical surface changes.
 11. Add or update routing cases when the trigger or nearest handoff changes.
@@ -55,6 +55,8 @@ Integrate these declarations into an existing mutation gate or guardrail section
 ## Quality Bar
 
 - The trigger description should make implicit invocation safer, not merely sound polished.
+- Treat the 300-character description lint limit as a repository ceiling, not a target or a known host truncation point. Evaluate actual visible descriptions and positive, near-miss, and no-skill cases; do not infer behavior from length alone.
+- Define completion through the requested result and evidence, rather than a fixed itinerary. Preserve user-requested review gates and limits; reuse approval for the same target and effects and continue independent authorized work when one action is blocked.
 - The workflow should be imperative enough for another agent to follow without guessing.
 - The non-goals should name realistic neighboring requests.
 - The skill should not own an entire domain when it only needs to own one workflow.

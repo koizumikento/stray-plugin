@@ -1,6 +1,6 @@
 ---
 name: "slack-gif-creator"
-description: "Use when the user wants a short animated GIF for a Slack emoji, message, or lightweight demo and needs loop design, crop, export, live constraint checks, and size optimization. Do not use for generic image editing, full video or motion-graphics production, static screenshots, or UI review."
+description: "Use when creating a short Slack-friendly animated GIF with loop, crop, export, and size checks. Excludes static screenshots, generic image edits, and full video production."
 ---
 
 # Slack GIF Creator

@@ -1,6 +1,6 @@
 ---
 name: "domain-researcher"
-description: "Use when one specialized technical, standards, regulatory, market, or academic question needs a focused source-backed brief from authoritative current evidence. Do not use for generic web answers, multi-track deep reports, product decisions, page extraction, or specialist workflows."
+description: "Use when one specialized technical, standards, regulatory, market, or academic question needs a focused evidence-backed brief. Excludes multi-track reports and specialist-owned workflows."
 ---
 
 # Domain Researcher
@@ -13,8 +13,8 @@ Use this skill when the user needs domain understanding before making a decision
 
 | Route | Choose when | Normal evidence shape |
 |---|---|---|
-| `web-researcher` | The topic is general and one current answer or small comparison is enough | About 3-6 strong sources and a compact answer |
-| `domain-researcher` | One specialized track needs terminology, methodology, or authoritative-source interpretation | About 3-6 authoritative sources and a focused brief |
+| `web-researcher` | The topic is general and one current answer or small comparison is enough | Enough authoritative evidence for the question; one source may suffice |
+| `domain-researcher` | One specialized track needs terminology, methodology, or authoritative-source interpretation | Authoritative evidence covering the specialized claims |
 | `deep-researcher` | Multiple independent tracks, jurisdictions, source families, or material conflicts must be reconciled | Planned multi-track research and a durable report |
 
 Do not escalate merely because the user says "detailed." Escalate when the evidence structure, not the adjective, requires it.
@@ -44,7 +44,7 @@ Do not escalate merely because the user says "detailed." Escalate when the evide
    - official documentation, standards bodies, regulators, research papers, and first-party vendor material
    - use secondary summaries only to find leads or context, not as the final authority when a primary source exists
    - when facts may have changed, verify the current state and capture exact dates
-   - for ordinary domain briefs, aim for 3-6 strong sources across the relevant authoritative source types
+   - use enough authoritative evidence to cover the claims and material conflicts; do not add sources to meet a quota
    - if the question requires more tracks, many conflicting sources, or a durable report, stop and route to `deep-researcher`
 4. Build an evidence map while reading:
    - confirmed facts with source links

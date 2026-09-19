@@ -1,6 +1,6 @@
 ---
 name: "subagent-creator"
-description: "Use when the user wants to create or update a reusable Codex custom subagent in project `.codex/agents/` or explicitly requested personal `~/.codex/agents/`. Do not use for skills, one-off delegation prompts, or conceptual multi-agent design only."
+description: "Use when creating or updating reusable Codex subagents in project .codex/agents/ or explicitly requested personal ~/.codex/agents/. Excludes skills and topology-only design."
 ---
 
 # Subagent Creator

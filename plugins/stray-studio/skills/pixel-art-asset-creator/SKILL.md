@@ -1,6 +1,6 @@
 ---
 name: "pixel-art-asset-creator"
-description: "Use when the user wants to plan, create, repair, or package pixel-art sprites, tiles, icons, item sheets, mascots, or short loops. Do not use for Codex pet atlases, generic image editing, vector/logo design, game implementation, screenshots, or brand systems."
+description: "Use when planning, creating, repairing, or packaging pixel-art sprites, tiles, icons, sheets, mascots, or short loops. Excludes Codex pet atlases, generic image edits, and game implementation."
 ---
 
 # Pixel Art Asset Creator

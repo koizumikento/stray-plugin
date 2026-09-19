@@ -1,13 +1,11 @@
 ---
 name: "reviewer"
-description: "Use when the user wants a findings-first review of code, docs, UI, skills, plugins, prompts, evals, or releases, including an explicitly requested bounded review-fix loop. Do not use for push or PR review-request readiness, blank-slate creation, security-only preflights, research, or legal advice."
+description: "Use when reviewing an existing artifact for findings, with fixes only if requested. Use dedicated skills for security-only reviews or push/PR review-request readiness."
 ---
 
 # Reviewer
 
-Run a focused review of the user's target artifact. Default to review-only. Enter review-fix mode only when the user explicitly asks to fix, address, or remediate findings as part of the same task; in that mode, preserve findings-first traceability and use a bounded repair loop.
-
-Use this skill for review requests such as code review, PR review, doc review, UI review, skill review, plugin review, prompt review, validation review, release preflight, compliance preflight, or broad "look this over" requests where the user expects critique.
+Run a focused review of the user's target artifact. Default to review-only. Enter review-fix mode only when the user explicitly asks to fix, address, or remediate findings as part of the same task; in that mode, preserve findings-first traceability and continue until confirmed in-scope findings and required checks are resolved or a concrete blocker remains.
 
 ## Do Not Use For
 
@@ -55,8 +53,9 @@ Use this skill for review requests such as code review, PR review, doc review, U
    - record the initial findings before editing and keep each change traceable to a confirmed finding
    - apply only the smallest in-scope fixes; preserve unrelated user changes and do not broaden into blank-slate redesign
    - rerun the checks that exposed each finding, then re-review the affected surface for regressions and stale findings
-   - perform at most two focused repair passes; stop earlier when no actionable finding remains
-   - stop and ask for direction when a fix needs a material product decision, external mutation, destructive action, or scope expansion
+   - stop when confirmed in-scope findings and required checks are resolved; honor any user-specified pass limit
+   - after a stalled repair, reassess the hypothesis rather than repeating unchanged work; continue when new evidence supports progress
+   - reuse authorization for the same target and effects; pause only the action requiring a missing material product decision, authorization, capability, or scope expansion, and continue independent authorized work
 6. Report in review order:
    - findings first, ordered by severity or decision impact
    - then open questions or assumptions
@@ -82,7 +81,7 @@ Use this skill for review requests such as code review, PR review, doc review, U
 ## Guardrails
 
 - Keep `reviewer` review-only by default; never edit unless the user explicitly requested a review-fix loop.
-- In review-fix mode, do not exceed two repair passes or fix items that were not grounded in the review without surfacing the scope change.
+- In review-fix mode, honor user-specified limits and fix only confirmed in-scope findings. Do not treat a pass count as proof of completion or turn optional improvements into required work.
 - Do not bury high-risk findings under minor wording or style comments.
 - Do not claim complete legal compliance, complete security coverage, or exhaustive test coverage.
 - Do not replace specialized creation skills. Route broad implementation follow-up to the relevant builder, writer, skill authoring, or research skill.

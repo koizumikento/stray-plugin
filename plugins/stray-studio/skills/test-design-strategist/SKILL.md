@@ -1,6 +1,6 @@
 ---
 name: "test-design-strategist"
-description: "Use when the user wants a test strategy, risk model, matrix, cases, QA/release checklist, regression scope, test data plan, coverage criteria, or automation recommendations as a design artifact. Do not use for test implementation, findings-first review, AI eval CI, or Codex skill routing validation."
+description: "Use when designing a software test strategy, risk model, cases, matrix, or QA/release plan. Excludes test implementation, findings-first review, AI eval CI, and skill-routing evaluation."
 ---
 
 # Test Design Strategist

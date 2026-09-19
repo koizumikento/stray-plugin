@@ -1,0 +1,3506 @@
+{
+  "date": "2026-09-19",
+  "base_revision": "8613f2375e40e12437a556dd35dc9049bf7a163e",
+  "branch": "codex/astra-skill-refresh",
+  "cli": "0.155.0-alpha.9.2",
+  "auth": "existing ChatGPT login; no provider keys or new service",
+  "settings": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "ignore_user_config": true,
+    "ephemeral": true
+  },
+  "scope": "Explicit offline catalogue classification, decision probes, and code-output checks; not native implicit routing or autonomous tool execution.",
+  "inventory": [
+    {
+      "skill": "japan-gov-administrative-procedures-data-analyst",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-administrative-procedures-data-analyst/SKILL.md",
+      "description_before": 296,
+      "description_after": 184,
+      "description_changed": true,
+      "entry_before": 5811,
+      "entry_after": 5699,
+      "old_sha256": "77faf10a769f679c1295642e80fc9e29d86997e38f4c93b9c6598450bba53234",
+      "new_sha256": "4ec5a800c57abab4db1f60e860844c6fa053474d81f56a7373a0f5079a9335e7"
+    },
+    {
+      "skill": "japan-gov-background-builder",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-background-builder/SKILL.md",
+      "description_before": 201,
+      "description_after": 201,
+      "description_changed": false,
+      "entry_before": 2383,
+      "entry_after": 2383,
+      "old_sha256": "a018d2b457062d74f733f5ad8532f7b5cdcc18764bcd87ba4fe0311a5f4387d8",
+      "new_sha256": "a018d2b457062d74f733f5ad8532f7b5cdcc18764bcd87ba4fe0311a5f4387d8"
+    },
+    {
+      "skill": "japan-gov-budget-tracer",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-budget-tracer/SKILL.md",
+      "description_before": 202,
+      "description_after": 202,
+      "description_changed": false,
+      "entry_before": 2465,
+      "entry_after": 2465,
+      "old_sha256": "2acd0ded7f0674410cf025cb7dfb35df09045a4fa636677b81c11d785d951d63",
+      "new_sha256": "2acd0ded7f0674410cf025cb7dfb35df09045a4fa636677b81c11d785d951d63"
+    },
+    {
+      "skill": "japan-gov-case-finder",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-case-finder/SKILL.md",
+      "description_before": 213,
+      "description_after": 213,
+      "description_changed": false,
+      "entry_before": 2198,
+      "entry_after": 2198,
+      "old_sha256": "be88f76b5568ee81c493db9d22d96fae1389bcf28307e37cd417671410e742c1",
+      "new_sha256": "be88f76b5568ee81c493db9d22d96fae1389bcf28307e37cd417671410e742c1"
+    },
+    {
+      "skill": "japan-gov-chart-data-tracer",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-chart-data-tracer/SKILL.md",
+      "description_before": 211,
+      "description_after": 211,
+      "description_changed": false,
+      "entry_before": 2418,
+      "entry_after": 2418,
+      "old_sha256": "a6c400e3cb470a15f806d147a2759767a3ad515509623f322e74fd8436f15868",
+      "new_sha256": "a6c400e3cb470a15f806d147a2759767a3ad515509623f322e74fd8436f15868"
+    },
+    {
+      "skill": "japan-gov-citation-auditor",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-citation-auditor/SKILL.md",
+      "description_before": 214,
+      "description_after": 214,
+      "description_changed": false,
+      "entry_before": 2324,
+      "entry_after": 2324,
+      "old_sha256": "61a5875008f76cbfe7623ea7bfad5aa12cb693c30bdd8492bfb8bac3886de127",
+      "new_sha256": "61a5875008f76cbfe7623ea7bfad5aa12cb693c30bdd8492bfb8bac3886de127"
+    },
+    {
+      "skill": "japan-gov-estat-data-analyst",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-estat-data-analyst/SKILL.md",
+      "description_before": 220,
+      "description_after": 220,
+      "description_changed": false,
+      "entry_before": 4464,
+      "entry_after": 4464,
+      "old_sha256": "2a7852c7aa30edb49fabf9dcf8d7be94d186c4c20ef7046245f123e2aeaea98a",
+      "new_sha256": "2a7852c7aa30edb49fabf9dcf8d7be94d186c4c20ef7046245f123e2aeaea98a"
+    },
+    {
+      "skill": "japan-gov-evidence-finder",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-evidence-finder/SKILL.md",
+      "description_before": 220,
+      "description_after": 220,
+      "description_changed": false,
+      "entry_before": 2733,
+      "entry_after": 2733,
+      "old_sha256": "ae1440dfcfd0f83d553096e04c0df5b3d1177656d99f1b835527d313c81083ab",
+      "new_sha256": "ae1440dfcfd0f83d553096e04c0df5b3d1177656d99f1b835527d313c81083ab"
+    },
+    {
+      "skill": "japan-gov-kpi-finder",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-kpi-finder/SKILL.md",
+      "description_before": 195,
+      "description_after": 195,
+      "description_changed": false,
+      "entry_before": 2272,
+      "entry_after": 2272,
+      "old_sha256": "cc03d5ea6696c56339b59eb510338350b48a8bc1067a7f38b87e050f5d99b051",
+      "new_sha256": "cc03d5ea6696c56339b59eb510338350b48a8bc1067a7f38b87e050f5d99b051"
+    },
+    {
+      "skill": "japan-gov-owner-mapper",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-owner-mapper/SKILL.md",
+      "description_before": 184,
+      "description_after": 184,
+      "description_changed": false,
+      "entry_before": 2373,
+      "entry_after": 2373,
+      "old_sha256": "0c596136ddc6a681ac2fdb3c625e7ef5e725cdb6f774c8f0f456ac6369b7fcbc",
+      "new_sha256": "0c596136ddc6a681ac2fdb3c625e7ef5e725cdb6f774c8f0f456ac6369b7fcbc"
+    },
+    {
+      "skill": "japan-gov-priority-checker",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-priority-checker/SKILL.md",
+      "description_before": 205,
+      "description_after": 205,
+      "description_changed": false,
+      "entry_before": 2236,
+      "entry_after": 2236,
+      "old_sha256": "d2341a9c0e488f2c0b8a7279f7926b33cc88ccab7c62fc071c85e6e7533ac694",
+      "new_sha256": "d2341a9c0e488f2c0b8a7279f7926b33cc88ccab7c62fc071c85e6e7533ac694"
+    },
+    {
+      "skill": "japan-gov-project-links-data-analyst",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-project-links-data-analyst/SKILL.md",
+      "description_before": 198,
+      "description_after": 198,
+      "description_changed": false,
+      "entry_before": 2957,
+      "entry_after": 2957,
+      "old_sha256": "a9f5cf77507f66e5aa7c1632523cae0d2f87aa07ee942cc7f1de8b5f5edd2d92",
+      "new_sha256": "a9f5cf77507f66e5aa7c1632523cae0d2f87aa07ee942cc7f1de8b5f5edd2d92"
+    },
+    {
+      "skill": "japan-gov-proposal-context-adapter",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-proposal-context-adapter/SKILL.md",
+      "description_before": 186,
+      "description_after": 186,
+      "description_changed": false,
+      "entry_before": 2223,
+      "entry_after": 2223,
+      "old_sha256": "cc2eccd8e925b2483b36351c6dfb90a8ab9dc455a48516d9ced8ebb064bdb0f9",
+      "new_sha256": "cc2eccd8e925b2483b36351c6dfb90a8ab9dc455a48516d9ced8ebb064bdb0f9"
+    },
+    {
+      "skill": "japan-gov-request-router",
+      "path": "plugins/stray-japan-govdocs/skills/japan-gov-request-router/SKILL.md",
+      "description_before": 201,
+      "description_after": 200,
+      "description_changed": true,
+      "entry_before": 4674,
+      "entry_after": 4880,
+      "old_sha256": "50e3c479928fee4a6411b184e90989d2b664809ea8d856e10f68f5e330f7a485",
+      "new_sha256": "5805b721aa8bf5769beb20380b38940d953b84384a61affe6f93992f96015b19"
+    },
+    {
+      "skill": "japan-govdoc-cache-manager",
+      "path": "plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/SKILL.md",
+      "description_before": 201,
+      "description_after": 201,
+      "description_changed": false,
+      "entry_before": 4314,
+      "entry_after": 4314,
+      "old_sha256": "2ad1226ba21e4c8307ea39240ea49aa55978c7d85862c0f51c99e74462935eb6",
+      "new_sha256": "2ad1226ba21e4c8307ea39240ea49aa55978c7d85862c0f51c99e74462935eb6"
+    },
+    {
+      "skill": "japan-real-estate-info-library-analyst",
+      "path": "plugins/stray-japan-govdocs/skills/japan-real-estate-info-library-analyst/SKILL.md",
+      "description_before": 202,
+      "description_after": 202,
+      "description_changed": false,
+      "entry_before": 3348,
+      "entry_after": 3348,
+      "old_sha256": "5adc448f8b2127e6cd936d1fbc0bab0dbc29fc30d4b5ff802eb94a257252edd0",
+      "new_sha256": "5adc448f8b2127e6cd936d1fbc0bab0dbc29fc30d4b5ff802eb94a257252edd0"
+    },
+    {
+      "skill": "japan-whitepaper-brief",
+      "path": "plugins/stray-japan-govdocs/skills/japan-whitepaper-brief/SKILL.md",
+      "description_before": 171,
+      "description_after": 171,
+      "description_changed": false,
+      "entry_before": 2242,
+      "entry_after": 2242,
+      "old_sha256": "b8b93b84d1916df82d141740228a90c173d87b5fad87bb19c8aebd829d2b40bf",
+      "new_sha256": "b8b93b84d1916df82d141740228a90c173d87b5fad87bb19c8aebd829d2b40bf"
+    },
+    {
+      "skill": "api-terms-checker",
+      "path": "plugins/stray-research/skills/api-terms-checker/SKILL.md",
+      "description_before": 267,
+      "description_after": 170,
+      "description_changed": true,
+      "entry_before": 5231,
+      "entry_after": 5134,
+      "old_sha256": "30d2b73ffde5dd1f622863189d782d21171156ba16901c49a41337287211b441",
+      "new_sha256": "588ce24b28a71e95a1b367fb74b17237fa6fdc7b19c1c779909b505eed88824a"
+    },
+    {
+      "skill": "deep-researcher",
+      "path": "plugins/stray-research/skills/deep-researcher/SKILL.md",
+      "description_before": 275,
+      "description_after": 174,
+      "description_changed": true,
+      "entry_before": 11849,
+      "entry_after": 4802,
+      "old_sha256": "c6663fa90b26c61421e132a3f2bf11c16a3d27f487ca7de5974609348fbb0e83",
+      "new_sha256": "e6e7da9c2ae87c7ab1eaf16ca9badd9c9f9791adcec9fc104f584e3dea744a21"
+    },
+    {
+      "skill": "domain-researcher",
+      "path": "plugins/stray-research/skills/domain-researcher/SKILL.md",
+      "description_before": 283,
+      "description_after": 187,
+      "description_changed": true,
+      "entry_before": 5228,
+      "entry_after": 5171,
+      "old_sha256": "9a0cceb7d1609220a132a0ae37bb9d6bb2ddf52d67f5cd5c512b2182c02c3e57",
+      "new_sha256": "f007c4ca216cf57304cac2629265fa3d2740945b41ec0520ab9dc9a86020e955"
+    },
+    {
+      "skill": "github-maintainer",
+      "path": "plugins/stray-research/skills/github-maintainer/SKILL.md",
+      "description_before": 253,
+      "description_after": 150,
+      "description_changed": true,
+      "entry_before": 6066,
+      "entry_after": 5963,
+      "old_sha256": "a6828d130197a1aec2bb15a144bbbe593baaae38bad32219b78a2398d6f7b857",
+      "new_sha256": "7c3b0dd6169d83827774e9c651b4186207e2cdff5a836305ea4b07d77de53ba6"
+    },
+    {
+      "skill": "global-patent-researcher",
+      "path": "plugins/stray-research/skills/global-patent-researcher/SKILL.md",
+      "description_before": 259,
+      "description_after": 192,
+      "description_changed": true,
+      "entry_before": 9045,
+      "entry_after": 8978,
+      "old_sha256": "ffb16422bf6c6c2a962a06fc2f2ab032f0aa93c2cdda02081d46d5dcefda6a6f",
+      "new_sha256": "20c1a8ac8294c5db628df1245ea510eb2cbd6c15f40abd69e2c51f6a8b241bba"
+    },
+    {
+      "skill": "idea-explorer",
+      "path": "plugins/stray-research/skills/idea-explorer/SKILL.md",
+      "description_before": 268,
+      "description_after": 180,
+      "description_changed": true,
+      "entry_before": 8982,
+      "entry_after": 8894,
+      "old_sha256": "b21027856b7e51d1fb2920f9bcbd7a664520c9fe54001e469d4c79880af7035c",
+      "new_sha256": "89ce5400122e2059d942f215ccaa47a436b6ad324a582063465608cd21d59290"
+    },
+    {
+      "skill": "japan-company-info-researcher",
+      "path": "plugins/stray-research/skills/japan-company-info-researcher/SKILL.md",
+      "description_before": 257,
+      "description_after": 162,
+      "description_changed": true,
+      "entry_before": 4733,
+      "entry_after": 4638,
+      "old_sha256": "06dd28a1a729ede1f5a8f3108d989d7d54d1f16d6562fe1a76873ca091de8ef9",
+      "new_sha256": "35f5746b1f87d071651b3974fce459984480ffcdbe92c84099ebb56e4a3070c2"
+    },
+    {
+      "skill": "japan-news-brief",
+      "path": "plugins/stray-research/skills/japan-news-brief/SKILL.md",
+      "description_before": 248,
+      "description_after": 162,
+      "description_changed": true,
+      "entry_before": 6272,
+      "entry_after": 6186,
+      "old_sha256": "632f864316274e0abea1e1c892a2d60dab3ea89a9088f4f8a42fae64b3aa973e",
+      "new_sha256": "57eeaf24d7796024b754a3c827a81d329ac5680d896139bd8b18efe4b23c7804"
+    },
+    {
+      "skill": "japan-patent-researcher",
+      "path": "plugins/stray-research/skills/japan-patent-researcher/SKILL.md",
+      "description_before": 264,
+      "description_after": 169,
+      "description_changed": true,
+      "entry_before": 8338,
+      "entry_after": 8243,
+      "old_sha256": "e8beb4e5b5aa5644ed2d224a9f38cf8e827c546a8718b57f42984fafc84bd981",
+      "new_sha256": "b4b39edbeec115027830a7b7fa0b111a19ef87f99ad5aca2a97efb819c9ef3c7"
+    },
+    {
+      "skill": "japan-weather-data-researcher",
+      "path": "plugins/stray-research/skills/japan-weather-data-researcher/SKILL.md",
+      "description_before": 250,
+      "description_after": 176,
+      "description_changed": true,
+      "entry_before": 4966,
+      "entry_after": 4892,
+      "old_sha256": "73b9e1178ee11b1318568471ca88f9f3f56a19817feddf70203d74910102c1fe",
+      "new_sha256": "d63cfc9970f68c709f2663cffc9cec712257f9a59427075a53880e290918d33e"
+    },
+    {
+      "skill": "keiba-yosou-agent",
+      "path": "plugins/stray-research/skills/keiba-yosou-agent/SKILL.md",
+      "description_before": 298,
+      "description_after": 198,
+      "description_changed": true,
+      "entry_before": 5482,
+      "entry_after": 5382,
+      "old_sha256": "dd8249c87cd5d4aaf28c6ec38eb7996b5ad7a963c553aafc0c6b6b604205b6ff",
+      "new_sha256": "15734fd513c6e6287ff9f0ada0d915291bb096baeed1c171a1a6c4401044636b"
+    },
+    {
+      "skill": "mcp-server-designer",
+      "path": "plugins/stray-research/skills/mcp-server-designer/SKILL.md",
+      "description_before": 266,
+      "description_after": 190,
+      "description_changed": true,
+      "entry_before": 6776,
+      "entry_after": 6700,
+      "old_sha256": "2d3c8037d019ee0277922fac8a9ec1313eb36f15fa5da50d2821f81d57e31485",
+      "new_sha256": "1e67d6068f89a2f65df87c11b8d9e02a493283ec6f7cd2e36a4518f613c2b070"
+    },
+    {
+      "skill": "product-designer",
+      "path": "plugins/stray-research/skills/product-designer/SKILL.md",
+      "description_before": 267,
+      "description_after": 192,
+      "description_changed": true,
+      "entry_before": 5795,
+      "entry_after": 5720,
+      "old_sha256": "752be3f62c3c2acbecfee8c38bf782c9b5c94e4bf6726d7fb3c668a9d06181f9",
+      "new_sha256": "5c2be64df842a414b50d04b651ba289622088b95b3126d70d2ac009c8987185d"
+    },
+    {
+      "skill": "web-content-distiller",
+      "path": "plugins/stray-research/skills/web-content-distiller/SKILL.md",
+      "description_before": 256,
+      "description_after": 193,
+      "description_changed": true,
+      "entry_before": 4943,
+      "entry_after": 4880,
+      "old_sha256": "c986b25cbb1c7b4244723f25d79562dbcaf955ea828211303c395c565fe5eb0e",
+      "new_sha256": "edbc93055d04c030f75e94f6b9449f28959ffe58d53c3f28c39a8434fa1e8ada"
+    },
+    {
+      "skill": "web-researcher",
+      "path": "plugins/stray-research/skills/web-researcher/SKILL.md",
+      "description_before": 275,
+      "description_after": 214,
+      "description_changed": true,
+      "entry_before": 9530,
+      "entry_after": 3784,
+      "old_sha256": "ec52471cfe417ae5cb17aa44df590ed919fe1d1a2930731e9ec07cf3f4f66f54",
+      "new_sha256": "83551195c46c21157ac357022ab83fda446357c103fe13c955bfecb55a949004"
+    },
+    {
+      "skill": "ros2-development",
+      "path": "plugins/stray-robotics/skills/ros2-development/SKILL.md",
+      "description_before": 243,
+      "description_after": 177,
+      "description_changed": true,
+      "entry_before": 12735,
+      "entry_after": 12669,
+      "old_sha256": "7b30944a95242ff24b3a85f5ea4710f39f5b18554a10a1f2d888ce642d05a214",
+      "new_sha256": "feef5ee8b8edbf03d5cc9b1c45386d6c16091fd9e01023547509e544eafdd530"
+    },
+    {
+      "skill": "agent-skill-creater",
+      "path": "plugins/stray-skillops/skills/agent-skill-creater/SKILL.md",
+      "description_before": 211,
+      "description_after": 173,
+      "description_changed": true,
+      "entry_before": 6479,
+      "entry_after": 6467,
+      "old_sha256": "98c27e54142fd1cd216d9aa105f6aec522def1156032986f2020bef37ee5d444",
+      "new_sha256": "8b188a0f01c633ff080938d6419144d57f1c383acce8937458e1cc7cb15123b8"
+    },
+    {
+      "skill": "ai-eval-ci",
+      "path": "plugins/stray-skillops/skills/ai-eval-ci/SKILL.md",
+      "description_before": 224,
+      "description_after": 142,
+      "description_changed": true,
+      "entry_before": 6630,
+      "entry_after": 6548,
+      "old_sha256": "996613f2b7c7937bf1e0bacad7be4c8a769f3dbf61ce67d58ff3b85128aceff7",
+      "new_sha256": "b364b336ca2ce075c0425653af3100be379bea50c92e7972764ad07219ec6f5c"
+    },
+    {
+      "skill": "context-compression",
+      "path": "plugins/stray-skillops/skills/context-compression/SKILL.md",
+      "description_before": 228,
+      "description_after": 143,
+      "description_changed": true,
+      "entry_before": 5051,
+      "entry_after": 4966,
+      "old_sha256": "cf82908a37a87ef785c696c0ec006b5b577b5317e8b65803f9b436e57ed1bec2",
+      "new_sha256": "5bf878ccf8d8da5feed2a40202a3f1b620dc6c1a3a0cda5d27cf6a57d95559e2"
+    },
+    {
+      "skill": "multi-agent-patterns",
+      "path": "plugins/stray-skillops/skills/multi-agent-patterns/SKILL.md",
+      "description_before": 213,
+      "description_after": 160,
+      "description_changed": true,
+      "entry_before": 3844,
+      "entry_after": 3791,
+      "old_sha256": "8aed28908fa7016ad3592695179ab561a6305229d06cfef3ed1ab8c125874d20",
+      "new_sha256": "59bf6d0c2cfbd26a794eca38cb8628e4112539bb603c2ad3b343af7d83b1f846"
+    },
+    {
+      "skill": "skill-routing-validator",
+      "path": "plugins/stray-skillops/skills/skill-routing-validator/SKILL.md",
+      "description_before": 200,
+      "description_after": 150,
+      "description_changed": true,
+      "entry_before": 5047,
+      "entry_after": 4997,
+      "old_sha256": "d43efaa67abf76702491b521350f050814bdca73cfdc7d8786fe1ec16324bff9",
+      "new_sha256": "bdc3008e4cde52a4f862813581ced272d31b7061946ef71931601ff8bf3ec859"
+    },
+    {
+      "skill": "skills-search",
+      "path": "plugins/stray-skillops/skills/skills-search/SKILL.md",
+      "description_before": 224,
+      "description_after": 100,
+      "description_changed": true,
+      "entry_before": 6011,
+      "entry_after": 5887,
+      "old_sha256": "bf80cb225ca539d4ae91ececbf9fe71a03a7058e11abdd738e6d957f6c508143",
+      "new_sha256": "3e99c1e460cf35dba170fcaba375282a0ec9a7673dcfcad88f85eb25b0c23258"
+    },
+    {
+      "skill": "subagent-creator",
+      "path": "plugins/stray-skillops/skills/subagent-creator/SKILL.md",
+      "description_before": 247,
+      "description_after": 173,
+      "description_changed": true,
+      "entry_before": 6852,
+      "entry_after": 6778,
+      "old_sha256": "62264dba868c72f5cd8ec311b8a1453e296823c63c02930fe28404bdd9744e43",
+      "new_sha256": "8babd3fecf83033c40d0412dc3cdcd054346421483f65225631f47d897cfb02e"
+    },
+    {
+      "skill": "article-writer",
+      "path": "plugins/stray-studio/skills/article-writer/SKILL.md",
+      "description_before": 282,
+      "description_after": 175,
+      "description_changed": true,
+      "entry_before": 5492,
+      "entry_after": 5385,
+      "old_sha256": "0d28bb32895aab38708145371666515404b206533872f0a9b717169e5b6bd8d4",
+      "new_sha256": "2284c0b97f3c9078ee4ccc35669abcc8f048ff12eb56ff9494eb61adfc7379de"
+    },
+    {
+      "skill": "artifact-theme-applier",
+      "path": "plugins/stray-studio/skills/artifact-theme-applier/SKILL.md",
+      "description_before": 295,
+      "description_after": 187,
+      "description_changed": true,
+      "entry_before": 5144,
+      "entry_after": 5036,
+      "old_sha256": "a67cc054324d2fa57d90e9e344f958c4ad2338d994c743dc552a1b29caf0f92c",
+      "new_sha256": "906cb95806ba9bc52a2e1bd63852cac28d6d130c8f0347914acc2190accf1dc6"
+    },
+    {
+      "skill": "brand-designer",
+      "path": "plugins/stray-studio/skills/brand-designer/SKILL.md",
+      "description_before": 245,
+      "description_after": 164,
+      "description_changed": true,
+      "entry_before": 4715,
+      "entry_after": 4634,
+      "old_sha256": "2181687a1ef0c316e26c6b8ab09d8cb92b3b19043c772a7963addf71ba7cd89d",
+      "new_sha256": "3f679c0fad26611a8921ee107b2c1578913f1eb186def7709224b173eb3eff04"
+    },
+    {
+      "skill": "change-readiness-review",
+      "path": "plugins/stray-studio/skills/change-readiness-review/SKILL.md",
+      "description_before": 285,
+      "description_after": 285,
+      "description_changed": false,
+      "entry_before": 5276,
+      "entry_after": 5276,
+      "old_sha256": "40bd8d4a00ba18d80a3d2120356d431e1183e2cfd619b0c9c5f81c320e87a8e1",
+      "new_sha256": "40bd8d4a00ba18d80a3d2120356d431e1183e2cfd619b0c9c5f81c320e87a8e1"
+    },
+    {
+      "skill": "corporate-site-builder",
+      "path": "plugins/stray-studio/skills/corporate-site-builder/SKILL.md",
+      "description_before": 292,
+      "description_after": 194,
+      "description_changed": true,
+      "entry_before": 17783,
+      "entry_after": 9989,
+      "old_sha256": "e2f9cb0ee6ca43bd15e06ae4bdc4724dd71082b2746e95c301a92ec3d877d5d4",
+      "new_sha256": "ae6c2c6218409b4afc953ad2d9e0096ad7bd01b34d643ebeb4a1e7c9e61a893b"
+    },
+    {
+      "skill": "fullstack-app-builder",
+      "path": "plugins/stray-studio/skills/fullstack-app-builder/SKILL.md",
+      "description_before": 282,
+      "description_after": 210,
+      "description_changed": true,
+      "entry_before": 17171,
+      "entry_after": 11119,
+      "old_sha256": "b97f288adc79a529ae5f63bf43f798f0ed91953c72a6992a572d652f09fab19d",
+      "new_sha256": "efdf405ac114ecd4c5039e9e582dbef6fb6060d685e661fa35b5ce933d16fbaa"
+    },
+    {
+      "skill": "iac-builder",
+      "path": "plugins/stray-studio/skills/iac-builder/SKILL.md",
+      "description_before": 268,
+      "description_after": 224,
+      "description_changed": true,
+      "entry_before": 8033,
+      "entry_after": 7989,
+      "old_sha256": "43fc0b4961d4e03d63ea6c00fd7e6a4db98e58718595ec80f41172c904e5bfb8",
+      "new_sha256": "9ae8d6813a53ae36a8fa897c6563b620d2bdffd1c122d46aaff14bcda41e5122"
+    },
+    {
+      "skill": "json-canvas-editor",
+      "path": "plugins/stray-studio/skills/json-canvas-editor/SKILL.md",
+      "description_before": 271,
+      "description_after": 179,
+      "description_changed": true,
+      "entry_before": 4450,
+      "entry_after": 4358,
+      "old_sha256": "ab04e578954564f00df15a52ab0b3a47be88aa2819ceb70912a1e6db814dc5ca",
+      "new_sha256": "22eb73d9742ab222e11a278bff6ae7482965ee2927caacec41b2c77ea9a6f388"
+    },
+    {
+      "skill": "landing-page-builder",
+      "path": "plugins/stray-studio/skills/landing-page-builder/SKILL.md",
+      "description_before": 291,
+      "description_after": 186,
+      "description_changed": true,
+      "entry_before": 12066,
+      "entry_after": 6981,
+      "old_sha256": "c355f904c07ac0b3ad2d988ea08ff9dc39056fb4aa48d232467eb5fa22db4dfd",
+      "new_sha256": "d942fd82f16dad16cfdd543424bb13a972f2b5f2d810f3098122fba4d507ff0f"
+    },
+    {
+      "skill": "marketing-screenshot-creator",
+      "path": "plugins/stray-studio/skills/marketing-screenshot-creator/SKILL.md",
+      "description_before": 283,
+      "description_after": 175,
+      "description_changed": true,
+      "entry_before": 4830,
+      "entry_after": 4722,
+      "old_sha256": "2ed5bc9c51ebf7b1750f25dd39d32a345f242bb2d338d2ccab97dc3b84833841",
+      "new_sha256": "3e868bcb0f959ed2397546c2c0a109e16088a491c91a76a18e6290c1d7e2cd7a"
+    },
+    {
+      "skill": "ops-playbook-writer",
+      "path": "plugins/stray-studio/skills/ops-playbook-writer/SKILL.md",
+      "description_before": 277,
+      "description_after": 176,
+      "description_changed": true,
+      "entry_before": 5020,
+      "entry_after": 4919,
+      "old_sha256": "1d49f0b3943df4d81469839a130c41d450e563d1bbc2b4a296af97384366a9a2",
+      "new_sha256": "c0dc260cb2304c623df0faa83b28ac57558cb5c970fdb5748e5d843e9e7d50b0"
+    },
+    {
+      "skill": "pixel-art-asset-creator",
+      "path": "plugins/stray-studio/skills/pixel-art-asset-creator/SKILL.md",
+      "description_before": 259,
+      "description_after": 192,
+      "description_changed": true,
+      "entry_before": 9348,
+      "entry_after": 9281,
+      "old_sha256": "a83a2f8b14051cd1301cb7a0e2e797ef14877593fbe84be560fcafdf04fe43ac",
+      "new_sha256": "b4ce56de03afe2f5dad52ea99e4df59d80c8c64963332b270ffa05c10157f552"
+    },
+    {
+      "skill": "platform-native-ui-designer",
+      "path": "plugins/stray-studio/skills/platform-native-ui-designer/SKILL.md",
+      "description_before": 294,
+      "description_after": 199,
+      "description_changed": true,
+      "entry_before": 9792,
+      "entry_after": 9697,
+      "old_sha256": "57bdefe252b4402201ceca919162e43cce1a157b01c3161460e6493bc44bb2af",
+      "new_sha256": "55cb4fdee580f06f72453f33aa0e81a4a6b89a48a2899db86efb2bcabc49cd94"
+    },
+    {
+      "skill": "proposal-writer",
+      "path": "plugins/stray-studio/skills/proposal-writer/SKILL.md",
+      "description_before": 292,
+      "description_after": 186,
+      "description_changed": true,
+      "entry_before": 4929,
+      "entry_after": 4823,
+      "old_sha256": "77e9dd71291dd24b865ce3571688648cb7d10a0a0fd0ad8b4bd38253dc71c717",
+      "new_sha256": "b3aef1282a9aa5169f1a8e67e43df45d3a17d2bc4adc3e0ed07546720d223a96"
+    },
+    {
+      "skill": "reviewer",
+      "path": "plugins/stray-studio/skills/reviewer/SKILL.md",
+      "description_before": 298,
+      "description_after": 167,
+      "description_changed": true,
+      "entry_before": 7502,
+      "entry_after": 7471,
+      "old_sha256": "7ebfc7bc224da5e36244065f57d7727eb06bedd97c1a2531d096298fb32e9c96",
+      "new_sha256": "46e2dc15280cc0ed07962e2ced68b853fb7d1c8dddd2ef4af88c3003eb377a77"
+    },
+    {
+      "skill": "security-preflight",
+      "path": "plugins/stray-studio/skills/security-preflight/SKILL.md",
+      "description_before": 285,
+      "description_after": 186,
+      "description_changed": true,
+      "entry_before": 10821,
+      "entry_after": 10722,
+      "old_sha256": "f4974db0622282eb16f32068c4380709b55cb4075c0af81bc336d64dbeef94b4",
+      "new_sha256": "2ccc83aefe73c8adcfb4f4ab2250283da4cea31c1caf25045334641dcf120bf1"
+    },
+    {
+      "skill": "slack-app-builder",
+      "path": "plugins/stray-studio/skills/slack-app-builder/SKILL.md",
+      "description_before": 288,
+      "description_after": 202,
+      "description_changed": true,
+      "entry_before": 12572,
+      "entry_after": 8600,
+      "old_sha256": "489e6dadeabea58f0ed3ac7de1c93c9a314ce450c9a546fc0649a38a8bbcbc7b",
+      "new_sha256": "4831a1d8a557b78d50409919e97368eab6465c1b21370320cf4cb3f3782978d2"
+    },
+    {
+      "skill": "slack-gif-creator",
+      "path": "plugins/stray-studio/skills/slack-gif-creator/SKILL.md",
+      "description_before": 290,
+      "description_after": 172,
+      "description_changed": true,
+      "entry_before": 4861,
+      "entry_after": 4743,
+      "old_sha256": "f99442f4321fdb4279efa9ca7202c6fb8e5ab1385b7cf5a935afb329cf4832ff",
+      "new_sha256": "237260ce6cf52bf7fc5c2151930294c5b4d8fdf82346d9e7dace35c6f5b7dc8d"
+    },
+    {
+      "skill": "test-design-strategist",
+      "path": "plugins/stray-studio/skills/test-design-strategist/SKILL.md",
+      "description_before": 300,
+      "description_after": 186,
+      "description_changed": true,
+      "entry_before": 9179,
+      "entry_after": 9065,
+      "old_sha256": "7fd9612fd7dc58cd8687702fc930be9167a754feaf95796c273726a5c2aceb98",
+      "new_sha256": "db097bf65e4dc8d5e1febf8c1e4f7b7175899fb6cf19ea71fd9b15a84842eb2b"
+    }
+  ],
+  "routing": {
+    "old": {
+      "result": {
+        "variant": "old",
+        "exit": 0,
+        "seconds": 73.26,
+        "total": 117,
+        "matched": 112,
+        "returned": 117,
+        "unique": 117,
+        "mismatches": [
+          {
+            "id": "studio-iac-app-flow",
+            "expected": [
+              "fullstack-app-builder"
+            ],
+            "actual": [
+              "fullstack-app-builder",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "mixed-iac-security-review-fix",
+            "expected": [
+              "security-preflight",
+              "iac-builder"
+            ],
+            "actual": [
+              "reviewer",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "research-mcp-read-only-eval-contract",
+            "expected": [
+              "mcp-server-designer"
+            ],
+            "actual": [
+              "test-design-strategist"
+            ]
+          },
+          {
+            "id": "no-skill-current-application-instructions",
+            "expected": [],
+            "actual": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "gov-request-router",
+            "expected": [
+              "japan-gov-request-router"
+            ],
+            "actual": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder",
+              "japan-gov-kpi-finder",
+              "japan-gov-budget-tracer"
+            ]
+          }
+        ]
+      },
+      "actual": {
+        "cases": [
+          {
+            "id": "studio-iac-environment-baseline",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-storage-lifecycle",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-monitoring",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-runtime-capacity",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-apply-lifecycle",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-cost-lifetime",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-app-instrumentation-neighbor",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-db-create",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-network-plan",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-secret-retry",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-secret-alias",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-small-dev-network",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-security-review-only",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-iac-general-review-only",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-iac-app-flow",
+            "skills": [
+              "fullstack-app-builder",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-schema-migration",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-conceptual-research",
+            "skills": [
+              "domain-researcher"
+            ]
+          },
+          {
+            "id": "studio-iac-runbook-only",
+            "skills": [
+              "ops-playbook-writer"
+            ]
+          },
+          {
+            "id": "mixed-iac-security-review-fix",
+            "skills": [
+              "reviewer",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "skillops-author-skill",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-update-reference-version",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-reuse-version-bump",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-project-skill-no-plugin-version",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-ai-eval-ci",
+            "skills": [
+              "ai-eval-ci"
+            ]
+          },
+          {
+            "id": "skillops-compress-context",
+            "skills": [
+              "context-compression"
+            ]
+          },
+          {
+            "id": "skillops-design-multi-agent",
+            "skills": [
+              "multi-agent-patterns"
+            ]
+          },
+          {
+            "id": "skillops-search-skills",
+            "skills": [
+              "skills-search"
+            ]
+          },
+          {
+            "id": "skillops-create-subagent",
+            "skills": [
+              "subagent-creator"
+            ]
+          },
+          {
+            "id": "skillops-validate-routing",
+            "skills": [
+              "skill-routing-validator"
+            ]
+          },
+          {
+            "id": "research-api-terms",
+            "skills": [
+              "api-terms-checker"
+            ]
+          },
+          {
+            "id": "research-deep",
+            "skills": [
+              "deep-researcher"
+            ]
+          },
+          {
+            "id": "research-domain",
+            "skills": [
+              "domain-researcher"
+            ]
+          },
+          {
+            "id": "research-github-maintenance",
+            "skills": [
+              "github-maintainer"
+            ]
+          },
+          {
+            "id": "research-global-patent",
+            "skills": [
+              "global-patent-researcher"
+            ]
+          },
+          {
+            "id": "research-idea-exploration",
+            "skills": [
+              "idea-explorer"
+            ]
+          },
+          {
+            "id": "research-japan-company",
+            "skills": [
+              "japan-company-info-researcher"
+            ]
+          },
+          {
+            "id": "research-japan-news",
+            "skills": [
+              "japan-news-brief"
+            ]
+          },
+          {
+            "id": "research-japan-weather",
+            "skills": [
+              "japan-weather-data-researcher"
+            ]
+          },
+          {
+            "id": "research-keiba",
+            "skills": [
+              "keiba-yosou-agent"
+            ]
+          },
+          {
+            "id": "research-mcp-design",
+            "skills": [
+              "mcp-server-designer"
+            ]
+          },
+          {
+            "id": "research-mcp-read-only-eval-contract",
+            "skills": [
+              "test-design-strategist"
+            ]
+          },
+          {
+            "id": "research-product-decision",
+            "skills": [
+              "product-designer"
+            ]
+          },
+          {
+            "id": "research-distill-page",
+            "skills": [
+              "web-content-distiller"
+            ]
+          },
+          {
+            "id": "research-general-web",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "research-japan-patent",
+            "skills": [
+              "japan-patent-researcher"
+            ]
+          },
+          {
+            "id": "studio-write-article",
+            "skills": [
+              "article-writer"
+            ]
+          },
+          {
+            "id": "studio-theme-artifact",
+            "skills": [
+              "artifact-theme-applier"
+            ]
+          },
+          {
+            "id": "studio-design-brand",
+            "skills": [
+              "brand-designer"
+            ]
+          },
+          {
+            "id": "studio-corporate-site",
+            "skills": [
+              "corporate-site-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-app",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-app-data-only",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-client-async",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-durable-import",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-identity-switch",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-draft-refetch",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-auth-review-only",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-platform-native-ui-spec",
+            "skills": [
+              "platform-native-ui-designer"
+            ]
+          },
+          {
+            "id": "studio-platform-native-ui-implementation",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-json-canvas",
+            "skills": [
+              "json-canvas-editor"
+            ]
+          },
+          {
+            "id": "studio-landing-page",
+            "skills": [
+              "landing-page-builder"
+            ]
+          },
+          {
+            "id": "studio-marketing-screenshots",
+            "skills": [
+              "marketing-screenshot-creator"
+            ]
+          },
+          {
+            "id": "studio-ops-playbook",
+            "skills": [
+              "ops-playbook-writer"
+            ]
+          },
+          {
+            "id": "studio-pixel-art",
+            "skills": [
+              "pixel-art-asset-creator"
+            ]
+          },
+          {
+            "id": "studio-proposal",
+            "skills": [
+              "proposal-writer"
+            ]
+          },
+          {
+            "id": "studio-change-readiness-local-push",
+            "skills": [
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-change-readiness-pr-rerequest",
+            "skills": [
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-general-code-review-not-readiness",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-review-fix-then-readiness",
+            "skills": [
+              "reviewer",
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-review-fix",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-security-preflight",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-slack-app",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-slack-gif",
+            "skills": [
+              "slack-gif-creator"
+            ]
+          },
+          {
+            "id": "studio-test-design",
+            "skills": [
+              "test-design-strategist"
+            ]
+          },
+          {
+            "id": "gov-background",
+            "skills": [
+              "japan-gov-background-builder"
+            ]
+          },
+          {
+            "id": "gov-budget",
+            "skills": [
+              "japan-gov-budget-tracer"
+            ]
+          },
+          {
+            "id": "gov-cases",
+            "skills": [
+              "japan-gov-case-finder"
+            ]
+          },
+          {
+            "id": "gov-chart-source",
+            "skills": [
+              "japan-gov-chart-data-tracer"
+            ]
+          },
+          {
+            "id": "gov-citation-audit",
+            "skills": [
+              "japan-gov-citation-auditor"
+            ]
+          },
+          {
+            "id": "gov-estat",
+            "skills": [
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-administrative-procedures-summary",
+            "skills": [
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-administrative-procedures-records",
+            "skills": [
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "no-skill-current-application-instructions",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "gov-evidence",
+            "skills": [
+              "japan-gov-evidence-finder"
+            ]
+          },
+          {
+            "id": "gov-kpi",
+            "skills": [
+              "japan-gov-kpi-finder"
+            ]
+          },
+          {
+            "id": "gov-owner",
+            "skills": [
+              "japan-gov-owner-mapper"
+            ]
+          },
+          {
+            "id": "gov-priority",
+            "skills": [
+              "japan-gov-priority-checker"
+            ]
+          },
+          {
+            "id": "gov-project-links",
+            "skills": [
+              "japan-gov-project-links-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-proposal-adapter",
+            "skills": [
+              "japan-gov-proposal-context-adapter"
+            ]
+          },
+          {
+            "id": "gov-request-router",
+            "skills": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder",
+              "japan-gov-kpi-finder",
+              "japan-gov-budget-tracer"
+            ]
+          },
+          {
+            "id": "gov-cache",
+            "skills": [
+              "japan-govdoc-cache-manager"
+            ]
+          },
+          {
+            "id": "gov-real-estate-library",
+            "skills": [
+              "japan-real-estate-info-library-analyst"
+            ]
+          },
+          {
+            "id": "gov-whitepaper-brief",
+            "skills": [
+              "japan-whitepaper-brief"
+            ]
+          },
+          {
+            "id": "robotics-ros2",
+            "skills": [
+              "ros2-development"
+            ]
+          },
+          {
+            "id": "mixed-skill-discovery-to-authoring",
+            "skills": [
+              "skills-search",
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "mixed-page-distillation-to-article",
+            "skills": [
+              "web-content-distiller",
+              "article-writer"
+            ]
+          },
+          {
+            "id": "mixed-deep-research-to-product-decision",
+            "skills": [
+              "deep-researcher",
+              "product-designer"
+            ]
+          },
+          {
+            "id": "mixed-native-ui-spec-to-implementation",
+            "skills": [
+              "platform-native-ui-designer",
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "mixed-security-preflight-to-bounded-review-fix",
+            "skills": [
+              "security-preflight",
+              "reviewer"
+            ]
+          },
+          {
+            "id": "mixed-gov-router-to-evidence",
+            "skills": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder"
+            ]
+          },
+          {
+            "id": "mixed-gov-chart-to-estat-analysis",
+            "skills": [
+              "japan-gov-chart-data-tracer",
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "mixed-gov-chart-to-administrative-procedures-analysis",
+            "skills": [
+              "japan-gov-chart-data-tracer",
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "mixed-gov-context-to-proposal",
+            "skills": [
+              "japan-gov-proposal-context-adapter",
+              "proposal-writer"
+            ]
+          },
+          {
+            "id": "research-japan-primary-multijurisdiction-patent",
+            "skills": [
+              "global-patent-researcher"
+            ]
+          },
+          {
+            "id": "research-delegated-japan-patent-track",
+            "skills": [
+              "japan-patent-researcher"
+            ]
+          },
+          {
+            "id": "skillops-routing-other-repository",
+            "skills": [
+              "skill-routing-validator"
+            ]
+          },
+          {
+            "id": "studio-json-canvas-new-known-content",
+            "skills": [
+              "json-canvas-editor"
+            ]
+          },
+          {
+            "id": "studio-slack-local-validation-only",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-slack-approved-local-run",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "gov-estat-discover-capability",
+            "skills": [
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "research-weather-without-mcp",
+            "skills": [
+              "japan-weather-data-researcher"
+            ]
+          },
+          {
+            "id": "no-skill-codex-pet-packaging",
+            "skills": []
+          },
+          {
+            "id": "no-skill-git-status-explanation",
+            "skills": []
+          },
+          {
+            "id": "no-skill-trivial-readme-typo",
+            "skills": []
+          },
+          {
+            "id": "no-skill-small-code-change",
+            "skills": []
+          },
+          {
+            "id": "research-single-official-fact",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "studio-review-fix-progress",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "no-skill-simple-provided-fact",
+            "skills": []
+          }
+        ]
+      },
+      "prompt_sha256": "3a53d5d4bfdd9302dd0882ce2ca6ae5d5ef4fa306bfe13ef587570c5ffe0df47",
+      "usage": {
+        "input_tokens": 23724,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2258,
+        "reasoning_output_tokens": 116
+      },
+      "tool_items": []
+    },
+    "initial_new": {
+      "result": {
+        "variant": "new",
+        "exit": 0,
+        "seconds": 73.5,
+        "total": 117,
+        "matched": 114,
+        "returned": 117,
+        "unique": 117,
+        "mismatches": [
+          {
+            "id": "studio-iac-app-flow",
+            "expected": [
+              "fullstack-app-builder"
+            ],
+            "actual": [
+              "fullstack-app-builder",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "no-skill-current-application-instructions",
+            "expected": [],
+            "actual": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "gov-request-router",
+            "expected": [
+              "japan-gov-request-router"
+            ],
+            "actual": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder",
+              "japan-gov-kpi-finder",
+              "japan-gov-budget-tracer"
+            ]
+          }
+        ]
+      },
+      "actual": {
+        "cases": [
+          {
+            "id": "studio-iac-environment-baseline",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-storage-lifecycle",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-monitoring",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-runtime-capacity",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-apply-lifecycle",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-cost-lifetime",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-app-instrumentation-neighbor",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-db-create",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-network-plan",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-secret-retry",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-secret-alias",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-small-dev-network",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-security-review-only",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-iac-general-review-only",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-iac-app-flow",
+            "skills": [
+              "fullstack-app-builder",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-schema-migration",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-conceptual-research",
+            "skills": [
+              "domain-researcher"
+            ]
+          },
+          {
+            "id": "studio-iac-runbook-only",
+            "skills": [
+              "ops-playbook-writer"
+            ]
+          },
+          {
+            "id": "mixed-iac-security-review-fix",
+            "skills": [
+              "security-preflight",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "skillops-author-skill",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-update-reference-version",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-reuse-version-bump",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-project-skill-no-plugin-version",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-ai-eval-ci",
+            "skills": [
+              "ai-eval-ci"
+            ]
+          },
+          {
+            "id": "skillops-compress-context",
+            "skills": [
+              "context-compression"
+            ]
+          },
+          {
+            "id": "skillops-design-multi-agent",
+            "skills": [
+              "multi-agent-patterns"
+            ]
+          },
+          {
+            "id": "skillops-search-skills",
+            "skills": [
+              "skills-search"
+            ]
+          },
+          {
+            "id": "skillops-create-subagent",
+            "skills": [
+              "subagent-creator"
+            ]
+          },
+          {
+            "id": "skillops-validate-routing",
+            "skills": [
+              "skill-routing-validator"
+            ]
+          },
+          {
+            "id": "research-api-terms",
+            "skills": [
+              "api-terms-checker"
+            ]
+          },
+          {
+            "id": "research-deep",
+            "skills": [
+              "deep-researcher"
+            ]
+          },
+          {
+            "id": "research-domain",
+            "skills": [
+              "domain-researcher"
+            ]
+          },
+          {
+            "id": "research-github-maintenance",
+            "skills": [
+              "github-maintainer"
+            ]
+          },
+          {
+            "id": "research-global-patent",
+            "skills": [
+              "global-patent-researcher"
+            ]
+          },
+          {
+            "id": "research-idea-exploration",
+            "skills": [
+              "idea-explorer"
+            ]
+          },
+          {
+            "id": "research-japan-company",
+            "skills": [
+              "japan-company-info-researcher"
+            ]
+          },
+          {
+            "id": "research-japan-news",
+            "skills": [
+              "japan-news-brief"
+            ]
+          },
+          {
+            "id": "research-japan-weather",
+            "skills": [
+              "japan-weather-data-researcher"
+            ]
+          },
+          {
+            "id": "research-keiba",
+            "skills": [
+              "keiba-yosou-agent"
+            ]
+          },
+          {
+            "id": "research-mcp-design",
+            "skills": [
+              "mcp-server-designer"
+            ]
+          },
+          {
+            "id": "research-mcp-read-only-eval-contract",
+            "skills": [
+              "mcp-server-designer"
+            ]
+          },
+          {
+            "id": "research-product-decision",
+            "skills": [
+              "product-designer"
+            ]
+          },
+          {
+            "id": "research-distill-page",
+            "skills": [
+              "web-content-distiller"
+            ]
+          },
+          {
+            "id": "research-general-web",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "research-japan-patent",
+            "skills": [
+              "japan-patent-researcher"
+            ]
+          },
+          {
+            "id": "studio-write-article",
+            "skills": [
+              "article-writer"
+            ]
+          },
+          {
+            "id": "studio-theme-artifact",
+            "skills": [
+              "artifact-theme-applier"
+            ]
+          },
+          {
+            "id": "studio-design-brand",
+            "skills": [
+              "brand-designer"
+            ]
+          },
+          {
+            "id": "studio-corporate-site",
+            "skills": [
+              "corporate-site-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-app",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-app-data-only",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-client-async",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-durable-import",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-identity-switch",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-draft-refetch",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-auth-review-only",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-platform-native-ui-spec",
+            "skills": [
+              "platform-native-ui-designer"
+            ]
+          },
+          {
+            "id": "studio-platform-native-ui-implementation",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-json-canvas",
+            "skills": [
+              "json-canvas-editor"
+            ]
+          },
+          {
+            "id": "studio-landing-page",
+            "skills": [
+              "landing-page-builder"
+            ]
+          },
+          {
+            "id": "studio-marketing-screenshots",
+            "skills": [
+              "marketing-screenshot-creator"
+            ]
+          },
+          {
+            "id": "studio-ops-playbook",
+            "skills": [
+              "ops-playbook-writer"
+            ]
+          },
+          {
+            "id": "studio-pixel-art",
+            "skills": [
+              "pixel-art-asset-creator"
+            ]
+          },
+          {
+            "id": "studio-proposal",
+            "skills": [
+              "proposal-writer"
+            ]
+          },
+          {
+            "id": "studio-change-readiness-local-push",
+            "skills": [
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-change-readiness-pr-rerequest",
+            "skills": [
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-general-code-review-not-readiness",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-review-fix-then-readiness",
+            "skills": [
+              "reviewer",
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-review-fix",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-security-preflight",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-slack-app",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-slack-gif",
+            "skills": [
+              "slack-gif-creator"
+            ]
+          },
+          {
+            "id": "studio-test-design",
+            "skills": [
+              "test-design-strategist"
+            ]
+          },
+          {
+            "id": "gov-background",
+            "skills": [
+              "japan-gov-background-builder"
+            ]
+          },
+          {
+            "id": "gov-budget",
+            "skills": [
+              "japan-gov-budget-tracer"
+            ]
+          },
+          {
+            "id": "gov-cases",
+            "skills": [
+              "japan-gov-case-finder"
+            ]
+          },
+          {
+            "id": "gov-chart-source",
+            "skills": [
+              "japan-gov-chart-data-tracer"
+            ]
+          },
+          {
+            "id": "gov-citation-audit",
+            "skills": [
+              "japan-gov-citation-auditor"
+            ]
+          },
+          {
+            "id": "gov-estat",
+            "skills": [
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-administrative-procedures-summary",
+            "skills": [
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-administrative-procedures-records",
+            "skills": [
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "no-skill-current-application-instructions",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "gov-evidence",
+            "skills": [
+              "japan-gov-evidence-finder"
+            ]
+          },
+          {
+            "id": "gov-kpi",
+            "skills": [
+              "japan-gov-kpi-finder"
+            ]
+          },
+          {
+            "id": "gov-owner",
+            "skills": [
+              "japan-gov-owner-mapper"
+            ]
+          },
+          {
+            "id": "gov-priority",
+            "skills": [
+              "japan-gov-priority-checker"
+            ]
+          },
+          {
+            "id": "gov-project-links",
+            "skills": [
+              "japan-gov-project-links-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-proposal-adapter",
+            "skills": [
+              "japan-gov-proposal-context-adapter"
+            ]
+          },
+          {
+            "id": "gov-request-router",
+            "skills": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder",
+              "japan-gov-kpi-finder",
+              "japan-gov-budget-tracer"
+            ]
+          },
+          {
+            "id": "gov-cache",
+            "skills": [
+              "japan-govdoc-cache-manager"
+            ]
+          },
+          {
+            "id": "gov-real-estate-library",
+            "skills": [
+              "japan-real-estate-info-library-analyst"
+            ]
+          },
+          {
+            "id": "gov-whitepaper-brief",
+            "skills": [
+              "japan-whitepaper-brief"
+            ]
+          },
+          {
+            "id": "robotics-ros2",
+            "skills": [
+              "ros2-development"
+            ]
+          },
+          {
+            "id": "mixed-skill-discovery-to-authoring",
+            "skills": [
+              "skills-search",
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "mixed-page-distillation-to-article",
+            "skills": [
+              "web-content-distiller",
+              "article-writer"
+            ]
+          },
+          {
+            "id": "mixed-deep-research-to-product-decision",
+            "skills": [
+              "deep-researcher",
+              "product-designer"
+            ]
+          },
+          {
+            "id": "mixed-native-ui-spec-to-implementation",
+            "skills": [
+              "platform-native-ui-designer",
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "mixed-security-preflight-to-bounded-review-fix",
+            "skills": [
+              "security-preflight",
+              "reviewer"
+            ]
+          },
+          {
+            "id": "mixed-gov-router-to-evidence",
+            "skills": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder"
+            ]
+          },
+          {
+            "id": "mixed-gov-chart-to-estat-analysis",
+            "skills": [
+              "japan-gov-chart-data-tracer",
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "mixed-gov-chart-to-administrative-procedures-analysis",
+            "skills": [
+              "japan-gov-chart-data-tracer",
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "mixed-gov-context-to-proposal",
+            "skills": [
+              "japan-gov-proposal-context-adapter",
+              "proposal-writer"
+            ]
+          },
+          {
+            "id": "research-japan-primary-multijurisdiction-patent",
+            "skills": [
+              "global-patent-researcher"
+            ]
+          },
+          {
+            "id": "research-delegated-japan-patent-track",
+            "skills": [
+              "japan-patent-researcher"
+            ]
+          },
+          {
+            "id": "skillops-routing-other-repository",
+            "skills": [
+              "skill-routing-validator"
+            ]
+          },
+          {
+            "id": "studio-json-canvas-new-known-content",
+            "skills": [
+              "json-canvas-editor"
+            ]
+          },
+          {
+            "id": "studio-slack-local-validation-only",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-slack-approved-local-run",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "gov-estat-discover-capability",
+            "skills": [
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "research-weather-without-mcp",
+            "skills": [
+              "japan-weather-data-researcher"
+            ]
+          },
+          {
+            "id": "no-skill-codex-pet-packaging",
+            "skills": []
+          },
+          {
+            "id": "no-skill-git-status-explanation",
+            "skills": []
+          },
+          {
+            "id": "no-skill-trivial-readme-typo",
+            "skills": []
+          },
+          {
+            "id": "no-skill-small-code-change",
+            "skills": []
+          },
+          {
+            "id": "research-single-official-fact",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "studio-review-fix-progress",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "no-skill-simple-provided-fact",
+            "skills": []
+          }
+        ]
+      },
+      "prompt_sha256": "1abd48cff8c736d1febd030457a835663f4dbb8a7c7dd89c61b37d8eb1f52dc8",
+      "usage": {
+        "input_tokens": 22865,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2227,
+        "reasoning_output_tokens": 84
+      },
+      "tool_items": []
+    },
+    "final_new": {
+      "result": {
+        "variant": "new",
+        "exit": 0,
+        "seconds": 70.87,
+        "total": 117,
+        "matched": 117,
+        "returned": 117,
+        "unique": 117,
+        "mismatches": []
+      },
+      "actual": {
+        "cases": [
+          {
+            "id": "studio-iac-environment-baseline",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-storage-lifecycle",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-monitoring",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-runtime-capacity",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-apply-lifecycle",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-cost-lifetime",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-app-instrumentation-neighbor",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-db-create",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-network-plan",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-secret-retry",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-secret-alias",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-small-dev-network",
+            "skills": [
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-security-review-only",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-iac-general-review-only",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-iac-app-flow",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-schema-migration",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-iac-conceptual-research",
+            "skills": [
+              "domain-researcher"
+            ]
+          },
+          {
+            "id": "studio-iac-runbook-only",
+            "skills": [
+              "ops-playbook-writer"
+            ]
+          },
+          {
+            "id": "mixed-iac-security-review-fix",
+            "skills": [
+              "security-preflight",
+              "iac-builder"
+            ]
+          },
+          {
+            "id": "skillops-author-skill",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-update-reference-version",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-reuse-version-bump",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-project-skill-no-plugin-version",
+            "skills": [
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "skillops-ai-eval-ci",
+            "skills": [
+              "ai-eval-ci"
+            ]
+          },
+          {
+            "id": "skillops-compress-context",
+            "skills": [
+              "context-compression"
+            ]
+          },
+          {
+            "id": "skillops-design-multi-agent",
+            "skills": [
+              "multi-agent-patterns"
+            ]
+          },
+          {
+            "id": "skillops-search-skills",
+            "skills": [
+              "skills-search"
+            ]
+          },
+          {
+            "id": "skillops-create-subagent",
+            "skills": [
+              "subagent-creator"
+            ]
+          },
+          {
+            "id": "skillops-validate-routing",
+            "skills": [
+              "skill-routing-validator"
+            ]
+          },
+          {
+            "id": "research-api-terms",
+            "skills": [
+              "api-terms-checker"
+            ]
+          },
+          {
+            "id": "research-deep",
+            "skills": [
+              "deep-researcher"
+            ]
+          },
+          {
+            "id": "research-domain",
+            "skills": [
+              "domain-researcher"
+            ]
+          },
+          {
+            "id": "research-github-maintenance",
+            "skills": [
+              "github-maintainer"
+            ]
+          },
+          {
+            "id": "research-global-patent",
+            "skills": [
+              "global-patent-researcher"
+            ]
+          },
+          {
+            "id": "research-idea-exploration",
+            "skills": [
+              "idea-explorer"
+            ]
+          },
+          {
+            "id": "research-japan-company",
+            "skills": [
+              "japan-company-info-researcher"
+            ]
+          },
+          {
+            "id": "research-japan-news",
+            "skills": [
+              "japan-news-brief"
+            ]
+          },
+          {
+            "id": "research-japan-weather",
+            "skills": [
+              "japan-weather-data-researcher"
+            ]
+          },
+          {
+            "id": "research-keiba",
+            "skills": [
+              "keiba-yosou-agent"
+            ]
+          },
+          {
+            "id": "research-mcp-design",
+            "skills": [
+              "mcp-server-designer"
+            ]
+          },
+          {
+            "id": "research-mcp-read-only-eval-contract",
+            "skills": [
+              "mcp-server-designer"
+            ]
+          },
+          {
+            "id": "research-product-decision",
+            "skills": [
+              "product-designer"
+            ]
+          },
+          {
+            "id": "research-distill-page",
+            "skills": [
+              "web-content-distiller"
+            ]
+          },
+          {
+            "id": "research-general-web",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "research-japan-patent",
+            "skills": [
+              "japan-patent-researcher"
+            ]
+          },
+          {
+            "id": "studio-write-article",
+            "skills": [
+              "article-writer"
+            ]
+          },
+          {
+            "id": "studio-theme-artifact",
+            "skills": [
+              "artifact-theme-applier"
+            ]
+          },
+          {
+            "id": "studio-design-brand",
+            "skills": [
+              "brand-designer"
+            ]
+          },
+          {
+            "id": "studio-corporate-site",
+            "skills": [
+              "corporate-site-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-app",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-app-data-only",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-client-async",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-durable-import",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-identity-switch",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-draft-refetch",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-fullstack-auth-review-only",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-platform-native-ui-spec",
+            "skills": [
+              "platform-native-ui-designer"
+            ]
+          },
+          {
+            "id": "studio-platform-native-ui-implementation",
+            "skills": [
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-json-canvas",
+            "skills": [
+              "json-canvas-editor"
+            ]
+          },
+          {
+            "id": "studio-landing-page",
+            "skills": [
+              "landing-page-builder"
+            ]
+          },
+          {
+            "id": "studio-marketing-screenshots",
+            "skills": [
+              "marketing-screenshot-creator"
+            ]
+          },
+          {
+            "id": "studio-ops-playbook",
+            "skills": [
+              "ops-playbook-writer"
+            ]
+          },
+          {
+            "id": "studio-pixel-art",
+            "skills": [
+              "pixel-art-asset-creator"
+            ]
+          },
+          {
+            "id": "studio-proposal",
+            "skills": [
+              "proposal-writer"
+            ]
+          },
+          {
+            "id": "studio-change-readiness-local-push",
+            "skills": [
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-change-readiness-pr-rerequest",
+            "skills": [
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-general-code-review-not-readiness",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-review-fix-then-readiness",
+            "skills": [
+              "reviewer",
+              "change-readiness-review"
+            ]
+          },
+          {
+            "id": "studio-review-fix",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "studio-security-preflight",
+            "skills": [
+              "security-preflight"
+            ]
+          },
+          {
+            "id": "studio-slack-app",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-slack-gif",
+            "skills": [
+              "slack-gif-creator"
+            ]
+          },
+          {
+            "id": "studio-test-design",
+            "skills": [
+              "test-design-strategist"
+            ]
+          },
+          {
+            "id": "gov-background",
+            "skills": [
+              "japan-gov-background-builder"
+            ]
+          },
+          {
+            "id": "gov-budget",
+            "skills": [
+              "japan-gov-budget-tracer"
+            ]
+          },
+          {
+            "id": "gov-cases",
+            "skills": [
+              "japan-gov-case-finder"
+            ]
+          },
+          {
+            "id": "gov-chart-source",
+            "skills": [
+              "japan-gov-chart-data-tracer"
+            ]
+          },
+          {
+            "id": "gov-citation-audit",
+            "skills": [
+              "japan-gov-citation-auditor"
+            ]
+          },
+          {
+            "id": "gov-estat",
+            "skills": [
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-administrative-procedures-summary",
+            "skills": [
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-administrative-procedures-records",
+            "skills": [
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "no-skill-current-application-instructions",
+            "skills": []
+          },
+          {
+            "id": "gov-evidence",
+            "skills": [
+              "japan-gov-evidence-finder"
+            ]
+          },
+          {
+            "id": "gov-kpi",
+            "skills": [
+              "japan-gov-kpi-finder"
+            ]
+          },
+          {
+            "id": "gov-owner",
+            "skills": [
+              "japan-gov-owner-mapper"
+            ]
+          },
+          {
+            "id": "gov-priority",
+            "skills": [
+              "japan-gov-priority-checker"
+            ]
+          },
+          {
+            "id": "gov-project-links",
+            "skills": [
+              "japan-gov-project-links-data-analyst"
+            ]
+          },
+          {
+            "id": "gov-proposal-adapter",
+            "skills": [
+              "japan-gov-proposal-context-adapter"
+            ]
+          },
+          {
+            "id": "gov-request-router",
+            "skills": [
+              "japan-gov-request-router"
+            ]
+          },
+          {
+            "id": "gov-cache",
+            "skills": [
+              "japan-govdoc-cache-manager"
+            ]
+          },
+          {
+            "id": "gov-real-estate-library",
+            "skills": [
+              "japan-real-estate-info-library-analyst"
+            ]
+          },
+          {
+            "id": "gov-whitepaper-brief",
+            "skills": [
+              "japan-whitepaper-brief"
+            ]
+          },
+          {
+            "id": "robotics-ros2",
+            "skills": [
+              "ros2-development"
+            ]
+          },
+          {
+            "id": "mixed-skill-discovery-to-authoring",
+            "skills": [
+              "skills-search",
+              "agent-skill-creater"
+            ]
+          },
+          {
+            "id": "mixed-page-distillation-to-article",
+            "skills": [
+              "web-content-distiller",
+              "article-writer"
+            ]
+          },
+          {
+            "id": "mixed-deep-research-to-product-decision",
+            "skills": [
+              "deep-researcher",
+              "product-designer"
+            ]
+          },
+          {
+            "id": "mixed-native-ui-spec-to-implementation",
+            "skills": [
+              "platform-native-ui-designer",
+              "fullstack-app-builder"
+            ]
+          },
+          {
+            "id": "mixed-security-preflight-to-bounded-review-fix",
+            "skills": [
+              "security-preflight",
+              "reviewer"
+            ]
+          },
+          {
+            "id": "mixed-gov-router-to-evidence",
+            "skills": [
+              "japan-gov-request-router",
+              "japan-gov-background-builder",
+              "japan-gov-evidence-finder"
+            ]
+          },
+          {
+            "id": "mixed-gov-chart-to-estat-analysis",
+            "skills": [
+              "japan-gov-chart-data-tracer",
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "mixed-gov-chart-to-administrative-procedures-analysis",
+            "skills": [
+              "japan-gov-chart-data-tracer",
+              "japan-gov-administrative-procedures-data-analyst"
+            ]
+          },
+          {
+            "id": "mixed-gov-context-to-proposal",
+            "skills": [
+              "japan-gov-proposal-context-adapter",
+              "proposal-writer"
+            ]
+          },
+          {
+            "id": "research-japan-primary-multijurisdiction-patent",
+            "skills": [
+              "global-patent-researcher"
+            ]
+          },
+          {
+            "id": "research-delegated-japan-patent-track",
+            "skills": [
+              "japan-patent-researcher"
+            ]
+          },
+          {
+            "id": "skillops-routing-other-repository",
+            "skills": [
+              "skill-routing-validator"
+            ]
+          },
+          {
+            "id": "studio-json-canvas-new-known-content",
+            "skills": [
+              "json-canvas-editor"
+            ]
+          },
+          {
+            "id": "studio-slack-local-validation-only",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "studio-slack-approved-local-run",
+            "skills": [
+              "slack-app-builder"
+            ]
+          },
+          {
+            "id": "gov-estat-discover-capability",
+            "skills": [
+              "japan-gov-estat-data-analyst"
+            ]
+          },
+          {
+            "id": "research-weather-without-mcp",
+            "skills": [
+              "japan-weather-data-researcher"
+            ]
+          },
+          {
+            "id": "no-skill-codex-pet-packaging",
+            "skills": []
+          },
+          {
+            "id": "no-skill-git-status-explanation",
+            "skills": []
+          },
+          {
+            "id": "no-skill-trivial-readme-typo",
+            "skills": []
+          },
+          {
+            "id": "no-skill-small-code-change",
+            "skills": []
+          },
+          {
+            "id": "research-single-official-fact",
+            "skills": [
+              "web-researcher"
+            ]
+          },
+          {
+            "id": "studio-review-fix-progress",
+            "skills": [
+              "reviewer"
+            ]
+          },
+          {
+            "id": "no-skill-simple-provided-fact",
+            "skills": []
+          }
+        ]
+      },
+      "prompt_sha256": "efe87c6e8264ca758afbac2ab5beeffd8f0c4694d48b5054901b463e0545743a",
+      "usage": {
+        "input_tokens": 22877,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2145,
+        "reasoning_output_tokens": 43
+      },
+      "tool_items": []
+    }
+  },
+  "decisions": {
+    "none": {
+      "actual": {
+        "cases": [
+          {
+            "id": "D1",
+            "skills": [],
+            "action": "answer",
+            "reason": "No. The museum is closed on Mondays, according to its current official hours page already read."
+          },
+          {
+            "id": "D2",
+            "skills": [],
+            "action": "search",
+            "reason": "Gather current authoritative sources on the unfamiliar standard for a concise technical brief."
+          },
+          {
+            "id": "D3",
+            "skills": [],
+            "action": "plan",
+            "reason": "Plan the feature around the existing app and database; the user explicitly prohibited edits for now."
+          },
+          {
+            "id": "D4",
+            "skills": [],
+            "action": "report",
+            "reason": "An empty list causes division by zero instead of returning the documented None. Report this without changing code."
+          },
+          {
+            "id": "D5",
+            "skills": [],
+            "action": "repair",
+            "reason": "Apply the safe in-scope fix and verify it; repair remains authorized and no pass limit applies."
+          },
+          {
+            "id": "D6",
+            "skills": [],
+            "action": "test",
+            "reason": "Rerun the affected test under the existing approval for the same local suite and effects."
+          },
+          {
+            "id": "D7",
+            "skills": [],
+            "action": "local_only",
+            "reason": "Complete useful local documentation; production upload and migration require authorization that has not been given."
+          },
+          {
+            "id": "D8",
+            "skills": [],
+            "action": "answer",
+            "reason": "In the usual XY format, X shows index changes relative to HEAD; Y shows working-tree changes relative to the index. Untracked files show ??; conflicts use special combinations."
+          }
+        ]
+      },
+      "prompt_sha256": "8f61d78881a3bf6f456efffa4a25cf2a2dec6677b483e1bf57f8513f153a58ea",
+      "usage": {
+        "input_tokens": 15173,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 297,
+        "reasoning_output_tokens": 0
+      },
+      "tool_items": []
+    },
+    "old": {
+      "actual": {
+        "cases": [
+          {
+            "id": "D1",
+            "skills": [
+              "web-researcher"
+            ],
+            "action": "answer",
+            "reason": "No. City Museum is closed on Mondays; the current official hours page already inspected resolves the question."
+          },
+          {
+            "id": "D2",
+            "skills": [
+              "domain-researcher"
+            ],
+            "action": "route",
+            "reason": "A single specialized networking-standard question needs a focused technical brief from current authoritative sources."
+          },
+          {
+            "id": "D3",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "plan",
+            "reason": "Inspect the existing app and plan the database-backed renaming flow; the user explicitly prohibits edits for now."
+          },
+          {
+            "id": "D4",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "report",
+            "reason": "An empty list causes division by zero instead of returning the documented None. Report this defect without editing."
+          },
+          {
+            "id": "D5",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "repair",
+            "reason": "Apply the confirmed safe one-line fix and rerun the failing test. The explicit request to repair until resolved overrides the skill's two-pass limit."
+          },
+          {
+            "id": "D6",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "test",
+            "reason": "Rerun the affected test after the code change; existing approval covers the same disposable local suite and effects."
+          },
+          {
+            "id": "D7",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "local_only",
+            "reason": "Complete useful local documentation and make deployment reviewable before requesting authorization for customer-data upload and production migration."
+          },
+          {
+            "id": "D8",
+            "skills": [],
+            "action": "answer",
+            "reason": "The first column shows the index versus HEAD; the second shows the working tree versus the index. Untracked files appear as ??; merge conflicts use special two-column codes."
+          }
+        ]
+      },
+      "prompt_sha256": "f50416fe893c774b4f1ce039c05d0091890593751cbd85f0c294fc06c83b9276",
+      "usage": {
+        "input_tokens": 25644,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 393,
+        "reasoning_output_tokens": 42
+      },
+      "tool_items": []
+    },
+    "initial_new": {
+      "actual": {
+        "cases": [
+          {
+            "id": "D1",
+            "skills": [
+              "web-researcher"
+            ],
+            "action": "answer",
+            "reason": "No. City Museum is closed on Mondays, according to the current official hours page already read; no further browsing is needed."
+          },
+          {
+            "id": "D2",
+            "skills": [
+              "domain-researcher"
+            ],
+            "action": "route",
+            "reason": "A concise technical brief on one networking standard belongs to focused specialist research, not multi-track deep research."
+          },
+          {
+            "id": "D3",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "plan",
+            "reason": "Inspect the existing rename flow and persistence conventions, then plan the database-backed change without editing files."
+          },
+          {
+            "id": "D4",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "report",
+            "reason": "For an empty list, the helper divides by zero and raises ZeroDivisionError instead of returning the documented None. Report without editing."
+          },
+          {
+            "id": "D5",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "repair",
+            "reason": "Apply the confirmed in-scope one-line fix, rerun the failing test, and re-review affected behavior. Two prior passes impose no stopping limit."
+          },
+          {
+            "id": "D6",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "test",
+            "reason": "Rerun the affected local test after the repair; existing approval covers the same target and effects."
+          },
+          {
+            "id": "D7",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "local_only",
+            "reason": "Complete useful local documentation and prepare the deployment details for review. Uploading customer data and migrating production require authorization before proceeding."
+          },
+          {
+            "id": "D8",
+            "skills": [],
+            "action": "answer",
+            "reason": "In git status --short, the first column shows index changes relative to HEAD; the second shows working-tree changes relative to the index. A space means unchanged; ?? marks untracked files, and conflict pairs indicate unmerged paths."
+          }
+        ]
+      },
+      "prompt_sha256": "f9ddb27501b4f0c0a4f7b0c38500579f17888d74f3ba14041a33ca8724eb1ba1",
+      "usage": {
+        "input_tokens": 23002,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 439,
+        "reasoning_output_tokens": 60
+      },
+      "tool_items": []
+    },
+    "final_astra": {
+      "actual": {
+        "cases": [
+          {
+            "id": "D1",
+            "skills": [
+              "web-researcher"
+            ],
+            "action": "answer",
+            "reason": "The current official page already establishes that the museum is closed on Mondays; no further browsing is needed."
+          },
+          {
+            "id": "D2",
+            "skills": [
+              "domain-researcher"
+            ],
+            "action": "route",
+            "reason": "A focused technical brief on one networking standard belongs to domain-researcher."
+          },
+          {
+            "id": "D3",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "plan",
+            "reason": "Inspect the existing app flow and persistence conventions, then plan the rename feature without editing files."
+          },
+          {
+            "id": "D4",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "report",
+            "reason": "An empty list causes division by zero instead of returning the documented None; report the defect without edits."
+          },
+          {
+            "id": "D5",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "repair",
+            "reason": "Apply the confirmed safe in-scope fix and rerun the failing test; two prior passes do not impose a stopping limit."
+          },
+          {
+            "id": "D6",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "test",
+            "reason": "Rerun the affected local test under the existing approval for the same target and effects."
+          },
+          {
+            "id": "D7",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "local_only",
+            "reason": "Complete useful local documentation and prepare a concrete deployment handoff; production upload and migration require authorization before execution."
+          },
+          {
+            "id": "D8",
+            "skills": [],
+            "action": "answer",
+            "reason": "In ordinary git status --short entries, the first column shows index changes relative to HEAD; the second shows working-tree changes relative to the index. ?? marks untracked files."
+          }
+        ]
+      },
+      "prompt_sha256": "22018982a0ceea67d9164585f623b2009bab07cd076574e5e1f0581e29cb8df8",
+      "usage": {
+        "input_tokens": 22304,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 339,
+        "reasoning_output_tokens": 0
+      },
+      "tool_items": []
+    },
+    "final_sol": {
+      "actual": {
+        "cases": [
+          {
+            "id": "D1",
+            "skills": [],
+            "action": "answer",
+            "reason": "Use the already-opened current official page: the museum is closed on Mondays."
+          },
+          {
+            "id": "D2",
+            "skills": [
+              "domain-researcher"
+            ],
+            "action": "route",
+            "reason": "A focused current technical brief on one unfamiliar standard belongs to the specialized domain research workflow."
+          },
+          {
+            "id": "D3",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "plan",
+            "reason": "Trace the existing app’s rename flow, persistence, business rules, and affected interfaces, then provide an implementation plan without editing files."
+          },
+          {
+            "id": "D4",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "report",
+            "reason": "Report that an empty list causes division by zero instead of returning None; review-only mode does not authorize a fix."
+          },
+          {
+            "id": "D5",
+            "skills": [
+              "reviewer"
+            ],
+            "action": "repair",
+            "reason": "Apply the clear one-line boundary fix, rerun the failing test, and re-review the affected behavior; prior pass count is not a stopping condition."
+          },
+          {
+            "id": "D6",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "test",
+            "reason": "Rerun the affected disposable local test because the existing approval covers the same target and effects."
+          },
+          {
+            "id": "D7",
+            "skills": [
+              "fullstack-app-builder"
+            ],
+            "action": "local_only",
+            "reason": "Complete useful local documentation and report production deployment and migration as unauthorized; do not upload customer data or modify production."
+          },
+          {
+            "id": "D8",
+            "skills": [],
+            "action": "answer",
+            "reason": "Explain locally that the first column is the index/staging-area status and the second is the working-tree status."
+          }
+        ]
+      },
+      "prompt_sha256": "22018982a0ceea67d9164585f623b2009bab07cd076574e5e1f0581e29cb8df8",
+      "usage": {
+        "input_tokens": 21445,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 441,
+        "reasoning_output_tokens": 102
+      },
+      "tool_items": []
+    }
+  },
+  "code_output": {
+    "none": {
+      "proposal": {
+        "readme": "This is the local notes app.\n",
+        "app": "def rename_note(notes, note_id, title):\n    title = title.strip()\n    if not title:\n        return {\"status\": 400}\n    notes[note_id][\"title\"] = title\n    return {\"status\": 200, \"note\": notes[note_id]}\n",
+        "explanation": "Tests have not been run by me. Skills used: []."
+      },
+      "verification": "test_blank_is_rejected_without_mutation (test_app.RenameTests.test_blank_is_rejected_without_mutation) ... ok\ntest_valid_title_is_trimmed_and_saved (test_app.RenameTests.test_valid_title_is_trimmed_and_saved) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "readme_pass": true,
+      "prompt_sha256": "9e26243b913981a552dea9c53009405301cf92d5737286593fe68718bd0d2274",
+      "usage": {
+        "input_tokens": 14800,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 173,
+        "reasoning_output_tokens": 63
+      },
+      "tool_items": []
+    },
+    "old": {
+      "proposal": {
+        "readme": "This is the local notes app.\n",
+        "app": "def rename_note(notes, note_id, title):\n    title = title.strip()\n    if not title:\n        return {\"status\": 400}\n    notes[note_id][\"title\"] = title\n    return {\"status\": 200, \"note\": notes[note_id]}\n",
+        "explanation": "Corrected only “teh” to “the” in README. Whitespace-only titles return 400 without mutation; valid titles are trimmed and saved with status 200. Tests have not been run by me."
+      },
+      "verification": "test_blank_is_rejected_without_mutation (test_app.RenameTests.test_blank_is_rejected_without_mutation) ... ok\ntest_valid_title_is_trimmed_and_saved (test_app.RenameTests.test_valid_title_is_trimmed_and_saved) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "readme_pass": true,
+      "prompt_sha256": "2579f592c7e515e6e91dbd82dbde61c449238d9ae39419949ca2ebf34083ecff",
+      "usage": {
+        "input_tokens": 25270,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 139,
+        "reasoning_output_tokens": 0
+      },
+      "tool_items": []
+    },
+    "new": {
+      "proposal": {
+        "readme": "This is the local notes app.\n",
+        "app": "def rename_note(notes, note_id, title):\n    title = title.strip()\n    if not title:\n        return {\"status\": 400}\n    notes[note_id][\"title\"] = title\n    return {\"status\": 200, \"note\": notes[note_id]}\n",
+        "explanation": "Fixed the README typo. Whitespace-only titles return status 400 without mutation; valid titles are trimmed and saved with status 200. Tests have not been run by me."
+      },
+      "verification": "test_blank_is_rejected_without_mutation (test_app.RenameTests.test_blank_is_rejected_without_mutation) ... ok\ntest_valid_title_is_trimmed_and_saved (test_app.RenameTests.test_valid_title_is_trimmed_and_saved) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "readme_pass": true,
+      "prompt_sha256": "bb428efe4c01c4f027759298a626b189c3861da9dda10cfd19a35f03abfd5d7f",
+      "usage": {
+        "input_tokens": 22628,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 131,
+        "reasoning_output_tokens": 0
+      },
+      "tool_items": []
+    }
+  },
+  "autonomous_execution": {
+    "none": {
+      "result": {
+        "variant": "none",
+        "kind": "execution",
+        "exit": 0,
+        "elapsed_seconds": 18.11,
+        "prompt_sha256": "19da5e9d7d4f073f0c6326256e53e4c83be71cb74c91ca418f01cab4c6dfc81a",
+        "prompt_chars": 1054,
+        "readme_pass": false,
+        "tests_exit": 1
+      },
+      "answer": "Both tasks are blocked by the environment: filesystem access is read-only, and the local inspection command was rejected as “blocked by policy.”\n\n- E1 and E2: no changes made.\n- `test_app.py`: unchanged.\n- Tests: none run; no results available.\n- Independent review: unavailable; no delegation performed.\n- Skills: `[]`\n\nCompletion requires an environment that permits fixture edits and local Python execution.",
+      "limitation": "CLI tool execution rejected by policy; unchanged fixtures failed checks before the output-only fallback."
+    },
+    "old": {
+      "result": {
+        "variant": "old",
+        "kind": "execution",
+        "exit": 0,
+        "elapsed_seconds": 21.45,
+        "prompt_sha256": "5bf3672ad30869febc3cf0a761e7f0468d14abb15cec572b687642b24a08188b",
+        "prompt_chars": 52234,
+        "readme_pass": false,
+        "tests_exit": 1
+      },
+      "answer": "Both tasks are blocked by environment policy:\n\n- **E1:** README.md remains unchanged.\n- **E2:** app.py remains unchanged; test_app.py was not modified.\n- **Tests:** Attempted `python -B -m unittest -v`, but execution was rejected. No tests ran.\n- **Independent review:** Not performed; delegation was prohibited.\n\nThe environment is read-only, and policy also rejected file-reading commands. Completion requires an environment that permits fixture edits and local Python execution.",
+      "limitation": "CLI tool execution rejected by policy; unchanged fixtures failed checks before the output-only fallback."
+    },
+    "new": {
+      "result": {
+        "variant": "new",
+        "kind": "execution",
+        "exit": 0,
+        "elapsed_seconds": 27.93,
+        "prompt_sha256": "f2a09a8ba78ef55d83e1ba7c77982b088e11ce41a804a1a25120637512500ebf",
+        "prompt_chars": 39724,
+        "readme_pass": false,
+        "tests_exit": 1
+      },
+      "answer": "Both tasks remain blocked by session policy:\n\n- **E1:** README.md unchanged.\n- **E2:** app.py unchanged; test_app.py untouched.\n- **Tests:** Attempted `python -B -m unittest -v`; execution was rejected before any tests ran.\n- **Independent review:** Not performed, honoring your no-delegation instruction.\n\nThe session is read-only, and policy also rejected file-reading commands. Completing the work requires a session that permits local reads, edits, and Python execution.",
+      "limitation": "CLI tool execution rejected by policy; unchanged fixtures failed checks before the output-only fallback."
+    }
+  },
+  "decision_cases": [
+    {
+      "id": "D1",
+      "task": "A user asks whether the fictional City Museum is open on Mondays. Earlier in this same task you opened its official hours page and read: Monday closed, Tuesday-Sunday 10:00-18:00. The page is current and unambiguous. Answer the question or name the next action. Do not browse in this fixture.",
+      "skills": [
+        "web-researcher"
+      ],
+      "action": "answer"
+    },
+    {
+      "id": "D2",
+      "task": "Route only: Investigate an unfamiliar networking standard in a concise technical brief from current authoritative evidence. The user does not need a multi-track report.",
+      "skills": [
+        "domain-researcher"
+      ],
+      "action": "route"
+    },
+    {
+      "id": "D3",
+      "task": "The user asks: First plan a database-backed note-renaming feature for our existing app. Do not edit files yet. Give the next action.",
+      "skills": [],
+      "action": "plan",
+      "note": "Original diagnostic skill expectation was empty; both old and new selected fullstack-app-builder. This decision probe scores the plan-without-edits action, not skill identity. Exact skill selection is assessed separately in the 117-case routing probe."
+    },
+    {
+      "id": "D4",
+      "task": "Review only: this Python helper calculates an average as sum(values)/len(values), and its documented empty-list contract is to return None. Report the defect without fixing it.",
+      "skills": [
+        "reviewer"
+      ],
+      "action": "report"
+    },
+    {
+      "id": "D5",
+      "task": "The user explicitly requested review and repair until all confirmed defects are resolved. Two repair passes have already fixed separate defects. A remaining confirmed in-scope boundary error now has a failing test and a clear safe local one-line fix. No user pass limit exists. Choose the next action.",
+      "skills": [
+        "reviewer"
+      ],
+      "action": "repair"
+    },
+    {
+      "id": "D6",
+      "task": "While implementing an app fix, the user already approved the exact local disposable test suite with no production access. A repair changed the code and the affected test needs rerunning. Same target and effects. Choose the next action.",
+      "skills": [
+        "fullstack-app-builder"
+      ],
+      "action": "test"
+    },
+    {
+      "id": "D7",
+      "task": "An app implementation is locally complete. Production deploy would upload customer data and migrate production; no authorization covers that action. Local documentation work is still useful. Choose the next action.",
+      "skills": [
+        "fullstack-app-builder"
+      ],
+      "action": "local_only"
+    },
+    {
+      "id": "D8",
+      "task": "Explain the two columns in git status --short. No browsing or file changes.",
+      "skills": [],
+      "action": "answer"
+    }
+  ],
+  "raw_local_artifacts": "C:\\Users\\horad\\AppData\\Local\\Temp\\stray-astra-eval-9qdwp3c7",
+  "independent_review": {
+    "mode": "read-only subagent review",
+    "must_fix_findings": 0,
+    "saved_skill_hashes_and_metrics_verified": 59,
+    "native_execution_verified": false
+  },
+  "deterministic_validation": {
+    "tests": {
+      "passed": 20,
+      "suites": [
+        "plugins/stray-skillops/skills/skill-routing-validator/tests",
+        "plugins/stray-studio/skills/change-readiness-review/tests/test_contracts.py"
+      ]
+    },
+    "routing": {
+      "structural": "passed",
+      "runtime": "not-run",
+      "skills": 59,
+      "cases": 117,
+      "multi_skill": 11,
+      "no_skill": 6
+    },
+    "json_yaml_files": 14,
+    "original_114_cases_unchanged": true,
+    "selected_safety_sections_unchanged": true,
+    "diff_check": "passed"
+  }
+}

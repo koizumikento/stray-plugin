@@ -1,6 +1,6 @@
 ---
 name: "japan-company-info-researcher"
-description: "Use when a named Japanese company, corporate number, or explicit gBizINFO entity lookup needs official corporate-profile or activity data from gBizINFO. Do not trigger on subsidy, procurement, patent, award, or market topics without a company/entity anchor."
+description: "Use when a named Japanese company, corporate number, or explicit gBizINFO entity lookup needs official profile or activity data. Requires a company/entity anchor."
 ---
 
 # Japan Company Info Researcher

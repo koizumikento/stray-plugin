@@ -1,6 +1,6 @@
 ---
 name: "japan-news-brief"
-description: "Use when the user wants a current, source-backed roundup of consequential Japanese news for a defined JST window in the fixed briefing format. Do not use for one-event deep dives, historical explainers, non-Japan roundups, or opinion-only coverage."
+description: "Use when producing a current Japanese news roundup for a defined JST window in the fixed briefing format. Excludes single-event investigations and opinion pieces."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill must verify current headlines on the web before answering."
 ---
 

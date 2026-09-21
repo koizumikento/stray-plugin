@@ -2,6 +2,56 @@
   "version": 2,
   "cases": [
     {
+      "id": "studio-kubernetes-helm-fix",
+      "prompt": "既存Helm chartのDeploymentのreadinessとrollout設定を修正して。アプリのコードは変更せず、ローカルで検証し、クラスタには接続しないで。",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "security-preflight", "reviewer"],
+      "reason": "Standalone repository Kubernetes configuration is IaC implementation; local rendering does not authorize API-backed checks."
+    },
+    {
+      "id": "studio-kubernetes-app-flow",
+      "prompt": "Implement this app's background export flow, including the worker code and its existing Kubernetes Deployment and Service configuration. Do not deploy.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["iac-builder", "security-preflight"],
+      "reason": "The app builder owns the complete feature and reads Kubernetes guidance for supporting infrastructure without a second implementation owner."
+    },
+    {
+      "id": "studio-kubernetes-security-only",
+      "prompt": "Review this Kubernetes namespace's RBAC, Secrets, Pod Security and NetworkPolicy manifests for security findings only. No edits or cluster access.",
+      "expect": ["security-preflight"],
+      "reject": ["iac-builder", "fullstack-app-builder", "reviewer"],
+      "reason": "Security-only evidence review selects relevant Kubernetes controls without remediation or live enforcement claims."
+    },
+    {
+      "id": "studio-kubernetes-general-review",
+      "prompt": "Review this Kustomize diff for correctness, maintainability, rollout availability, PVC retention and security. Findings only; do not fix it or assess push readiness.",
+      "expect": ["reviewer"],
+      "reject": ["iac-builder", "security-preflight", "change-readiness-review"],
+      "reason": "General configuration review remains findings-first and uses the shared Kubernetes reference only for affected contracts."
+    },
+    {
+      "id": "studio-kubernetes-plan-only",
+      "prompt": "Plan changes to this repository's Kubernetes overlays for a new environment. Inspect local files only; do not edit, render, or contact the cluster yet.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "domain-researcher"],
+      "reason": "A concrete repository IaC plan belongs to the IaC builder while retaining plan-only and no-cluster boundaries."
+    },
+    {
+      "id": "studio-kubernetes-non-kubernetes-neighbor",
+      "prompt": "Fix the CPU and memory settings in this Cloud Run Terraform module. Keep Cloud Run and do not add Kubernetes or alter the app.",
+      "expect": ["iac-builder"],
+      "reject": ["fullstack-app-builder", "domain-researcher"],
+      "reason": "The IaC owner remains appropriate, but a non-Kubernetes runtime must not load or implement Kubernetes-specific controls. Reference selection requires behavioral evaluation."
+    },
+    {
+      "id": "studio-kubernetes-live-incident-boundary",
+      "prompt": "Handle this live Kubernetes incident now by inspecting the production cluster and restarting failing pods. Do not change any repository configuration or write a runbook.",
+      "expect": [],
+      "reject": ["iac-builder", "fullstack-app-builder", "security-preflight", "ops-playbook-writer"],
+      "no_skill": true,
+      "reason": "Live incident response without repository changes is outside these packaged skills; a shared reference does not make an IaC or security reviewer its owner."
+    },
+    {
       "id": "studio-iac-environment-baseline",
       "prompt": "このリポジトリに、安価な開発検証環境のIaCを一式追加して。必要な観点は既存要件から判断して、クラウドには適用しないで。",
       "expect": ["iac-builder"],

@@ -1,6 +1,6 @@
 {
   "name": "stray-studio",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
   "author": {
     "name": "Local Workspace"
@@ -19,7 +19,7 @@
     ],
     "defaultPrompt": [
       "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
-      "Plan or implement repository-managed IaC, selecting applicable security, storage, runtime, monitoring, capacity, recovery, lifecycle, and cost controls; do not deploy.",
+      "Plan or implement repository-managed IaC, including Kubernetes manifests, Helm charts, or Kustomize overlays when applicable, with security, runtime, storage, capacity, recovery, lifecycle, and cost controls; validate locally and do not deploy.",
       "Build, modify, validate, install, or deploy a Slack app using the Slack CLI, app manifests, Bolt, events, slash commands, workflows, or Slack Web API calls.",
       "Create or revise a static, repository-managed corporate website with company information architecture, business/service pages, news, careers, IR, sustainability, trust links, and responsive implementation.",
       "Create or overhaul a landing page with conversion-focused structure, messaging, CTA flow, SEO basics, and responsive implementation.",

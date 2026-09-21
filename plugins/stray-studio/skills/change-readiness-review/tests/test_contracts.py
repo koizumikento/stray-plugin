@@ -72,7 +72,7 @@ def test_manifest_and_readme_discover_the_new_skill() -> None:
     manifest = json.loads(
         (STUDIO_ROOT / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8")
     )
-    assert manifest["version"] == "0.1.17"
+    assert manifest["version"] == "0.1.18"
     assert "change-readiness" in manifest["interface"]["longDescription"]
     prompts = manifest["interface"]["defaultPrompt"]
     readiness_prompts = [

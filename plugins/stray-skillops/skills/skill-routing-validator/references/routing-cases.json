@@ -370,8 +370,36 @@
       "id": "studio-write-article",
       "prompt": "Turn these notes and sources into a publishable explanatory article with a clear audience, angle, and source policy.",
       "expect": ["article-writer"],
-      "reject": ["proposal-writer"],
+      "reject": ["proposal-writer", "japanese-ai-style-editor"],
       "reason": "The output is editorial content, not an approval document."
+    },
+    {
+      "id": "studio-japanese-style-findings-only",
+      "prompt": "この既存の日本語原稿について、AIっぽく読める箇所と理由だけ指摘して。本文は書き換えないで。",
+      "expect": ["japanese-ai-style-editor"],
+      "reject": ["article-writer", "reviewer"],
+      "reason": "The explicit review lens is formulaic Japanese style, with no rewrite authorized."
+    },
+    {
+      "id": "studio-japanese-style-rewrite",
+      "prompt": "この取引先への日本語メールのAIっぽい定型感を直して。意味と敬語は保ち、原文にない理由や事実は足さないで。",
+      "expect": ["japanese-ai-style-editor"],
+      "reject": ["article-writer", "proposal-writer"],
+      "reason": "A supplied business draft needs a register-preserving style edit, not new document drafting."
+    },
+    {
+      "id": "studio-japanese-style-translationese",
+      "prompt": "この既存の技術説明の翻訳調で均質な日本語を自然にして。数値、条件、引用と専門用語は変えないで。",
+      "expect": ["japanese-ai-style-editor"],
+      "reject": ["article-writer", "reviewer"],
+      "reason": "The user wants a narrow Japanese style pass over existing technical prose."
+    },
+    {
+      "id": "studio-document-review-not-style",
+      "prompt": "この提案書を承認条件、根拠、リスクの観点でレビューして。文章の文体だけを見る依頼ではない。",
+      "expect": ["reviewer"],
+      "reject": ["japanese-ai-style-editor", "proposal-writer"],
+      "reason": "A broad findings-first document review is owned by the reviewer."
     },
     {
       "id": "studio-theme-artifact",
@@ -482,7 +510,7 @@
       "id": "studio-ops-playbook",
       "prompt": "Turn these incident notes into an operator runbook with prerequisites, decisions, rollback, escalation, owner, and review date.",
       "expect": ["ops-playbook-writer"],
-      "reject": ["proposal-writer"],
+      "reject": ["proposal-writer", "japanese-ai-style-editor"],
       "reason": "The deliverable is an executable operational procedure."
     },
     {
@@ -496,7 +524,7 @@
       "id": "studio-proposal",
       "prompt": "Draft an approval memo naming the decision owner, requested approval, evidence, tradeoffs, deadline, and next action.",
       "expect": ["proposal-writer"],
-      "reject": ["article-writer", "ops-playbook-writer"],
+      "reject": ["article-writer", "ops-playbook-writer", "japanese-ai-style-editor"],
       "reason": "The document exists to secure a decision rather than inform readers or run operations."
     },
     {
@@ -718,6 +746,13 @@
       "reason": "The supplied page is normalized before the resulting evidence is transformed into an editorial artifact."
     },
     {
+      "id": "mixed-article-then-japanese-style",
+      "prompt": "この素材から日本語の記事を書き、最後にAIっぽい定型感を取り除いて。出典と事実は保持して。",
+      "expect": ["article-writer", "japanese-ai-style-editor"],
+      "reject": ["proposal-writer", "reviewer"],
+      "reason": "Article creation owns the draft; the explicit Japanese style request follows as a separate pass."
+    },
+    {
       "id": "mixed-deep-research-to-product-decision",
       "prompt": "Run technical, regulatory, market, and counter-evidence research, then use the completed report to choose one product direction with scope and acceptance criteria.",
       "expect": ["deep-researcher", "product-designer"],
@@ -842,9 +877,17 @@
       "id": "no-skill-trivial-readme-typo",
       "prompt": "Fix the single typo `teh` to `the` in the network README sentence I identified; make no other edits.",
       "expect": [],
-      "reject": ["article-writer", "reviewer", "ops-playbook-writer", "iac-builder"],
+      "reject": ["article-writer", "reviewer", "ops-playbook-writer", "iac-builder", "japanese-ai-style-editor"],
       "no_skill": true,
       "reason": "A precisely scoped one-word edit does not need an editorial, review, or operational skill."
+    },
+    {
+      "id": "no-skill-japanese-typo",
+      "prompt": "この一文の誤字『ご確忍』を『ご確認』に直して。他の表現は変えないで。",
+      "expect": [],
+      "reject": ["japanese-ai-style-editor", "article-writer", "reviewer"],
+      "no_skill": true,
+      "reason": "A single specified Japanese typo does not need a prose-style workflow."
     },
     {
       "id": "no-skill-small-code-change",

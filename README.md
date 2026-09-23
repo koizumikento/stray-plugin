@@ -112,6 +112,7 @@ Notable support files:
 | `artifact-theme-applier` | Applying a coherent visual theme to an existing artifact without changing its core structure. |
 | `brand-designer` | Defining or refining brand identity, visual principles, tone guidance, and mini style guides. |
 | `article-writer` | Drafting or revising publishable articles, blog posts, newsletters, or editorial pieces. |
+| `japanese-ai-style-editor` | Diagnosing or revising AI-like Japanese in an existing draft while preserving meaning and register. |
 | `proposal-writer` | Drafting decision-oriented proposals, plans, internal requests, business cases, or approval memos. |
 | `ops-playbook-writer` | Turning operational knowledge into SOPs, runbooks, playbooks, checklists, or handoff guides. |
 | `json-canvas-editor` | Creating, editing, or repairing JSON Canvas `.canvas` files. |

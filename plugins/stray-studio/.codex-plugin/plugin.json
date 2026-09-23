@@ -1,6 +1,6 @@
 {
   "name": "stray-studio",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
   "author": {
     "name": "Local Workspace"
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "Stray Studio",
     "shortDescription": "Build, review, and produce product, content, and artifact deliverables.",
-    "longDescription": "A repo-local Codex plugin for implementation, platform-native UI specification, findings-first review, evidence-sealed change-readiness gates, security preflights, and artifact production. It routes full-stack app work to specialist Slack, static corporate-site, and landing-page builders; plans and implements standalone repository-managed IaC using applicable identity, DB, network, storage, runtime, operations, recovery, lifecycle, and cost controls shared with app builders and reviewers; turns defined iOS, iPadOS, macOS, watchOS, tvOS, and visionOS features into UI specifications using user-authored notes attributed to current official Apple documentation; designs software tests without silently implementing them; reviews and optionally repairs confirmed findings; independently decides whether exact local or pull-request state is ready to share without mutating it; keeps security review separate from remediation; applies artifact themes with native-format checks; and produces brands, articles, proposals, operational playbooks, validated JSON Canvas files, sanitized marketing screenshots, current-constraint Slack GIFs, and production-oriented pixel-art assets through reviewed character design sheets, lightweight authored motion references with Blender, image-generated character appearance with separate design and pose authorities, flat-color and finish checks, and Python-based export verification.",
+    "longDescription": "A repo-local Codex plugin for implementation, platform-native UI specification, findings-first review, evidence-sealed change-readiness gates, security preflights, and artifact production. It routes full-stack app work to specialist Slack, static corporate-site, and landing-page builders; plans and implements standalone repository-managed IaC using applicable identity, DB, network, storage, runtime, operations, recovery, lifecycle, and cost controls shared with app builders and reviewers; turns defined iOS, iPadOS, macOS, watchOS, tvOS, and visionOS features into UI specifications using user-authored notes attributed to current official Apple documentation; designs software tests without silently implementing them; reviews and optionally repairs confirmed findings; independently decides whether exact local or pull-request state is ready to share without mutating it; keeps security review separate from remediation; applies artifact themes with native-format checks; and produces brands, articles, proposals, Japanese prose edits that remove formulaic AI-like style while preserving meaning and register, operational playbooks, validated JSON Canvas files, sanitized marketing screenshots, current-constraint Slack GIFs, and production-oriented pixel-art assets through reviewed character design sheets, lightweight authored motion references with Blender, image-generated character appearance with separate design and pose authorities, flat-color and finish checks, and Python-based export verification.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "capabilities": [
@@ -31,6 +31,7 @@
       "Apply a coherent visual theme to an existing artifact such as a doc, deck, HTML page, or existing landing page without changing its core structure.",
       "Create or refine a brand identity direction, brand brief, or mini style guide.",
       "Write or revise an article with a clear audience, angle, and structure.",
+      "Diagnose or revise AI-like Japanese prose in a supplied draft while preserving its meaning, evidence, and level of formality.",
       "Draft a decision-oriented proposal, plan, memo, or business case.",
       "Turn operational knowledge into a reusable SOP, runbook, or playbook.",
       "Create or edit a JSON Canvas .canvas file safely.",

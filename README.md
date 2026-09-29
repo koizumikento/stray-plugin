@@ -101,6 +101,7 @@ Notable support files:
 |---|---|
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
 | `iac-builder` | Planning, implementing, or repairing repository-managed IaC, including Kubernetes manifests, Helm charts, and Kustomize overlays, with applicable identity, DB, network, storage, runtime, operations, recovery, lifecycle, and cost controls; live operations require matching authorization. |
+| `cloudflare-cf-cli` | Choosing between Cloudflare's `cf` and Wrangler CLIs, then discovering and running the requested `cf` command with the right target and effect checks. |
 | `platform-native-ui-designer` | Turning defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS features and flows into implementation-ready UI specifications using the user's own notes attributed to current official Apple documentation. |
 | `slack-app-builder` | Planning, building, validating, installing, deploying, or debugging Slack apps with Slack CLI, manifests, Bolt, Deno Slack SDK, events, workflows, and Web API calls. |
 | `corporate-site-builder` | Creating or revising corporate websites with company IA, home and lower pages, business/service sections, news, careers, IR, sustainability, governance, trust links, and responsive implementation. |

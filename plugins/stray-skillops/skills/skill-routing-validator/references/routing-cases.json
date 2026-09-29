@@ -2,6 +2,35 @@
   "version": 2,
   "cases": [
     {
+      "id": "studio-cloudflare-cli-choice",
+      "prompt": "Cloudflare の DNS レコードを調べたい。新しい cf と Wrangler のどちらを使えばいいか判断して、今の CLI でコマンドを探して。まだ変更しないで。",
+      "expect": ["cloudflare-cf-cli"],
+      "reject": ["iac-builder", "fullstack-app-builder"],
+      "reason": "Selecting a Cloudflare CLI and discovering its command is this skill's job."
+    },
+    {
+      "id": "studio-cloudflare-cf-operation",
+      "prompt": "Use Cloudflare's new cf CLI to list the zones in my selected profile. Check the current command first.",
+      "expect": ["cloudflare-cf-cli"],
+      "reject": ["iac-builder", "fullstack-app-builder"],
+      "reason": "An explicit cf operation needs current command discovery and target checking."
+    },
+    {
+      "id": "studio-cloudflare-existing-wrangler-neighbor",
+      "prompt": "この既存の wrangler.jsonc にある Worker の binding を修正して、リポジトリの Wrangler スクリプトで検証して。CLI の移行はしないで。",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["cloudflare-cf-cli", "iac-builder"],
+      "reason": "A Worker application change keeps its existing implementation and Wrangler workflow."
+    },
+    {
+      "id": "studio-cloud-foundry-cf-neighbor",
+      "prompt": "Cloud Foundry の cf CLI でアプリを push するコマンドを教えて。Cloudflare は使っていない。",
+      "expect": [],
+      "reject": ["cloudflare-cf-cli"],
+      "no_skill": true,
+      "reason": "Cloud Foundry's unrelated cf command must not select the Cloudflare CLI skill."
+    },
+    {
       "id": "studio-kubernetes-helm-fix",
       "prompt": "既存Helm chartのDeploymentのreadinessとrollout設定を修正して。アプリのコードは変更せず、ローカルで検証し、クラスタには接続しないで。",
       "expect": ["iac-builder"],

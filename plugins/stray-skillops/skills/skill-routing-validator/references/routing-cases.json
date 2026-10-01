@@ -459,20 +459,6 @@
       "reason": "The task is an application flow without a narrower Slack, MCP, or robotics owner."
     },
     {
-      "id": "studio-fullstack-chatgpt-extensions",
-      "prompt": "Implement this existing ChatGPT MCP App's conversation panel and .stl file editor, including initial rendering, capability fallback, and conflict-safe saving. Keep the settled MCP contract and validate locally; do not install or deploy.",
-      "expect": ["fullstack-app-builder"],
-      "reject": ["mcp-server-designer", "reviewer", "agent-skill-creater"],
-      "reason": "Implementation of an app flow owns ChatGPT host integration through the selective chatgpt-extensions reference; standalone protocol design and skill authoring are different jobs."
-    },
-    {
-      "id": "studio-chatgpt-mcp-design-only",
-      "prompt": "Design this ChatGPT plugin's MCP tools, resource contracts, auth, and capability negotiation. Compare protocol tradeoffs and report a design only; do not implement the app or edit skills.",
-      "expect": ["mcp-server-designer"],
-      "reject": ["fullstack-app-builder", "agent-skill-creater"],
-      "reason": "MCP-specific contract design remains with mcp-server-designer; an app implementation reference does not take over design-only work."
-    },
-    {
       "id": "studio-fullstack-app-data-only",
       "prompt": "Fix concurrent duplicate reservations in this existing app's database write path and add the required migration. The UI does not need edits; verify the affected reservation flow.",
       "expect": ["fullstack-app-builder"],

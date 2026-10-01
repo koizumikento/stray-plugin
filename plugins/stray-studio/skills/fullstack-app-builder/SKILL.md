@@ -27,6 +27,7 @@ Implement requested web, mobile, or desktop app flows, including API-only or dat
 | Read when | Reference |
 |---|---|
 | Changing or diagnosing layout, rendering, navigation integration, accessibility, or platform behavior | The relevant surface: `references/web.md`, `references/mobile.md`, or `references/desktop.md` |
+| Implementing or diagnosing a ChatGPT MCP App's entrypoints, file viewer/editor, settings, display modes, deep links, model context, composer mentions, or rich forms | `references/chatgpt-extensions.md`; combine with existing state, identity, or API guidance only when those decisions matter |
 | Deciding ownership or lifetime of UI, URL, draft, cache, or pending-operation state; diagnosing stale responses, optimistic updates, account switching, or restoration | `references/client-state.md` |
 | Changing authentication, token/session handling, access enforcement, or tenant isolation; diagnosing stale permissions or identity changes | `references/identity-access.md` |
 | Scaffolding or adding an Android target, or deciding Android lifecycle, platform integration, tooling, or release behavior | `references/android.md` |

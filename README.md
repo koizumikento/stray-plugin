@@ -99,7 +99,7 @@ Notable support files:
 
 | Skill | Use for |
 |---|---|
-| `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
+| `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, ChatGPT MCP App extensions, API, auth, database, migrations, observability, and validation. |
 | `iac-builder` | Planning, implementing, or repairing repository-managed IaC, including Kubernetes manifests, Helm charts, and Kustomize overlays, with applicable identity, DB, network, storage, runtime, operations, recovery, lifecycle, and cost controls; live operations require matching authorization. |
 | `cloudflare-cf-cli` | Choosing between Cloudflare's `cf` and Wrangler CLIs, then discovering and running the requested `cf` command with the right target and effect checks. |
 | `platform-native-ui-designer` | Turning defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS features and flows into implementation-ready UI specifications using the user's own notes attributed to current official Apple documentation. |

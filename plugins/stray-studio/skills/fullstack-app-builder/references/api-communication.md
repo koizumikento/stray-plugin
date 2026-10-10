@@ -7,6 +7,7 @@ Read this when changing API contracts, handlers, clients, integrations, or strea
 1. Trace the contract and both sides of each boundary.
    - Inspect UI/platform callers, server handlers, external providers, jobs, validation, auth, and generated clients. Reuse the repository's contract format instead of adding a new specification or generator by default.
    - Make inputs, outputs, errors, pagination, and compatibility explicit. Validate at the receiving trust boundary and enforce resource-level authorization; do not rely on UI controls or client-supplied ownership.
+   - When HTTP, browser tools, remote tools, or CLI share an operation, reuse existing application commands and policy. Keep wire encoding, credential validation, and UI effects in their adapters; check advertised schemas against runtime validation. Tool definitions are not proof that a client can invoke them.
    - Prefer additive changes. Identify breaking changes and update affected callers together when feasible, accounting for older deployed clients.
    - For webhooks, verify the provider's authentication/signature and replay requirements before trusting the payload or accepting work.
 2. Define what a response means.
@@ -19,6 +20,7 @@ Read this when changing API contracts, handlers, clients, integrations, or strea
    - Retry only failures that the contract makes safe to retry. Do not automatically retry a non-idempotent operation without evidence it is safe or was not applied. See [RFC 9110 section 9.2.2](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2).
    - Bound attempts and elapsed time, honor applicable retry guidance, and use backoff with jitter for transient failures. Assign retry ownership deliberately so client, SDK, handler, and worker retries do not multiply unchecked.
    - For an idempotency key, define scope, payload matching, lifetime, concurrent requests, and replayed responses; use the data reference for atomic storage enforcement. An HTTP method's idempotency does not by itself promise identical response bodies.
+   - Distinguish replay after an unknown response from a new command after a confirmed version conflict. Replay keeps the original identity/input; conflict recovery rereads state and reevaluates intent. Define omitted, null, empty, and array behavior for partial updates rather than inheriting full-replacement defaults.
 4. Diagnose connections and streams when relevant.
    - Check the effective API URL, origin, DNS, TLS, proxy, load balancer, timeout configuration, CORS, and credential forwarding along the failing path. Separate connection failures from application responses; do not disable certificate verification or broaden access to hide a failure.
    - Change infrastructure settings only when required by the app flow and covered by the authorized target and effect.
@@ -28,3 +30,4 @@ Read this when changing API contracts, handlers, clients, integrations, or strea
    - Exercise relevant invalid input, forbidden access, stale clients, delayed or missing responses, rate limiting, duplicate requests, and cancellation.
    - For writes, check a response lost after successful execution and ensure recovery preserves the intended side effect. Verify replayed and first results against the same application contract.
    - For streams, test disconnect/reconnect and recovery of current state. Report exactly which external-service, network, or client-compatibility behavior remains unverified.
+   - For bounded reads, distinguish pagination from permanent truncation and unavailable originals. Document offset units and termination; reassemble serialized fragments before parsing and handle text encoding at byte boundaries.

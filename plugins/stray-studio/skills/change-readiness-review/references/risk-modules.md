@@ -36,6 +36,7 @@ Trigger: API, command, event, schema, configuration key, export, plugin surface,
 
 - Inspect actual consumers and parallel entry points.
 - Check defaults, error shape, versioning, migration path, and compatibility promises.
+- For tool-contract changes, compare advertised definitions with runtime handlers and actual consumers. Distinguish source/artifact, deployment, host registration where applicable, authenticated discovery, client-visible definitions, and an allowed call/result check; state which evidence exists at the named checkpoint. A version bump, registration screen, or new chat turn is not proof of client availability. Do not require a production write for local-push or PR-review readiness, or mutate registrations under this read-only gate.
 
 ## Concurrency And Distributed State
 

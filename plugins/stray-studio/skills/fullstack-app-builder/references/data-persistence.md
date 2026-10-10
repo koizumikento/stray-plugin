@@ -16,6 +16,7 @@ Read this when changing schema, queries, persistence, or migrations, or diagnosi
 3. Persist safe command outcomes when replay is possible.
    - Scope idempotency records to the operation and authorized subject or tenant. Make concurrent claims atomic; reject reuse of a key with a different payload according to the API contract.
    - Store the local side effect and command result in the same transaction or equivalent atomic boundary where supported. Preserve enough result data for first and replayed success to satisfy the same application contract and render consistently.
+   - Match partial-update receipts to the original patch and expected version, not a merge against mutable current state. Authorize protected receipt reads before replay; define no-op updates and older-receipt compatibility when contracts change.
    - Name partial-write failure modes when atomicity is unavailable. A database commit cannot make an unrelated remote write atomic; consult the API or async reference before choosing coordination or recovery.
 4. Make migrations reviewable and compatible.
    - Use versioned migrations for non-trivial schema changes. Treat schema changes and backfills as operational events; prefer additive changes before destructive or shape-tightening ones.
@@ -26,6 +27,7 @@ Read this when changing schema, queries, persistence, or migrations, or diagnosi
    - Define invalidation or refresh after writes, and which reads may lag. Verify derived totals, caches, and UI against persisted state.
    - For performance work, inspect representative query plans, data volumes, indexes, and connection-pool limits before adding caches or indexes.
    - For offline writes, identify durable local changes, versions, deletion markers, and the authoritative reconciliation outcome. Use the async reference when reconciliation or replay needs design.
+   - When storing evidence or versioned outputs, preserve originals, derivatives, source revisions, capture/processing times, hashes where available, and missing-data reasons separately. Freeze selected output inputs when reproducibility requires it; a derived proposal or successful execution does not establish domain approval or validity. Do not add a history model when the use case does not require one.
 6. Validate the changed guarantees.
    - Use the real database's behavior where feasible for concurrent updates, duplicate commands, rollback, and migrations. Mocks alone cannot establish isolation or constraint behavior.
    - Verify relevant read-after-write and replayed-result contracts, including the app's response to a rejected conflict. Exercise representative existing data when constraints tighten.

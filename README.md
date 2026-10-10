@@ -74,7 +74,7 @@ Notable support files:
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Research-backed idea generation and comparison before choosing a direction. |
 | `product-designer` | Turning research into product decisions, feature briefs, scope boundaries, or validation plans. |
-| `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, integration boundaries, and read-only agent evaluation contracts. |
+| `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, shared application and safe-write contracts, and read-only or mutation evaluation contracts without executing them. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |
 | `japan-weather-data-researcher` | Retrieving timestamped JMA station, AMeDAS, recent-history, time-series, and forecast data. |
 | `japan-company-info-researcher` | Looking up identified Japanese companies and corporate activity data through gBizINFO. |
@@ -87,6 +87,7 @@ Notable support files:
 Notable support files:
 
 - Specialist skills declare required tools, setup expectations, and unavailable-tool behavior in `SKILL.md`.
+- `plugins/stray-research/skills/mcp-server-designer/references/application-contracts.md` generalizes application-backed MCP actor boundaries, caller contracts, replay/version behavior, read completeness, isolated mutation evaluation, and publication/discovery evidence; the existing read-only evaluation contract remains separate.
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`
 - `plugins/stray-research/skills/japan-company-info-researcher/references/endpoint-guide.md` maps gBizINFO data groups to tool families.
@@ -131,6 +132,7 @@ Notable support files:
 - `plugins/stray-studio/skills/security-preflight/references/`
 - `plugins/stray-studio/skills/slack-app-builder/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
+- The app API, data, and identity references cover shared tool/API commands, patch receipts, versioned evidence, and trusted ingress. The change-readiness public-contract module keeps deployment, registration, client definitions, and actual-call evidence separate without requiring production writes for a PR gate.
 - `plugins/stray-studio/references/iac-baseline.md` gives IaC/app builders and reviewers an applicability map plus DB/credential/network controls; `iac-lifecycle.md` and `iac-operations.md` add change/state/dependency and runtime/storage/operations/cost details. They distinguish applicability, code, manual bootstrap, defaults, and runtime evidence; security reviews retain their narrower scope.
 - `plugins/stray-studio/references/kubernetes.md` adds selectively loaded Kubernetes workload, rollout, capacity, traffic, storage, security, and validation guidance for IaC/app builders and reviewers. It preserves configuration ownership and distinguishes local rendering, server acceptance, and runtime evidence.
 - `plugins/stray-studio/skills/iac-builder/references/validation-cases.md` defines synthetic behavioral cases; structural routing validation does not execute them or prove live infrastructure controls.

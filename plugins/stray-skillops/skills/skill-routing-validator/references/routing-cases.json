@@ -368,6 +368,20 @@
       "reason": "The deliverable is a protocol-aware design contract for agent use, not executable CI or server implementation."
     },
     {
+      "id": "research-mcp-mutation-contract",
+      "prompt": "Design this application-backed MCP server's write contract: user and service authority, version conflicts, idempotent replay, and isolated mutation evaluation cases. Do not execute tools or build a harness.",
+      "expect": ["mcp-server-designer"],
+      "reject": ["ai-eval-ci", "test-design-strategist", "fullstack-app-builder"],
+      "reason": "The requested deliverable is a protocol-aware mutation design, not evaluation execution or application implementation."
+    },
+    {
+      "id": "studio-settled-mcp-implementation",
+      "prompt": "Implement the already approved MCP tool contract in this existing app and fix its shared API/store write path. Keep the settled schemas and run local regression checks; no protocol redesign is needed.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["mcp-server-designer"],
+      "reason": "A settled application flow requires implementation; the MCP design skill excludes implementation-only work."
+    },
+    {
       "id": "research-product-decision",
       "prompt": "Compare the researched options, choose one product direction, define scope, acceptance criteria, and a validation plan.",
       "expect": ["product-designer"],

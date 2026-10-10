@@ -39,6 +39,8 @@ Reviewed [KasaneNote at source revision 1e0263e3fc12fd5b243b43978cbefdb259e0966c
 
 Authority checks on 2026-10-10 used fixed official MCP [2025-03-26 tools](https://modelcontextprotocol.io/specification/2025-03-26/server/tools), [transport](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports), [authorization](https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization), and [2026-07-28 tools](https://modelcontextprotocol.io/specification/2026-07-28/server/tools). Protocol and target-client documents remain authoritative for their selected revision; the application patterns are not new protocol requirements.
 
+The publication rules also retain the source's failure lessons: a same-source save returning an existing version does not prove archive replacement; an unavailable older archive leaves its contents unknown; deployment/registration success does not establish current-client availability. Preserve the failing boundary and error rather than diagnosing versioning or promising refresh on the next user turn without evidence. This records recovery criteria, not a claim that KasaneNote's live update failure has been resolved.
+
 Do not generalize the source's tool count, exact limits, entity names, credential rejection policy, patch syntax, hosting UI, or catch-all error mapping. In particular, a handler advertising `2025-03-26` does not establish support for later structured-output fields or later protocol lifecycles. The two transfer examples in the new reference are design checks, not executed evaluations. Studio's existing API, identity, data, and read-only readiness ownership is preserved; no cross-plugin runtime dependency or new skill is introduced.
 
 ## Reuse Rules

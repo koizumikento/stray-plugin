@@ -24,9 +24,9 @@ Use this skill when the user is:
 
 ## Reference Loading
 
-Load `references/application-contracts.md` when MCP shares application state with browser tools/API/CLI, exposes writes, or needs publication/discovery acceptance criteria. Use it to design actor boundaries, replay/version behavior, read completeness, and isolated mutation cases without executing them.
+Load `references/application-contracts.md` when MCP shares application state with browser tools/API/CLI, exposes writes, or needs publication/discovery acceptance criteria.
 
-Load `references/read-only-eval-contract.md` when the proposed server has multiple read-only tools or the user needs an evaluation or acceptance contract for agent use. Use it to design stable tasks, call relationships, schema assertions, pagination checks, error recovery, and result reconciliation. Do not execute the tasks, call a live server, build a harness, or make network changes as part of this skill.
+Load `references/read-only-eval-contract.md` when the proposed server has multiple read-only tools or the user needs an evaluation or acceptance contract for agent use.
 
 ## Workflow
 
@@ -66,14 +66,9 @@ Load `references/read-only-eval-contract.md` when the proposed server has multip
    - Note rate limits, retries, idempotency, and latency-sensitive paths.
    - Call out any write actions that need confirmation or guardrails.
    - Separate read-only workflows from destructive ones when the risk differs.
-   - For writes or shared application entry points, apply `references/application-contracts.md`; specify isolated mutation evaluation separately from read-only tasks and distinguish deployment, discovery, client-visible definitions, and actual calls.
 
 7. Define the read-only evaluation contract when applicable.
-   - Load `references/read-only-eval-contract.md` for a server with multiple read-only tools or when evaluation design is requested.
-   - Specify 5-10 stable, realistic multi-tool tasks against versioned fixtures or a named read-only test surface.
-   - Define expected call relationships and assertions for annotations, `outputSchema`, pagination, actionable errors, clean context, and reconciliation of conflicting or partial results.
-   - Recheck the exact fields and semantics against the current official MCP specification and target client before finalizing the contract.
-   - Keep this as a design artifact. Do not execute tools, contact endpoints, create test infrastructure, or modify server or network state.
+   - Apply `references/read-only-eval-contract.md` for the task matrix, protocol-aware assertions, repeatability, reconciliation, and pass/fail criteria.
 
 8. Produce a concrete server plan.
    - Summarize the recommended tool set.
@@ -92,7 +87,9 @@ Return a short server design brief with:
 - integration risks or unresolved questions
 - target client(s), MCP protocol revision/capabilities, SDK/runtime version, and official-document check date
 - when applicable, a read-only evaluation contract with stable task IDs, expected call relationships, assertions, fixture provenance, and pass/fail criteria
-- for write/shared-entry-point designs, mutation recovery and isolated evaluation cases, actor boundaries, and publication proof gaps
+- for write/shared-entry-point designs, mutation recovery, read-completeness decisions, isolated evaluation cases, shared actor boundaries, and publication proof gaps
+
+Label design decisions, implementation evidence, fixture results, and live acceptance separately.
 
 If the user asks for implementation guidance, keep the answer one step ahead of code and stay at the design level unless they explicitly ask for files.
 

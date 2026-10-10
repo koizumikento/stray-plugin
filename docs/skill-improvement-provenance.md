@@ -24,25 +24,6 @@ On 2026-09-05, the [OpenAI skill guidance](https://learn.chatgpt.com/docs/build-
 - Deterministic validation runs in `.github/workflows/deterministic-validation.yml`; it does not call a model provider or require evaluator secrets.
 - Execution/trust guidance is maintained with `agent-skill-creater`; evidence contracts remain local to the skills that use them.
 
-## Application-Backed MCP Patterns (2026-10-10)
-
-Reviewed [KasaneNote at source revision 1e0263e3fc12fd5b243b43978cbefdb259e0966c](https://github.com/koizumikento/kasanenote/tree/1e0263e3fc12fd5b243b43978cbefdb259e0966c). The guidance here is independently written from observed design patterns; no application code or document text was copied. Source review and existing test definitions do not establish current hosted acceptance or execute those tests.
-
-| Observed source at that revision | Generalized pattern | Local owner |
-|---|---|---|
-| `site/lib/mcp.ts`, `agent-tools.ts`, `memo-tools.ts`, `theme-tools.ts`, `api.ts`, `site/app/notebook.tsx` | Shared commands with adapter-specific caller contracts and UI effects; schema/runtime alignment | MCP designer `references/application-contracts.md`; app builder `references/api-communication.md` |
-| `site/lib/access.ts`, `api.ts`, `mcp.ts` | Separate user/service authority, resource checks, and a trusted identity ingress | App builder `references/identity-access.md`; MCP application-contract design |
-| `site/lib/store.ts`, `docs/mcp-theme-workflow.md` | Original-intent patch receipts, version conflicts, atomic deduplication, and lost-response recovery | App builder `references/data-persistence.md` and `api-communication.md`; MCP application-contract design |
-| `site/lib/mcp.ts`, `agent-tools.ts`, `export.ts`, `okf.ts`, `docs/knowledge.md` | Bounded reads, provenance, original/derivative distinction, frozen selected outputs, and domain review state | App builder API/data references; MCP application-contract design |
-| `site/scripts/test-mcp-research.mjs` | Isolated mutation task dependencies and assertions alongside the existing read-only evaluation contract | MCP designer `references/application-contracts.md` |
-| `docs/connections.md` | Separate source/artifact, deployment, host registration, authenticated discovery, client definitions, and actual calls | MCP application-contract design; change-readiness `references/risk-modules.md` public-contract section |
-
-Authority checks on 2026-10-10 used fixed official MCP [2025-03-26 tools](https://modelcontextprotocol.io/specification/2025-03-26/server/tools), [transport](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports), [authorization](https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization), and [2026-07-28 tools](https://modelcontextprotocol.io/specification/2026-07-28/server/tools). Protocol and target-client documents remain authoritative for their selected revision; the application patterns are not new protocol requirements.
-
-The publication rules also retain the source's failure lessons: a same-source save returning an existing version does not prove archive replacement; an unavailable older archive leaves its contents unknown; deployment/registration success does not establish current-client availability. Preserve the failing boundary and error rather than diagnosing versioning or promising refresh on the next user turn without evidence. This records recovery criteria, not a claim that KasaneNote's live update failure has been resolved.
-
-Do not generalize the source's tool count, exact limits, entity names, credential rejection policy, patch syntax, hosting UI, or catch-all error mapping. In particular, a handler advertising `2025-03-26` does not establish support for later structured-output fields or later protocol lifecycles. The two transfer examples in the new reference are design checks, not executed evaluations. Studio's existing API, identity, data, and read-only readiness ownership is preserved; no cross-plugin runtime dependency or new skill is introduced.
-
 ## Reuse Rules
 
 1. Keep external URLs and revisions fixed in durable research or implementation notes.

@@ -6,8 +6,6 @@ Read this when an MCP server exposes existing application commands, supports wri
 
 These are application design patterns, not additional MCP protocol requirements. Use the selected protocol revision and the target client's official documentation for wire behavior. Keep SDK, client, runtime, deployment, and contract versions explicit; mark unverified compatibility as provisional.
 
-The patterns were independently synthesized from [KasaneNote at revision 1e0263e3fc12fd5b243b43978cbefdb259e0966c](https://github.com/koizumikento/kasanenote/tree/1e0263e3fc12fd5b243b43978cbefdb259e0966c) on 2026-10-10. Its entity names, tool count, size limits, credential restrictions, patch format, and hosting controls are example-specific. Its implementation advertises protocol revision `2025-03-26`; this is not evidence of compatibility with other revisions or clients.
-
 ## Workflow
 
 1. Map actors, entry points, and ownership.
@@ -66,7 +64,7 @@ Select cases the server supports. The generic record below is a fixture entity, 
 ## Transfer Checks
 
 - For a read-only catalogue server, apply search scope, identifiers, pagination, source freshness, errors, and discovery checks. Skip mutation receipts and approval workflows; do not invent a writable store merely to fit the example.
-- For a ticketing server, map caller authority to ticket/project scope, define expected-version updates and provider deduplication support, and read back the saved ticket. An authorized service actor may write if that domain permits it; KasaneNote's worker-credential restriction is not a universal rule. When the provider cannot deduplicate, define bounded lookup/manual reconciliation rather than promising exactly-once delivery.
+- For a ticketing server, map caller authority to ticket/project scope, define expected-version updates and provider deduplication support, and read back the saved ticket. An authorized service actor may write if that domain permits it. When the provider cannot deduplicate, define bounded lookup/manual reconciliation rather than promising exactly-once delivery.
 
 These are design examples, not executed compatibility tests.
 
@@ -74,7 +72,6 @@ These are design examples, not executed compatibility tests.
 
 Return the entry-point/actor map, per-tool caller contracts, write/recovery and read-completeness decisions, selected evaluation cases, publication evidence requirements, and unresolved compatibility or authority gaps. Keep design decisions, implemented behavior, fixture results, and live acceptance separately labeled.
 
-## Sources And Limits
+## Protocol References
 
-- Implementation observations: [MCP adapter](https://github.com/koizumikento/kasanenote/blob/1e0263e3fc12fd5b243b43978cbefdb259e0966c/site/lib/mcp.ts), [shared commands](https://github.com/koizumikento/kasanenote/blob/1e0263e3fc12fd5b243b43978cbefdb259e0966c/site/lib/agent-tools.ts), [store](https://github.com/koizumikento/kasanenote/blob/1e0263e3fc12fd5b243b43978cbefdb259e0966c/site/lib/store.ts), [publication checks](https://github.com/koizumikento/kasanenote/blob/1e0263e3fc12fd5b243b43978cbefdb259e0966c/docs/connections.md), and [isolated research fixture](https://github.com/koizumikento/kasanenote/blob/1e0263e3fc12fd5b243b43978cbefdb259e0966c/site/scripts/test-mcp-research.mjs). Source review does not establish current production behavior.
 - Protocol authorities checked 2026-10-10: MCP [2025-03-26 tools](https://modelcontextprotocol.io/specification/2025-03-26/server/tools), [transport](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports), [authorization](https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization), and [2026-07-28 tools](https://modelcontextprotocol.io/specification/2026-07-28/server/tools). Recheck the selected revision and SDK/client documentation before implementation; fields and lifecycle rules differ between revisions.

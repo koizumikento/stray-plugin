@@ -1,6 +1,16 @@
 # Web Signal Lenses
 
-Use these lenses when the first idea set would otherwise follow the obvious examples found in search. They are prompts for widening current web research, not a fixed output format.
+Load this reference for broad, high-volume, or further-expansion requests. Use the generation pass to turn research ingredients into distinct concept families; the lenses are aids, not a fixed output format.
+
+## Generation Pass
+
+1. Choose several reframings of the target without changing hard constraints. Separate available features from required uses, and added source material from mandatory ingredients.
+2. Choose families that change the scene, central action, or payoff. For a portable device, consider practical assistance, viewing or listening, bodily play, collecting, making, and sharing. For a business, buyer, payment, delivery, or distribution can be more useful. Select only axes that fit the request.
+3. Transfer a mechanism from an adjacent domain, remove or reverse an assumed convention, and combine ingredients from different source families. Generate brief seeds before polishing or comparing them.
+4. Attach an observed signal, a creative leap, and an unverified condition to each concept. A signal supports the ingredient, not a claim that the full idea already works or has demand.
+5. Check diversity, replace duplicate seeds from missing families, and deliver the breadth requested. If the user asks for further expansion, prioritize families not covered by previous proposals.
+
+For example, a map dataset can become material for sound, patterns, or play; it need not make every proposal a navigation app. A keyboard can be available for occasional input without becoming the main activity. These are reframing examples, not mandatory concepts.
 
 ## Signal Sources
 
@@ -35,26 +45,29 @@ Turn the signal set through multiple lenses:
 - Trust and risk: make uncertainty, compliance, reversibility, explainability, or accountability the differentiator.
 - Time horizon: separate quick opportunistic ideas from medium-term platform moves and long-term bets.
 - Emotional reframing: shift the category from utility to confidence, status, relief, play, belonging, or craft.
+- Experience reframing: change what someone sees, hears, touches, collects, makes, or shares, and whether the experience is solitary, cooperative, or performed for others.
 
 ## Transformation Moves
 
-Use at least a few transformation moves before finalizing the list:
+Use these moves during generation. Check whether each adds a different scene, mechanism, or payoff rather than a cosmetic variant:
 
 - Substitute: replace the user, channel, interface, data source, pricing unit, or human role.
 - Combine: join two signals from different source types into one concept.
 - Adapt: borrow a pattern from another market and translate it to the current one.
 - Modify: make a current pattern smaller, larger, faster, slower, stricter, more social, or more private.
 - Put to another use: apply an existing capability to a different job, buyer, or moment.
-- Eliminate: remove a category assumption, step, dashboard, configuration, account, meeting, or approval.
+- Eliminate: remove an assumed feature, step, dashboard, configuration, account, or meeting; preserve required safety and authorization checks.
 - Reverse: flip who initiates, who pays, who benefits first, what is automated, or what remains manual.
 
 ## Diversity Check
 
 Before delivering, inspect the idea set:
 
-- No more than two ideas should share the same primary audience, mechanism, channel, and business model.
+- Compare use scene, central action or mechanism, and value or experience. Ideas with the same core are duplicates even if their names, channel, style, or pricing differ; a genuinely different activity or payoff can establish a new family.
 - Include at least one idea from an adjacent-domain analogy and one from a user complaint or noncustomer signal when available.
 - Include at least one low-effort wedge and one high-variance bet when the request does not prohibit risk.
-- If every idea is a feature, add at least one packaging, distribution, service, community, or infrastructure concept.
+- If every idea extends the same product feature, try a different activity or role; use packaging, distribution, service, community, or infrastructure only when relevant.
 - If every idea is incremental, add one boundary-shifting option and label its risk clearly.
 - If every idea is futuristic, add one near-term testable option.
+- Keep hypotheses with thin evidence when plausible and within constraints. Mark their unknowns instead of using feasibility or ease of implementation to rank the exploration set.
+- In exploration, finish with uncovered families or next expansion lenses. Rank or narrow only when the user requests comparison.

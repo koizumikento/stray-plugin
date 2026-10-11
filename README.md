@@ -72,7 +72,7 @@ Notable support files:
 | `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains. |
 | `deep-researcher` | Long-form, multi-track research with evidence synthesis, source-conflict handling, and explicit uncertainty. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
-| `idea-explorer` | Research-backed idea generation and comparison before choosing a direction. |
+| `idea-explorer` | Expanding ideas into distinct concept families with current signals and labeled hypotheses; comparing or ranking only when requested. |
 | `product-designer` | Turning research into product decisions, feature briefs, scope boundaries, or validation plans. |
 | `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, shared application and safe-write contracts, and read-only or mutation evaluation contracts without executing them. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |

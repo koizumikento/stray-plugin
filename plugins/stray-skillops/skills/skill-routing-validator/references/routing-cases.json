@@ -326,6 +326,49 @@
       "reason": "The user needs option expansion without a final product decision."
     },
     {
+      "id": "research-idea-divergent-device",
+      "prompt": "T-Deck Plusを使ったアイディアを新しく出してほしい。キーボードは補助、LoRaは使わない。推薦や順位付けはまだ要らない。",
+      "expect": ["idea-explorer"],
+      "reject": ["product-designer", "domain-researcher"],
+      "reason": "Research supports divergent concept families under hard constraints; neither a specialist brief nor product selection is requested."
+    },
+    {
+      "id": "research-idea-further-expansion",
+      "prompt": "街の地図や案内に似た案ばかりなので、もう少しアイディアを広げて。Overtureは材料の一つとして、新しい外部事例も調べ、音楽・鑑賞・創作・遊びなど未探索の方向を追加して。既出案は残して、選定や試作推薦はしないで。",
+      "expect": ["idea-explorer"],
+      "reject": ["product-designer", "web-researcher"],
+      "reason": "Further expansion adds uncovered families while retaining candidates; a new data source is an ingredient rather than a mandatory central use."
+    },
+    {
+      "id": "research-idea-creative-hypotheses",
+      "prompt": "RGBと点群で面白い体験の発想がしたい。公式SDKや隣接分野の事例を確認し、実用品・作品・遊びなど方向を広げて。飛躍した案も事実と未検証の条件を分けて残し、最初に作る案は決めないで。",
+      "expect": ["idea-explorer"],
+      "reject": ["product-designer", "fullstack-app-builder"],
+      "reason": "Speculative concepts can extend researched ingredients without asserting feasibility, choosing a product, or implementing it."
+    },
+    {
+      "id": "research-idea-comparison-request",
+      "prompt": "Compare these six researched device concepts by distinctiveness and usefulness, and recommend a provisional top three. Refresh unstable facts, but do not choose committed scope, acceptance criteria, or a validation plan.",
+      "expect": ["idea-explorer"],
+      "reject": ["product-designer"],
+      "reason": "An explicit comparison request permits provisional ranking while committed product selection remains a separate job."
+    },
+    {
+      "id": "research-idea-source-only-neighbor",
+      "prompt": "Orbbec Gemini 2の公式SDKで、RGBと深度の位置合わせや色付き点群の取得がどう対応しているかだけを調査して。用途のアイディアや製品の推薦は要らない。",
+      "expect": ["domain-researcher"],
+      "reject": ["idea-explorer", "product-designer"],
+      "reason": "A bounded technical capability investigation requests evidence only, not creative concept generation."
+    },
+    {
+      "id": "research-idea-offline-brainstorm-neighbor",
+      "prompt": "架空の魔法道具の名前を、この文章だけから10個考えて。Web調査や現実の製品事例は不要。",
+      "expect": [],
+      "reject": ["idea-explorer", "product-designer", "domain-researcher"],
+      "no_skill": true,
+      "reason": "Pure fictional brainstorming without current external evidence stays outside these research skills."
+    },
+    {
       "id": "research-japan-company",
       "prompt": "Using this Japanese corporate number, summarize the company's gBizINFO subsidies, procurement, certifications, and patents.",
       "expect": ["japan-company-info-researcher"],

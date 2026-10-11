@@ -7,7 +7,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Plugin | Root | Purpose |
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, validate, evaluate, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current briefs, deep research, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
+| Stray Research | `plugins/stray-research/` | Run current briefs, deep research, software reverse engineering, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, gate change readiness, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, cases, chart data, statistics, the bundled administrative-procedures MCP, open data, citations, and caches. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
@@ -64,12 +64,13 @@ Notable support files:
 
 ### Stray Research
 
-`plugins/stray-research/` owns current research, deep research reports, decision support, patent research, API terms checks, Japan-specific data lookups (company, weather, news), and horse racing analysis. Skills that depend on current facts generally require internet or browser access.
+`plugins/stray-research/` owns current research, deep research reports, software reverse engineering, decision support, patent research, API terms checks, Japan-specific data lookups (company, weather, news), and horse racing analysis. Skills that depend on current facts generally require internet or browser access. Reverse engineering uses accessible artifacts or observations and suitable available tools; REA is optional, and native/runtime capabilities depend on the host and tools.
 
 | Skill | Use for |
 |---|---|
 | `web-researcher` | Current, source-backed answers or briefs that must start from web research. |
 | `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains. |
+| `reverse-engineer` | Explaining existing software features and version differences from shipped packages, binaries, firmware, or observed app/web behavior, with evidence and explicit unknowns. |
 | `deep-researcher` | Long-form, multi-track research with evidence synthesis, source-conflict handling, and explicit uncertainty. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Expanding ideas into distinct concept families with current signals and labeled hypotheses; comparing or ranking only when requested. |
@@ -87,6 +88,7 @@ Notable support files:
 Notable support files:
 
 - Specialist skills declare required tools, setup expectations, and unavailable-tool behavior in `SKILL.md`.
+- `plugins/stray-research/skills/reverse-engineer/references/` contains target-specific inspection routes and synthetic validation cases; structural checks and manual case review do not establish runtime or provider support.
 - `plugins/stray-research/skills/mcp-server-designer/references/application-contracts.md` generalizes application-backed MCP actor boundaries, caller contracts, replay/version behavior, read completeness, isolated mutation evaluation, and publication/discovery evidence; the existing read-only evaluation contract remains separate.
 - Validation cases exist at:
   - `plugins/stray-research/skills/api-terms-checker/references/validation-cases.md`

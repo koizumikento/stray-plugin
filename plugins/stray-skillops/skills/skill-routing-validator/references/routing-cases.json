@@ -2,6 +2,98 @@
   "version": 2,
   "cases": [
     {
+      "id": "research-reverse-web-behavior",
+      "prompt": "この指定Webアプリの保存済み画面・通信記録から検索機能の挙動を調べ、観測と推論を分けて説明して。実サービスへのアクセスや実装はしないで。",
+      "expect": ["reverse-engineer"],
+      "reject": ["web-researcher", "product-designer", "fullstack-app-builder"],
+      "reason": "The deliverable is evidence-backed investigation of existing software behavior from supplied observations."
+    },
+    {
+      "id": "research-reverse-electron-ipc",
+      "prompt": "Trace clipboard handling through renderer, preload, IPC and main in this supplied Electron ASAR. Explain the mechanism without running the app or writing a replacement.",
+      "expect": ["reverse-engineer"],
+      "reject": ["domain-researcher", "fullstack-app-builder"],
+      "reason": "A shipped JavaScript artifact's feature path belongs to reverse engineering, not literature research or implementation."
+    },
+    {
+      "id": "research-reverse-native-no-engine",
+      "prompt": "調査を許可したこの実行ファイルの音量計算を解析して。REAも逆コンパイラも使えないので、利用可能な情報と解明できない部分を分け、ツールは導入しないで。",
+      "expect": ["reverse-engineer"],
+      "reject": ["domain-researcher", "security-preflight"],
+      "reason": "Unavailable engines limit evidence, but do not change ownership or authorize automatic installation."
+    },
+    {
+      "id": "research-reverse-firmware",
+      "prompt": "Inspect this owned firmware image's regions and embedded resources, and explain the likely configuration-loading path where evidence allows. Do not flash a device or install extraction tools.",
+      "expect": ["reverse-engineer"],
+      "reject": ["ros2-development", "security-preflight"],
+      "reason": "Firmware artifact investigation is distinct from robotics implementation and security-only review."
+    },
+    {
+      "id": "research-reverse-package-managed",
+      "prompt": "Inspect this supplied .NET application package's metadata, CIL and resources to explain its import feature. Report unsupported inspection separately; do not modify code.",
+      "expect": ["reverse-engineer"],
+      "reject": ["domain-researcher", "fullstack-app-builder"],
+      "reason": "Managed shipped code and package evidence are a target-specific reverse-engineering route."
+    },
+    {
+      "id": "research-reverse-android",
+      "prompt": "この提供APKのmanifest、classes、resourcesから通知登録の処理経路を調査して。端末接続やアプリ起動はせず、未確認事項も示して。",
+      "expect": ["reverse-engineer"],
+      "reject": ["fullstack-app-builder", "security-preflight"],
+      "reason": "APK feature investigation does not authorize device execution or become app implementation."
+    },
+    {
+      "id": "research-reverse-version-comparison",
+      "prompt": "Compare these two supplied application distributions and saved search observations to explain what may have changed. Preserve build mismatches and avoid claiming global equivalence.",
+      "expect": ["reverse-engineer"],
+      "reject": ["reviewer", "product-designer"],
+      "reason": "Version comparison tied to shipped artifacts and behavioral evidence is investigation, not general diff review or product direction."
+    },
+    {
+      "id": "research-reverse-reconstruct-app",
+      "prompt": "Investigate the supplied app package's offline search behavior, then implement a similar feature in my existing app. Keep observed behavior and new design decisions separate.",
+      "expect": ["reverse-engineer", "fullstack-app-builder"],
+      "reject": ["product-designer", "domain-researcher"],
+      "reason": "Artifact investigation precedes requested app implementation as an ordered handoff."
+    },
+    {
+      "id": "research-reverse-source-only-neighbor",
+      "prompt": "Explain the module architecture and callers in this complete source repository using local source files only. No shipped artifact or runtime discrepancy is involved, and no changes are requested.",
+      "expect": [],
+      "reject": ["reverse-engineer", "domain-researcher", "fullstack-app-builder"],
+      "no_skill": true,
+      "reason": "Ordinary source-repository analysis uses normal repository tools without a specialist investigation workflow."
+    },
+    {
+      "id": "research-reverse-literature-neighbor",
+      "prompt": "Research official documentation explaining how .NET CIL works. I have no application artifact to inspect and want only a focused technical brief.",
+      "expect": ["domain-researcher"],
+      "reject": ["reverse-engineer", "fullstack-app-builder"],
+      "reason": "Technical literature alone is owned by domain research."
+    },
+    {
+      "id": "research-reverse-product-neighbor",
+      "prompt": "Use current market evidence to decide the scope and acceptance criteria of a new offline search feature. Do not investigate an existing application's internals or implement it.",
+      "expect": ["product-designer"],
+      "reject": ["reverse-engineer", "fullstack-app-builder"],
+      "reason": "A product decision without artifact investigation belongs to product design."
+    },
+    {
+      "id": "research-reverse-review-neighbor",
+      "prompt": "Review this existing source diff for correctness and maintainability. Return findings only; no runtime or shipped-binary investigation is needed.",
+      "expect": ["reviewer"],
+      "reject": ["reverse-engineer", "fullstack-app-builder"],
+      "reason": "General findings-first code review remains with reviewer."
+    },
+    {
+      "id": "research-reverse-implementation-neighbor",
+      "prompt": "Implement the already specified title-search endpoint in this existing app. The requirements are settled; no competitor or binary investigation is needed.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["reverse-engineer", "product-designer"],
+      "reason": "Settled app implementation alone must not require reverse engineering."
+    },
+    {
       "id": "studio-cloudflare-cli-choice",
       "prompt": "Cloudflare の DNS レコードを調べたい。新しい cf と Wrangler のどちらを使えばいいか判断して、今の CLI でコマンドを探して。まだ変更しないで。",
       "expect": ["cloudflare-cf-cli"],

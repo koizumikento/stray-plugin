@@ -392,4 +392,4 @@ def test_repository_validator_reports_structural_only_runtime_status() -> None:
 
     assert result.returncode == 0, result.stderr
     assert "structural=passed runtime=not-run" in result.stdout
-    assert "multi_skill=13 no_skill=11" in result.stdout
+    assert "multi_skill=13 no_skill=12" in result.stdout

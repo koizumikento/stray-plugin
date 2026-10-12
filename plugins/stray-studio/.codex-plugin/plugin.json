@@ -1,6 +1,6 @@
 {
   "name": "stray-studio",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "Repo-local Codex plugin for shipping apps, reviewing work, and producing polished artifacts.",
   "author": {
     "name": "Local Workspace"
@@ -18,7 +18,7 @@
       "Read-only"
     ],
     "defaultPrompt": [
-      "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior.",
+      "Build or modify a full-stack app in the current repo, including web, mobile, or desktop user flows, navigation, API integration, auth, and database-backed behavior; use winapp CLI for applicable Windows SDK, package identity, MSIX, and app UI validation work.",
       "Plan or implement repository-managed IaC, including Kubernetes manifests, Helm charts, or Kustomize overlays when applicable, with security, runtime, storage, capacity, recovery, lifecycle, and cost controls; validate locally and do not deploy.",
       "Choose cf or Wrangler for this Cloudflare task, then find the current CLI command and check its target and effects.",
       "Build, modify, validate, install, or deploy a Slack app using the Slack CLI, app manifests, Bolt, events, slash commands, workflows, or Slack Web API calls.",

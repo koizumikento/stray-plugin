@@ -30,6 +30,7 @@ Implement requested web, mobile, or desktop app flows, including API-only or dat
 | Deciding ownership or lifetime of UI, URL, draft, cache, or pending-operation state; diagnosing stale responses, optimistic updates, account switching, or restoration | `references/client-state.md` |
 | Changing authentication, token/session handling, access enforcement, or tenant isolation; diagnosing stale permissions or identity changes | `references/identity-access.md` |
 | Scaffolding or adding an Android target, or deciding Android lifecycle, platform integration, tooling, or release behavior | `references/android.md` |
+| Creating or changing a Windows app target that needs Windows SDK setup, API/WinUI discovery, package identity, MSIX/signing, or app UI validation with winapp CLI | `references/windows-winapp-cli.md`; combine with desktop and language guidance only where applicable |
 | Changing business invariants, business permission rules, state transitions, use-case orchestration, or architecture; investigating rules that differ between entry points | `references/application-architecture.md` |
 | Changing schema, queries, persistence, or migrations; diagnosing concurrency, data integrity, or database performance | `references/data-persistence.md` |
 | Adding or changing the app's infrastructure, including initial scaffolding, compute, storage, or monitoring | [Shared IaC baseline](../../references/iac-baseline.md), before the first design or edit; select applicable controls even when the request does not list them |

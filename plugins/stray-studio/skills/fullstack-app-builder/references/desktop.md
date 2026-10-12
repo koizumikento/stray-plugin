@@ -14,3 +14,4 @@ Use this reference when the primary user-facing surface is a desktop application
 - Verify IPC validation, permission boundaries, and host integration paths before trusting renderer-side input.
 - Watch for local file corruption, partial writes, or migration failures on app upgrade.
 - Confirm signing, packaging, updater, or platform-specific runtime assumptions when the change touches release behavior.
+- For Windows SDK setup, API/WinUI discovery, package identity, MSIX/signing, or app UI validation with winapp CLI, read [Windows winapp CLI](windows-winapp-cli.md).

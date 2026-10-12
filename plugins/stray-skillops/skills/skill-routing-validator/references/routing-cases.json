@@ -615,6 +615,35 @@
       "reason": "Persistence serving an app remains fullstack work without mandatory UI edits or a separate database skill. Read the business-rule and data references for the invariant and competing writers."
     },
     {
+      "id": "studio-fullstack-winapp-electron",
+      "prompt": "Add Windows notifications to this existing Electron app, use winapp for development identity, and prepare its MSIX output. Preserve the existing build and IPC boundaries; do not install certificates or publish it.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["platform-native-ui-designer", "reviewer", "iac-builder"],
+      "reason": "This is an implemented desktop app flow. Select the Windows winapp CLI reference and npm-only Electron helpers, preserving the build owner and separately authorized machine or publishing effects."
+    },
+    {
+      "id": "studio-fullstack-winapp-winui",
+      "prompt": "Implement this WinUI app's new tabbed settings flow. Verify the referenced APIs and control samples with winapp find-api and find-ui, then validate the running app with winapp ui.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["platform-native-ui-designer", "test-design-strategist", "reverse-engineer"],
+      "reason": "Windows API discovery and UI validation support the requested app implementation. WinUI samples do not prove compatibility with the project's referenced SDK or successful runtime behavior."
+    },
+    {
+      "id": "studio-winapp-review-only",
+      "prompt": "Review this Windows app's winapp MSIX packaging configuration and identity cleanup for correctness. Report findings only; do not change the app, install certificates, or run it.",
+      "expect": ["reviewer"],
+      "reject": ["fullstack-app-builder", "platform-native-ui-designer"],
+      "reason": "A Windows CLI reference does not transfer findings-only review ownership to the app builder or authorize machine changes."
+    },
+    {
+      "id": "studio-winapp-help-only",
+      "prompt": "Print the installed winapp CLI version and its command help. Do not create or change any app, restore dependencies, or launch anything.",
+      "expect": [],
+      "reject": ["fullstack-app-builder", "reverse-engineer", "iac-builder"],
+      "no_skill": true,
+      "reason": "A bounded local CLI version/help lookup needs ordinary shell tools; it is not an app implementation, reverse-engineering investigation, or infrastructure workflow."
+    },
+    {
       "id": "studio-fullstack-client-async",
       "prompt": "Fix this app's search results being overwritten by an older fetch response after the user changes the filter. Keep the existing async/await request-response API.",
       "expect": ["fullstack-app-builder"],

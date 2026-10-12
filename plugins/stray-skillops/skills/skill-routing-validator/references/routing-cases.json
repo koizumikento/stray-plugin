@@ -524,6 +524,13 @@
       "reason": "A concrete product decision and scope are required."
     },
     {
+      "id": "research-product-design-output-fit",
+      "prompt": "既存の年賀状アドオンの機能設計を、標準機能と現在の根拠を確認して具体化して。範囲・受入条件・未決事項は作業中に検討しても、仕様ファイルに定型項目として書く必要はない。必要な機能と動作だけを既存の仕様に反映し、会話経緯・承認状況・作業途中の注釈や別の台帳は追加しないで。実装はしない。",
+      "expect": ["product-designer"],
+      "reject": ["idea-explorer", "fullstack-app-builder", "ops-playbook-writer"],
+      "reason": "Feature design follows the requested specification content without compulsory sections or work-state records; design considerations still apply. Output compliance needs behavioral evaluation."
+    },
+    {
       "id": "research-distill-page",
       "prompt": "Turn this provided web page into clean, analysis-ready structured notes with concise paraphrase and short necessary excerpts; do not write a standalone summary or reproduce the full article.",
       "expect": ["web-content-distiller"],

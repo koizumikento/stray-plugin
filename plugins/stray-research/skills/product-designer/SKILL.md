@@ -1,6 +1,6 @@
 ---
 name: "product-designer"
-description: "Use when evidence must become a selected product or feature direction with scope, acceptance criteria, and a validation plan. Excludes idea exploration and implementation of settled decisions."
+description: "Use when research must become a product or feature design decision or specification tailored to the requested deliverable. Excludes idea exploration and implementation of settled decisions."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research."
 ---
 
@@ -28,7 +28,7 @@ Use this skill when the user wants to:
 
 1. Frame the product decision before searching.
    - Identify the product, feature, or workflow under design.
-   - State the target user, problem, and the decision that must be made.
+   - Identify the target user, problem, and the decision that must be made.
    - Stop if the request is only asking for research or only asking for visual critique.
    - Use `idea-explorer` when the user still needs the option space widened; continue here only when the deliverable requires choosing or refining one direction, defining scope, acceptance criteria, or validation.
 
@@ -46,17 +46,17 @@ Use this skill when the user wants to:
 
 4. Turn signals into product decisions.
    - Recommend a product direction, scope boundary, and target user/value proposition.
-   - Name the key tradeoffs, rejected alternatives, and why they were rejected.
+   - Assess the key tradeoffs, rejected alternatives, and why they were rejected.
    - Keep the proposal specific enough to inform roadmap, specs, experiments, or acceptance criteria.
 
-5. Convert the direction into an implementation-ready feature shape.
-   - State the user need, target user, and the smallest valuable version of the feature.
-   - Define what is in scope now, what is explicitly out of scope, and what can wait.
-   - Add acceptance criteria, user-facing edge cases, and a lightweight rollout or experiment plan when they matter.
+5. Resolve the feature behavior and design constraints.
+   - Consider the user need, target user, scope, acceptance conditions, user-facing edge cases, and validation needs during design.
+   - Resolve material uncertainties through evidence or focused questions during the work; these considerations do not prescribe sections or entries in a file.
 
 6. Produce a usable design artifact.
-   - Match the artifact to the user's need: concept brief, feature brief, PRD outline, opportunity framing, or validation plan.
-   - Include assumptions, open questions, success metrics, and what must be validated next.
+   - Match the output to the requested deliverable, whether a chat answer, an existing-file update, or a requested document. This skill does not itself require file creation, appended records, or a fixed heading template.
+   - Treat scope, acceptance conditions, and open questions as design considerations, not required file entries. Document functional rules needed by the requested specification; add explicit sections for those considerations only when the user asks for them.
+   - Keep conversation history, approval status, interim work state, and Git status out of specifications unless the user explicitly requests that information.
    - Keep the output decision-oriented instead of turning it into a long research dump.
 
 7. Stay within the design boundary.
@@ -65,14 +65,11 @@ Use this skill when the user wants to:
 
 ## Output Expectations
 
-- A direct product recommendation or design direction
-- The target user, problem, and proposed value
-- The minimum useful scope, explicit out-of-scope line, and acceptance criteria when relevant
-- Research-backed rationale with source links
-- Explicit separation between verified facts and inference
-- Key tradeoffs, risks, success metrics, and next validation steps
+- The requested product decision or feature design, in the requested format
+- User-facing behavior and material design decisions needed for that deliverable
+- Research-backed rationale with source links and separation between facts and inference where they affect the requested result
 
-When useful, structure the result as:
+Use these formats only when they fit the request; they are not required files or heading templates:
 
 - product brief
 - feature concept

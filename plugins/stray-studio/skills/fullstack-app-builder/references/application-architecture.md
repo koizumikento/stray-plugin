@@ -24,12 +24,12 @@ Use this reference when changing business invariants, business permission rules,
 
 ## Placement And Change Boundaries
 
-1. Inspect existing modules, entry points, public exports, dependency rules, and build/test units before adding or moving code. Keep folder layout, responsibility boundaries, and build or distribution units distinct; a feature does not automatically need its own package.
-2. Assign each changed rule, feature, and external integration to an owning module. Group feature behavior with its focused tests; keep cross-feature invariants under their business owner. Use public entry points across modules and preserve dependency directions and runtime boundaries.
+1. Inspect existing modules, actual callers and data flows, public exports, dependency rules, and build/test units before adding or moving code. Choose placement from responsibility and runtime use, not names alone. Keep folder layout, responsibility boundaries, and build or distribution units distinct; a feature does not automatically need its own package.
+2. Assign each changed rule, feature, and external integration to an owning module. Group feature behavior with its focused tests; keep cross-feature invariants under their business owner. When a feature accumulates complex rules or rules recur across features, reassess ownership and consolidate the same invariant without merging merely similar behavior. Use public entry points across modules, but also inspect the actual dependency graph for new cycles or forbidden dependencies; an entry point alone does not make a dependency appropriate. Preserve runtime boundaries.
 3. Add a module, package, shared component, or execution boundary only when an existing location cannot reasonably own the responsibility. State its public surface, allowed dependencies, and reason for the boundary in existing guidance or the change description; do not require a new design document for routine additions. Share code when consumers agree on its meaning and reasons for change, not merely because implementations look alike.
 4. When splitting work, define each outcome, boundary contract, acceptance evidence, and dependency order. Do not equate code layers with task ownership. Settle shared-rule and contract changes before dependent feature work; separate agents are not required.
 5. For replacement or removal, trace callers, registrations, configuration, tests, contracts, and persisted data. Localize replaceable implementation details without treating compatibility or migration history as disposable.
-6. Run existing dependency, export, runtime-boundary, and affected-consumer checks when relevant. Do not introduce a monorepo tool, package split, interface, or folder solely to express these concepts.
+6. Run existing dependency, export, runtime-boundary, and affected-consumer checks when relevant, and verify cross-feature behavior; structural checks cannot establish semantic ownership or invariant correctness. Do not force every feature into a uniform internal pattern or introduce a monorepo tool, package split, interface, or folder solely to express these concepts.
 
 ## Pattern Selection
 

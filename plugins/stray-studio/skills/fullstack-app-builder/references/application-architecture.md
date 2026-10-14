@@ -1,6 +1,6 @@
 # Application Architecture Reference
 
-Use this reference when changing business invariants, business permission rules, state transitions, orchestration, or app structure, or when rules disagree across entry points. Use [identity-access.md](identity-access.md) when enforcing access, establishing identity, or managing sessions needs a decision. A routine edit inside a settled shape with unchanged rules does not need this reference.
+Use this reference when changing business invariants, business permission rules, state transitions, orchestration, or app structure; adding or reorganizing modules, packages, shared code, or execution boundaries; or when rules disagree across entry points. Use [identity-access.md](identity-access.md) when enforcing access, establishing identity, or managing sessions needs a decision. A routine edit inside a settled shape with unchanged rules does not need this reference.
 
 ## Business Rules And Use Cases
 
@@ -12,7 +12,7 @@ Use this reference when changing business invariants, business permission rules,
 
 ## Good Defaults
 
-- Start with a layered modular monolith unless the repository already has proven service boundaries.
+- Preserve the existing layout and framework conventions. For greenfield work, prefer a modular monolith when one deployable unit meets the requirements; group features under their business owner and add internal layers only where rules, orchestration, or external implementations need separation.
 - Keep dependencies pointing inward: UI and infrastructure depend on application and domain code, not the reverse.
 - Separate orchestration from business rules. Use the application layer for workflow coordination and the domain layer for invariants and rules that must survive framework changes.
 
@@ -22,9 +22,18 @@ Use this reference when changing business invariants, business permission rules,
 - Keep one source of truth per business concept. Derived read models, caches, and projections should be rebuildable.
 - Make trust boundaries explicit: browser or device, server edge, app core, background worker, and external systems.
 
+## Placement And Change Boundaries
+
+1. Inspect existing modules, entry points, public exports, dependency rules, and build/test units before adding or moving code. Keep folder layout, responsibility boundaries, and build or distribution units distinct; a feature does not automatically need its own package.
+2. Assign each changed rule, feature, and external integration to an owning module. Group feature behavior with its focused tests; keep cross-feature invariants under their business owner. Use public entry points across modules and preserve dependency directions and runtime boundaries.
+3. Add a module, package, shared component, or execution boundary only when an existing location cannot reasonably own the responsibility. State its public surface, allowed dependencies, and reason for the boundary in existing guidance or the change description; do not require a new design document for routine additions. Share code when consumers agree on its meaning and reasons for change, not merely because implementations look alike.
+4. When splitting work, define each outcome, boundary contract, acceptance evidence, and dependency order. Do not equate code layers with task ownership. Settle shared-rule and contract changes before dependent feature work; separate agents are not required.
+5. For replacement or removal, trace callers, registrations, configuration, tests, contracts, and persisted data. Localize replaceable implementation details without treating compatibility or migration history as disposable.
+6. Run existing dependency, export, runtime-boundary, and affected-consumer checks when relevant. Do not introduce a monorepo tool, package split, interface, or folder solely to express these concepts.
+
 ## Pattern Selection
 
-- Layered modular monolith: default for most greenfield or evolving products.
+- Modular monolith: use the Good Defaults above when one deployable unit meets the requirements; preserve established structure in evolving products.
 - Clean Architecture or ports-and-adapters: use when business logic is substantial, shared across entry points, or needs strong test seams away from infrastructure.
 - Backend for Frontend: use when web, mobile, desktop, or partner clients need different aggregation, caching, auth handling, payload shape, or release cadence. Do not add a BFF just because there is a frontend.
 - CQRS: use when read and write concerns genuinely diverge in workflow, consistency, scaling, or data shape. Skip it for straightforward CRUD.
@@ -43,7 +52,7 @@ Use this table top to bottom and stop at the first option that fits without obvi
 
 | Option | Use when | Avoid when | Main cost |
 | --- | --- | --- | --- |
-| Layered modular monolith | The product is still evolving, one deployable unit is acceptable, and you mainly need clear module boundaries. | You already have multiple clients or teams that truly need separate contracts or release cadence. | Discipline is required to keep modules from collapsing into a big ball of mud. |
+| Modular monolith | The product is still evolving, one deployable unit is acceptable, and you mainly need clear module boundaries. | Independent deployment is a demonstrated requirement. | Discipline is required to keep modules from collapsing into a big ball of mud. |
 | Clean Architecture | Core business rules are non-trivial, reused across flows, or need strong isolation from frameworks and data access. | The app is mostly thin CRUD around framework primitives and extra indirection would dominate the work. | More abstraction, more files, and more upfront design pressure. |
 | BFF | Different clients need different payloads, auth handling, caching, or orchestration. | One UI can call the existing backend shape directly without awkward adapters. | Extra API surface and another boundary to maintain. |
 | CQRS | Reads and writes have materially different shapes, performance goals, or task-based workflows. | The domain is simple and a single model remains understandable. | More moving parts, eventual consistency concerns, and projection maintenance. |
@@ -53,7 +62,7 @@ Use this table top to bottom and stop at the first option that fits without obvi
 
 Escalate only when the current level is demonstrably hurting correctness, maintainability, or delivery speed.
 
-1. Start with a layered modular monolith.
+1. Preserve established structure; for greenfield work, apply the modular-monolith defaults above when one deployable unit meets the requirements.
 2. Add stronger internal boundaries only if domain rules or reuse pressure justify them.
 3. Add BFF only if client-specific backend behavior is real.
 4. Add CQRS only if read and write concerns truly diverge.

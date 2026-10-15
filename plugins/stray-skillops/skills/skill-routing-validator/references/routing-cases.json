@@ -531,6 +531,69 @@
       "reason": "Feature design follows the requested specification content without compulsory sections or work-state records; design considerations still apply. Output compliance needs behavioral evaluation."
     },
     {
+      "id": "research-ai-feature-control-selection",
+      "prompt": "問い合わせ対応のAI機能を設計したい。現在の公式資料を確認して、ワークフロー・単一エージェント・組み合わせのどれが適切か選び、ユーザーとの分担、失敗時の動作、受入条件を具体化して。実装はしない。",
+      "expect": ["product-designer"],
+      "reject": ["domain-researcher", "multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci"],
+      "reason": "A concrete feature behavior and control-selection decision belongs to product design; autonomy does not imply multiple agents, implementation, or a CI gate."
+    },
+    {
+      "id": "research-ai-fixed-path-feature",
+      "prompt": "請求書AIの機能設計をして。項目抽出、必須項目・合計・重複検証、登録か確認待ちへの分岐は決まっている。LLM呼び出しやリトライがあるからエージェントが必要なのか、現在の根拠から判断し、修正・取消と成功条件も決めたい。コードは変更しない。",
+      "expect": ["product-designer"],
+      "reject": ["multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci"],
+      "reason": "Variable input, model calls, and predefined retries do not by themselves require agent control. Resolve the feature decision without forcing implementation or multiple agents."
+    },
+    {
+      "id": "research-ai-design-literature-neighbor",
+      "prompt": "2026年の公式資料と研究から、AI機能のワークフローとエージェントの設計理論を調べて。個別製品の仕様決定や実装は求めていない。",
+      "expect": ["domain-researcher"],
+      "reject": ["product-designer", "multi-agent-patterns", "fullstack-app-builder"],
+      "reason": "A focused source-backed technical brief remains domain research even though it discusses AI feature control."
+    },
+    {
+      "id": "studio-ai-settled-hybrid-implementation",
+      "prompt": "既存アプリに仕様確定済みの返金AIフローを実装して。調査だけを単一エージェントに任せ、本人・注文確認、返金条件、実行権限、重複防止はサーバーで保証する。タイムアウト、取消、情報不足と実際の返金結果も既存テストで確認して。新しいCI評価基盤や外部サービスは追加しない。",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["product-designer", "multi-agent-patterns", "ai-eval-ci"],
+      "reason": "Settled AI app behavior is an implementation task, including its authority and outcome checks; it does not require a product redesign, multiple agents, or a CI framework."
+    },
+    {
+      "id": "skillops-single-multi-agent-comparison",
+      "prompt": "業務と成果物は確定している。調査を単一エージェントで行う案と、独立した調査担当を並列化して統合する案を比較して、依存関係、検証可能な引き継ぎ、権限、予算、障害時の共有状態を設計して。エージェントの起動や設定ファイルの作成は不要。",
+      "expect": ["multi-agent-patterns"],
+      "reject": ["product-designer", "fullstack-app-builder", "subagent-creator", "ai-eval-ci"],
+      "reason": "Comparing coordination against a single-agent baseline is topology design and may conclude that one agent suffices; the request does not authorize execution or agent-file authoring."
+    },
+    {
+      "id": "skillops-ai-outcome-reliability-ci",
+      "prompt": "既存の評価ハーネスとCIに、AIツール実行の実際の保存結果、権限拒否、情報不足、実行上限を確かめる品質ゲートを追加して。反復試行の安定性と最初の試行を区別し、モデル・検索・ツールの版とCPU・時間予算を記録する。既存の承認済みプロバイダだけを使う。",
+      "expect": ["ai-eval-ci"],
+      "reject": ["test-design-strategist", "fullstack-app-builder", "multi-agent-patterns", "skill-routing-validator"],
+      "reason": "The requested deliverable is a repeatable AI CI quality gate with outcome and reliability evidence, not app behavior, test strategy alone, or skill routing."
+    },
+    {
+      "id": "studio-ai-evaluation-strategy-neighbor",
+      "prompt": "仕様確定済みのAI調査機能について、ワークフロー案と単一エージェント案の品質・反復安定性・費用・待ち時間を比較するQA計画とケースを設計して。製品仕様、テストコード、CIの変更や評価実行はしない。",
+      "expect": ["test-design-strategist"],
+      "reject": ["product-designer", "ai-eval-ci", "fullstack-app-builder", "multi-agent-patterns"],
+      "reason": "A QA plan for settled behavior is test-strategy design; mentioning AI candidates does not make it product selection, coordination design, or CI implementation."
+    },
+    {
+      "id": "mixed-ai-feature-design-implement",
+      "prompt": "既存の問い合わせアプリにAI支援を追加したい。現在の根拠を調べてワークフローかエージェントかを選び、人との分担、権限と停止条件を定義してから、その仕様でアプリを実装・検証して。複数エージェントや新しいCI基盤は不要。",
+      "expect": ["product-designer", "fullstack-app-builder"],
+      "reject": ["multi-agent-patterns", "ai-eval-ci"],
+      "reason": "Unsettled AI feature behavior is designed before the explicitly requested app implementation; routine validation does not require a separate CI skill."
+    },
+    {
+      "id": "research-ai-unverifiable-outcome",
+      "prompt": "AIがユーザーの代わりに提案を採用する機能を設計したいが、良い提案の判定方法がまだない。現在の根拠から自動化と補助の範囲、結果を確認・修正できる体験、検証方法を決めて。エージェントを増やす前提にはしない。実装はしない。",
+      "expect": ["product-designer"],
+      "reject": ["multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci"],
+      "reason": "Weak outcome verification is a product design constraint, not evidence that more agents or an automated semantic judge can safely authorize the action."
+    },
+    {
       "id": "research-distill-page",
       "prompt": "Turn this provided web page into clean, analysis-ready structured notes with concise paraphrase and short necessary excerpts; do not write a standalone summary or reproduce the full article.",
       "expect": ["web-content-distiller"],

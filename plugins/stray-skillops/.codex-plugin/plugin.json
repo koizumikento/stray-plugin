@@ -1,12 +1,12 @@
 {
   "name": "stray-skillops",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Repo-local Codex plugin for skill authoring, routing validation, evals, and subagent operations.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Skill Ops",
     "shortDescription": "Author, validate, evaluate, and coordinate a healthy skill and subagent system.",
-    "longDescription": "A repo-local Codex plugin for skill and subagent operations. It helps agents create and refine SKILL.md files for this plugin family or project-scoped `.agents/skills/`, find reusable skill patterns, validate trigger and near-miss routing cases, create project or explicitly requested personal subagents, design multi-agent workflows, add AI evals to CI, and compress long-running task context with provenance and continuity.",
+    "longDescription": "A repo-local Codex plugin for skill and subagent operations. It helps agents create and refine SKILL.md files for this plugin family or project-scoped `.agents/skills/`, find reusable skill patterns, validate trigger and near-miss routing cases, create project or explicitly requested personal subagents, compare single/multi-agent coordination with verifiable handoffs and scoped authority, add AI evals to CI with outcome checks and repeated-trial reliability, and compress long-running task context with provenance and continuity.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
@@ -18,8 +18,8 @@
       "Design, validate, and repair positive and near-miss routing cases for a local Codex skill set.",
       "Compare candidate skill patterns and decide whether to adopt, adapt, or create new.",
       "Compress a long-running task without losing file paths, decisions, or next steps.",
-      "Design a multi-agent workflow with clear handoffs and quality gates.",
-      "Add AI or agent evals to CI so regressions fail the build.",
+      "Compare single/multi-agent coordination and define verifiable handoffs, scoped authority, shared state, budgets, and quality gates.",
+      "Add AI or agent evals to CI with outcome checks, repeated-trial reliability, calibrated scoring, and recorded runtime conditions.",
       "Create or update a custom Codex subagent under .codex/agents/ for a specific workflow."
     ],
     "brandColor": "#2563EB"

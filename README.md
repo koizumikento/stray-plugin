@@ -51,8 +51,8 @@ Each plugin is a normal Codex plugin with a `.codex-plugin/plugin.json` manifest
 | `skills-search` | Finding existing skills before creating a new one and deciding whether to adopt, adapt, or write a skill. |
 | `skill-routing-validator` | Designing and validating positive and near-miss routing cases across a local skill set. |
 | `subagent-creator` | Creating or updating custom Codex subagents under `.codex/agents/`. |
-| `multi-agent-patterns` | Designing multi-agent workflows, handoffs, shared state, and quality gates. |
-| `ai-eval-ci` | Adding AI or agent evaluations to CI to catch prompt and behavior regressions. |
+| `multi-agent-patterns` | Comparing single/multi-agent coordination against a simple baseline and defining verifiable handoffs, shared state, authority, and quality gates. |
+| `ai-eval-ci` | Adding repeatable AI quality gates with outcome checks, repeated-trial reliability, calibrated scoring, and matched runtime conditions. |
 | `context-compression` | Compressing long-running task context while preserving file paths, decisions, errors, and next steps. |
 
 Notable support files:
@@ -74,7 +74,7 @@ Notable support files:
 | `deep-researcher` | Long-form, multi-track research with evidence synthesis, source-conflict handling, and explicit uncertainty. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Expanding ideas into distinct concept families with current signals and labeled hypotheses; comparing or ranking only when requested. |
-| `product-designer` | Turning research into product decisions, feature briefs, scope boundaries, or validation plans. |
+| `product-designer` | Turning research into product decisions and feature designs, including AI responsibilities, workflow/agent selection, scope boundaries, and validation plans. |
 | `mcp-server-designer` | Designing or reviewing MCP servers, tool shapes, resources, auth, pagination, errors, shared application and safe-write contracts, and read-only or mutation evaluation contracts without executing them. |
 | `japan-news-brief` | Producing a fixed-format Japanese news roundup from current sources. |
 | `japan-weather-data-researcher` | Retrieving timestamped JMA station, AMeDAS, recent-history, time-series, and forecast data. |
@@ -88,6 +88,7 @@ Notable support files:
 Notable support files:
 
 - Specialist skills declare required tools, setup expectations, and unavailable-tool behavior in `SKILL.md`.
+- `plugins/stray-research/skills/product-designer/references/ai-feature-design.md` covers human/AI responsibilities, workflow/agent selection criteria and examples, information sufficiency, recovery, and source-backed evidence limits.
 - `plugins/stray-research/skills/reverse-engineer/references/` contains target-specific inspection routes and synthetic validation cases; structural checks and manual case review do not establish runtime or provider support.
 - `plugins/stray-research/skills/mcp-server-designer/references/application-contracts.md` generalizes application-backed MCP actor boundaries, caller contracts, replay/version behavior, read completeness, isolated mutation evaluation, and publication/discovery evidence; the existing read-only evaluation contract remains separate.
 - Validation cases exist at:
@@ -102,7 +103,7 @@ Notable support files:
 
 | Skill | Use for |
 |---|---|
-| `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, database, migrations, observability, and validation. |
+| `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, data, supporting IaC, and bounded AI workflow/agent behavior with outcome verification. |
 | `iac-builder` | Planning, implementing, or repairing repository-managed IaC, including Kubernetes manifests, Helm charts, and Kustomize overlays, with applicable identity, DB, network, storage, runtime, operations, recovery, lifecycle, and cost controls; live operations require matching authorization. |
 | `cloudflare-cf-cli` | Choosing between Cloudflare's `cf` and Wrangler CLIs, then discovering and running the requested `cf` command with the right target and effect checks. |
 | `platform-native-ui-designer` | Turning defined iOS, iPadOS, macOS, watchOS, tvOS, or visionOS features and flows into implementation-ready UI specifications using the user's own notes attributed to current official Apple documentation. |
@@ -134,6 +135,7 @@ Notable support files:
 - `plugins/stray-studio/skills/security-preflight/references/`
 - `plugins/stray-studio/skills/slack-app-builder/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
+- `plugins/stray-studio/skills/fullstack-app-builder/references/ai-feature-implementation.md` covers control boundaries, context and durable state, tool authority, execution budgets, recovery, evaluation, and model-upgrade simplification.
 - `plugins/stray-studio/skills/fullstack-app-builder/references/windows-winapp-cli.md` is loaded selectively for Windows SDK setup, API/WinUI discovery, package identity, MSIX/signing, and app UI validation; it distinguishes standalone and npm CLI surfaces, development and distribution identity, host and Sandbox execution, and structural checks from actual Windows runtime evidence.
 - The app API, data, and identity references cover shared tool/API commands, patch receipts, versioned evidence, and trusted ingress. The change-readiness public-contract module keeps deployment, registration, client definitions, and actual-call evidence separate without requiring production writes for a PR gate.
 - `plugins/stray-studio/references/iac-baseline.md` gives IaC/app builders and reviewers an applicability map plus DB/credential/network controls; `iac-lifecycle.md` and `iac-operations.md` add change/state/dependency and runtime/storage/operations/cost details. They distinguish applicability, code, manual bootstrap, defaults, and runtime evidence; security reviews retain their narrower scope.

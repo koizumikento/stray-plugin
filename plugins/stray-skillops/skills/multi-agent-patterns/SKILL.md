@@ -14,14 +14,17 @@ Use this skill when the user asks how to split a task across agents, how to coor
 - single-agent implementation or debugging
 - creating or editing project subagents under `.codex/agents/`
 - broad brainstorming that does not need an execution model
-- cases where one focused agent can complete the work cleanly
+- ordinary work already settled as a single-agent task, without a coordination comparison
+- deciding an AI feature's user behavior or workflow/agent boundaries before coordination is needed; use `product-designer`
 
 ## Workflow
 
 1. Classify the task before proposing agents:
    - identify the goal, constraints, and why multiple agents would help
    - decide whether the problem is actually parallel, hierarchical, or sequential
-   - stop if a single agent with better prompting is sufficient
+   - separate autonomy from multiplicity: a workflow may use model calls and fixed parallel branches; an agent selects actions from observations; either can call the other without requiring multiple agents
+   - compare against the smallest workflow or single-agent baseline; if it suffices, return that recommendation and its rationale instead of forcing a topology
+   - evaluate task dependencies, tool/communication overhead, integration cost, correlated errors, and verification; do not infer benefit from agent count or role names
 2. Choose the smallest viable topology:
    - use `pipeline` for ordered stages with clear dependencies
    - use `supervisor` when one coordinator must assign and verify work
@@ -32,6 +35,8 @@ Use this skill when the user asks how to split a task across agents, how to coor
    - state what each agent must not do
    - keep context shared only when the task truly needs it
    - assign disjoint write ownership or a single merge owner whenever agents can modify files
+   - define each delegated outcome and its verifier before assigning work; split objectives further when they cannot be checked at that granularity
+   - scope tools, data, authority, and re-delegation; keep downstream authorization and business invariants outside agent judgment
 4. Specify coordination rules:
    - define handoff conditions and message format
    - decide what shared state lives in memory, files, or the coordinator
@@ -46,6 +51,8 @@ Use this skill when the user asks how to split a task across agents, how to coor
    - avoid majority voting when expertise is uneven
    - prefer direct handoff over repeated paraphrasing when fidelity matters
    - define what happens to partial work when a peer fails, times out, or is cancelled
+   - keep recoverable progress separate from selected model context when work must survive interruption; preserve uncertain side effects for reconciliation instead of blindly replaying them
+   - compare candidates under matched tasks, model/tool versions, and resource budgets; include repeated-run success, total cost per successful task, latency, and containment of errors
 6. Return a decision the user can act on:
    - recommended topology
    - agent roles and handoffs
@@ -69,3 +76,9 @@ Use this skill when the user asks how to split a task across agents, how to coor
 - Do not replace this with subagent file authoring.
 - Do not allow multiple write-capable agents to own the same files without an explicit serialization or merge rule.
 - Do not recommend parallelism without stating its expected latency, cost, and integration tradeoff.
+- Do not launch agents or create agent files merely because this skill designs their coordination; use existing user authorization for execution and `subagent-creator` for requested reusable files.
+
+## Evidence Basis
+
+- [Towards a Science of Scaling Agent Systems](https://arxiv.org/abs/2512.08296), first published 2025-12-09 and revised 2026-04-08, reports task-dependent gains and regressions from coordination; benchmark results are not a universal topology rule.
+- [Intelligent AI Delegation](https://arxiv.org/abs/2602.11865), published 2026-02-12, proposes verifiable task contracts and scoped delegation; treat it as a research framework rather than an established protocol requirement.

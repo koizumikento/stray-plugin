@@ -1,6 +1,6 @@
 ---
 name: "fullstack-app-builder"
-description: "Use when implementing or debugging a shipped app flow, including app data-only changes and its supporting IaC under one owner. Route standalone Slack, corporate-site, and landing-page work to their specialists."
+description: "Use when implementing or debugging a shipped app flow, including AI features, app data-only changes, and supporting IaC under one owner. Route standalone Slack, corporate-site, and landing-page work to their specialists."
 ---
 
 # Fullstack App Builder
@@ -15,6 +15,7 @@ Implement requested web, mobile, or desktop app flows, including API-only or dat
 
 - Route primarily Slack-specific work to `slack-app-builder`, static corporate sites to `corporate-site-builder`, conversion pages to `landing-page-builder`, and standalone IaC to `iac-builder`. Keep supporting IaC and embedded specialist surfaces here when the user requested a broader app flow.
 - Route test-design-only work to `test-design-strategist`, findings-first reviews to `reviewer` or `security-preflight`, and visual-only work to `artifact-theme-applier`, `marketing-screenshot-creator`, or `brand-designer`.
+- Keep AI feature implementation and routine control choices within settled behavior here. Route unsettled product behavior or a requested feature-level workflow/agent decision to `product-designer`, requested multi-agent topology design to `multi-agent-patterns`, and a requested repeatable AI evaluation gate to `ai-eval-ci`.
 - A request to investigate, check, or plan authorizes that deliverable; implement only when code changes are also requested. Review-only work does not authorize edits.
 - Read applicable repository guidance and the affected implementation. Preserve the existing stack and patterns; scaffold only when implementation is requested and no app exists. For new Android targets, check the current ecosystem before choosing tooling instead of pinning remembered versions.
 
@@ -32,6 +33,7 @@ Implement requested web, mobile, or desktop app flows, including API-only or dat
 | Scaffolding or adding an Android target, or deciding Android lifecycle, platform integration, tooling, or release behavior | `references/android.md` |
 | Creating or changing a Windows app target that needs Windows SDK setup, API/WinUI discovery, package identity, MSIX/signing, or app UI validation with winapp CLI | `references/windows-winapp-cli.md`; combine with desktop and language guidance only where applicable |
 | Changing business invariants, business permission rules, state transitions, use-case orchestration, or architecture; adding or reorganizing modules, packages, shared code, or execution boundaries; investigating rules that differ between entry points | `references/application-architecture.md` |
+| Implementing or diagnosing AI feature behavior, model/retrieval/tool integration, workflow/agent control, context, or AI-specific verification | `references/ai-feature-implementation.md`; combine with identity, data, API, or async guidance only where those decisions also change |
 | Changing schema, queries, persistence, or migrations; diagnosing concurrency, data integrity, or database performance | `references/data-persistence.md` |
 | Adding or changing the app's infrastructure, including initial scaffolding, compute, storage, or monitoring | [Shared IaC baseline](../../references/iac-baseline.md), before the first design or edit; select applicable controls even when the request does not list them |
 | The app's IaC change affects state, provisioning identity, deployment execution, or infrastructure dependencies | [IaC lifecycle](../../references/iac-lifecycle.md) |
@@ -48,6 +50,7 @@ Implement requested web, mobile, or desktop app flows, including API-only or dat
 
 1. Trace the requested flow and affected callers, state, persistence, permissions, and platform boundaries. Identify the owning modules, public entry points, and dependency rules. Select references for the decisions involved; a small edit may need none. Look for related partial implementations, placeholders, and repository conventions before adding code.
 2. Design the smallest coherent change. Identify the authoritative state, business invariant, atomic update, acceptance versus completion, and relevant loading, error, empty, offline, retry, and rollback behavior. When splitting work, define outcomes, boundary contracts, and dependency order rather than assigning tasks by code layer. Reuse existing specs or tests rather than requiring a design document for each area. State assumptions that preserve data and user escape hatches.
+   - For AI flows, apply `references/ai-feature-implementation.md`: preserve settled control boundaries, scope adaptive actions, verify actual outcomes, and keep authorization and business invariants outside model judgment. Do not add agents, workers, memory services, or frameworks without a demonstrated need.
    - Before adding or materially expanding recurring execution, polling, or event-driven background infrastructure, apply the necessity, workload, cost, and operations checks in `references/async-workflows.md`, even when no infrastructure files change.
    - If new ongoing execution or a material increase in frequency, workload, cost, or operational responsibility is outside existing authorization, present the concrete proposal and obtain user agreement before implementing that part. Reuse authorization covering the same trigger, targets, frequency, and effects; do not ask again for explicitly requested recurrence or repairs within an approved workload. Continue independent authorized work while the decision is pending.
 3. Implement all affected layers. Include applicable schema, session/auth, authorization, platform bridges, migrations, asynchronous work, UI, and documentation. Primary actions must persist, navigate, invalidate state, and surface errors as intended. Remove misleading stubs unless explicitly requested; enforce validation and authorization on the server, not only the client.

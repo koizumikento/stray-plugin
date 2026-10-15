@@ -19,11 +19,13 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 1. Identify the behavior to protect.
    - Name the user-facing task, output shape, and failure modes.
    - Decide whether the gate protects prompt quality, tool use, retrieval accuracy, or end-to-end agent behavior.
+   - Separate semantic output quality from deterministic contracts, permissions, and actual final-state or artifact checks; completion text alone does not prove an action succeeded.
 
 2. Define the minimum eval set.
    - Prefer a small set of representative cases over broad but shallow coverage.
    - Include at least one happy path, one edge case, and one regression case when available.
    - Keep fixtures and expected outputs versioned with the repo.
+   - For changed autonomous behavior, include relevant missing-evidence, injected-instruction, unauthorized-action, tool-failure, and budget/stop cases; isolate write-capable trials so one trial cannot contaminate another.
 
 3. Choose the scoring method.
    - Use deterministic assertions when the output can be checked structurally.
@@ -31,6 +33,8 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
    - Add clear thresholds so the CI result is unambiguous.
    - Pin or record the evaluated model, judge model, prompts, rubric version, sampling settings, and dataset revision.
    - Calibrate semantic thresholds with repeated baseline runs; do not disguise normal variance as a regression.
+   - Distinguish at-least-one-success across attempts (`pass@k`) from all-trials-success (`pass^k`); choose the measure and trial count for the product's reliability needs, record first-attempt results, and never silently substitute best-of-k for routine single-attempt quality.
+   - Calibrate model judges against human-scored examples where semantic judgments matter; retain independent regression cases and prevent evaluated agents from editing fixtures or graders.
 
 4. Detect existing tools before adding new ones.
    - Inspect the repo for current test runners, eval harnesses, CI providers, package scripts, and model configuration.
@@ -41,6 +45,7 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
    - Remove or synthesize secrets, credentials, PII, customer content, and confidential prompts before sending fixtures to an external model.
    - Set an expected request count, runtime, retry policy, and cost ceiling appropriate for routine CI.
    - Separate infrastructure or rate-limit failures from quality failures so flaky availability does not silently change the score.
+   - Record harness, retrieval corpus/index, and tool revisions plus CPU/memory/time budgets where relevant; compare workflow, single-agent, or multi-agent candidates under matched task sets and declared resource budgets. Include correction effort when measurable, cost per successful task, and tail latency alongside quality.
 
 6. Wire the eval into CI.
    - Run the eval in the same pipeline that validates the code or prompt change.
@@ -96,3 +101,8 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 - Stop and ask before adding a new paid model dependency, secret, or external eval service.
 - Stop if the repo has no CI surface and the user only asked for eval design, not CI setup.
 - Stop when the proposed gate cannot distinguish model variance from a meaningful regression with the available cases.
+
+## Evidence Basis
+
+- [Anthropic: Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (2026-01-09) covers outcome verification, calibrated grading, and repeated-trial success measures.
+- [Anthropic: Quantifying infrastructure noise](https://www.anthropic.com/engineering/infrastructure-noise) (2026-02-05) shows why runtime resource conditions must be recorded before attributing score changes to a model.

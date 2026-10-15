@@ -1,6 +1,6 @@
 ---
 name: "product-designer"
-description: "Use when research must become a product or feature design decision or specification tailored to the requested deliverable. Excludes idea exploration and implementation of settled decisions."
+description: "Use when turning research into product or feature design decisions, including AI behavior and workflow/agent selection. Excludes idea exploration, settled implementation, and multi-agent topology-only design."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research."
 ---
 
@@ -15,6 +15,7 @@ Use this skill when the user wants to:
 - define user, problem, positioning, or scope before implementation
 - turn research into a feature brief, concept, PRD outline, or validation plan
 - pressure-test an existing feature idea against user need, scope, and success metrics
+- decide how an AI feature should behave and choose workflow, agent, or combined control
 
 ## Do Not Use For
 
@@ -23,6 +24,7 @@ Use this skill when the user wants to:
 - implementation planning that already has a settled product direction
 - generic ideation sessions that do not require evidence from the web
 - widening or tentatively ranking multiple directions before committing to one; use `idea-explorer`
+- comparing multi-agent roles, topology, and handoffs after feature behavior is settled; use `multi-agent-patterns`
 
 ## Workflow
 
@@ -51,6 +53,7 @@ Use this skill when the user wants to:
 
 5. Resolve the feature behavior and design constraints.
    - Consider the user need, target user, scope, acceptance conditions, user-facing edge cases, and validation needs during design.
+   - For an AI feature, read [AI feature design](references/ai-feature-design.md) before choosing behavior or control structure. Define the user benefit, human/AI division of work, workflow/agent boundaries, information needs, failure recovery, and observable success; keep ordinary features on the existing workflow.
    - Resolve material uncertainties through evidence or focused questions during the work; these considerations do not prescribe sections or entries in a file.
 
 6. Produce a usable design artifact.
@@ -62,6 +65,7 @@ Use this skill when the user wants to:
 7. Stay within the design boundary.
    - If the user only needs a source-backed investigation, use `domain-researcher` instead.
    - If the user needs screenshots, theming, or visual assets, route to the more specific local skill.
+   - Hand settled app behavior to `fullstack-app-builder` only when implementation is requested. Use `multi-agent-patterns` for a requested coordination design and `ai-eval-ci` for a requested repeatable evaluation gate; an AI feature does not require either by default.
 
 ## Output Expectations
 

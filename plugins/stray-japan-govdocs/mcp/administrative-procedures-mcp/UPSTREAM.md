@@ -11,6 +11,23 @@ This directory is a source snapshot of
 Local normalization: two whitespace-only test lines were stripped so repository
 diff checks pass; executable content is unchanged.
 
+Local security maintenance (2026-10-24): refreshed only the transitive `certifi`
+lock entry from `2026.7.22` to `2026.10.19`, including distribution hashes, for
+[GHSA-6q48-6c7w-9gw2](https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2).
+This is a local dependency update, not a new upstream snapshot; the upstream
+commit, package version, Python `>=3.10` requirement, source, license, and notice
+remain as recorded above. The containing plugin is version `0.1.7`.
+
+The plugin starts this MCP with `uv run --locked --extra excel`; update the
+installed plugin and resynchronize its environment to receive the refreshed
+bundle. Existing installations and other Python environments are not updated by
+this repository change. The government-download and OpenAI image-generation
+helpers use `urllib` with Python's default SSL trust, so their OS/installer CA
+stores remain a separate maintenance responsibility. Review Python installers,
+pip/uv (including their bundled certificates), and system trust separately using
+the [Python security release guidance](https://blog.python.org/2026/10/python-3151-3149-31317/).
+This change does not modify system trust or address every Python vulnerability.
+
 The snapshot includes the server, CLI, UI resources, dataset definition, lockfile,
 tests, and upstream documentation. Published survey data is intentionally not
 vendored. `apcli fetch procedures-survey-r6` retrieves it from the Digital Agency

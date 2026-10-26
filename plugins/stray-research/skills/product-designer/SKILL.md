@@ -58,6 +58,8 @@ Use this skill when the user wants to:
 
 6. Produce a usable design artifact.
    - Match the output to the requested deliverable, whether a chat answer, an existing-file update, or a requested document. This skill does not itself require file creation, appended records, or a fixed heading template.
+   - Before writing specifications to files, inspect related documents and the repository's documentation structure; update the owning document's relevant section first. Group related behavior by the domain or responsibility readers need to understand and maintain together; do not create a specification file per feature, issue, or PR.
+   - Unless explicitly requested, create a document only when the content does not fit an existing document and needs independent reference and maintenance. Follow existing placement rules; do not default to the root of `docs/` because the destination is unclear. Do not introduce a hierarchy, index, template, or document split merely because a feature was added.
    - Treat scope, acceptance conditions, and open questions as design considerations, not required file entries. Document functional rules needed by the requested specification; add explicit sections for those considerations only when the user asks for them.
    - Keep conversation history, approval status, interim work state, and Git status out of specifications unless the user explicitly requests that information.
    - Keep the output decision-oriented instead of turning it into a long research dump.

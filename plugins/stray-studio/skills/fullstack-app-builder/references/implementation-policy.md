@@ -46,7 +46,7 @@ Use this reference when general trust/secret handling, rollout, runtime/dependen
 - If docs, implementation, tests, and review instructions disagree, pause long enough to name the drift and choose the smallest alignment path.
 - Keep source-of-truth updates in the same change when implementation intentionally changes behavior described by docs, tests, design-system rules, or AGENTS guidance.
 - Do not paper over drift with code comments. Update the artifact users and future agents will consult.
-- When the same missing context, setup step, validation command, or reproduction path blocks repeated work, prefer updating the durable source of truth such as `AGENTS.md`, docs, scripts, tests, fixtures, or CI instead of relying on another one-off explanation.
+- When the same missing context, setup step, validation command, or reproduction path blocks repeated work, add the confirmed reusable guidance to the existing appropriate source of truth. Prefer scripts, tests, fixtures, or CI for executable checks. Keep temporary failures and task history in the chat or PR; follow the skill's document reuse and placement rules before creating a file.
 - For design-system or shared component work, verify export inventory, CSS ownership, app usage, tests, and documentation together.
 
 ## Dependencies
@@ -63,7 +63,7 @@ Use this reference when general trust/secret handling, rollout, runtime/dependen
 - For Go, include `gofmt`, `go test`, `go vet`, and `golangci-lint` decisions when they fit.
 - For Rust, include `cargo fmt`, `cargo clippy`, `cargo test`, pinned toolchain, and Nix decisions when they fit.
 - When local and CI or deploy environments differ, state which environment was proven and which remains unverified.
-- Update docs, runbooks, API notes, env var docs, setup instructions, or release notes when the change alters operation, configuration, packaging, or extension.
+- Update the existing authoritative explanation when the change alters operation, configuration, packaging, or extension. Use references to that source instead of duplicating it across docs, runbooks, API notes, setup instructions, or release notes; the list is not a requirement to create each document type.
 - Include new required dependencies, environment variables, migration steps, permissions, packaging steps, or rollout concerns in the handoff.
 
 ## Repair And Review Checks

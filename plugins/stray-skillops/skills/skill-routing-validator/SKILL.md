@@ -21,6 +21,7 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
    - Inventory the selected `SKILL.md` files and any companion `agents/openai.yaml` metadata that is present in the selected scope.
    - Record each skill's owned job, nearest neighbors, direct handoffs, and explicit non-goals.
 2. Design discriminating cases.
+   - Generalize failure modes from private usage evidence, then independently invent prompts and scenario details. Do not quote, translate, or closely paraphrase private user instructions or reproduce their project-specific context in evaluation cases.
    - Add intended prompts that should select one named skill.
    - Add near-miss prompts that should select a neighbor while explicitly rejecting the target skill.
    - Add ambiguous or mixed-intent cases only when the expected ordered handoff can be stated objectively.
@@ -35,6 +36,7 @@ Validate a local skill set as a routing system. Make intended prompts, neighbori
    - For another repository or an installed plugin, use that repository's existing validator or inspect the selected files directly. Report which mechanical checks were unavailable; running the bundled CLI against its own checkout does not validate the user's repository.
    - Treat missing skills, name/path mismatch, malformed or duplicate-key JSON/YAML, overlong descriptions, broken local references, marketplace/manifest drift, invalid companion metadata, stale README inventory, missing case coverage, and contradictory expectations as failures.
 5. Evaluate routing behavior.
+   - For the synthetic completion, license-boundary, and design-handoff regressions, use [workflow validation cases](references/workflow-validation-cases.md) alongside the routing inventory. Their required outcomes and failure conditions evaluate execution beyond skill selection.
    - When a classifier or Codex eval harness is available, run the case prompts and record actual selections separately from the expected inventory.
    - Start with changed boundaries and their nearest neighbors. Record the case ID, evaluated revision, actual ordered selections, unexpected questions or stops, completion evidence, and pass/fail. If testing a shortened description list, record the actual visible text rather than assuming a fixed host truncation length.
    - Otherwise review each case against frontmatter descriptions and report `runtime=not-run`; structural validation alone is not behavioral proof.

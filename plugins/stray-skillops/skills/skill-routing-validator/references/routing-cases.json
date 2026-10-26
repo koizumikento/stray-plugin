@@ -2,6 +2,48 @@
   "version": 2,
   "cases": [
     {
+      "id": "workflow-authorized-residual-repair",
+      "prompt": "Continue the authorized shipment-import repair. The last report lists three unresolved paths. Complete their fixes, local checks, and required independent review. Deployment and billable API checks remain disabled.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["product-designer", "change-readiness-review"],
+      "reason": "An authorized app repair continues through residual fixes and checks; a findings list is not completion. Behavioral outcomes are defined in workflow-validation-cases.md."
+    },
+    {
+      "id": "workflow-residual-findings-only",
+      "prompt": "Change of scope for the shipment importer: review the three remaining defects and return findings only. The earlier repair request does not apply to this turn. Do not edit files.",
+      "expect": ["reviewer"],
+      "reject": ["fullstack-app-builder", "change-readiness-review"],
+      "reason": "The latest explicit findings-only restriction narrows earlier repair authorization and must prevent edits."
+    },
+    {
+      "id": "workflow-model-license",
+      "prompt": "Explain the supplied licenses for a fictional packaged inference component. Application code and model weights have separate governing texts. A hypothetical customer sells generated reports but distributes neither component and uses no hosted API. Identify supported permissions and unresolved conditions without legal assurance.",
+      "expect": ["domain-researcher"],
+      "reject": ["api-terms-checker", "deep-researcher", "reviewer"],
+      "reason": "A bounded explanation of code and custom model-weight licenses is domain research, not hosted API terms or a repository-wide license audit."
+    },
+    {
+      "id": "workflow-design-to-implementation",
+      "prompt": "Use the supplied document-import research to design the preview and commit screens, then implement and verify locally. Three decisions are final: importers cannot change workspace permissions, previewing must not persist records, and failed rows retain draft values. Do not deploy.",
+      "expect": ["product-designer", "fullstack-app-builder"],
+      "reject": ["idea-explorer", "domain-researcher"],
+      "reason": "Requested design precedes authorized implementation and carries settled constraints, sufficient evidence, and acceptance conditions without duplicate discovery or approval."
+    },
+    {
+      "id": "workflow-settled-design-implementation",
+      "prompt": "Implement the approved document-import specification and its local acceptance checks. Preserve the settled permission, preview-without-persistence, and failed-row draft rules. The supplied specification contains the rationale. Deployment is excluded.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["product-designer", "idea-explorer", "domain-researcher"],
+      "reason": "Settled app implementation reuses the supplied design while checking real callers; it does not reopen product discovery by default."
+    },
+    {
+      "id": "workflow-design-stale-evidence",
+      "prompt": "Revise the document-import feature design using the supplied sources. A new storage-provider notice contradicts last year's file-limit assumptions. Browsing is unavailable. Separate supported design changes from provisional external claims; do not implement.",
+      "expect": ["product-designer"],
+      "reject": ["fullstack-app-builder", "idea-explorer", "web-researcher"],
+      "reason": "Evidence reuse does not make contradicted or unstable claims current; continue supported design, retain the verification gap, and preserve design-only scope."
+    },
+    {
       "id": "research-reverse-web-behavior",
       "prompt": "この指定Webアプリの保存済み画面・通信記録から検索機能の挙動を調べ、観測と推論を分けて説明して。実サービスへのアクセスや実装はしないで。",
       "expect": ["reverse-engineer"],

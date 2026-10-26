@@ -1,6 +1,6 @@
 ---
 name: "api-terms-checker"
-description: "Use when checking current official API or SaaS usage terms for a specific service, plan, entity, region, and intended use. Excludes legal opinions and OSS license audits."
+description: "Use when checking current official API or SaaS usage terms for a specific service, plan, entity, region, and intended use. Excludes code/model-weight licenses, legal opinions, and OSS license audits."
 compatibility: "Requires internet access and a browsing-capable Codex environment because this skill should verify current official terms before answering."
 ---
 
@@ -11,7 +11,7 @@ Check whether a planned API or SaaS integration has obvious usage-term risks bef
 Use this skill when the user wants to:
 
 - confirm whether an API appears usable for a planned product or workflow
-- check commercial-use, resale, redistribution, or white-label restrictions
+- check commercial-use, resale, redistribution, or white-label restrictions of the hosted service
 - identify data retention, logging, privacy, or training-related clauses
 - spot prohibited use categories or approval requirements
 - summarize the minimum terms the team should understand before shipping
@@ -19,7 +19,7 @@ Use this skill when the user wants to:
 ## Do Not Use For
 
 - negotiated legal advice or jurisdiction-specific counsel
-- open-source dependency license classification
+- code or model-weight license questions, including custom licenses for locally run models; use `domain-researcher` for a bounded source-backed explanation, not legal advice or a full dependency audit
 - a full repository or release compliance audit
 - generic vendor comparison where terms are not the main question
 - pretending certainty when the official terms are missing, unclear, or contradictory

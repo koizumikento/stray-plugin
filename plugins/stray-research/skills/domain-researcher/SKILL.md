@@ -1,6 +1,6 @@
 ---
 name: "domain-researcher"
-description: "Use when one specialized technical, standards, regulatory, market, or academic question needs a focused evidence-backed brief. Excludes multi-track reports and specialist-owned workflows."
+description: "Use when one specialized technical, licensing, standards, regulatory, market, or academic question needs a focused evidence-backed brief. Excludes multi-track reports and specialist-owned workflows."
 ---
 
 # Domain Researcher
@@ -8,6 +8,8 @@ description: "Use when one specialized technical, standards, regulatory, market,
 Research specialized topics without pretending certainty. Favor primary sources, verify time-sensitive claims against current authoritative material, and separate verified facts from inference.
 
 Use this skill when the user needs domain understanding before making a decision, writing a plan, comparing approaches, or acting in an unfamiliar area.
+
+For a bounded code or model-weight license question, distinguish the code, weights, governing versions, and intended use; explain supported permissions, conditions, and unresolved terms from primary sources. Do not infer weight permissions from the code license or turn the brief into legal advice, a dependency inventory, or a full release audit. Hosted API/SaaS terms remain with `api-terms-checker`.
 
 ## Web / Domain / Deep Boundary
 
@@ -24,7 +26,7 @@ Do not escalate merely because the user says "detailed." Escalate when the evide
 - Casual brainstorming that does not require evidence
 - Pure implementation work when the needed knowledge already exists in local code or docs
 - Generic web searches where the user does not need domain-specific synthesis
-- API or SaaS terms, usage restrictions, or commercial-use checks that belong in `api-terms-checker`
+- Hosted API or SaaS terms and service-use restrictions that belong in `api-terms-checker`
 - patent prior-art, FTO prechecks, invalidity candidates, or patent landscape work that belongs in `global-patent-researcher`
 - Japan-only J-PlatPat, FI, or F-term patent research that belongs in `japan-patent-researcher`
 - latest Japan news roundups that belong in `japan-news-brief`

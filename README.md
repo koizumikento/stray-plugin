@@ -60,6 +60,7 @@ Notable support files:
 - `plugins/stray-skillops/skills/agent-skill-creater/references/authoring-guide.md`
 - `plugins/stray-skillops/skills/subagent-creator/references/subagent-best-practices.md`
 - `plugins/stray-skillops/skills/skill-routing-validator/references/routing-cases.json`
+- `plugins/stray-skillops/skills/skill-routing-validator/references/workflow-validation-cases.md` adds independently authored fictional completion, model-license, and design-to-implementation checks; structural validation does not execute these behavioral cases.
 - `plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py`
 
 ### Stray Research
@@ -69,7 +70,7 @@ Notable support files:
 | Skill | Use for |
 |---|---|
 | `web-researcher` | Current, source-backed answers or briefs that must start from web research. |
-| `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains. |
+| `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains, including bounded code/model-license explanations. |
 | `reverse-engineer` | Explaining existing software features and version differences from shipped packages, binaries, firmware, or observed app/web behavior, with evidence and explicit unknowns. |
 | `deep-researcher` | Long-form, multi-track research with evidence synthesis, source-conflict handling, and explicit uncertainty. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |

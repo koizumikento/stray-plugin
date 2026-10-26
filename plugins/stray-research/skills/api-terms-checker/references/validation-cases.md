@@ -33,6 +33,7 @@ The skill should stay out when the request is really about:
 | "Write legal fallback language for our MSA." | Do not trigger `api-terms-checker` | Reject as negotiated legal drafting outside scope. |
 | "Which vector database vendor should we choose for performance and price?" | Do not trigger `api-terms-checker` unless the user explicitly narrows to terms | Treat as product or vendor comparison, not terms review. |
 | "Explain what MIT and Apache-2.0 licenses mean for our mobile app." | Do not trigger `api-terms-checker` | Route to a license-focused skill rather than API terms review. |
+| "A fictional inference package has separate code and weight licenses. Explain its paid report-delivery and notice conditions without redistributing the package; no hosted service is involved." | Do not trigger `api-terms-checker`; use `domain-researcher` | Explain the separate governing texts and intended use with source limits, without legal assurance or a dependency audit. |
 
 ## Overlap Cases
 
@@ -53,6 +54,8 @@ These clauses and contexts are synthetic fixtures, not real vendor terms or lega
 | Explicit prohibition: sell customers copies of the account's API credentials. | "Customers must not resell, sublicense, or distribute API credentials to third parties." | `restricted`: the planned credential resale directly matches the express prohibition. | Change the design to avoid credential resale or obtain an applicable written amendment before proceeding; do not assume one exists. |
 
 Check each case independently for the expected classification, supporting clause, assumptions, and next check. Passing the routing cases alone does not validate these judgments.
+
+The paired model-license and hosted-API fixtures in [workflow validation cases](../../../../stray-skillops/skills/skill-routing-validator/references/workflow-validation-cases.md) test this boundary without using real terms or private logs.
 
 ## Release Recommendation Rules
 

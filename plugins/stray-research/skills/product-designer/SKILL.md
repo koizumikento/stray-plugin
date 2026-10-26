@@ -1,12 +1,12 @@
 ---
 name: "product-designer"
 description: "Use when turning research into product or feature design decisions, including AI behavior and workflow/agent selection. Excludes idea exploration, settled implementation, and multi-agent topology-only design."
-compatibility: "Requires internet access and a browsing-capable Codex environment because this skill starts from current web research."
+compatibility: "Use supplied research and repository evidence when sufficient. Internet and browsing tools are required to verify missing or unstable external facts; disclose unavailable verification."
 ---
 
 # Product Designer
 
-Turn current external evidence into concrete product design decisions. Always start with current web research, then move from facts and signals to product direction, feature scope, tradeoffs, acceptance criteria, and validation steps.
+Turn evidence into concrete product design decisions. Start with supplied research and repository context, verify material gaps or unstable external facts, then move to product direction, feature scope, tradeoffs, acceptance criteria, and validation steps.
 
 Use this skill when the user wants to:
 
@@ -34,8 +34,9 @@ Use this skill when the user wants to:
    - Stop if the request is only asking for research or only asking for visual critique.
    - Use `idea-explorer` when the user still needs the option space widened; continue here only when the deliverable requires choosing or refining one direction, defining scope, acceptance criteria, or validation.
 
-2. Gather current external evidence first.
-   - Browse before proposing any direction. Do not rely on memory alone.
+2. Reuse evidence and fill material gaps.
+   - Read supplied research, existing decisions, and relevant repository context before additional browsing. Reuse sufficient evidence without repeating the same research or questions.
+   - Browse when evidence is missing, contradictory, or depends on unstable external facts such as current pricing, availability, policy, or competitor behavior. If verification is unavailable, mark the dependent decision provisional; continue work supported by available evidence.
    - Prioritize official product sites, vendor docs, pricing pages, launch posts, public case studies, standards, and credible primary reporting.
    - Capture exact dates for current claims, especially for product availability, pricing, policy, or competitor moves.
    - Bound the evidence pass before synthesis: gather enough current sources to support the product decision, then stop browsing.
@@ -68,6 +69,7 @@ Use this skill when the user wants to:
    - If the user only needs a source-backed investigation, use `domain-researcher` instead.
    - If the user needs screenshots, theming, or visual assets, route to the more specific local skill.
    - Hand settled app behavior to `fullstack-app-builder` only when implementation is requested. Use `multi-agent-patterns` for a requested coordination design and `ai-eval-ci` for a requested repeatable evaluation gate; an AI feature does not require either by default.
+   - Carry settled scope, constraints, acceptance conditions, supporting evidence, open questions, and existing authorization into implementation in the same task. Do not require a new handoff document or repeated approval; design approval alone does not authorize implementation.
 
 ## Output Expectations
 
@@ -85,7 +87,7 @@ Use these formats only when they fit the request; they are not required files or
 
 ## Guardrails
 
-- Do not skip web research. This skill starts from current browsing even when the topic looks familiar.
+- Do not substitute memory for missing evidence or skip verification of unstable external facts that materially affect the design.
 - Do not pretend research certainty where the evidence is weak.
 - Do not collapse into visual design critique unless the user asks for it.
 - Do not return generic product advice without tying it to evidence and a concrete decision.

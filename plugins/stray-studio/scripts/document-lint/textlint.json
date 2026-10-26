@@ -1,0 +1,14 @@
+{
+  "filters": {
+    "comments": true
+  },
+  "rules": {
+    "prh": {
+      "severity": "warning",
+      "rulePaths": ["./terms.yml"],
+      "checkBlockQuote": false,
+      "checkLink": false,
+      "checkEmphasis": true
+    }
+  }
+}

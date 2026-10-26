@@ -36,7 +36,7 @@ Run a focused review of the user's target artifact. Default to review-only. Ente
    - plugin manifests or marketplace packaging: `references/plugin-review.md`
    - prompts, system instructions, or agent instructions: `references/prompt-review.md`
    - validation plans, eval cases, or acceptance criteria: `references/validation-review.md`
-   - docs, README, AGENTS.md, runbooks, or handoff text: `references/docs-review.md`
+   - docs, README, AGENTS.md, runbooks, or handoff text: `references/docs-review.md` and the [shared document lint workflow](../../references/document-lint.md) for saved Markdown/text; keep review-only checks read-only and rerun after authorized repairs
    - UI screens, frontend experience, or visual interaction: `references/ui-review.md`
    - produced artifacts such as decks, reports, screenshots, canvases, or demos: `references/artifact-review.md`
    - release readiness: `references/release-review.md`

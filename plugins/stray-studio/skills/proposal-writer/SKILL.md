@@ -54,6 +54,7 @@ Use this skill when the user wants to:
    - Make the first action after approval obvious, including who acts, what happens, and by when. Name what happens if the decision is deferred or rejected when that matters.
 
 6. Deliver in the requested format.
+   - Before delivering saved Markdown/text, run the [shared document lint workflow](../../references/document-lint.md) against the final files; preserve evidence status and report unavailable validation when relevant.
    - Match the requested output shape, such as full draft, outline, revision, or a few title options plus draft.
    - Include assumptions only when they materially affect the draft.
    - Keep the final document centered on the decision, not on the writing process.

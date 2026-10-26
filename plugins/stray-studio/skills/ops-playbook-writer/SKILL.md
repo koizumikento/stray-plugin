@@ -59,6 +59,7 @@ Use this skill when the user wants to:
    - If a critical step cannot be verified from source material, mark it as a gap instead of smoothing it into prose.
 
 7. Deliver the playbook in the requested shape.
+   - Before delivering saved Markdown/text, run the [shared document lint workflow](../../references/document-lint.md) against the final files; preserve operational conditions and report unavailable validation when relevant.
    - Match the requested format, such as SOP, runbook, checklist, onboarding guide, or incident playbook.
    - Include an assumptions note only when missing details affected the procedure.
    - If the source remains incomplete, state the gap clearly instead of inventing a process.

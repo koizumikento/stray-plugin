@@ -1,0 +1,23 @@
+version: 1
+rules:
+  - expected: GitHub
+    pattern: /\b(?:Github|GITHUB)\b/g
+    specs:
+      - from: Github
+        to: GitHub
+      - from: GitHub
+        to: GitHub
+  - expected: ChatGPT
+    pattern: /\b(?:ChatGpt|Chatgpt)\b/g
+    specs:
+      - from: Chatgpt
+        to: ChatGPT
+      - from: ChatGPT
+        to: ChatGPT
+  - expected: Node.js
+    pattern: /\bNodeJS\b/g
+    specs:
+      - from: NodeJS
+        to: Node.js
+      - from: Node.js
+        to: Node.js

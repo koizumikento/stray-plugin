@@ -54,6 +54,7 @@ Use this skill when the user wants to:
    - Flag any unsupported claims, invented details, or quotes that cannot be verified.
 
 6. Deliver the article in the requested shape.
+   - Before delivering saved Markdown/text, run the [shared document lint workflow](../../references/document-lint.md) against the final files; preserve meaning and report unavailable validation when relevant.
    - Match the requested output, such as full draft, revised draft, outline plus draft, or title options with the article body.
    - Include a short assumptions note only when it materially affects the result.
    - If useful, add suggested headlines or a brief revision note, but keep the main output centered on the article itself.

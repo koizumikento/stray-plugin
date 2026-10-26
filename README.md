@@ -129,6 +129,7 @@ Notable support files:
 Notable support files:
 
 - `plugins/stray-studio/skills/platform-native-ui-designer/references/`
+- [Shared document lint workflow](plugins/stray-studio/references/document-lint.md) gives writing, Japanese editing, and document-review skills the same small textlint/prh/markdownlint baseline, a Japanese length-warning profile, explicit final-file commands, and an inspected existing-document pilot. The bundled runner is read-only; CI uses the same configs and lockfile.
 - `plugins/stray-studio/skills/reviewer/references/`
 - `plugins/stray-studio/skills/change-readiness-review/references/`
 - `plugins/stray-studio/skills/change-readiness-review/scripts/`

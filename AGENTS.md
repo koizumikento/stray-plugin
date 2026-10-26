@@ -43,6 +43,7 @@ This repository manages a repo-local Codex plugin. Keep this file short and use 
 
 ## Validation
 
+- For saved Markdown/text deliverables, follow the [shared document lint workflow](plugins/stray-studio/references/document-lint.md); its source configs, language profiles, setup, and final-file checks are shared by the writing and review skills.
 - Validate JSON after editing plugin manifests or marketplace files.
 - Minimal JSON validation command:
   `python3 - <<'PY'

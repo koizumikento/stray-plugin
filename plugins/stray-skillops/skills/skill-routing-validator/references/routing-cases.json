@@ -2,6 +2,27 @@
   "version": 2,
   "cases": [
     {
+      "id": "studio-app-indirect-ci-expansion",
+      "prompt": "Implement the settled reading-list import fix in this existing app. Its normal test command also runs on PRs; before adding a live-service test to that target, decide the appropriate execution frequency and merge-blocking behavior. Keep app implementation under one owner.",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["ai-eval-ci", "test-design-strategist", "iac-builder"],
+      "reason": "An app fix retains its builder even when test discovery indirectly expands CI; placement guidance does not create an AI-eval or infrastructure handoff."
+    },
+    {
+      "id": "studio-test-execution-placement-plan",
+      "prompt": "Design the test strategy for a calendar export feature. Allocate contract, compatibility, and exploratory checks across developer execution, pull requests, scheduled runs, and release gates. Produce a plan only; do not edit tests or workflows.",
+      "expect": ["test-design-strategist"],
+      "reject": ["fullstack-app-builder", "ai-eval-ci", "reviewer"],
+      "reason": "Execution place, frequency, and blocking decisions are part of test design when implementation and findings-first review are not requested."
+    },
+    {
+      "id": "studio-review-ci-placement",
+      "prompt": "Review this existing PR for correctness and maintenance risk without edits. A generator reached through its old build command now runs a long external-service probe, and a required workflow gains a path filter. Check the placement rationale and merge-status behavior as part of the general review.",
+      "expect": ["reviewer"],
+      "reject": ["change-readiness-review", "security-preflight", "ai-eval-ci"],
+      "reason": "General findings-first review owns CI placement and required-check semantics; the request is neither a state-sealed readiness gate nor security-only or AI-eval implementation."
+    },
+    {
       "id": "workflow-authorized-residual-repair",
       "prompt": "Continue the authorized shipment-import repair. The last report lists three unresolved paths. Complete their fixes, local checks, and required independent review. Deployment and billable API checks remain disabled.",
       "expect": ["fullstack-app-builder"],

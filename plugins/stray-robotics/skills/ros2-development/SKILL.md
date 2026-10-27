@@ -73,6 +73,7 @@ Load only the smallest reference needed for the task:
    - For launch issues, check substitutions, parameters, remaps, composable nodes, environment variables, and package install locations.
 
 7. Validate simulation, visualization, containers, and CI where relevant.
+   - Before adding or expanding CI work, including through existing test/launch scripts or config, identify the protected outcome and existing coverage. Decide local, relevant PR, later-stage, scheduled, manual, or release execution and blocking behavior separately; justify frequency, reproducibility, runtime/cost, isolation, and failure response before editing. Keep one-off probes separate from permanent gates; local success alone does not replace important shared checks. Check required-status skip semantics and preserve live-hardware authorization boundaries.
    - Prefer isolated simulator or visualization verification before hardware verification.
    - Use `references/de-facto-tooling.md` when choosing between common ROS 2 tooling or adjacent stacks such as `ros2_control`, Nav2, MoveIt 2, Gazebo, RViz, lint, CI, release, or middleware options.
    - Use RViz, Gazebo, rosbag, and launch files to reproduce graph behavior when the repository supports them.

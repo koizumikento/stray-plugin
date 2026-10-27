@@ -76,6 +76,7 @@ Use this skill when the user wants to plan what to test and why before implement
    - Mark data that must be synthetic, anonymized, resettable, or protected.
 
 8. Decide execution and automation strategy.
+   - When proposing new or expanded CI execution or required checks, read [CI placement](../../references/ci-placement.md) before selecting the execution strategy. Include indirect expansion through existing scripts, test discovery, or config; decide automation, place/frequency, and merge/release blocking separately.
    - Mark each area as automate now, automate later, manual scripted, exploratory, monitor-only, or out of scope.
    - Prefer automation for deterministic, repeated, high-risk, regression-prone behavior.
    - Prefer manual or exploratory testing for ambiguous UX, one-off migration rehearsal, visual judgment, early discovery, or unstable requirements.

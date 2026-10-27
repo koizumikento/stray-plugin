@@ -32,6 +32,7 @@ Create or improve a landing page that is meant to persuade a specific audience t
 
 ## Reference Material
 
+- Before adding or expanding CI execution or required checks, including through existing scripts, test discovery, generators, or config, read [CI placement](../../references/ci-placement.md) and decide purpose, place/frequency, and blocking behavior before editing.
 - Use `references/lp-patterns.md` when a landing page needs stronger structure, visual proof, CTA strategy, or reference-backed design direction.
 - Use `references/dynamic-visual-style.md` when the LP needs motion, dimensional product visuals, interactive hero treatments, animated proof, or conversion-supporting visual polish.
 - For reference-led work, base decisions on structured checks of comparable LPs. Parallelize independent read-only reference checks when that materially speeds comparison, using the same evidence checklist and keeping implementation ownership in one place.

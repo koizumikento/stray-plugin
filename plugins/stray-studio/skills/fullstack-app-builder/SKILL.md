@@ -27,6 +27,7 @@ Implement requested web, mobile, or desktop app flows, including API-only or dat
 
 | Read when | Reference |
 |---|---|
+| Before adding or expanding CI jobs, steps, triggers, schedules, matrices, or required checks, including work added through existing scripts, test discovery, or config | [CI placement](../../references/ci-placement.md); decide purpose, place/frequency, and blocking behavior before editing the affected execution |
 | Changing or diagnosing layout, rendering, navigation integration, accessibility, or platform behavior | The relevant surface: `references/web.md`, `references/mobile.md`, or `references/desktop.md` |
 | Deciding ownership or lifetime of UI, URL, draft, cache, or pending-operation state; diagnosing stale responses, optimistic updates, account switching, or restoration | `references/client-state.md` |
 | Changing authentication, token/session handling, access enforcement, or tenant isolation; diagnosing stale permissions or identity changes | `references/identity-access.md` |

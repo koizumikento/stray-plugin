@@ -29,6 +29,8 @@ Do not load runtime implementation notes for a CLI-only task. Do not load CLI wo
 
 ## Core Principles
 
+- Before adding or expanding CI execution or required checks, including through existing scripts, test discovery, or config, read [CI placement](../../references/ci-placement.md) and decide purpose, place/frequency, and blocking behavior before editing. Preserve the External Mutation Gate for workspace-changing checks.
+
 - Treat Slack workspace configuration as part of the app, not as an afterthought.
 - Prefer Slack CLI output and official Slack developer docs over remembered command behavior when versions, auth, deployment, manifests, or API method shapes matter.
 - Keep app manifests, source code, environment variables, and install/deploy instructions consistent with one another.

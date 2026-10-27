@@ -5,7 +5,7 @@ description: "Use when AI or agent evaluations must become a repeatable CI quali
 
 # AI Eval CI
 
-Add AI and agent evaluations to CI so model quality regressions fail fast instead of shipping silently. Keep the workflow small, repeatable, and cheap enough to run on every relevant change.
+Add AI and agent evaluations to CI so model quality regressions are detected before shipping. Keep the workflow small and repeatable; choose frequency and blocking stage for the required assurance, cost, and variance.
 
 ## Do Not Use For
 
@@ -17,6 +17,7 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
 ## Workflow
 
 1. Identify the behavior to protect.
+   - Before adding or expanding CI work, including through an existing eval/test target or config, identify the protected outcome and existing coverage; choose local, relevant PR, later-stage, scheduled, manual, or release execution and blocking behavior separately. Justify frequency, runtime/cost, variance handling, and failure response before editing. Keep temporary probes out of permanent gates without a recurring requirement; local success alone does not replace important shared checks. Preserve requested CI assurance and reuse authorization for the same effects.
    - Name the user-facing task, output shape, and failure modes.
    - Decide whether the gate protects prompt quality, tool use, retrieval accuracy, or end-to-end agent behavior.
    - Separate semantic output quality from deterministic contracts, permissions, and actual final-state or artifact checks; completion text alone does not prove an action succeeded.
@@ -48,9 +49,9 @@ Add AI and agent evaluations to CI so model quality regressions fail fast instea
    - Record harness, retrieval corpus/index, and tool revisions plus CPU/memory/time budgets where relevant; compare workflow, single-agent, or multi-agent candidates under matched task sets and declared resource budgets. Include correction effort when measurable, cost per successful task, and tail latency alongside quality.
 
 6. Wire the eval into CI.
-   - Run the eval in the same pipeline that validates the code or prompt change.
-   - Fail the build when the score drops below the threshold or a required assertion fails.
-   - Keep runtime and external dependencies low enough for routine CI usage.
+   - Wire the selected trigger and stage; keep relevant deterministic checks in PR CI and place slower or variable evaluation where the required detection delay permits.
+   - Fail the selected merge/release gate when the score drops below the threshold or a required assertion fails; do not silently make requested assurance advisory.
+   - Bound runtime and external dependencies for the selected frequency, and check required-status behavior when filters or conditional jobs can skip execution.
 
 7. Prove the gate locally or record why it cannot be run.
    - Run the eval locally before relying on CI when the repository supports it.

@@ -51,6 +51,7 @@ Read only the material needed for the requested change:
 
 | Decision | Reference |
 |---|---|
+| Before adding or expanding CI execution or required checks, including work added through existing scripts, test discovery, generators, or config | [CI placement](../../references/ci-placement.md); decide purpose, place/frequency, and blocking behavior before editing |
 | New site structure, content architecture, or major rebuild; sitemap/homepage patterns and growing content versus fixed data | `references/corporate-site-structure.md` |
 | Collections, frontmatter schemas, sorting, visibility, indexes, or shared data | `references/content-management.md` |
 | Asset placement, licensing, optimization, source originals, public downloads, or deterministic audit | `references/asset-management.md`; use `scripts/asset_audit.py` for audits or optional WebP derivatives |

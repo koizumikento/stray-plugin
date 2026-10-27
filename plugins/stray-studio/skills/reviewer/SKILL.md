@@ -27,6 +27,7 @@ Run a focused review of the user's target artifact. Default to review-only. Ente
    - read the user's stated goal, target audience, constraints, and any nearby context needed to understand intent
    - if the scope is too large to review reliably, narrow it explicitly and state what is excluded
 2. Select the smallest relevant reference set:
+   - added or expanded CI execution, triggers, matrices, or required checks, including indirect expansion through scripts, test discovery, or config: [CI placement](../../references/ci-placement.md); assess purpose, placement/frequency, and blocking semantics within the selected review mode
    - code changes: `references/code-review.md`, then relevant aspect packs
    - repository-managed infrastructure in a general review: [shared IaC baseline](../../references/iac-baseline.md), then [IaC lifecycle](../../references/iac-lifecycle.md) or [infrastructure operations](../../references/iac-operations.md) for affected contracts; preserve the selected review-only or review-fix mode and separate manual dependencies from confirmed defects
    - Kubernetes manifests, Helm charts, or Kustomize overlays: select the affected contracts in [Kubernetes](../../references/kubernetes.md); distinguish rendered intent from server acceptance and runtime evidence

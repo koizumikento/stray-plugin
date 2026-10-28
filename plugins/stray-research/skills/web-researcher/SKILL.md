@@ -15,8 +15,7 @@ Choose by the requested evidence and output, not words such as "deep" or "thorou
 | Request | Owner |
 |---|---|
 | General current fact or small comparison | This skill |
-| One specialized technical, standards, regulatory, market, or academic track | `domain-researcher` |
-| Multiple independent tracks or material conflicts requiring a durable report | `deep-researcher` |
+| Specialized technical, standards, regulatory, market, or academic investigation, including independent tracks or material source conflicts | `domain-researcher` |
 | API/SaaS usage restrictions; global patents; Japan-only patents | `api-terms-checker`; `global-patent-researcher`; `japan-patent-researcher` |
 | Japan news roundup; GitHub maintenance triage; one-page extraction | `japan-news-brief`; `github-maintainer`; `web-content-distiller` |
 | MCP design; idea exploration; product direction | `mcp-server-designer`; `idea-explorer`; `product-designer` |

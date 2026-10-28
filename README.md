@@ -7,7 +7,7 @@ The marketplace bundle is defined in `.agents/plugins/marketplace.json` as `stra
 | Plugin | Root | Purpose |
 |---|---|---|
 | Stray Skill Ops | `plugins/stray-skillops/` | Create, search, validate, evaluate, and operate Codex skills and subagents. |
-| Stray Research | `plugins/stray-research/` | Run current briefs, deep research, software reverse engineering, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
+| Stray Research | `plugins/stray-research/` | Run current briefs, specialized and multi-track investigations, software reverse engineering, product direction, maintenance triage, global and Japan patent research, API terms checks, and specialist Japanese data workflows. |
 | Stray Studio | `plugins/stray-studio/` | Build, review, gate change readiness, and produce apps, Slack apps, security preflights, test strategies, corporate sites, landing pages, content, visual artifacts, pixel-art assets, screenshots, and playbooks. |
 | Stray Japan Gov Docs | `plugins/stray-japan-govdocs/` | Work with Japanese government whitepapers, official documents, evidence, KPI, budget, cases, chart data, statistics, the bundled administrative-procedures MCP, open data, citations, and caches. |
 | Stray Robotics | `plugins/stray-robotics/` | Build, debug, test, containerize, and CI-enable ROS 2-first robotics software workflows with hardware safety boundaries. |
@@ -60,19 +60,18 @@ Notable support files:
 - `plugins/stray-skillops/skills/agent-skill-creater/references/authoring-guide.md`
 - `plugins/stray-skillops/skills/subagent-creator/references/subagent-best-practices.md`
 - `plugins/stray-skillops/skills/skill-routing-validator/references/routing-cases.json`
-- `plugins/stray-skillops/skills/skill-routing-validator/references/workflow-validation-cases.md` adds independently authored fictional completion, model-license, and design-to-implementation checks; structural validation does not execute these behavioral cases.
+- `plugins/stray-skillops/skills/skill-routing-validator/references/workflow-validation-cases.md` adds independently authored fictional completion, evidence-scope, prompt-repair, reference-loading, delegation, and design-handoff checks, with development and untouched confirmation cases; structural validation does not execute these behavioral cases.
 - `plugins/stray-skillops/skills/skill-routing-validator/scripts/validate_routing_cases.py`
 
 ### Stray Research
 
-`plugins/stray-research/` owns current research, deep research reports, software reverse engineering, decision support, patent research, API terms checks, Japan-specific data lookups (company, weather, news), and horse racing analysis. Skills that depend on current facts generally require internet or browser access. Reverse engineering uses accessible artifacts or observations and suitable available tools; REA is optional, and native/runtime capabilities depend on the host and tools.
+`plugins/stray-research/` owns current research, specialized and multi-track investigations, software reverse engineering, decision support, patent research, API terms checks, Japan-specific data lookups (company, weather, news), and horse racing analysis. Skills that depend on current facts generally require internet or browser access. Reverse engineering uses accessible artifacts or observations and suitable available tools; REA is optional, and native/runtime capabilities depend on the host and tools.
 
 | Skill | Use for |
 |---|---|
 | `web-researcher` | Current, source-backed answers or briefs that must start from web research. |
-| `domain-researcher` | Specialized source-backed investigation of technical, standards, regulatory, market, or academic domains, including bounded code/model-license explanations. |
+| `domain-researcher` | Source-backed specialist and multi-track investigation, with evidence synthesis, conflict handling, uncertainty, and bounded code/model-license explanations. |
 | `reverse-engineer` | Explaining existing software features and version differences from shipped packages, binaries, firmware, or observed app/web behavior, with evidence and explicit unknowns. |
-| `deep-researcher` | Long-form, multi-track research with evidence synthesis, source-conflict handling, and explicit uncertainty. |
 | `web-content-distiller` | Turning a provided URL or page into clean, analysis-ready content. |
 | `idea-explorer` | Expanding ideas into distinct concept families with current signals and labeled hypotheses; comparing or ranking only when requested. |
 | `product-designer` | Turning research into product decisions and feature designs, including AI responsibilities, workflow/agent selection, scope boundaries, and validation plans. |

@@ -41,7 +41,7 @@ Use this skill when the user asks how to split a task across agents, how to coor
    - define handoff conditions and message format
    - decide what shared state lives in memory, files, or the coordinator
    - add quality gates for review, retry, or escalation
-   - for each quality gate, name the verifier, observable pass/fail signal, maximum repair attempts, and escalation payload
+   - for each quality gate, name the verifier, observable pass/fail signal, hard execution limits, a reassessment point for repeated failures without progress, and escalation payload; continue evidence-based repairs within the hard limits instead of counting every new diagnosis as the same stalled retry
    - define the final completion condition before adding retries or parallel agents
    - express dependencies as a small DAG or ordered stage list and name the join condition
    - set a concurrency ceiling, token or cost posture, cancellation rule, and timeout owner
@@ -66,7 +66,7 @@ Use this skill when the user asks how to split a task across agents, how to coor
 - Keep the answer concrete enough to implement or delegate.
 - Include any assumptions that materially affect the design.
 - State when the recommendation is to stay single-agent instead.
-- Include role, input, output, dependency, write scope, verifier, retry limit, and escalation fields for each agent.
+- Include role, input, output, dependency, write scope, verifier, hard execution limits, no-progress reassessment, and escalation fields for each agent. Hard limits remain binding even when progress continues.
 
 ## Guardrails
 

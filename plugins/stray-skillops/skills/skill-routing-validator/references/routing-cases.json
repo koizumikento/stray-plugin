@@ -2,6 +2,83 @@
   "version": 2,
   "cases": [
     {
+      "id": "workflow-single-track-saved",
+      "prompt": "Investigate one compression format using the supplied versioned technical notes and save a short Markdown brief. This is a single specialist question, not a comparison of markets, laws, or deployment programs.",
+      "expect": ["domain-researcher"],
+      "reject": ["web-researcher", "article-writer"],
+      "reason": "Saving a focused specialist brief retains the investigation owner and does not require a larger research process."
+    },
+    {
+      "id": "workflow-multi-track-report",
+      "prompt": "Reconcile three independent source collections covering protocol interoperability, regional hosting obligations, and operating staffing assumptions into one sourced research report. Identify conflicts and limits without choosing a product or implementing it.",
+      "expect": ["domain-researcher"],
+      "reject": ["product-designer", "proposal-writer"],
+      "reason": "Domain research reconciles independent evidence tracks and material conflicts within the requested investigation."
+    },
+    {
+      "id": "workflow-reference-local-edit",
+      "prompt": "Refine this existing SKILL.md so its output boundary is clearer. The supplied repository rules and examples fully determine the edit; no provider capability or current external claim is involved.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["web-researcher", "domain-researcher", "reviewer"],
+      "reason": "A settled local skill edit loads only needed local guidance and does not initiate external research merely because references contain links."
+    },
+    {
+      "id": "workflow-reference-model-change",
+      "prompt": "Update an existing SKILL.md instruction for a provider model upgrade. A supplied release notice contradicts its assumed output capability, but current official documentation cannot be accessed in this offline run. Revise what the evidence supports and identify dependent uncertainty.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["domain-researcher", "fullstack-app-builder", "ai-eval-ci"],
+      "reason": "Skill authoring retains ownership; model-specific changes require current evidence or an explicit verification gap, not invented confirmation or unrelated research."
+    },
+    {
+      "id": "workflow-prompt-failure-diagnosis",
+      "prompt": "Review these existing prompt traces without edits. One question's required source page never reached the model; another tool returned a contract error before execution. Identify supported causes, repair targets, and how to confirm a repair.",
+      "expect": ["reviewer"],
+      "reject": ["fullstack-app-builder","ai-eval-ci","agent-skill-creater"],
+      "reason": "A findings-first prompt review separates missing evidence and integration failures from instruction defects and does not implement or claim unmeasured gains."
+    },
+    {
+      "id": "workflow-proposal-missing-facts",
+      "prompt": "Draft a short approval memo from the supplied fictional brief. Amount, approver name, and decision deadline have not been supplied. Use explicit unknowns where possible, and do not invent commitments or independently verified numbers.",
+      "expect": ["proposal-writer"],
+      "reject": ["article-writer","product-designer","ops-playbook-writer"],
+      "reason": "A decision-oriented draft preserves unknown factual and approval fields instead of inventing them or reopening product discovery."
+    },
+    {
+      "id": "workflow-official-scope-mismatch",
+      "prompt": "Assess a claim against the supplied synthetic government-style source excerpt only. The claim concerns all districts this year and a causal efficiency gain; the excerpt counts devices in an older regional pilot. Explain the support limits; do not present the fixture as a real official source.",
+      "expect": ["japan-gov-evidence-finder"],
+      "reject": ["japan-gov-citation-auditor","japan-gov-case-finder","japan-gov-background-builder"],
+      "reason": "Claim-to-evidence analysis must preserve population, period, measure, and causal scope without inventing live verification."
+    },
+    {
+      "id": "workflow-robot-isolation-unknown",
+      "prompt": "Review a ROS 2 bag-replay debugging path for a parameter issue. The local runtime is unavailable and the supplied launch configuration does not establish isolation from hardware. Continue supported static analysis; do not run a graph or change the host.",
+      "expect": ["ros2-development"],
+      "reject": ["fullstack-app-builder","iac-builder","test-design-strategist"],
+      "reason": "ROS-specific diagnosis continues static work while unverified runtime isolation prevents graph execution and unauthorized host setup."
+    },
+    {
+      "id": "workflow-agent-progress-repair",
+      "prompt": "Refine an existing reusable subagent's developer_instructions as text only. Two attempts each produced new diagnostic evidence; the next action tests a different supported cause. Keep a hard six-call and 120-second budget and separate stalled retries from progress.",
+      "expect": ["subagent-creator"],
+      "reject": ["multi-agent-patterns","agent-skill-creater","fullstack-app-builder"],
+      "reason": "Reusable agent instructions distinguish new evidence-based repair from repeated unchanged attempts while preserving hard execution limits."
+    },
+    {
+      "id": "workflow-agent-stalled-repair",
+      "prompt": "Refine one reusable subagent's developer_instructions as text only. The same tool error and identical arguments recurred with no new evidence. Define reassessment and escalation while keeping the supplied hard budget and authorization boundary.",
+      "expect": ["subagent-creator"],
+      "reject": ["multi-agent-patterns","agent-skill-creater","fullstack-app-builder"],
+      "reason": "No-progress repetition triggers diagnosis or a scoped blocker, never an unbounded retry or a budget/permission bypass."
+    },
+    {
+      "id": "workflow-quality-unmeasured",
+      "prompt": "Improve the clarity of this existing SKILL.md and explain what the change establishes. No model trials or outcome comparisons are available. Do not add a paid evaluation, provider, or CI gate.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["ai-eval-ci","skill-routing-validator","reviewer"],
+      "reason": "A local wording improvement can be checked structurally but cannot establish increased task success or authorize new external evaluation."
+    },
+    {
       "id": "studio-app-indirect-ci-expansion",
       "prompt": "Implement the settled reading-list import fix in this existing app. Its normal test command also runs on PRs; before adding a live-service test to that target, decide the appropriate execution frequency and merge-blocking behavior. Keep app implementation under one owner.",
       "expect": ["fullstack-app-builder"],
@@ -40,7 +117,7 @@
       "id": "workflow-model-license",
       "prompt": "Explain the supplied licenses for a fictional packaged inference component. Application code and model weights have separate governing texts. A hypothetical customer sells generated reports but distributes neither component and uses no hosted API. Identify supported permissions and unresolved conditions without legal assurance.",
       "expect": ["domain-researcher"],
-      "reject": ["api-terms-checker", "deep-researcher", "reviewer"],
+      "reject": ["api-terms-checker", "reviewer"],
       "reason": "A bounded explanation of code and custom model-weight licenses is domain research, not hosted API terms or a repository-wide license audit."
     },
     {
@@ -407,7 +484,7 @@
       "id": "skillops-compress-context",
       "prompt": "Compact this long debugging task with paths and next steps intact: pushing this branch is approved, the publication question is unanswered, and an earlier permission to send a message was revoked.",
       "expect": ["context-compression"],
-      "reject": ["deep-researcher"],
+      "reject": ["domain-researcher"],
       "reason": "Preserve active task state and the distinct approved, pending, and revoked authorization states; do not ask again for the approved push or authorize either send."
     },
     {
@@ -446,18 +523,18 @@
       "reason": "The primary decision is a practical SaaS terms restriction."
     },
     {
-      "id": "research-deep",
+      "id": "research-multi-track",
       "prompt": "Produce a long-form report across technical, regulatory, market, and counter-evidence tracks with conflicts and uncertainty documented.",
-      "expect": ["deep-researcher"],
-      "reject": ["domain-researcher", "web-researcher", "context-compression", "japan-news-brief"],
-      "reason": "The task requires multi-track durable synthesis rather than a concise brief."
+      "expect": ["domain-researcher"],
+      "reject": ["web-researcher", "context-compression", "japan-news-brief"],
+      "reason": "Domain research scales to multi-track evidence synthesis while preserving conflicts and uncertainty."
     },
     {
       "id": "research-domain",
       "prompt": "Investigate this unfamiliar networking standard in a concise specialist brief using five authoritative sources.",
       "expect": ["domain-researcher"],
-      "reject": ["deep-researcher", "api-terms-checker"],
-      "reason": "The task is a bounded specialist investigation, not terms or deep multi-track research."
+      "reject": ["api-terms-checker"],
+      "reason": "The task requires specialist standards interpretation, not a general web lookup or hosted-terms review."
     },
     {
       "id": "research-github-maintenance",
@@ -534,7 +611,7 @@
       "id": "research-japan-news",
       "prompt": "Give me this morning's Japan news roundup in the fixed brief format with event dates and primary-source checks.",
       "expect": ["japan-news-brief"],
-      "reject": ["deep-researcher"],
+      "reject": ["domain-researcher"],
       "reason": "The request is a current multi-item Japan news briefing."
     },
     {
@@ -1093,11 +1170,11 @@
       "reason": "Article creation owns the draft; the explicit Japanese style request follows as a separate pass."
     },
     {
-      "id": "mixed-deep-research-to-product-decision",
+      "id": "mixed-research-to-product-decision",
       "prompt": "Run technical, regulatory, market, and counter-evidence research, then use the completed report to choose one product direction with scope and acceptance criteria.",
-      "expect": ["deep-researcher", "product-designer"],
+      "expect": ["domain-researcher", "product-designer"],
       "reject": ["web-researcher", "idea-explorer"],
-      "reason": "Durable multi-track evidence must be completed before the product decision is committed."
+      "reason": "Domain research synthesizes the multi-track evidence before the product decision is committed."
     },
     {
       "id": "mixed-native-ui-spec-to-implementation",
@@ -1209,7 +1286,7 @@
       "id": "no-skill-git-status-explanation",
       "prompt": "Explain what the two columns in `git status --short` mean. Do not browse or modify any files.",
       "expect": [],
-      "reject": ["web-researcher", "domain-researcher", "deep-researcher"],
+      "reject": ["web-researcher", "domain-researcher"],
       "no_skill": true,
       "reason": "A stable, concise technical explanation does not require any repository-specific specialist workflow."
     },
@@ -1241,7 +1318,7 @@
       "id": "research-single-official-fact",
       "prompt": "Check whether this museum is open on Mondays using its current official opening-hours page, and answer briefly. No broader research is needed.",
       "expect": ["web-researcher"],
-      "reject": ["domain-researcher", "deep-researcher", "web-content-distiller"],
+      "reject": ["domain-researcher", "web-content-distiller"],
       "reason": "One general current fact needs sufficient authoritative evidence, not a source quota or page extraction."
     },
     {

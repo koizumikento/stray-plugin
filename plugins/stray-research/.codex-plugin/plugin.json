@@ -1,19 +1,18 @@
 {
   "name": "stray-research",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Repo-local Codex plugin for research, analysis, product direction, and terms checks.",
   "skills": "./skills/",
   "interface": {
     "displayName": "Stray Research",
     "shortDescription": "Research and analysis plugin for current, source-backed investigation and decision support.",
-    "longDescription": "A repo-local Codex plugin for source-backed research workflows. It separates concise web briefs, bounded domain research including code/model-license fact checks, and long-form multi-track reports; distills supplied pages safely; investigates existing software features and version differences from shipped artifacts and observed behavior using available tools, with optional REA and explicit evidence limits; expands ideas into distinct concept families with labeled creative hypotheses, compares them on request, and makes evidence-backed product decisions through a separate skill, including human/AI responsibilities and workflow, agent, or combined control selection; designs MCP servers, shared application contracts, safe writes, and read-only or mutation evaluation contracts without executing them; summarizes Japan news; retrieves JMA weather and identified-company gBizINFO data; triages GitHub maintenance read-only; conducts global or Japan-focused public patent research; checks practical API or SaaS terms; and analyzes Japanese horse racing with current-source, confidentiality, prompt-injection, legal-boundary, and responsible-use guardrails.",
+    "longDescription": "A repo-local Codex plugin for source-backed research workflows. It offers concise web answers and domain investigations that scale from focused briefs, including code/model-license fact checks, to multi-track evidence synthesis with source-conflict handling; distills supplied pages safely; investigates existing software features and version differences from shipped artifacts and observed behavior using available tools, with optional REA and explicit evidence limits; expands ideas into distinct concept families with labeled creative hypotheses, compares them on request, and makes evidence-backed product decisions through a separate skill, including human/AI responsibilities and workflow, agent, or combined control selection; designs MCP servers, shared application contracts, safe writes, and read-only or mutation evaluation contracts without executing them; summarizes Japan news; retrieves JMA weather and identified-company gBizINFO data; triages GitHub maintenance read-only; conducts global or Japan-focused public patent research; checks practical API or SaaS terms; and analyzes Japanese horse racing with current-source, confidentiality, prompt-injection, legal-boundary, and responsible-use guardrails.",
     "developerName": "Local Workspace",
     "category": "Developer Tools",
     "defaultPrompt": [
       "Research a current topic on the web and return a concise sourced brief.",
-      "Plan and conduct deep research, optionally splitting independent tracks across subagents, then return a documented report with sources, caveats, and uncertainty.",
       "Extract the useful content from a web page and turn it into clean markdown.",
-      "Investigate a specialized technical, licensing, regulatory, market, or academic topic and return a concise sourced brief.",
+      "Investigate specialized or multi-track technical, licensing, regulatory, market, or academic questions, reconcile evidence and conflicts, and return the requested sourced brief or report.",
       "Explain an existing software feature or version difference from supplied packages, binaries, firmware, or observed app/web behavior, with evidence and unresolved gaps.",
       "Use current web signals to expand ideas into distinct concept families, mark creative leaps and unknowns, and leave ranking for an explicit comparison request.",
       "Design a product direction or feature brief using supplied evidence and targeted current research where needed, including AI responsibilities and workflow, agent, or combined control when relevant.",

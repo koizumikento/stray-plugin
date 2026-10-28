@@ -63,7 +63,7 @@ Use `.codex/agents/` by default. Use `~/.codex/agents/` only when the user expli
    - what context packet it must receive before starting
    - what validation signal proves success
    - when it must stop, escalate, or return a partial result instead of retrying
-   - the maximum number of repair attempts for repeated failures
+   - hard task-wide time, cost, action, and safety limits, plus a reassessment point for repeated failures without progress; distinguish a new evidence-based repair from repeating an unchanged attempt, and never exceed a hard limit because progress continues
 9. For write-capable agents, make ownership explicit in `developer_instructions`:
    - name the files, modules, or responsibility boundary they own
    - state that they are not alone in the codebase

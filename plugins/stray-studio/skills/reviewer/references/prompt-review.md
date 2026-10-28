@@ -22,7 +22,13 @@ Use this reference when reviewing system prompts, developer instructions, agent 
    - prompt avoids overbroad "always" rules unless justified
    - examples do not accidentally narrow or broaden the instruction
    - eval prompts can judge outputs consistently
-5. Check safety and operational risk:
+5. Diagnose the failure before recommending a prompt change:
+   - inspect the actual model input and available evidence, retrieval coverage, tool results, and output when supplied
+   - distinguish instruction ambiguity or conflict from missing evidence, retrieval failure, tool/integration defects, and model capability limits
+   - state the supporting observation and uncertainty; when traces or results are absent, label the cause as a hypothesis rather than a reproduced defect
+   - target the responsible component; do not prescribe stronger instructions to repair unavailable data or a failed tool
+   - name the failure the change should reduce and the outcome check that would demonstrate improvement; use separate improvement and untouched confirmation cases when comparing candidates
+6. Check safety and operational risk:
    - no hidden instruction to exfiltrate secrets or bypass approvals
    - no destructive behavior without explicit user intent
    - tool and filesystem assumptions are stated accurately
@@ -32,6 +38,7 @@ Use this reference when reviewing system prompts, developer instructions, agent 
 - Findings first, with quoted short excerpts only when needed.
 - Conflict, ambiguity, or missing-boundary risks.
 - Concrete rewrite direction, not a full rewrite unless requested or needed for an explicit review-fix loop.
+- For a proposed behavioral repair, include the observed failure, supported or hypothetical cause, repair target, and confirmation method. Distinguish wording quality from measured outcome improvement; do not claim improved accuracy without evaluation evidence.
 - Recommendation: keep, clarify, narrow, split, or block.
 
 ## Guardrails

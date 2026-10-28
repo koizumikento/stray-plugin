@@ -31,7 +31,7 @@ Use this skill when the user wants to:
    - Separate user-required constraints, verified capabilities, and working assumptions. Do not make a prominent device feature the required central experience or turn an added data source into a requirement for every idea.
    - For a broad request, reframe the target in several ways before searching: a practical job, a sensory or emotional experience, and a social or creative activity, for example. Keep the user's hard constraints intact.
    - Check existing proposals when available. Treat prior recommendations as context, not as a constraint on new directions.
-   - Route committed selection, scope, acceptance criteria, or validation plans to `product-designer`; route deep research or finished artifacts to their owners.
+   - Route committed selection, scope, acceptance criteria, or validation plans to `product-designer`; route specialized or multi-track investigation to `domain-researcher` and finished artifacts to their owners.
 
 2. Gather a bounded set of current signals.
    - Confirm a browsing capability is available and browse before proposing ideas. If unavailable, report the missing current-source pass; use supplied evidence only within its stated dates and limits, and label remaining possibilities as unverified hypotheses.

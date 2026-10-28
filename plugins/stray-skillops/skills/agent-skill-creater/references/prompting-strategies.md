@@ -4,6 +4,8 @@ Use this reference when authoring or refining a skill's behavioral instructions,
 
 Evidence checked: 2026-10-28. The workflow and examples below are practical recommendations synthesized from the linked sources, not experimentally validated templates. Provider guidance describes intended use; research results apply to the tested models, tasks, and settings. Recheck model-specific guidance when changing models.
 
+Use this reference without opening every external link. Consult relevant current official documentation when introducing or upgrading a model, depending on a provider-specific capability, or investigating behavior that conflicts with existing assumptions. Read research sources when the task needs their rationale, experimental conditions, or limits. Routine skill edits determined by repository evidence do not require external research; the dates above record reviewed evidence, not current capability guarantees.
+
 ## Workflow
 
 1. Define the requested outcome and observable completion evidence.
@@ -42,7 +44,7 @@ Evidence checked: 2026-10-28. The workflow and examples below are practical reco
    | Independent candidates | Alternatives can be generated independently and judged with a meaningful criterion | Shared misconceptions can survive voting; record the extra cost and selection method |
    | Subagents | Independent responsibilities or isolated context justify delegation | Give each agent a question, scope, evidence requirements, output, and limits; verify returned claims |
 
-   Provider recommendations differ. [OpenAI's reasoning guide](https://developers.openai.com/api/docs/guides/reasoning-best-practices) recommends starting without examples and warns that step-by-step prompting may be unnecessary or harmful for its reasoning models. [Gemini's guide](https://ai.google.dev/gemini-api/docs/prompting-strategies) strongly recommends examples. [Claude's guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) describes explicit chaining as useful for inspecting intermediate outputs. Choose and evaluate these techniques for the target model and task.
+   Choose and evaluate techniques for the target model and observed failure. Use the current [OpenAI](https://developers.openai.com/api/docs/guides/reasoning-best-practices), [Gemini](https://ai.google.dev/gemini-api/docs/prompting-strategies), or [Claude](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) guidance under the loading conditions above; do not turn a provider's current recommendation into a permanent rule.
 5. Specify ambiguity handling, verification, and the trust boundary.
    - Ask a targeted question when missing information changes the requested outcome or execution target. For reversible presentation choices, proceed with a reasonable stated assumption when permitted by the user's request.
    - Do not invent missing facts, numbers, permissions, or external-action authorization. Follow the skill's applicable execution and trust contract.

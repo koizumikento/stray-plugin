@@ -7,6 +7,7 @@ Use this reference when the repository's primary app implementation language is 
 - Follow the repository's existing commands first.
 - Before settling on validation commands, inspect the repo for Rust workflow signals in scripts, docs, config, workspace files, toolchain files, or CI.
 - When no stronger repository convention exists, prefer `cargo fmt` for formatting, `cargo clippy` for linting and static checks, and `cargo test` for tests.
+- Select affected crates, consumers, targets, and feature combinations separately from the tool. Inspect supported package/test selectors for focused repair feedback; preserve required workspace checks and broaden for shared features, dependencies, toolchains, or uncertain impact.
 - If those tools are not used, record the existing command source instead: package scripts, task runner, make targets, framework CLI, or CI workflow.
 - Keep framework-specific test harnesses and integration setup aligned with the app already in use.
 

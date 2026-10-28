@@ -11,6 +11,7 @@ Use this reference when the repository's primary app implementation language is 
 - If those tools are not used, record the existing command source instead: package scripts, task runner, framework CLI, tox/nox, make targets, or CI workflow.
 - Keep migrations, fixture setup, and app startup commands consistent with the framework already in use.
 - Prefer `uv run ruff check`, `uv run ruff format --check`, `uv run ty check`, and `uv run pytest` when the repository uses `uv` and those tools are configured.
+- These are tool choices, not a requirement to run every check across the repository. Select affected pytest paths/cases and supported lint/typecheck scopes after inspecting wrappers; preserve required whole-project checks and broaden for shared fixtures, configuration, or uncertain impact.
 
 ## Runtime And Package Management
 

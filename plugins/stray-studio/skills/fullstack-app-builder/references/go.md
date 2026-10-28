@@ -7,6 +7,7 @@ Use this reference when the repository's primary app implementation language is 
 - Follow the repository's existing commands first.
 - Before settling on validation commands, inspect the repo for Go workflow signals in scripts, docs, config, module files, or CI.
 - When no stronger repository convention exists, prefer `gofmt` for formatting, `go test` for tests, and `go vet` for built-in static checks.
+- Select affected packages and consumers before choosing test scope; use focused package/test runs during repair when supported. Use `go test ./...` for required or justified broad validation, including shared changes or uncertain impact, rather than automatically after every edit.
 - If the repository already uses `golangci-lint`, follow it rather than introducing a parallel lint stack.
 - If those tools are not used, record the existing command source instead: package scripts, task runner, make targets, framework CLI, or CI workflow.
 

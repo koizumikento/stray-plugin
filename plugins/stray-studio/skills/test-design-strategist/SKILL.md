@@ -40,6 +40,7 @@ Use this skill when the user wants to plan what to test and why before implement
    - Name the behavior, user flow, data boundary, system boundary, external dependencies, environments, and release context.
    - Separate confirmed facts from assumptions.
    - Identify what is intentionally out of scope.
+   - Apply [test scope and completion](../../references/test-scope.md) to select confirmation and regression coverage, expansion triggers, result-reuse conditions, and exit criteria. Design the plan here; preserve this skill's no-execution boundary.
 
 2. Define the test objective and quality risks.
    - Ask what failure would be costly, unsafe, embarrassing, irreversible, hard to detect, or likely to regress.
@@ -49,7 +50,7 @@ Use this skill when the user wants to plan what to test and why before implement
 3. Select the test levels and test types.
    - Choose from unit, component, integration, contract, system, end-to-end, acceptance, regression, exploratory, smoke, migration, data-quality, and non-functional tests.
    - Prefer a balanced test portfolio over a single large end-to-end suite.
-   - Explain why omitted levels or types are not worth the cost for the current scope.
+   - Justify selected levels/types and material exclusions from the target's risks and existing coverage; do not inventory every irrelevant test type.
 
 4. Choose test design techniques.
    - Use equivalence partitioning and boundary value analysis for input ranges, validation rules, numeric limits, dates, quantities, sizes, and lifecycle thresholds.
@@ -61,7 +62,7 @@ Use this skill when the user wants to plan what to test and why before implement
    - Use exploratory testing, error guessing, and checklist-based testing for ambiguity, unfamiliar domains, or high-change surfaces.
 
 5. Design the cases or viewpoints.
-   - Cover happy path, negative path, edge cases, empty/null/zero/one/many, duplicates, malformed input, permission denied, stale data, concurrency, timeout, retry, partial failure, rollback, and observability when they can occur.
+   - Treat happy/negative paths, boundaries, empty/null/zero/one/many, duplicates, malformed input, permission denied, stale data, concurrency, timeout, retry, partial failure, rollback, and observability as candidate viewpoints. Select those tied to an affected requirement or credible risk; the list is not a mandatory case set.
    - For each material case, include objective, preconditions, input or action, expected result, priority, level/type, design technique, automation fit, and risk covered.
    - Keep cases discriminating; avoid many near-duplicates that do not increase risk coverage.
 
@@ -76,6 +77,7 @@ Use this skill when the user wants to plan what to test and why before implement
    - Mark data that must be synthetic, anonymized, resettable, or protected.
 
 8. Decide execution and automation strategy.
+   - Plan focused feedback during repair, final checks for the settled change, and any required CI/release gates separately. State when shared changes, uncertain impact, or failures require broader/full execution, and when prior results remain valid. Preserve mandatory checks and planned repetitions for nondeterministic evaluations.
    - When proposing new or expanded CI execution or required checks, read [CI placement](../../references/ci-placement.md) before selecting the execution strategy. Include indirect expansion through existing scripts, test discovery, or config; decide automation, place/frequency, and merge/release blocking separately.
    - Mark each area as automate now, automate later, manual scripted, exploratory, monitor-only, or out of scope.
    - Prefer automation for deterministic, repeated, high-risk, regression-prone behavior.
@@ -84,6 +86,7 @@ Use this skill when the user wants to plan what to test and why before implement
 9. Define coverage and exit criteria.
    - Tie coverage to risks, requirements, states, branches, APIs, roles, data partitions, devices, or quality attributes.
    - State release gates, smoke criteria, regression minimums, known gaps, and residual risks.
+   - Define completion before execution: required checks and selected objectives satisfied on the final relevant state, confirmed in-scope defects resolved, and material evidence gaps reported. After completion, require a new change, failure, uncovered material risk, or required checkpoint for additional testing; elapsed time or a fixed test count alone is insufficient.
    - Call out when specialist security, accessibility, performance, legal, safety, or domain review is still required.
 
 10. Produce the artifact.

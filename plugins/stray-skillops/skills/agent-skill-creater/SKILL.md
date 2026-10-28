@@ -41,6 +41,7 @@ Keep `SKILL.md` short enough to route and act from. Add one-hop references only 
 Keep task-specific knowledge, completion evidence, and applicable safety boundaries. Delete repeated advice before moving detail to references; give each reference a loading condition. Reuse authorization for the same target and effects, continue while evidence supports progress, and stop only the blocked action when necessary input, capability, or authorization is missing.
 
 - Use `references/authoring-guide.md` for detailed authoring rules and validation checklists.
+- Use [prompting strategies](references/prompting-strategies.md) when writing or refining behavioral instructions, choosing examples or verification steps, or diagnosing a prompt failure.
 - Use `references/execution-trust-contract.md` when a new or materially changed skill can mutate state, use credentials, incur cost, send data externally, or act on retrieved content.
 - Add `scripts/` only for deterministic work that text instructions cannot reliably express.
 - Do not add `agents/openai.yaml` to this plugin family. Put skill identity and routing in frontmatter, and document real tool dependencies and unavailable-tool behavior in the workflow.

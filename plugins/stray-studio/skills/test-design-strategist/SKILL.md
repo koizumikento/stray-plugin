@@ -50,6 +50,7 @@ Use this skill when the user wants to plan what to test and why before implement
 3. Select the test levels and test types.
    - Choose from unit, component, integration, contract, system, end-to-end, acceptance, regression, exploratory, smoke, migration, data-quality, and non-functional tests.
    - Prefer a balanced test portfolio over a single large end-to-end suite.
+   - Place detailed branches, boundaries, and combinations at the smallest layer that can verify them. Keep E2E for important successful journeys and failure/recovery paths across system boundaries; require distinct assurance before duplicating lower-level cases. Compare unique coverage before proposing replacement of an existing E2E; matching assertions alone do not establish redundancy.
    - Justify selected levels/types and material exclusions from the target's risks and existing coverage; do not inventory every irrelevant test type.
 
 4. Choose test design techniques.

@@ -8,6 +8,7 @@ Use this reference when the repository's primary app implementation language is 
 - For greenfield or unsettled repositories, prefer `Vite+` as the baseline quality workflow when it fits the chosen surface.
 - Before settling on validation commands, inspect the repo for `vp` usage in scripts, docs, config, or recent workflow conventions.
 - In practice, prefer `vp check` for formatting, linting, and type checking, and `vp test` for tests when that toolchain is available or clearly intended.
+- Select execution scope separately from the tool: inspect supported file/workspace/test selectors and wrapper behavior. Use focused runs during repair; preserve required project-wide checks and expand for affected shared contracts or uncertain impact.
 - If `vp` is not used, record the existing command source instead: package scripts, workspace task runner, framework CLI, or CI workflow.
 - Do not replace an established stack with `Vite+` unless the user explicitly asks for that migration.
 

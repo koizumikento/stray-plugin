@@ -44,6 +44,7 @@ Use this skill when a conversation or task has grown large enough that the next 
    - drop repetition, chatter, and dead ends
    - do not regenerate the entire summary if only one span changed
 4. Write the compressed state in a structured form:
+   - Return the summary in the conversation unless the user explicitly requests file output or applicable repository instructions explicitly require file output. Without either requirement, do not create, modify, or append to any file for context compression.
    - `Session Intent`
    - `Files Modified`
    - `Files Read`

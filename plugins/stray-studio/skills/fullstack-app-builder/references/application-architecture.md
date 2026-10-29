@@ -22,6 +22,27 @@ Use this reference when changing business invariants, business permission rules,
 - Keep one source of truth per business concept. Derived read models, caches, and projections should be rebuildable.
 - Make trust boundaries explicit: browser or device, server edge, app core, background worker, and external systems.
 
+## Initial Design Check
+
+Apply this check before implementing a new app or establishing major module structure. Keep a bounded design check supporting requested implementation within this skill. For changes within an agreed structure, reuse the design and check affected assumptions rather than restarting the whole exercise.
+
+1. Identify requirements that can change the structure: main user flows, actors and permissions, durable data, external integrations, and execution or deployment constraints. Resolve unknowns that materially change ownership, trust boundaries, or execution units before affected implementation; state reasonable assumptions for lower-impact details.
+2. Assign responsibility owners and dependency direction before choosing folders. Locate business rules, authoritative state, persistence, and external integrations; define public entry points and allowed dependencies where modules meet. Start from user-supplied structure and constraints, preserve framework placement rules, and use the smallest layout that supports these responsibilities. Do not create layers, packages, or abstractions merely to fill a template.
+3. Walk representative flows through the proposed structure, from the entry point through permission enforcement, business behavior, persistence or external effects, and the user-visible result as applicable. Include successful operations and failures, permission denials, or retries that could change the design. Check for missing owners, duplicated invariants, contradictory dependencies, and transaction or recovery gaps. Resolve contradictions using concrete flow evidence; do not silently override user constraints or treat a folder tree as sufficient validation.
+4. Present the checked design before implementation: a minimal folder tree, responsibility owners, dependency direction, representative flow paths, and material assumptions or unresolved decisions. Reuse an existing owning specification, or present the result in chat; do not require a separate architecture document. Stop at the design when only planning or review was requested, or when the user requested approval before implementation. Otherwise continue under existing implementation authorization once material gaps are resolved; do not add a routine approval gate.
+5. Reassess when implementation would require a dependency cycle, duplicate the same business rule across owners, accumulate exceptions crossing responsibility boundaries, or invalidate assumptions about identity, data ownership, or transactions. Pause affected implementation before adding workarounds, identify the failed premise and affected flows, and revise the design within existing scope and authority. Ask only when a material decision or authority is missing, and continue independent authorized work. Ordinary file additions or function splits do not require a full redesign.
+
+### Validation Cases
+
+Use these cases to inspect the instructions; they do not demonstrate model runtime compliance.
+
+| Case | Expected decision | Failure |
+| --- | --- | --- |
+| New app implementation is requested, with an initial folder tree supplied | Check requirements, ownership, dependencies, and representative flows; present the checked design before implementing under existing authorization | Treat the supplied tree as sufficient design evidence, or require approval without a requested gate |
+| A feature fits an agreed structure and its assumptions still hold | Reuse the design and inspect affected flows and placement | Restart whole-app design or silently reorganize unrelated modules |
+| Implementation reveals a dependency cycle or conflicting data owners | Pause affected work, identify the failed premise, and resolve the design within scope; continue independent work | Add local exceptions to preserve the original tree despite contradictory flow evidence |
+| Only a design proposal or an explicit pre-implementation review is requested | Present the checked design and wait for the requested next step | Scaffold or implement before the requested review |
+
 ## Placement And Change Boundaries
 
 1. Inspect existing modules, actual callers and data flows, public exports, dependency rules, and build/test units before adding or moving code. Choose placement from responsibility and runtime use, not names alone. Keep folder layout, responsibility boundaries, and build or distribution units distinct; a feature does not automatically need its own package.

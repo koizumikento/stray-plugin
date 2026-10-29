@@ -10,6 +10,7 @@ Use this reference when reviewing system prompts, developer instructions, agent 
    - tools, permissions, and context assumptions
 2. For an agent system, trace the instruction through context assembly, model-facing tools, runtime control, authoritative state, and the user-visible outcome:
    - distinguish stored events/state from selected model context; inspect correction precedence, duplicated history, and stale derived results
+   - for growing inputs, check per-component measurements and add/replace/omit/compact/retrieve rules; distinguish history growth from fixed-instruction accretion and require evidence that compaction preserves constraints, corrections, source recovery, and unresolved effects rather than accepting size reduction alone
    - check actual tool schemas/errors and SDK-provided behavior before attributing failure to wording or requesting more agents
    - separate action iteration, semantic repair, transport retry, and development-time improvement; check progress, termination, cancellation, replay, and human-owned transitions where relevant
    - do not assume a graph requires multiple agents, a workflow must be acyclic, or a particular valid tool sequence is the only correct path

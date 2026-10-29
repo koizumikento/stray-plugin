@@ -38,6 +38,26 @@ Keep the responsibilities explicit, using the existing storage/runtime rather th
 
 For example, a museum caption assistant may converse freely about wording while the app enforces draft -> review -> publication transitions. A corrected attribution updates the current record and invalidates its prior review. It does not require a second classifier agent or deletion of the conversation history.
 
+## Control Context Growth
+
+Distinguish runtime accumulation (history, retrieved data, tool results, repeated state) from development-time accretion (fixed rules, examples, and exceptions added after failures). They need different controls; compaction does not repair a bloated fixed prompt or an ambiguous tool contract.
+
+1. Measure the actual model-bound request, including SDK-injected content. Attribute tokens to stable instructions, tool definitions, conversation, business state, retrieved evidence, and tool results; compare growth across turns and task stages. Where token measurement is unavailable, label size estimates and avoid treating character counts as billing tokens. Keep telemetry redacted; record counts and versions rather than private content by default.
+2. Define the lifecycle of each information class using the table below. Reuse existing records and retrieval rather than adding a second memory store. Omission from a model request must not silently delete an authoritative record or bypass its access/retention policy.
+3. Select compaction/trimming using the adopted SDK version's supported mechanisms before building a replacement. Choose a trigger and retained recent context against model capacity, output/tool-call headroom, and observed task quality, cost, and latency. Token volume catches unusually large messages that a turn-count window can miss; a window may fit predictable small chats. Do not copy sample thresholds or reset a session merely because a fixed number of turns elapsed.
+4. Preserve active requirements, latest corrections and their provenance, unresolved questions, current authorization scope, and pending/unknown external effects across compaction. These may be compactly represented or referenced in authoritative state; they must remain available at the point of decision. Keep enough recent interaction to resolve references, preserve provider-required tool-call/result relationships, and retain an authorized route back to older evidence. A summary must not grant permission, turn uncertainty into fact, or outrank a newer correction.
+5. Verify on conversations of different lengths, including a large tool result, topic return, a correction before and after compaction, and recovery of an older source. Compare input growth by component, task outcome, constraint adherence, latency, and cost under matched conditions. Shorter input alone is not success; retain unverified behavior as a gap when trials are not authorized or available.
+
+| Information | Add or update | Omit, compact, or retrieve again |
+|---|---|---|
+| Stable instructions and tool contracts | Keep required responsibilities and rules; replace contradictory or superseded wording | Load specialized instructions/tools for the current need; do not accumulate one permanent rule per failed example |
+| Current business state | Supply relevant current values, revision, provenance, and unresolved facts from the owner | Replace stale snapshots in the selected context; retain historical records under their policy and fetch them when relevant |
+| Conversation events | Let the SDK manage history once; retain necessary recent exchanges | Compact or omit older exchanges while keeping active requirements and recoverable source references |
+| Retrieved documents | Supply the necessary passage with source identity/version | Keep full documents in existing authorized storage; retrieve the needed passage again instead of resending the whole corpus |
+| Tool outputs | Return relevant facts, outcome status, and result references | Offload bulky payloads through existing storage; preserve errors or uncertain effects needed for recovery and replay decisions |
+
+For fixed-instruction changes, diagnose the trace first. Repair missing evidence, a schema mismatch, or faulty state handling in its owner. If wording is responsible, consolidate the existing rule and check consistency with examples instead of appending a stronger warning. Preserve representative failures as evaluation cases, keep development and confirmation sets distinct, and revisit model/SDK workarounds on upgrades. Runtime history summaries and instruction maintenance are separate jobs.
+
 ## Separate Iteration And Failure Types
 
 | Mechanism | Feedback and progress | Exit or recovery |
@@ -66,6 +86,7 @@ Sources checked 2026-10-29. The tables and example are a synthesis, not a standa
 - [Anthropic: Writing effective tools](https://www.anthropic.com/research/writing-tools-for-agents) (2025-09-11) covers model-facing contracts and outcome evaluation without requiring one exact valid tool path.
 - [ReAct, ICLR 2023](https://arxiv.org/abs/2210.03629) (2023-03-10 revision) studies interleaved reasoning and actions on earlier models and tasks; it does not require exposing private model reasoning or using a particular current SDK.
 - [ADK: Loop workflow](https://adk.dev/agents/workflow-agents/loop-agents/) documents iteration and termination mechanisms; its sample counts are examples, not universal execution budgets.
+- [ADK: Context compression](https://adk.dev/context/compaction/) documents token-based and sliding-window session compaction. Verify support in the adopted SDK version; its sample configuration is not a universal retention policy or a guarantee that summaries preserve every requirement.
 - [LangGraph: Thinking in LangGraph](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph) describes nodes, shared state, on-demand prompt formatting, and distinct error-handling strategies.
 - [Workflow optimization survey](https://arxiv.org/abs/2603.22386) (2026-03-23) distinguishes static scaffolds from per-run or runtime structure changes; it does not establish that dynamic graphs are universally better.
 - [Anthropic: Managed Agents](https://www.anthropic.com/research/managed-agents) (2026-04-08) separates durable sessions, context selection, harness, and execution environment, and illustrates model workarounds becoming obsolete.

@@ -1442,6 +1442,45 @@
         "fullstack-app-builder"
       ],
       "reason": "Flexible conversation and human-owned business transitions need distinct control boundaries."
+    },
+    {
+      "id": "workflow-agent-context-growth",
+      "prompt": "Design context growth controls for a long-running bird-observation assistant using the supplied request-size breakdown. Separate fixed instructions, SDK history, current records, retrieved material, and tool outputs; define update, omission, compaction, and retrieval without implementing or imposing a universal size limit.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "fullstack-app-builder",
+        "product-designer",
+        "multi-agent-patterns"
+      ],
+      "reason": "Runtime context lifecycle and measurement belong to technical agent-system design; a shorter prompt alone is not a quality result."
+    },
+    {
+      "id": "workflow-agent-instruction-accretion",
+      "prompt": "Redesign prompt maintenance for a travel-journal assistant from supplied failure traces. Permanent instructions have accumulated many incident-specific warnings, but some failures are tool schema defects. Decide what to replace, consolidate, move into evaluation cases, or fix outside the prompt; no code edits.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "reviewer",
+        "agent-skill-creater",
+        "fullstack-app-builder"
+      ],
+      "reason": "Requested system redesign separates fixed instruction growth from runtime history and targets each failure in its owning component."
+    },
+    {
+      "id": "workflow-agent-compaction-recovery",
+      "prompt": "Design compaction and source recovery for an astronomical-observation assistant from the supplied session fixture. Preserve the latest corrected target, active restrictions, and a pending operation with an unknown outcome while enabling a return to an older source. Use existing SDK and storage; design only.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "subagent-creator",
+        "context-compression",
+        "fullstack-app-builder"
+      ],
+      "reason": "An app agent context policy differs from compacting the current Codex task or authoring reusable agent files."
     }
   ]
 }

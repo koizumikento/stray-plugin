@@ -37,6 +37,7 @@ Run a focused review of the user's target artifact. Default to review-only. Ente
    - multiple skills as a routing system: `references/skill-set-review.md`
    - plugin manifests or marketplace packaging: `references/plugin-review.md`
    - prompts, system instructions, or agent instructions: `references/prompt-review.md`
+   - existing agent context, harness, loops, or graph designs: `references/prompt-review.md` plus the relevant [agent design patterns](../agent-system-designer/references/design-patterns.md); keep findings-first ownership here rather than starting a redesign
    - validation plans, eval cases, or acceptance criteria: `references/validation-review.md`
    - docs, README, AGENTS.md, runbooks, or handoff text: `references/docs-review.md` and the [shared document lint workflow](../../references/document-lint.md) for saved Markdown/text; keep review-only checks read-only and rerun after authorized repairs
    - UI screens, frontend experience, or visual interaction: `references/ui-review.md`

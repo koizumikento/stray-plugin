@@ -8,27 +8,34 @@ Use this reference when reviewing system prompts, developer instructions, agent 
    - audience: model, agent, evaluator, or human operator
    - authority level and interaction with other instructions
    - tools, permissions, and context assumptions
-2. Check behavioral clarity:
+2. For an agent system, trace the instruction through context assembly, model-facing tools, runtime control, authoritative state, and the user-visible outcome:
+   - distinguish stored events/state from selected model context; inspect correction precedence, duplicated history, and stale derived results
+   - for growing inputs, check per-component measurements and add/replace/omit/compact/retrieve rules; distinguish history growth from fixed-instruction accretion and require evidence that compaction preserves constraints, corrections, source recovery, and unresolved effects rather than accepting size reduction alone
+   - check actual tool schemas/errors and SDK-provided behavior before attributing failure to wording or requesting more agents
+   - separate action iteration, semantic repair, transport retry, and development-time improvement; check progress, termination, cancellation, replay, and human-owned transitions where relevant
+   - do not assume a graph requires multiple agents, a workflow must be acyclic, or a particular valid tool sequence is the only correct path
+   - use [agent design patterns](../../agent-system-designer/references/design-patterns.md) for the affected boundary; report absent traces as a verification gap, not proof of a runtime defect
+3. Check behavioral clarity:
    - task ownership is explicit
    - success and failure outputs are clear
    - stop conditions and escalation paths exist
    - important non-goals are stated
-3. Check conflict and priority risk:
+4. Check conflict and priority risk:
    - instructions do not conflict with higher-priority policy or repo guidance
    - tool use rules are actionable
    - output format does not fight the task
-4. Check robustness:
+5. Check robustness:
    - ambiguity and missing context are handled
    - prompt avoids overbroad "always" rules unless justified
    - examples do not accidentally narrow or broaden the instruction
    - eval prompts can judge outputs consistently
-5. Diagnose the failure before recommending a prompt change:
+6. Diagnose the failure before recommending a prompt change:
    - inspect the actual model input and available evidence, retrieval coverage, tool results, and output when supplied
    - distinguish instruction ambiguity or conflict from missing evidence, retrieval failure, tool/integration defects, and model capability limits
    - state the supporting observation and uncertainty; when traces or results are absent, label the cause as a hypothesis rather than a reproduced defect
    - target the responsible component; do not prescribe stronger instructions to repair unavailable data or a failed tool
    - name the failure the change should reduce and the outcome check that would demonstrate improvement; use separate improvement and untouched confirmation cases when comparing candidates
-6. Check safety and operational risk:
+7. Check safety and operational risk:
    - no hidden instruction to exfiltrate secrets or bypass approvals
    - no destructive behavior without explicit user intent
    - tool and filesystem assumptions are stated accurately

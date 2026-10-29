@@ -24,6 +24,7 @@ Use this skill when the user wants to:
 - implementation planning that already has a settled product direction
 - generic ideation sessions that do not require evidence from the web
 - widening or tentatively ranking multiple directions before committing to one; use `idea-explorer`
+- technical design of an agent system's context, tools, state, harness, loops, or graphs under settled feature behavior; use `agent-system-designer`
 - comparing multi-agent roles, topology, and handoffs after feature behavior is settled; use `multi-agent-patterns`
 
 ## Workflow
@@ -68,7 +69,7 @@ Use this skill when the user wants to:
 7. Stay within the design boundary.
    - If the user only needs a source-backed investigation, use `domain-researcher` instead.
    - If the user needs screenshots, theming, or visual assets, route to the more specific local skill.
-   - Hand settled app behavior to `fullstack-app-builder` only when implementation is requested. Use `multi-agent-patterns` for a requested coordination design and `ai-eval-ci` for a requested repeatable evaluation gate; an AI feature does not require either by default.
+   - Hand settled app behavior to `fullstack-app-builder` only when implementation is requested. Use `agent-system-designer` for requested technical agent-system design, `multi-agent-patterns` for coordination-only design, and `ai-eval-ci` for a requested repeatable evaluation gate; an AI feature does not require these additional workflows by default.
    - Carry settled scope, constraints, acceptance conditions, supporting evidence, open questions, and existing authorization into implementation in the same task. Do not require a new handoff document or repeated approval; design approval alone does not authorize implementation.
 
 ## Output Expectations

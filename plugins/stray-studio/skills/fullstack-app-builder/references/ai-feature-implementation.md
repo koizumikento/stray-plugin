@@ -1,6 +1,6 @@
 # AI Feature Implementation
 
-Read this when implementing or diagnosing model calls, retrieval, agent tools, adaptive control, context, or AI-specific verification in an app flow. Preserve settled product decisions and the repository's stack. Route an unresolved product decision to `product-designer`; do not start a market-research exercise for an already specified implementation.
+Read this when implementing or diagnosing model calls, retrieval, agent tools, adaptive control, context, or AI-specific verification in an app flow. Preserve settled product decisions and the repository's stack. Route an unresolved product decision to `product-designer`; do not start a market-research exercise for an already specified implementation. Use `agent-system-designer` when technical system design or redesign is requested; routine implementation and debugging stay here. Reuse its settled state/context/tool/control boundaries without requiring another design artifact or approval. For an unresolved context, loop, graph, or harness boundary, consult the relevant part of [design patterns](../../agent-system-designer/references/design-patterns.md) and resolve only that gap.
 
 ## Workflow
 
@@ -21,6 +21,7 @@ Read this when implementing or diagnosing model calls, retrieval, agent tools, a
    - Split model calls where intermediate results need validation, branching, or persistence. Give review stages an explicit criterion and source, computed result, or test where applicable; a request to reconsider alone is not proof of correctness. Keep repair within the execution limits below.
    - Define when the app should request clarification, use a permitted default, or return an explicit gap/failure. Tie clarification to missing information that changes the result or execution target; do not fabricate facts or infer action authorization.
 4. Supply enough relevant information.
+   - For growing conversations or fixed prompts that accumulate incident-specific rules, apply the relevant [context growth controls](../../agent-system-designer/references/design-patterns.md). Measure actual model-bound input by component, remove duplicate SDK history, define information replacement/omission/retrieval, and reuse supported compaction. Preserve active constraints, corrections, tool-result relationships, and uncertain effects; verify both bounded growth and task quality rather than imposing a universal size cap.
    - Preserve source identity, freshness, and access filtering for retrieval and caches. Check missing/conflicting evidence before answering; bound further retrieval and return gaps or request clarification rather than fabricating facts.
    - Keep a recoverable operation record distinct from the context selected for a model call. Store only the state the promised recovery needs; a stateless request does not require durable sessions or long-term memory.
    - When persistence is needed, define retention, access, deletion, and stale-information handling. Keep sensitive data out of general-purpose memory and telemetry by default.

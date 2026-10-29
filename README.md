@@ -103,6 +103,7 @@ Notable support files:
 
 | Skill | Use for |
 |---|---|
+| `agent-system-designer` | Designing single-agent or combined AI systems across prompts, context, tools, authoritative state, harness, loops, graphs, recovery, and outcome verification; design only unless implementation is requested. |
 | `fullstack-app-builder` | Building, modifying, or debugging shipped app flows across UI, API, auth, data, supporting IaC, and bounded AI workflow/agent behavior with outcome verification. |
 | `iac-builder` | Planning, implementing, or repairing repository-managed IaC, including Kubernetes manifests, Helm charts, and Kustomize overlays, with applicable identity, DB, network, storage, runtime, operations, recovery, lifecycle, and cost controls; live operations require matching authorization. |
 | `cloudflare-cf-cli` | Choosing between Cloudflare's `cf` and Wrangler CLIs, then discovering and running the requested `cf` command with the right target and effect checks. |
@@ -135,6 +136,7 @@ Notable support files:
 - `plugins/stray-studio/skills/change-readiness-review/tests/`
 - `plugins/stray-studio/skills/security-preflight/references/`
 - `plugins/stray-studio/skills/slack-app-builder/references/`
+- `plugins/stray-studio/skills/agent-system-designer/references/design-patterns.md` separates prompt/context/state, loop types, graph control, and harness responsibilities with source-backed selection criteria. Product decisions stay with `product-designer`, topology-only work with `multi-agent-patterns`, and settled implementation with `fullstack-app-builder`.
 - `plugins/stray-studio/skills/fullstack-app-builder/references/`
 - `plugins/stray-studio/skills/fullstack-app-builder/references/ai-feature-implementation.md` covers control boundaries, context and durable state, tool authority, execution budgets, recovery, evaluation, and model-upgrade simplification.
 - `plugins/stray-studio/skills/fullstack-app-builder/references/windows-winapp-cli.md` is loaded selectively for Windows SDK setup, API/WinUI discovery, package identity, MSIX/signing, and app UI validation; it distinguishes standalone and npm CLI surfaces, development and distribution identity, host and Sandbox execution, and structural checks from actual Windows runtime evidence.

@@ -5,12 +5,13 @@ description: "Use when designing or comparing multi-agent roles, dependencies, h
 
 # Multi-Agent Patterns
 
-Design a multi-agent architecture that fits the task instead of defaulting to more agents. Focus on routing, handoffs, context boundaries, and failure handling.
+Design multi-agent coordination that fits the task instead of defaulting to more agents. Keep an integrated agent-system design with `agent-system-designer`; contribute this coordination detail only when needed. Focus on routing, handoffs, context boundaries, and failure handling.
 
 Use this skill when the user asks how to split a task across agents, how to coordinate specialists, or which multi-agent topology to use.
 
 ## Do Not Use For
 
+- technical design of a single-agent system or an integrated context/tool/state/harness design; use `agent-system-designer`
 - single-agent implementation or debugging
 - creating or editing project subagents under `.codex/agents/`
 - broad brainstorming that does not need an execution model

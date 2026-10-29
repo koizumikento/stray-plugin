@@ -1,6 +1,6 @@
 # AI Feature Implementation
 
-Read this when implementing or diagnosing model calls, retrieval, agent tools, adaptive control, context, or AI-specific verification in an app flow. Preserve settled product decisions and the repository's stack. Route an unresolved product decision to `product-designer`; do not start a market-research exercise for an already specified implementation.
+Read this when implementing or diagnosing model calls, retrieval, agent tools, adaptive control, context, or AI-specific verification in an app flow. Preserve settled product decisions and the repository's stack. Route an unresolved product decision to `product-designer`; do not start a market-research exercise for an already specified implementation. Use `agent-system-designer` when technical system design or redesign is requested; routine implementation and debugging stay here. Reuse its settled state/context/tool/control boundaries without requiring another design artifact or approval. For an unresolved context, loop, graph, or harness boundary, consult the relevant part of [design patterns](../../agent-system-designer/references/design-patterns.md) and resolve only that gap.
 
 ## Workflow
 

@@ -1,6 +1,6 @@
 # AI Feature Design
 
-Read this when deciding an AI feature's behavior, human/AI responsibilities, or workflow/agent control. Keep design ownership in Product Designer; this reference does not authorize implementation, deployment, external evaluation calls, or agent execution. Use the decisions relevant to the requested artifact, not a compulsory document template.
+Read this when deciding an AI feature's behavior, human/AI responsibilities, or workflow/agent control. Keep user-visible feature behavior and product decisions in Product Designer; use `agent-system-designer` for requested technical allocation across model context, tools, state, harness, loops, and graphs; this reference does not authorize implementation, deployment, external evaluation calls, or agent execution. Use the decisions relevant to the requested artifact, not a compulsory document template.
 
 ## Workflow
 

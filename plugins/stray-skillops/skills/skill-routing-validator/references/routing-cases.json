@@ -33,7 +33,7 @@
       "id": "workflow-prompt-failure-diagnosis",
       "prompt": "Review these existing prompt traces without edits. One question's required source page never reached the model; another tool returned a contract error before execution. Identify supported causes, repair targets, and how to confirm a repair.",
       "expect": ["reviewer"],
-      "reject": ["fullstack-app-builder","ai-eval-ci","agent-skill-creater"],
+      "reject": ["fullstack-app-builder","ai-eval-ci","agent-skill-creater", "agent-system-designer"],
       "reason": "A findings-first prompt review separates missing evidence and integration failures from instruction defects and does not implement or claim unmeasured gains."
     },
     {
@@ -131,7 +131,7 @@
       "id": "workflow-settled-design-implementation",
       "prompt": "Implement the approved document-import specification and its local acceptance checks. Preserve the settled permission, preview-without-persistence, and failed-row draft rules. The supplied specification contains the rationale. Deployment is excluded.",
       "expect": ["fullstack-app-builder"],
-      "reject": ["product-designer", "idea-explorer", "domain-researcher"],
+      "reject": ["product-designer", "idea-explorer", "domain-researcher", "agent-system-designer"],
       "reason": "Settled app implementation reuses the supplied design while checking real callers; it does not reopen product discovery by default."
     },
     {
@@ -449,7 +449,7 @@
       "id": "skillops-author-skill",
       "prompt": "Add a skill named official-source-comparison to stray-research for comparing two user-supplied official documents, and validate it.",
       "expect": ["agent-skill-creater"],
-      "reject": ["skills-search", "subagent-creator"],
+      "reject": ["skills-search", "subagent-creator", "agent-system-designer"],
       "reason": "The requested artifact is a skill. Its containing plugin's required version bump, shared fixtures, and README entries are companion changes, not an unrelated scope expansion requiring another approval."
     },
     {
@@ -477,7 +477,7 @@
       "id": "skillops-ai-eval-ci",
       "prompt": "Add a repeatable LLM response-quality gate to GitHub Actions with a versioned baseline.",
       "expect": ["ai-eval-ci"],
-      "reject": ["skill-routing-validator", "test-design-strategist"],
+      "reject": ["skill-routing-validator", "test-design-strategist", "agent-system-designer"],
       "reason": "The desired outcome is an LLM-specific CI gate."
     },
     {
@@ -505,7 +505,7 @@
       "id": "skillops-create-subagent",
       "prompt": "Create a project-scoped .codex/agents/reviewer.toml and validate its required fields.",
       "expect": ["subagent-creator"],
-      "reject": ["multi-agent-patterns"],
+      "reject": ["multi-agent-patterns", "agent-system-designer"],
       "reason": "The user explicitly requests a reusable custom-agent file."
     },
     {
@@ -674,14 +674,14 @@
       "id": "research-ai-feature-control-selection",
       "prompt": "問い合わせ対応のAI機能を設計したい。現在の公式資料を確認して、ワークフロー・単一エージェント・組み合わせのどれが適切か選び、ユーザーとの分担、失敗時の動作、受入条件を具体化して。実装はしない。",
       "expect": ["product-designer"],
-      "reject": ["domain-researcher", "multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci"],
+      "reject": ["domain-researcher", "multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci", "agent-system-designer"],
       "reason": "A concrete feature behavior and control-selection decision belongs to product design; autonomy does not imply multiple agents, implementation, or a CI gate."
     },
     {
       "id": "research-ai-fixed-path-feature",
       "prompt": "請求書AIの機能設計をして。項目抽出、必須項目・合計・重複検証、登録か確認待ちへの分岐は決まっている。LLM呼び出しやリトライがあるからエージェントが必要なのか、現在の根拠から判断し、修正・取消と成功条件も決めたい。コードは変更しない。",
       "expect": ["product-designer"],
-      "reject": ["multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci"],
+      "reject": ["multi-agent-patterns", "fullstack-app-builder", "ai-eval-ci", "agent-system-designer"],
       "reason": "Variable input, model calls, and predefined retries do not by themselves require agent control. Resolve the feature decision without forcing implementation or multiple agents."
     },
     {
@@ -702,7 +702,7 @@
       "id": "skillops-single-multi-agent-comparison",
       "prompt": "業務と成果物は確定している。調査を単一エージェントで行う案と、独立した調査担当を並列化して統合する案を比較して、依存関係、検証可能な引き継ぎ、権限、予算、障害時の共有状態を設計して。エージェントの起動や設定ファイルの作成は不要。",
       "expect": ["multi-agent-patterns"],
-      "reject": ["product-designer", "fullstack-app-builder", "subagent-creator", "ai-eval-ci"],
+      "reject": ["product-designer", "fullstack-app-builder", "subagent-creator", "ai-eval-ci", "agent-system-designer"],
       "reason": "Comparing coordination against a single-agent baseline is topology design and may conclude that one agent suffices; the request does not authorize execution or agent-file authoring."
     },
     {
@@ -716,7 +716,7 @@
       "id": "studio-ai-evaluation-strategy-neighbor",
       "prompt": "仕様確定済みのAI調査機能について、ワークフロー案と単一エージェント案の品質・反復安定性・費用・待ち時間を比較するQA計画とケースを設計して。製品仕様、テストコード、CIの変更や評価実行はしない。",
       "expect": ["test-design-strategist"],
-      "reject": ["product-designer", "ai-eval-ci", "fullstack-app-builder", "multi-agent-patterns"],
+      "reject": ["product-designer", "ai-eval-ci", "fullstack-app-builder", "multi-agent-patterns", "agent-system-designer"],
       "reason": "A QA plan for settled behavior is test-strategy design; mentioning AI candidates does not make it product selection, coordination design, or CI implementation."
     },
     {
@@ -1335,6 +1335,113 @@
       "reject": ["web-researcher", "domain-researcher", "web-content-distiller"],
       "no_skill": true,
       "reason": "A self-contained translation needs no research or extraction skill."
+    },
+    {
+      "id": "studio-agent-system-design",
+      "prompt": "Design the technical architecture of a single-agent archive research assistant. Product scope is settled. Specify context selection, task-oriented tools, authoritative state, the action loop, completion evidence, and SDK responsibilities. Do not implement.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "product-designer",
+        "multi-agent-patterns",
+        "fullstack-app-builder",
+        "subagent-creator"
+      ],
+      "reason": "Integrated technical agent design has an owner even when only one agent is needed."
+    },
+    {
+      "id": "studio-agent-system-redesign",
+      "prompt": "Use the supplied traces to redesign an agent harness: history is injected twice, tool arguments expose storage offsets, and repeated failed calls make no progress. Propose the smallest changes to context, tools, state, and loop control; no code edits or paid evaluations.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "reviewer",
+        "product-designer",
+        "multi-agent-patterns",
+        "agent-skill-creater"
+      ],
+      "reason": "Requested technical redesign produces an architecture and contracts rather than findings only or a rewritten skill."
+    },
+    {
+      "id": "mixed-agent-system-design-implement",
+      "prompt": "The accepted service behavior is final. Design context and state ownership, tool contracts, and interruption recovery for its AI assistant, then implement and verify that design in the supplied app. Deployment and paid model evaluation are excluded.",
+      "expect": [
+        "agent-system-designer",
+        "fullstack-app-builder"
+      ],
+      "reject": [
+        "product-designer",
+        "multi-agent-patterns",
+        "ai-eval-ci"
+      ],
+      "reason": "Explicit technical design precedes authorized implementation without reopening settled product decisions or requiring a new approval."
+    },
+    {
+      "id": "workflow-agent-state-correction",
+      "prompt": "Design how an aquarium maintenance assistant handles revised measurements. Separate stored events, current maintenance records, retrieved manuals, and the next model context; identify stale derived recommendations. Use the supplied fixture only; do not implement.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "product-designer",
+        "multi-agent-patterns",
+        "fullstack-app-builder"
+      ],
+      "reason": "Current state, correction precedence, and selected context are technical responsibilities with observable consequences."
+    },
+    {
+      "id": "workflow-agent-tool-contract",
+      "prompt": "Redesign the model-facing tools for a library collection assistant using the supplied trace and schema. A valid unknown year is rejected by the tool, and the response invents a cataloging requirement. Specify a repair and verification without editing code.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "reviewer",
+        "product-designer",
+        "agent-skill-creater"
+      ],
+      "reason": "A requested contract redesign inspects actual tool validation instead of prescribing stronger prompt wording."
+    },
+    {
+      "id": "workflow-agent-loop-recovery",
+      "prompt": "Design loop and recovery behavior for an equipment handbook investigator from the supplied execution fixture. Separate repeated contract errors, a new supported diagnostic step, and a request whose external outcome is unknown. Preserve the existing constraints; no execution.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "subagent-creator",
+        "multi-agent-patterns",
+        "fullstack-app-builder"
+      ],
+      "reason": "Agent-system iteration distinguishes evidence-based repair, transport retry, and uncertain side effects without inventing new limits."
+    },
+    {
+      "id": "workflow-agent-smallest-control",
+      "prompt": "The supplied requirement is to extract a book accession number and publication year from one supplied page, check the fields, and return a preview. Choose the smallest technical AI architecture and state whether a graph, adaptive loop, or additional agent is justified. Design only.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "multi-agent-patterns",
+        "fullstack-app-builder",
+        "product-designer"
+      ],
+      "reason": "Technical architecture selection may conclude that a single call plus deterministic validation is sufficient."
+    },
+    {
+      "id": "workflow-agent-human-transition",
+      "prompt": "Design the technical control structure for a garden exhibit assistant: discussion may cover facts in any order, while an editor alone requests release after reviewing the saved draft. Define conversation, state transitions, and completion evidence from the fixture; do not implement.",
+      "expect": [
+        "agent-system-designer"
+      ],
+      "reject": [
+        "product-designer",
+        "multi-agent-patterns",
+        "fullstack-app-builder"
+      ],
+      "reason": "Flexible conversation and human-owned business transitions need distinct control boundaries."
     }
   ]
 }

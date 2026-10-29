@@ -44,6 +44,7 @@ Keep task-specific knowledge, completion evidence, and applicable safety boundar
 - Use [prompting strategies](references/prompting-strategies.md) when writing or refining behavioral instructions, choosing examples or verification steps, or diagnosing a prompt failure.
 - Use `references/execution-trust-contract.md` when a new or materially changed skill can mutate state, use credentials, incur cost, send data externally, or act on retrieved content.
 - Add `scripts/` only for deterministic work that text instructions cannot reliably express.
+- Before adding supporting code, choose its responsibility-based placement from the first files, prioritizing host/framework/tool discovery paths such as `skills/<name>/SKILL.md`. Prohibit classification prefixes as a substitute for folders without a concrete reason; existing prefix usage alone is insufficient. Preserve required metadata names and keep each plugin self-contained. Carry this policy into skills that create code, without imposing folders on unrelated prose outputs.
 - Do not add `agents/openai.yaml` to this plugin family. Put skill identity and routing in frontmatter, and document real tool dependencies and unavailable-tool behavior in the workflow.
 
 ## Compact `SKILL.md` Template

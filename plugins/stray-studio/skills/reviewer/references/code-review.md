@@ -15,6 +15,7 @@ Use this reference when the target is a diff, branch, pull request, staged chang
    - data loss, migration, concurrency, state, and rollback risks
    - performance issues that materially affect users or infrastructure
    - missing or misleading tests, observability, and error handling
+   - for new or moved files, unexplained classification-prefix management or placement that ignores framework requirements; apply [source layout](../../../references/source-layout.md), cite the applicable rule or concrete maintenance impact, and do not demand unrelated restructuring
 3. Pull in aspect packs only when relevant:
    - `review-aspects-core.md` for almost every code review
    - `backend-security-and-reliability.md` for APIs, services, jobs, and infra-adjacent changes

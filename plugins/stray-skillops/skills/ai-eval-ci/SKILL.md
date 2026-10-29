@@ -39,6 +39,7 @@ Add AI and agent evaluations to CI so model quality regressions are detected bef
 
 4. Detect existing tools before adding new ones.
    - Inspect the repo for current test runners, eval harnesses, CI providers, package scripts, and model configuration.
+   - Before creating files, choose responsibility-based directories for eval code, fixtures, and graders. Prioritize harness and CI discovery rules, including `.github/workflows/`; prohibit classification-prefix management without a concrete reason and record exceptions. Existing prefix usage alone is insufficient. Keep small coherent suites simple and update discovery/config references for scoped moves.
    - Prefer extending existing tooling over adding a new framework.
    - Stop and ask before introducing paid external services, new model providers, or secrets that the repo does not already use.
 

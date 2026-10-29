@@ -66,6 +66,7 @@ Use `.codex/agents/` by default. Use `~/.codex/agents/` only when the user expli
    - hard task-wide time, cost, action, and safety limits, plus a reassessment point for repeated failures without progress; distinguish a new evidence-based repair from repeating an unchanged attempt, and never exceed a hard limit because progress continues
 9. For write-capable agents, make ownership explicit in `developer_instructions`:
    - name the files, modules, or responsibility boundary they own
+   - require source placement decisions before the first files: prioritize the target framework/tool's layout, group free areas by responsibility, and prohibit classification prefixes as a substitute for folders without a concrete reason; existing prefix usage alone is insufficient, and exceptions need a stated reason
    - state that they are not alone in the codebase
    - tell them not to revert edits made by other agents or the user
 10. Avoid name collisions with built-in agents unless the user explicitly wants to override one. If a custom agent uses the same `name` as `explorer`, `worker`, or another built-in, the custom definition wins.

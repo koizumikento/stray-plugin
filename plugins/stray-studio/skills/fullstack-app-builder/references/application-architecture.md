@@ -1,6 +1,6 @@
 # Application Architecture Reference
 
-Use this reference when changing business invariants, business permission rules, state transitions, orchestration, or app structure; adding or reorganizing modules, packages, shared code, or execution boundaries; or when rules disagree across entry points. Use [identity-access.md](identity-access.md) when enforcing access, establishing identity, or managing sessions needs a decision. A routine edit inside a settled shape with unchanged rules does not need this reference.
+Use this reference when changing business invariants, business permission rules, state transitions, orchestration, or app structure; adding or reorganizing modules, packages, shared code, or execution boundaries; or when rules disagree across entry points. Use [identity-access.md](identity-access.md) when enforcing access, establishing identity, or managing sessions needs a decision. For source-file placement, use [source layout](../../../references/source-layout.md). A routine edit inside a settled shape with unchanged rules does not need this reference.
 
 ## Business Rules And Use Cases
 

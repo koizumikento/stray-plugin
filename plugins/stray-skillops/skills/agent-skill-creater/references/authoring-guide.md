@@ -29,6 +29,7 @@ Use this reference after `SKILL.md` has routed the request to skill authoring.
 
 - Add `references/` for large examples, detailed rules, domain background, or reusable checklists that would make `SKILL.md` harder to route from.
 - Add `scripts/` only when deterministic execution, parsing, rendering, or validation is needed.
+- Plan supporting code and test directories before creating files. Follow host/framework/tool layouts first, then organize free areas by responsibility; prohibit unexplained classification prefixes and record a concrete reason for exceptions. Preserve `SKILL.md`, manifest locations, discovery constraints, and language package semantics rather than adding nesting for appearance. For code-writing skills, make this an explicit pre-write instruction.
 - Do not add `agents/openai.yaml` to this plugin family. If an explicitly selected target repository has a nearer rule requiring companion metadata, follow that rule only within the target repository.
 
 ## Execution And Trust Contract

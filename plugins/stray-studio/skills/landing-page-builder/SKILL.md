@@ -33,6 +33,7 @@ Create or improve a landing page that is meant to persuade a specific audience t
 ## Reference Material
 
 - Before creating or moving source files, apply [source layout](../../references/source-layout.md). Choose folders by page or responsibility before writing the first files, prioritize framework routing and repository conventions, and prohibit classification-prefixed files without a concrete reason. Keep a small single-page implementation simple.
+- Before introducing or changing meaningful fixed values, CTA destinations, deployment settings, defaults, or secret delivery, apply [constants and configuration](../../references/constants-and-configuration.md). Reuse existing content/data and design tokens, keep server secrets out of public bundles, and validate affected settings and rebuild behavior without turning ordinary copy into environment variables.
 - Before adding or expanding CI execution or required checks, including through existing scripts, test discovery, generators, or config, read [CI placement](../../references/ci-placement.md) and decide purpose, place/frequency, and blocking behavior before editing.
 - Use `references/lp-patterns.md` when a landing page needs stronger structure, visual proof, CTA strategy, or reference-backed design direction.
 - Use `references/dynamic-visual-style.md` when the LP needs motion, dimensional product visuals, interactive hero treatments, animated proof, or conversion-supporting visual polish.

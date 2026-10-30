@@ -1,6 +1,6 @@
 # Implementation Policy Reference
 
-Use this reference when general trust/secret handling, rollout, runtime/dependency choices, or source-of-truth alignment needs a decision. Select identity/access, client state, data, API, and asynchronous details through the Reference Loading table in `SKILL.md`; this file is not required reading for every edit.
+Use this reference when general trust/secret handling, rollout, runtime/dependency choices, or source-of-truth alignment needs a decision. Use [constants and configuration](../../../references/constants-and-configuration.md) for value ownership, loading, defaults, validation, visibility, and change lifecycle. Select identity/access, client state, data, API, and asynchronous details through the Reference Loading table in `SKILL.md`; this file is not required reading for every edit.
 
 ## Surface And Framework Policy
 

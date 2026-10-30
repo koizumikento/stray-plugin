@@ -4,6 +4,8 @@ Use this reference for credentials, private configuration, logs, telemetry, back
 
 For IaC-managed database credentials, use the credential-lifecycle section of the [shared IaC baseline](../../../references/iac-baseline.md): trace generation through plan/state, secret storage, DB configuration, and runtime consumers, including partial failure and rotation. Display masking alone does not establish secret-free state, and different secret names alone do not establish privilege separation. Apply the current review-only limits when stronger proof needs live access.
 
+For changed configuration or secret delivery, apply the security-relevant parts of [constants and configuration](../../../references/constants-and-configuration.md): public/server and tenant boundaries, unsafe production fallbacks, validation of security controls, secret exposure, and rotation/change timing. Preserve review-only mode; do not turn naming, ordinary literals, or optional configurability into security findings.
+
 ## Review Focus
 
 1. Secret inventory and repository exposure.

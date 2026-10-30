@@ -52,6 +52,7 @@ Read only the material needed for the requested change:
 | Decision | Reference |
 |---|---|
 | Before scaffolding or adding/moving source files | [Source layout](../../references/source-layout.md); choose responsibility-based folders from the outset, preserve framework routing/content conventions, and prohibit classification-prefix management without a concrete reason |
+| Introducing or changing meaningful fixed values, site-wide data, deployment settings, defaults, or secret delivery | [Constants and configuration](../../references/constants-and-configuration.md); use existing content/data and design-token owners, distinguish public/build-time values from server secrets, and validate affected inputs and consumers |
 | Before adding or expanding CI execution or required checks, including work added through existing scripts, test discovery, generators, or config | [CI placement](../../references/ci-placement.md); decide purpose, place/frequency, and blocking behavior before editing |
 | New site structure, content architecture, or major rebuild; sitemap/homepage patterns and growing content versus fixed data | `references/corporate-site-structure.md` |
 | Collections, frontmatter schemas, sorting, visibility, indexes, or shared data | `references/content-management.md` |

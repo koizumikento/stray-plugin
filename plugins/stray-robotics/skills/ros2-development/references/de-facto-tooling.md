@@ -45,6 +45,20 @@ Distinguish inspection from commands that publish, call services, send goals, ch
 - Lifecycle nodes are common for managed startup, activation, deactivation, cleanup, and shutdown.
 - Composable nodes are common when reducing process overhead or enabling intra-process communication.
 
+## Constants, Parameters, And Calibration
+
+Keep this guidance self-contained within Robotics; it does not require another installed plugin.
+
+1. Inspect existing parameter declarations, YAML, launch arguments, robot descriptions, calibration owners, and consumers before adding a value. Keep code invariants as meaningful named constants near their owner; share only the same meaning and reason to change. Do not parameterize every literal or collect unrelated values in a global constants module.
+2. Put robot/deployment-specific values in the existing parameter, launch, description, or calibration mechanism. Preserve measured calibration and provenance; do not replace hardware-specific values with guessed universal defaults. Keep secrets in the existing identity/secret mechanism rather than ordinary parameter YAML, logs, or dumps.
+3. Define types, units, ranges, required/default conditions, and the supported source/override order. Use parameter descriptors and validation callbacks where appropriate for the target distro/client library; verify their actual semantics. Reject invalid settings and distinguish valid zero/false from missing values. Keep authoritative defaults in one owning mechanism and align affected launch/YAML/install files and consumers.
+4. State whether a change is startup-only, lifecycle-bound, or supported dynamically. Do not assume accepting a parameter update means the controller applied it safely. Preserve live-hardware authorization, calibration, and safe-stop requirements; exposing a safety limit as a parameter does not remove enforced validation or authorize a live update.
+5. Check affected defaults, overrides, missing/invalid inputs, units/ranges, and parameter-to-consumer behavior in isolated tests or simulation within existing authorization. Use synthetic data, preserve unavailable hardware checks as unverified, and distinguish static YAML validation from runtime acceptance and physical calibration.
+
+Decision checks: an algorithm's private unit conversion stays local; different robots' measured sensor offsets use the existing calibration owner; an invalid controller limit is rejected; equal numeric retry and motion values do not become one shared constant. These are synthetic review cases, not hardware or model-execution evidence.
+
+Use the target distro's [parameter concepts](https://docs.ros.org/en/jazzy/Concepts/Basic/About-Parameters.html) and client-library docs for declaration, descriptors, callbacks, and update behavior; the linked Jazzy example does not select the project's distro. The [official Jazzy source](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Basic/About-Parameters.rst) was checked on 2026-10-30; the rendered page was access-blocked during that check.
+
 ## Simulation And Visualization
 
 - RViz2: visualization and graph-level debugging.

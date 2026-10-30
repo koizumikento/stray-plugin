@@ -35,6 +35,7 @@ Build and debug ROS 2 software systematically from workspace shape through graph
 Load only the smallest reference needed for the task:
 
 - `references/de-facto-tooling.md`: common ROS 2 tooling, adjacent stacks, CI, lint, release, simulation, visualization, and middleware choices when selecting an implementation or validation path.
+- The constants, parameters, and calibration section in [de facto tooling](references/de-facto-tooling.md): apply before introducing or changing meaningful fixed values, node/launch settings, defaults, or calibration data. Distinguish code invariants from robot-specific settings, validate units/ranges and overrides, and preserve hardware authorization boundaries.
 
 ## Workflow
 

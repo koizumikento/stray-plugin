@@ -18,7 +18,8 @@ Use this reference when reviewing a single `SKILL.md`, a draft agent skill, trig
    - split, merge, or narrow decisions are grounded in the text
 4. Check instruction-first quality:
    - workflow is imperative and concrete
-   - outputs, assumptions, guardrails, and stop conditions are explicit
+   - outputs, observable completion conditions and evidence, assumptions, guardrails, and applicable stop conditions are clear; no dedicated heading is required
+   - criteria are reused or defined after necessary discovery and before substantive execution; success, blocked work, and unverified requirements are distinct
    - scripts, references, or metadata exist only when they materially help
 5. Judge whether the skill should exist:
    - keep if the job is clear and distinct

@@ -12,6 +12,8 @@ Use this reference when reviewing validation criteria, prompt/eval cases, accept
    - what should pass
    - what should fail
    - what evidence proves the behavior is correctly scoped
+   - whether completion claims match the requested outcome and actual evidence, with blocked work and unverified requirements kept distinct
+   - whether criteria were established before evaluating results, and later changes follow changed requirements or evidence rather than weakening the target to accept a result
 3. Review the case set:
    - positive cases for intended triggers or desired behavior
    - negative cases for near-miss prompts or unrelated tasks
@@ -21,6 +23,8 @@ Use this reference when reviewing validation criteria, prompt/eval cases, accept
    - vague expected outputs
    - overlap with another local skill or workflow
    - acceptance criteria that cannot be objectively judged
+   - criteria that only count actions, require an unnecessary tool sequence, or treat artifact existence as sufficient without checking the requested property; allow valid alternative approaches and concrete human judgment for qualitative work
+   - optional improvements promoted into mandatory conditions after the requested outcome is supported; scale criteria to the task without requiring a dedicated heading, file, or extra approval
 5. Judge readiness:
    - ready if the boundary is testable and cases are discriminating
    - needs clarification if expected output or trigger behavior is ambiguous

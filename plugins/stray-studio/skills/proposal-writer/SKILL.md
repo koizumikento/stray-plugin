@@ -28,6 +28,7 @@ Use this skill when the user wants to:
 1. Frame the decision before writing.
    - Identify the decision owner or approval body, the exact approval or commitment requested, the proposer or next-step owner, and the decision deadline or review window.
    - Identify the context, constraints, urgency, budget, authority boundary, and timing assumptions.
+   - When proposing an execution plan, PoC, or phased rollout, identify the requested phase's scope, intended outcome, and decision it should enable. Keep completion of this writing task separate from execution and business success; a simple approval memo need not become a phased plan.
    - If the main gap is Japanese government-backed proposal context rather than drafting the decision document itself, defer to `japan-gov-proposal-context-adapter` before writing.
    - If the brief is underspecified, ask focused clarification questions that unblock the decision target first.
 
@@ -52,6 +53,8 @@ Use this skill when the user wants to:
    - Check that the recommendation matches the evidence and constraints.
    - Remove side tangents, repeated points, and unsupported claims.
    - Make the first action after approval obvious, including who acts, what happens, and by when. Name what happens if the decision is deferred or rejected when that matters.
+   - For an execution plan or experiment, reuse or define material phase exit conditions, supporting evidence, and the next decision and its owner. Explain how results inform continuation, revision, or stopping. Separate completing the planned evaluation from demonstrating the hypothesis or business benefit.
+   - Label unsupported baselines, targets, thresholds, and commitments as proposals or unresolved decisions, with the evidence needed to settle them. Do not weaken conditions to fit results or imply that unknowns are satisfied. Fit these details into the requested format without requiring a separate section or file.
 
 6. Deliver in the requested format.
    - Before delivering saved Markdown/text, run the [shared document lint workflow](../../references/document-lint.md) against the final files; preserve evidence status and report unavailable validation when relevant.
@@ -64,6 +67,7 @@ Use this skill when the user wants to:
 - A clear proposal, plan, memo, or business case in the requested tone and length
 - An explicit decision request or recommendation
 - The decision owner, requested approval, decision deadline/window, and first action after approval
+- For execution plans or experiments, material phase outcomes, exit evidence, and the subsequent decision and owner, with unresolved criteria identified
 - Evidence status for material claims, estimates, and assumptions
 - A structure that fits the audience and approval context
 - Clear treatment of options, objections, risks, and tradeoffs when relevant

@@ -1481,6 +1481,62 @@
         "fullstack-app-builder"
       ],
       "reason": "An app agent context policy differs from compacting the current Codex task or authoring reusable agent files."
+    },
+    {
+      "id": "workflow-completion-authoring",
+      "prompt": "Create a project-scoped skill for comparing supplied local textile repair notes. It should investigate the requested question, preserve conflicting evidence, and explain when the comparison is ready to return. No network access, fixed conclusion, or separate work ledger is needed.",
+      "expect": ["agent-skill-creater"],
+      "reject": ["domain-researcher", "subagent-creator", "ai-eval-ci"],
+      "reason": "Skill authoring defines a bounded exploratory outcome and evidence before execution without requiring the answer in advance."
+    },
+    {
+      "id": "workflow-completion-feature-design",
+      "prompt": "Design a specimen-label correction flow from the supplied local brief. Work out how an operator can tell a correction was saved and recover from a failed save. Return the design in chat; do not implement or create files.",
+      "expect": ["product-designer"],
+      "reject": ["fullstack-app-builder", "idea-explorer", "test-design-strategist"],
+      "reason": "Feature design concretizes observable acceptance conditions and evidence while preserving the design-only boundary."
+    },
+    {
+      "id": "workflow-completion-reuse",
+      "prompt": "Use the settled supplied acceptance conditions to refine a greenhouse sensor annotation screen. Keep the approved save and failure behavior, return the design in chat, and leave deployment and impact measurement for later.",
+      "expect": ["product-designer"],
+      "reject": ["fullstack-app-builder", "domain-researcher", "idea-explorer"],
+      "reason": "Existing sufficient criteria are reused without reopening settled decisions or making later operational outcomes a design prerequisite."
+    },
+    {
+      "id": "workflow-completion-blocked-review",
+      "prompt": "Review the supplied completion claim for a local audio-transcription patch against its acceptance conditions and check logs. Report whether the claim is supported and what remains unverified; do not edit or change the checks.",
+      "expect": ["reviewer"],
+      "reject": ["fullstack-app-builder", "change-readiness-review", "security-preflight"],
+      "reason": "A findings-first evidence review distinguishes an unmet verification requirement from completion without turning into a push-readiness gate."
+    },
+    {
+      "id": "workflow-completion-experiment",
+      "prompt": "Draft the decision memo for the completed fictional kit-packing experiment using the supplied protocol and results. Explain whether the trial finished, whether its hypothesis was supported, and which next step the named owner should decide. Do not invent a successful outcome.",
+      "expect": ["proposal-writer"],
+      "reject": ["product-designer", "article-writer", "ops-playbook-writer"],
+      "reason": "An experiment decision memo separates protocol completion, hypothesis support, and the next approval decision."
+    },
+    {
+      "id": "workflow-completion-finished-review",
+      "prompt": "Review the supplied sculpture-catalog export against the agreed requirements and attached evidence. The author also lists optional future enhancements. Report findings only; do not expand the agreed task or edit files.",
+      "expect": ["reviewer"],
+      "reject": ["fullstack-app-builder", "product-designer", "change-readiness-review"],
+      "reason": "Review checks the requested outcome and evidence without turning optional enhancements into new blocking criteria."
+    },
+    {
+      "id": "workflow-completion-compaction",
+      "prompt": "Compact this ongoing seed-inventory task for continuation. Preserve the latest scope correction, agreed completion conditions, evidence already collected, and the unresolved check. Return the summary in chat without creating files or inventing requirements.",
+      "expect": ["context-compression"],
+      "reject": ["agent-system-designer", "agent-skill-creater", "fullstack-app-builder"],
+      "reason": "Current-task compression retains completion conditions and their evidence/status rather than redesigning an application agent."
+    },
+    {
+      "id": "workflow-completion-plan-unknowns",
+      "prompt": "Draft a short approval request for a fictional ceramics inspection pilot from the supplied brief. Its baseline and target threshold are unknown. Show how the pilot will support a decision without inventing numbers or commitments, and keep the requested one-page format.",
+      "expect": ["proposal-writer"],
+      "reject": ["product-designer", "domain-researcher", "ops-playbook-writer"],
+      "reason": "An execution proposal makes exit evidence and unresolved thresholds explicit without fabricating targets or forcing extra documents."
     }
   ]
 }

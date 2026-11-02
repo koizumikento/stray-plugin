@@ -27,9 +27,11 @@ Use this skill when a conversation or task has grown large enough that the next 
 
 1. Identify the minimum state that must survive compression:
    - task intent
+   - current scope and established completion conditions, with satisfied conditions and evidence separated from unmet or unverified conditions
    - changed files
    - read-only files worth remembering
    - decisions already made
+   - the current version of changed conditions and why they changed; do not invent criteria absent from the source conversation
    - authorization state: approved actions with their targets and limits, unanswered approval requests, and revoked approvals
    - exact failures, warnings, or constraints
    - open questions and next steps
@@ -52,6 +54,7 @@ Use this skill when a conversation or task has grown large enough that the next 
    - `Authorization State`
    - `Harness State`
    - `Current State`
+     - retain completion conditions and their evidence/status within the existing intent, decision, and current-state sections; no separate file or new heading is required
    - `Next Steps`
    - `Open Questions`
    - `Stop Or Escalation Conditions`
@@ -61,6 +64,7 @@ Use this skill when a conversation or task has grown large enough that the next 
    - could the task continue without re-reading the original thread
    - are the key files and decisions still named explicitly
    - are unresolved issues still visible instead of flattened away
+   - can the next agent tell what remains and what evidence would justify finishing, without treating blocked or unverified work as completed
    - can a reader distinguish current state from an earlier result that has been replaced
    - can the next agent continue already-authorized work without asking again, while keeping unanswered and revoked approvals distinct
 6. If compression would remove a critical fact, keep the fact and compress elsewhere instead:

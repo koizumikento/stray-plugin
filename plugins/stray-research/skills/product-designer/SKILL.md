@@ -32,6 +32,7 @@ Use this skill when the user wants to:
 1. Frame the product decision before searching.
    - Identify the product, feature, or workflow under design.
    - Identify the target user, problem, and the decision that must be made.
+   - Identify what this design task must settle and reuse existing scope, constraints, and acceptance conditions. Keep design completion separate from later implementation verification and business outcomes.
    - Stop if the request is only asking for research or only asking for visual critique.
    - Use `idea-explorer` when the user still needs the option space widened; continue here only when the deliverable requires choosing or refining one direction, defining scope, acceptance criteria, or validation.
 
@@ -54,7 +55,8 @@ Use this skill when the user wants to:
    - Keep the proposal specific enough to inform roadmap, specs, experiments, or acceptance criteria.
 
 5. Resolve the feature behavior and design constraints.
-   - Consider the user need, target user, scope, acceptance conditions, user-facing edge cases, and validation needs during design.
+   - Turn the selected user need into observable acceptance conditions for the primary behavior and material failure or recovery cases. Identify the expected result and the evidence or judgment needed to assess each material condition before affected implementation or evaluation.
+   - Separate mandatory requirements, preferences, and unresolved assumptions. Refine provisional conditions as evidence resolves unknowns; do not invent business thresholds or commitments, or weaken conditions to fit a result. Explain material changes to settled conditions and their effect on the original request.
    - For an AI feature, read [AI feature design](references/ai-feature-design.md) before choosing behavior or control structure. Define the user benefit, human/AI division of work, workflow/agent boundaries, information needs, failure recovery, and observable success; keep ordinary features on the existing workflow.
    - Resolve material uncertainties through evidence or focused questions during the work; these considerations do not prescribe sections or entries in a file.
 
@@ -62,7 +64,7 @@ Use this skill when the user wants to:
    - Match the output to the requested deliverable, whether a chat answer, an existing-file update, or a requested document. This skill does not itself require file creation, appended records, or a fixed heading template.
    - Before writing specifications to files, inspect related documents and the repository's documentation structure; update the owning document's relevant section first. Group related behavior by the domain or responsibility readers need to understand and maintain together; do not create a specification file per feature, issue, or PR.
    - Unless explicitly requested, create a document only when the content does not fit an existing document and needs independent reference and maintenance. Follow existing placement rules; do not default to the root of `docs/` because the destination is unclear. Do not introduce a hierarchy, index, template, or document split merely because a feature was added.
-   - Treat scope, acceptance conditions, and open questions as design considerations, not required file entries. Document functional rules needed by the requested specification; add explicit sections for those considerations only when the user asks for them.
+   - Include the material scope, acceptance conditions, and functional rules needed for the next decision or implementation in the requested answer or owning specification. Keep unresolved conditions and their decision impact visible; do not treat a reported gap as a satisfied requirement. Dedicated sections or separate files are not required.
    - Keep conversation history, approval status, interim work state, and Git status out of specifications unless the user explicitly requests that information.
    - Keep the output decision-oriented instead of turning it into a long research dump.
 

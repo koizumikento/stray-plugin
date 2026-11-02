@@ -62,9 +62,9 @@ description: "Use when <specific user intent and owned job>."
 ## Workflow
 
 1. <First routing or scoping action.>
-2. <Read the context needed for this task; name conditions for optional references.>
+2. <Read the necessary context; before substantive execution, reuse or define observable completion conditions and their evidence. For exploration, define the question and scope, then refine provisional conditions as evidence resolves unknowns.>
 3. <Main execution step.>
-4. <Define completion and collect the evidence needed for the requested result.>
+4. <Compare the actual result with the conditions, repair in-scope gaps, and finish when the required conditions are supported by evidence. Distinguish completion from blocked work and unverified requirements; keep optional improvements optional.>
 5. <If repair stalls on the same failure without new evidence, reassess the approach; continue while making progress and report a blocker only when required input, authority, or execution capability is missing.>
 
 ## Output
@@ -80,7 +80,7 @@ description: "Use when <specific user intent and owned job>."
 ## Workflow
 
 1. Read existing repo guidance and the nearest relevant skill examples.
-2. Decide the skill's owned job, trigger, non-goals, and handoffs before writing.
+2. Decide the skill's owned job, trigger, non-goals, handoffs, completion conditions, and evidence before writing. Match completion to the requested result and current scope; distinguish successful completion from routing away or stopping for missing input, authority, or capability.
 3. Create or update `SKILL.md` using the compact template unless the existing local style requires a small variation.
 4. For a side-effectful skill, apply `references/execution-trust-contract.md` and declare its dependencies, credentials, destinations, effects, authorization gates, outputs, failure and cleanup behavior, and untrusted-content boundary.
 5. Move detailed guidance to `references/` instead of expanding the entry point.

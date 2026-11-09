@@ -20,7 +20,7 @@ Use this reference when the target is a diff, branch, pull request, staged chang
    - `review-aspects-core.md` for almost every code review
    - `backend-security-and-reliability.md` for APIs, services, jobs, and infra-adjacent changes
    - `frontend-and-accessibility.md` for UI and client-side changes
-   - `data-and-migrations.md` for schema, migration, and persistent-data changes
+   - `data-and-migrations.md` for schema, migration, deduplication, and persistent-data changes
 4. Validate each finding:
    - confirm the issue against surrounding code, not only the changed line
    - cite the concrete file and line that demonstrates the problem

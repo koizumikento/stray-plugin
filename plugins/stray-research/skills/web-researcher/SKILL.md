@@ -30,6 +30,7 @@ Individual application forms, deadlines, fees, or municipality-specific procedur
 2. Browse current evidence. Open the pages supporting the answer; search snippets are leads, not evidence. Prefer official documentation, primary data, standards, research papers, and first-party reporting. Use secondary sources for context, corroboration, or leads when primary coverage is missing.
 3. Stop gathering when the evidence supports the requested answer. One authoritative source may suffice; add sources for uncovered claims or material conflicts, not to reach a quota. Capture publication/update dates, exact dates for unstable facts, and access limitations that affect confidence.
 4. Answer directly with links near the supported claims. Use consistent comparison criteria. Label inference, explain conflicts, and preserve weak, stale, missing, or partial evidence rather than forcing certainty.
+   - When asked whether a workflow works with a particular plan or sign-in, lead with whether that access method accepts the requested input and supports the operation. If support differs by step, state which steps work, which are explicitly unsupported, and which the sources leave open. Introduce alternatives after answering for the requested setup.
 5. Check that the result answers the question and important claims are supported. Report any material gap and the most useful next check; omit search logs unless requested. Route newly discovered specialist work using the table.
 
 ## Output

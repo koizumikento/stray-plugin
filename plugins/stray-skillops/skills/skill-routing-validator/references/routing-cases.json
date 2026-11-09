@@ -1537,6 +1537,34 @@
       "expect": ["proposal-writer"],
       "reject": ["product-designer", "domain-researcher", "ops-playbook-writer"],
       "reason": "An execution proposal makes exit evidence and unresolved thresholds explicit without fabricating targets or forcing extra documents."
+    },
+    {
+      "id": "workflow-provider-app-path",
+      "prompt": "Diagnose the model provider switch in our museum catalog app using the supplied call traces. Which features can staff use, and what explains the failed request?",
+      "expect": ["fullstack-app-builder"],
+      "reject": ["agent-system-designer", "test-design-strategist"],
+      "reason": "The task diagnoses an existing app integration through the feature entry points."
+    },
+    {
+      "id": "workflow-signin-input-support",
+      "prompt": "With my visitor pass for Trail Desk, can I import a GPX track, print its map, and add elevation shading? The help pages are available.",
+      "expect": ["web-researcher"],
+      "reject": ["api-terms-checker", "domain-researcher"],
+      "reason": "A product help lookup can establish which operations the selected sign-in supports."
+    },
+    {
+      "id": "workflow-deduplication-key",
+      "prompt": "Review the change to how a kiln monitor stores incoming readings. Use the supplied diff and device protocol to identify any data it could lose or count twice.",
+      "expect": ["reviewer"],
+      "reject": ["fullstack-app-builder", "change-readiness-review"],
+      "reason": "A findings-only review checks the proposed key against the source's event identity."
+    },
+    {
+      "id": "workflow-throughput-cost",
+      "prompt": "Estimate the machine charge for inspecting 900 castings on the narrow-belt rig. Use our planning assumption and the attached benchmark and tariff. Can we use the result for a budget?",
+      "expect": ["domain-researcher"],
+      "reject": ["web-researcher", "proposal-writer"],
+      "reason": "A technical cost estimate requires interpreting benchmark conditions and applying the target tariff."
     }
   ]
 }

@@ -57,6 +57,7 @@ Choose depth from the evidence structure and requested result. Words such as "de
    - use enough authoritative evidence to cover the claims and material conflicts; do not add sources to meet a quota
 5. Build an evidence map while reading:
    - link material claims to sources, dates, population/period/methodology, and evidence quality where relevant
+   - When deriving cost from performance, show the unit price and calculation. Label throughput or runtime as measured on the target configuration and workload, measured under different conditions, or assumed. If target performance is unknown, give the requested scenario estimate with its assumption and identify the measurement needed for a budget recommendation.
    - record disagreements and check whether definitions, scope, incentives, or methods explain them
    - gaps that remain unverified
    - terms or definitions that need clarification

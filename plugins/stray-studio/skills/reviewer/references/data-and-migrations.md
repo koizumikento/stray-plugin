@@ -1,6 +1,6 @@
 # Data And Migrations Review Aspects
 
-Use this reference for schema changes, data backfills, ETL, storage-layer changes, and migration-heavy diffs.
+Use this reference for schema changes, data backfills, ETL, deduplication, storage-layer changes, and migration-heavy diffs.
 
 ## Migration Safety
 
@@ -12,6 +12,7 @@ Use this reference for schema changes, data backfills, ETL, storage-layer change
 ## Data Correctness
 
 - Could the transformation lose, duplicate, truncate, or mis-map data?
+- When a change affects deduplication or uniqueness, what does the key identify, and within what scope? Trace an exact retry, a redelivery with changed transport metadata, and distinct events sharing a reference when the source contract permits them. Check which records the change would retain, merge, or discard.
 - Are nullability, default values, and enum or status changes handled safely?
 - Are timezone, locale, encoding, and precision assumptions explicit?
 - Are backfills idempotent and resumable?

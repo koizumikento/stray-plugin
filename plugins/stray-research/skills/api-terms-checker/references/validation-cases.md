@@ -55,7 +55,7 @@ These clauses and contexts are synthetic fixtures, not real vendor terms or lega
 
 Check each case independently for the expected classification, supporting clause, assumptions, and next check. Passing the routing cases alone does not validate these judgments.
 
-The paired model-license and hosted-API fixtures in [workflow validation cases](../../../../stray-skillops/skills/skill-routing-validator/references/workflow-validation-cases.md) test this boundary without using real terms or private logs.
+For the optional cross-plugin evaluation, locate `skill-routing-validator` in the installed skill catalog or the Stray source checkout and open `references/workflow-validation-cases.md` relative to its skill directory. Section 2 pairs model-license and hosted-API fixtures. If Skill Ops is unavailable, use the standalone cases above.
 
 ## Release Recommendation Rules
 

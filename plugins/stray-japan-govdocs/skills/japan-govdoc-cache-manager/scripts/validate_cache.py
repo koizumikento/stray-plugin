@@ -13,7 +13,9 @@ import hashlib
 import json
 import re
 import sys
+from collections.abc import Iterable
 from pathlib import Path
+from urllib.parse import urlsplit
 
 
 REQUIRED_MANIFEST_FIELDS = {
@@ -44,6 +46,12 @@ OPTIONAL_SOURCE_INDEX_STRING_FIELDS = {
     "document_slug",
     "series",
     "edition",
+    "publication_date",
+    "last_checked_at",
+    "notes",
+}
+
+OPTIONAL_SOURCE_INDEX_URL_FIELDS = {
     "egov_index_url",
     "series_landing_page",
     "edition_landing_page",
@@ -52,9 +60,6 @@ OPTIONAL_SOURCE_INDEX_STRING_FIELDS = {
     "pdf_url",
     "summary_url",
     "archive_url",
-    "publication_date",
-    "last_checked_at",
-    "notes",
 }
 
 OPTIONAL_SOURCE_INDEX_ARRAY_FIELDS = {
@@ -65,10 +70,29 @@ OPTIONAL_SOURCE_INDEX_ARRAY_FIELDS = {
 ALLOWED_SOURCE_INDEX_FIELDS = (
     REQUIRED_SOURCE_INDEX_FIELDS
     | OPTIONAL_SOURCE_INDEX_STRING_FIELDS
+    | OPTIONAL_SOURCE_INDEX_URL_FIELDS
     | OPTIONAL_SOURCE_INDEX_ARRAY_FIELDS
 )
 
 SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
+
+
+def is_http_url(value: object) -> bool:
+    if not isinstance(value, str) or re.search(r"[\s\x00-\x1f\x7f\\]", value):
+        return False
+    try:
+        url = urlsplit(value)
+        # Reading port also validates its syntax and range.
+        _ = url.port
+        return url.scheme in {"http", "https"} and bool(url.hostname)
+    except ValueError:
+        return False
+
+
+def validate_url_fields(record: dict, fields: Iterable[str], location: str, errors: list[str]) -> None:
+    for field in fields:
+        if field in record and not is_http_url(record[field]):
+            errors.append(f"{location}: {field} must be an absolute HTTP(S) URL with a host")
 
 
 def sha256(path: Path) -> str:
@@ -132,7 +156,8 @@ def validate_manifest(cache_root: Path) -> tuple[list[str], int]:
         if missing:
             errors.append(f"{location}: missing fields: {', '.join(missing)}")
 
-        for field in ("document_id", "title", "ministry", "landing_page", "source_url", "content_type", "fetched_at", "reason"):
+        validate_url_fields(record, ("landing_page", "source_url", "license_or_terms_url"), location, errors)
+        for field in ("document_id", "title", "ministry", "content_type", "fetched_at", "reason"):
             if field in record and (not isinstance(record[field], str) or not record[field].strip()):
                 errors.append(f"{location}: {field} must be a non-empty string")
 
@@ -225,7 +250,8 @@ def validate_source_index(cache_root: Path) -> tuple[list[str], int, bool]:
         unknown = sorted(record.keys() - ALLOWED_SOURCE_INDEX_FIELDS)
         if unknown:
             errors.append(f"{location}: unknown fields: {', '.join(unknown)}")
-        for field in ("document_id", "title", "ministry", "landing_page"):
+        validate_url_fields(record, sorted(OPTIONAL_SOURCE_INDEX_URL_FIELDS | {"landing_page"}), location, errors)
+        for field in ("document_id", "title", "ministry"):
             if field in record and (not isinstance(record[field], str) or not record[field].strip()):
                 errors.append(f"{location}: {field} must be a non-empty string")
         year = record.get("year")
@@ -246,9 +272,9 @@ def validate_source_index(cache_root: Path) -> tuple[list[str], int, bool]:
                 errors.append(f"{location}: {field} must be an array when present")
                 continue
             for item_index, item in enumerate(value, 1):
-                if not isinstance(item, str) or not item.strip():
+                if not is_http_url(item):
                     errors.append(
-                        f"{location}: {field}[{item_index}] must be a non-empty string"
+                        f"{location}: {field}[{item_index}] must be an absolute HTTP(S) URL with a host"
                     )
     return errors, len(records), True
 

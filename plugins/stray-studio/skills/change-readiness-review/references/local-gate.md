@@ -11,6 +11,7 @@ Use this adapter only for an explicit author-side push-readiness decision.
 2. If more than one plausible base would materially change the review, stop and ask for the base instead of guessing.
 3. Distinguish the base ref tip from the merge base. Review committed change from `merge-base..HEAD`.
 4. Include staged, unstaged, and relevant untracked state because a pushable implementation may depend on work that is not in the outgoing commits.
+5. Identify the intended push destination separately from the comparison base. Use the explicit remote and destination branch when supplied, otherwise inspect Git's configured push mapping (including `@{push}` when resolvable). A tracking upstream or the remote default branch may serve only as a review base. Record whether the intended branch already exists, is a confirmed new branch, or is unresolved. A missing local tracking ref alone cannot establish a new remote branch.
 
 ## Capture
 
@@ -28,6 +29,8 @@ python3 scripts/capture_local_state.py \
 
 The helper records exact OIDs, index state, Git-visible changed paths, raw worktree fingerprints for changed and untracked paths, changed gitlinks, and a canonical snapshot fingerprint. It does not decide findings and does not include file contents in standard output.
 
+For an existing destination, add `--push-target <local-tracking-ref-for-destination>` to both captures. This seals the observed tip and checks its ancestry against the captured HEAD. For a confirmed new branch, omit this argument. Describe the result as based on the locally observed destination tip.
+
 On Windows, use an external temporary directory under the current user's profile. Both capture helpers use the plugin's shared `scripts/_private_files.py`: Windows PowerShell 5.1 creates files with a protected current-user-only ACL before any payload is written; POSIX uses `0600`. ACL setup failure aborts capture. An interrupted Windows helper can leave an empty file to clean up. Administrator and backup privileges are outside this ordinary-user protection. Raw diffs are written in binary mode so their saved bytes match the captured fingerprint on either OS.
 
 When displaying patches for review, use:
@@ -41,6 +44,7 @@ git diff --no-ext-diff --no-textconv <merge-base>..HEAD -- <paths>
 ## Review Decisions
 
 - `READY` requires no blocking finding, no push-relevant dependency left only in staged, unstaged, or untracked state, and no material proof gap.
+- For an ordinary push to an existing branch, require `push_target.fast_forward` to be true. A false result means `CHANGES_REQUIRED`. An unresolved intended destination, missing evidence of its tip, or inconclusive ancestry means `INCOMPLETE` when it could change the decision. A confirmed new branch needs no destination ancestry check.
 - `CHANGES_REQUIRED` includes a confirmed defect, missing required artifact, unintended outgoing file, or local-only dependency that would make the pushed commits incomplete.
 - `INCOMPLETE` applies when the base cannot be fixed, a changed gitlink has not been reviewed as its own repository, the state cannot be captured safely, or missing evidence could conceal a blocking defect.
 

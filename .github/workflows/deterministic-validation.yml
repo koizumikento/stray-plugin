@@ -128,6 +128,7 @@ jobs:
       - name: Run deterministic tests
         run: >-
           python -m pytest -q -p no:cacheprovider
+          plugins/stray-japan-govdocs/skills/japan-govdoc-cache-manager/tests
           plugins/stray-skillops/skills/skill-routing-validator/tests
           plugins/stray-studio/skills/corporate-site-builder/tests
 

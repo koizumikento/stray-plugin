@@ -23,7 +23,7 @@ Decide whether an author's exact local or pull-request state is ready to share. 
    - Route ordinary critique or any requested repair to `reviewer`; do not manufacture a readiness decision.
 2. Read the request, repository guidance, change description, acceptance criteria, explicit exclusions, and nearby source needed to understand intent.
 3. Create a mode-700 temporary directory outside the target repository and capture the initial state once.
-   - For `LOCAL_PUSH`, resolve the comparison base from an explicit user choice, the branch upstream, or the remote default branch, then follow `references/local-gate.md`.
+   - For `LOCAL_PUSH`, resolve the comparison base and the intended push destination separately. Seal the locally observed tip of an existing destination and check fast-forward eligibility as described in `references/local-gate.md`.
    - For `PR_REVIEW_REQUEST`, identify `initial` or `rerequest`, then follow `references/pull-request-gate.md`.
    - Treat helper output as evidence acquisition, never as a finding or readiness decision.
 4. Run the fast path against the exact captured state.

@@ -18,7 +18,7 @@ Manage temporary official-document files and source indexes with a schema that d
 2. Select one mode:
    - `index-only`: record verified official routes without downloading content.
    - `download-cache`: save task-needed source/extracted files and create manifest records.
-3. Resolve `tmp/japan-govdocs/{sources,downloads,extracted}` under the target project, not the installed plugin directory, and confirm `tmp/` is ignored by git before any download.
+3. Resolve `tmp/japan-govdocs/{sources,downloads,extracted}` under the target project, not the installed plugin directory, and apply the cache-local Git exclusion procedure in the policy below before writing an index or download.
 4. Follow deterministic paths and the exact schema in `../../references/download-cache-policy.md`.
    - Canonical source index shape: `{"records": [...]}`; an empty `records` array is valid for an initialized index.
    - Every non-empty source-index record requires `document_id`, `title`, `ministry`, `year`, and `landing_page`.

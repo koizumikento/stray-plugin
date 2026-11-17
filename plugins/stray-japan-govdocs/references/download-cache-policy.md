@@ -24,7 +24,11 @@ tmp/japan-govdocs/
   extracted/
 ```
 
-The `tmp/` directory must stay out of git. If it is not ignored yet, add it to `.gitignore` before downloading files.
+In a Git worktree, apply these checks from the target project before writing in either cache mode. Outside a Git worktree, skip the Git checks.
+
+1. Check for tracked cache paths with `git ls-files -- tmp/japan-govdocs/`. If any are tracked, report the conflict and continue in memory where possible.
+2. Check each planned file with `git check-ignore -q -- <path>`. Reuse existing exclusions when they cover every file.
+3. If exclusions are missing, create `tmp/japan-govdocs/.gitignore` only if absent, with one line containing `*`. This covers the ignore file itself. Verify each planned path again before writing. If an existing ignore file leaves paths exposed, preserve it and continue in memory where possible.
 
 Choose and report one cache mode:
 
@@ -79,7 +83,7 @@ Optional source-index fields are:
 - `last_checked_at`
 - `notes`
 
-This is the canonical optional-field set for a source-index record. All optional fields except `chapter_urls` and `data_urls` are non-empty strings when present. The two array fields contain only non-empty URL strings and may be empty. Omit unknown values instead of writing `null`. A record represents one edition, so do not nest an `editions` array. The cache validator rejects unknown fields and type mismatches.
+This is the canonical optional-field set for a source-index record. All optional fields except `chapter_urls` and `data_urls` are non-empty strings when present. The two array fields may be empty. All URL fields in the source index and manifest, including each array element, require an absolute HTTP or HTTPS URL with a host. Check official provenance separately on the landing page. Omit unknown values instead of writing `null`. A record represents one edition, so do not nest an `editions` array. The cache validator rejects unknown fields and type mismatches.
 
 Do not hard-code direct PDF paths into a skill as permanent truth. Hard-code only durable official index pages when they are part of the workflow, and still verify them live.
 

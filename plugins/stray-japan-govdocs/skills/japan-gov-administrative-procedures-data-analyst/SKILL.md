@@ -43,6 +43,13 @@ notes, and the difference between published data and derived results.
    computed measures. Prefer `avg:オンライン率` to an agent-side calculation when
    that definition fits the question. Use multiple `group_by` fields for a cross
    tabulation and `explode` only for an inspected multi-value field.
+   For grouped results, compare the number of returned `rows` with
+   `total_group_count` (after filters). For a full table, rerun the same query
+   with a sufficient `limit` within the server cap. If groups are still missing,
+   report the returned and total counts and label the table partial. For a
+   requested top N, keep the requested limit and report N or fewer of the total.
+   Compute whole-table totals only from complete coverage or a separate
+   aggregation over the full requested population.
 5. Use `query_records` for named procedures and record-level evidence. Select only
    needed fields, use bounded limits and cursor pagination, and never infer values
    for null or omitted cells.

@@ -16,7 +16,7 @@ lock entry from `2026.7.22` to `2026.10.19`, including distribution hashes, for
 [GHSA-6q48-6c7w-9gw2](https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2).
 This is a local dependency update, not a new upstream snapshot; the upstream
 commit, package version, Python `>=3.10` requirement, source, license, and notice
-remain as recorded above. The containing plugin is version `0.1.7`.
+remain as recorded above. The dependency update shipped in plugin version `0.1.7`.
 
 The plugin starts this MCP with `uv run --locked --extra excel`; update the
 installed plugin and resynchronize its environment to receive the refreshed

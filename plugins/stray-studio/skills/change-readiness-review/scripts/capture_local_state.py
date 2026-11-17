@@ -216,7 +216,7 @@ def _gitlinks(index_state: bytes) -> set[bytes]:
     return values
 
 
-def capture_state(repo_argument: str, base: str) -> dict[str, Any]:
+def capture_state(repo_argument: str, base: str, push_target: str | None = None) -> dict[str, Any]:
     repo = _repository_root(repo_argument)
     base_ref_oid = _resolve_commit(repo, base, label="--base")
     head_oid = _resolve_commit(repo, "HEAD", label="HEAD")
@@ -260,6 +260,18 @@ def capture_state(repo_argument: str, base: str) -> dict[str, Any]:
             else []
         ),
     }
+    if push_target is not None:
+        target_oid = _resolve_commit(repo, push_target, label="--push-target")
+        ancestry = _git_result(repo, "merge-base", "--is-ancestor", target_oid, head_oid)
+        if ancestry.returncode not in (0, 1):
+            raise CaptureError("cannot check ancestry of the push destination")
+        if ancestry.returncode == 1 and _git(repo, "rev-parse", "--is-shallow-repository").strip() == b"true":
+            raise CaptureError("shallow history cannot establish push destination ancestry")
+        state["push_target"] = {
+            "ref": push_target,
+            "oid": target_oid,
+            "fast_forward": ancestry.returncode == 0,
+        }
     return seal_state(state, domain="change-readiness-local-snapshot-v1")
 
 
@@ -269,6 +281,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--repo", default=".")
     parser.add_argument("--base", required=True)
+    parser.add_argument("--push-target", help="Local tracking ref of the confirmed existing destination branch")
     parser.add_argument("--snapshot-dir", required=True)
     parser.add_argument("--name", required=True)
     return parser
@@ -277,7 +290,7 @@ def _parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     arguments = _parser().parse_args(argv)
     try:
-        state = capture_state(arguments.repo, arguments.base)
+        state = capture_state(arguments.repo, arguments.base, arguments.push_target)
         root = Path(state["repository_root"])
         paths = write_artifact_set(
             arguments.snapshot_dir,
@@ -304,6 +317,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             "changed_gitlinks": len(state["changed_gitlinks"]),
         },
     }
+    if "push_target" in state:
+        summary["push_target"] = state["push_target"]
     sys.stdout.write(json.dumps(summary, sort_keys=True) + "\n")
     return 0
 

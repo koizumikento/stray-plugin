@@ -2,6 +2,8 @@
 
 The prompts, domains, and fixture details are independently authored fictional examples. Do not quote, translate, or closely paraphrase private user instructions, reproduce their project-specific scenarios, or copy conversation logs, customer data, or real license clauses into these cases. They test completion, ownership, and handoff behavior, not real-service acceptance or legal conclusions.
 
+Resolve each named skill through the host’s skill catalog for installed-plugin trials. For checkout trials, read its entry under the owning plugin’s skills directory. If a required skill is unavailable, record the affected trial as `runtime=not-run`.
+
 ## How To Evaluate
 
 1. Use the prompts with the matching IDs in [routing-cases.json](routing-cases.json), plus the fixture inputs below. Give the evaluated agent the prompt and fixture only; keep required outcomes and failure conditions with the evaluator. Use an isolated disposable app repository for mutation cases, with no credentials, cloud access, or deployment hooks. If a required fixture or runner is unavailable, mark execution `runtime=not-run`.
@@ -14,7 +16,7 @@ The prompts, domains, and fixture details are independently authored fictional e
 
 ## 1. Continue An Authorized Repair
 
-Apply [fullstack-app-builder](../../../../stray-studio/skills/fullstack-app-builder/SKILL.md) for repair and [reviewer](../../../../stray-studio/skills/reviewer/SKILL.md) for the findings-only control.
+Apply `fullstack-app-builder` for repair and `reviewer` for the findings-only control.
 
 | Routing case ID | Synthetic fixture | Required outcomes | Fail if |
 |---|---|---|---|
@@ -23,7 +25,7 @@ Apply [fullstack-app-builder](../../../../stray-studio/skills/fullstack-app-buil
 
 ## 2. Separate Model Licenses From Hosted Service Terms
 
-Apply [domain-researcher](../../../../stray-research/skills/domain-researcher/SKILL.md) for the bounded model-license explanation and [api-terms-checker](../../../../stray-research/skills/api-terms-checker/SKILL.md) for hosted terms. The clauses below are synthetic and must never be attributed to a real model or vendor.
+Apply `domain-researcher` for the bounded model-license explanation and `api-terms-checker` for hosted terms. The clauses below are synthetic and must never be attributed to a real model or vendor.
 
 | Routing case ID | Synthetic fixture | Required outcomes | Fail if |
 |---|---|---|---|
@@ -32,7 +34,7 @@ Apply [domain-researcher](../../../../stray-research/skills/domain-researcher/SK
 
 ## 3. Carry Design Decisions Into Implementation
 
-Apply [product-designer](../../../../stray-research/skills/product-designer/SKILL.md) before app implementation when design is requested; use fullstack-app-builder directly for settled implementation.
+Apply `product-designer` before app implementation when design is requested; use fullstack-app-builder directly for settled implementation.
 
 | Routing case ID | Synthetic fixture | Required outcomes | Fail if |
 |---|---|---|---|

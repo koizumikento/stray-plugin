@@ -57,6 +57,7 @@ def capture(
     *,
     base: str,
     name: str,
+    push_target: str | None = None,
 ) -> subprocess.CompletedProcess[bytes]:
     return run(
         [
@@ -66,6 +67,7 @@ def capture(
             str(repo),
             "--base",
             base,
+            *(["--push-target", push_target] if push_target is not None else []),
             "--snapshot-dir",
             str(snapshot_dir),
             "--name",
@@ -99,6 +101,51 @@ def test_clean_capture_is_read_only_deterministic_and_private(tmp_path: Path) ->
     assert_private_file(snapshot_dir / "initial.json")
     after = git(repo, "status", "--porcelain=v1", "-z", "--untracked-files=all")
     assert after == before
+
+
+def test_push_target_ancestry_is_sealed_independently_of_base(tmp_path: Path) -> None:
+    repo, start_oid = make_repo(tmp_path)
+    git(repo, "commit", "--allow-empty", "-m", "advance main")
+    main_tip = git(repo, "rev-parse", "HEAD").strip().decode("ascii")
+    git(repo, "switch", "-c", "topic", start_oid)
+    git(repo, "commit", "--allow-empty", "-m", "advance topic")
+    snapshots = tmp_path / "snapshots"
+    snapshots.mkdir(mode=0o700)
+    target = "refs/remotes/origin/topic"
+
+    new_branch = capture(repo, snapshots, base="main", name="new")
+    assert new_branch.returncode == 0, new_branch.stderr
+    assert "push_target" not in json.loads(new_branch.stdout)
+
+    git(repo, "update-ref", target, start_oid)
+    initial = capture(repo, snapshots, base="main", name="initial", push_target=target)
+    assert initial.returncode == 0, initial.stderr
+    assert json.loads(initial.stdout)["push_target"] == {"ref": target, "oid": start_oid, "fast_forward": True}
+
+    git(repo, "update-ref", target, main_tip)
+    final = capture(repo, snapshots, base="main", name="final", push_target=target)
+    assert final.returncode == 0, final.stderr
+    assert json.loads(final.stdout)["push_target"] == {"ref": target, "oid": main_tip, "fast_forward": False}
+    assert json.loads(initial.stdout)["snapshot_sha256"] != json.loads(final.stdout)["snapshot_sha256"]
+
+    git(repo, "update-ref", "-d", target)
+    missing = capture(repo, snapshots, base="main", name="missing", push_target=target)
+    assert missing.returncode == 1
+    assert not (snapshots / "missing.json").exists()
+
+
+def test_shallow_history_does_not_prove_a_push_would_be_rejected(tmp_path: Path) -> None:
+    repo, start_oid = make_repo(tmp_path)
+    git(repo, "commit", "--allow-empty", "-m", "second commit")
+    git(repo, "branch", "destination", start_oid)
+    shallow = tmp_path / "shallow"
+    git(repo, "clone", "--depth=1", "--no-single-branch", repo.as_uri(), str(shallow))
+    snapshots = tmp_path / "snapshots"
+    snapshots.mkdir(mode=0o700)
+    result = capture(shallow, snapshots, base="HEAD", name="initial", push_target="origin/destination")
+    assert result.returncode == 1
+    assert b"shallow history" in result.stderr
+    assert not (snapshots / "initial.json").exists()
 
 
 def test_capture_distinguishes_outgoing_and_local_state(tmp_path: Path) -> None:
